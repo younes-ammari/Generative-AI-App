@@ -60,7 +60,7 @@ react-native run-android
 ## Authors
 
 - Younes Ammari - [younes-ammari](https://github.com/younes-ammari)
-- MAbrouk Bennaoui - [mabrouk-bennaoui](https://github.com/mabrouk-bennaoui)
+- Mabrouk Bennaoui - [mabrouk-bennaoui](https://github.com/mabrouk-bennaoui)
 
 ## License
 
