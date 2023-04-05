@@ -1,4 +1,4 @@
-# Generative-AI-App-React-Native-
+# Generative-AI-App
 React Native App that uses generative AI tools (Chat GPT, Image Generation ...etc)
 
 ## Prerequisites
