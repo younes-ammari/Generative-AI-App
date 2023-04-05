@@ -15,7 +15,7 @@ To get started with this project, follow these steps:
 
 1. Clone the repository to your local machine using the following command:
 
-git clone https://github.com/your-username/your-repository-name.git
+git clone https://github.com/younes-ammari/generative-ai-app.git
 
 
 2. Install the project dependencies by running the following command in the project directory:
