@@ -15,18 +15,19 @@ To get started with this project, follow these steps:
 
 1. Clone the repository to your local machine using the following command:
 
+```sh
 git clone https://github.com/younes-ammari/generative-ai-app.git
-
+```
 
 2. Install the project dependencies by running the following command in the project directory:
-
+```sh
 npm install
-
+```
 
 3. Start the development server by running the following command:
-
+```sh
 npm start
-
+```
 
 ## Getting Started
 
@@ -46,7 +47,9 @@ Once you have installed the project dependencies and started the development ser
 
 2. Run the following command in the project directory to install and launch the app on the emulator or device:
 
+```sh
 react-native run-android
+```
 
 
 
