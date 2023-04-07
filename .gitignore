@@ -34,9 +34,11 @@ local.properties
 *.keystore
 !debug.keystore
 
-# node.js
+# config
 #
 config/
+Chat copy.js
+
 
 # node.js
 #
