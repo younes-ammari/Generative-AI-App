@@ -2232,6 +2232,11 @@
   "resolved" "https://registry.npmjs.org/async/-/async-3.2.4.tgz"
   "version" "3.2.4"
 
+"asynckit@^0.4.0":
+  "integrity" "sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q=="
+  "resolved" "https://registry.npmjs.org/asynckit/-/asynckit-0.4.0.tgz"
+  "version" "0.4.0"
+
 "atob@^2.1.2":
   "integrity" "sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg=="
   "resolved" "https://registry.npmjs.org/atob/-/atob-2.1.2.tgz"
@@ -2241,6 +2246,13 @@
   "integrity" "sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw=="
   "resolved" "https://registry.npmjs.org/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz"
   "version" "1.0.5"
+
+"axios@^0.26.0":
+  "integrity" "sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA=="
+  "resolved" "https://registry.npmjs.org/axios/-/axios-0.26.1.tgz"
+  "version" "0.26.1"
+  dependencies:
+    "follow-redirects" "^1.14.8"
 
 "babel-core@^7.0.0-bridge.0":
   "integrity" "sha512-poPX9mZH/5CSanm50Q+1toVci6pv5KSRv/5TWCwtzQS5XEwn40BcCrgIeMFWP9CKKIniKXNxoIOnOq4VVlGXhg=="
@@ -2454,7 +2466,7 @@
   "resolved" "https://registry.npmjs.org/buffer-from/-/buffer-from-1.1.2.tgz"
   "version" "1.1.2"
 
-"buffer@^5.5.0":
+"buffer@^5.4.3", "buffer@^5.5.0":
   "integrity" "sha512-EHcyIPBQ4BSGlvjB16k5KgAJ27CIsHY/2JBmCRReo48y9rQ3MaUzWX3KVlBa4U7MyX02HdVj0K7C3WaB3ju7FQ=="
   "resolved" "https://registry.npmjs.org/buffer/-/buffer-5.7.1.tgz"
   "version" "5.7.1"
@@ -2712,6 +2724,13 @@
   "resolved" "https://registry.npmjs.org/colorette/-/colorette-1.4.0.tgz"
   "version" "1.4.0"
 
+"combined-stream@^1.0.8":
+  "integrity" "sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg=="
+  "resolved" "https://registry.npmjs.org/combined-stream/-/combined-stream-1.0.8.tgz"
+  "version" "1.0.8"
+  dependencies:
+    "delayed-stream" "~1.0.0"
+
 "command-exists@^1.2.8":
   "integrity" "sha512-LTQ/SGc+s0Xc0Fu5WaKnR0YiygZkm9eKFvyS+fRsU7/ZWFF8ykFM6Pc9aCVf1+xasOOZpO3BAVgVrKvsqKHV7w=="
   "resolved" "https://registry.npmjs.org/command-exists/-/command-exists-1.2.9.tgz"
@@ -2938,6 +2957,11 @@
   dependencies:
     "is-descriptor" "^1.0.2"
     "isobject" "^3.0.1"
+
+"delayed-stream@~1.0.0":
+  "integrity" "sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ=="
+  "resolved" "https://registry.npmjs.org/delayed-stream/-/delayed-stream-1.0.0.tgz"
+  "version" "1.0.0"
 
 "denodeify@^1.2.1":
   "integrity" "sha512-KNTihKNmQENUZeKu5fzfpzRqR5S2VMp4gl9RFHiWzj9DfvYQPMJ6XHKNaQxaGCXwPk6y9yme3aUoaiAe+KX+vg=="
@@ -3585,6 +3609,11 @@
   "resolved" "https://registry.npmjs.org/flow-parser/-/flow-parser-0.203.0.tgz"
   "version" "0.203.0"
 
+"follow-redirects@^1.14.8":
+  "integrity" "sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA=="
+  "resolved" "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.2.tgz"
+  "version" "1.15.2"
+
 "for-each@^0.3.3":
   "integrity" "sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw=="
   "resolved" "https://registry.npmjs.org/for-each/-/for-each-0.3.3.tgz"
@@ -3596,6 +3625,15 @@
   "integrity" "sha512-7EwmXrOjyL+ChxMhmG5lnW9MPt1aIeZEwKhQzoBUdTV0N3zuwWDZYVJatDvZ2OyzPUvdIAZDsCetk3coyMfcnQ=="
   "resolved" "https://registry.npmjs.org/for-in/-/for-in-1.0.2.tgz"
   "version" "1.0.2"
+
+"form-data@^4.0.0":
+  "integrity" "sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww=="
+  "resolved" "https://registry.npmjs.org/form-data/-/form-data-4.0.0.tgz"
+  "version" "4.0.0"
+  dependencies:
+    "asynckit" "^0.4.0"
+    "combined-stream" "^1.0.8"
+    "mime-types" "^2.1.12"
 
 "fragment-cache@^0.2.1":
   "integrity" "sha512-GMBAbW9antB8iZRHLoGw0b3HANt57diZYFO/HL1JGIC1MjKrdmhxvrJbupnVvpys0zsz7yBApXdQyfepKly2kA=="
@@ -4953,6 +4991,11 @@
   dependencies:
     "js-tokens" "^3.0.0 || ^4.0.0"
 
+"lottie-react-native@^6.0.0-rc.3":
+  "integrity" "sha512-vhKgsvY7qQMmEEXYR+VOqyTI9g2uz/GoUa+vmZ+9yj8exmLxp/yiwjcTnDrbbxLX0i7iuPwEfJSZ24okURf6xQ=="
+  "resolved" "https://registry.npmjs.org/lottie-react-native/-/lottie-react-native-6.0.0-rc.3.tgz"
+  "version" "6.0.0-rc.3"
+
 "lru-cache@^5.1.1":
   "integrity" "sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w=="
   "resolved" "https://registry.npmjs.org/lru-cache/-/lru-cache-5.1.1.tgz"
@@ -5325,7 +5368,7 @@
   "resolved" "https://registry.npmjs.org/mime-db/-/mime-db-1.52.0.tgz"
   "version" "1.52.0"
 
-"mime-types@^2.1.27", "mime-types@~2.1.34":
+"mime-types@^2.1.12", "mime-types@^2.1.27", "mime-types@~2.1.34":
   "integrity" "sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw=="
   "resolved" "https://registry.npmjs.org/mime-types/-/mime-types-2.1.35.tgz"
   "version" "2.1.35"
@@ -5622,6 +5665,14 @@
   dependencies:
     "is-wsl" "^1.1.0"
 
+"openai@^3.2.1":
+  "integrity" "sha512-762C9BNlJPbjjlWZi4WYK9iM2tAVAv0uUp1UmI34vb0CN5T2mjB/qM6RYBmNKMh/dN9fC+bxqPwWJZUTWW052A=="
+  "resolved" "https://registry.npmjs.org/openai/-/openai-3.2.1.tgz"
+  "version" "3.2.1"
+  dependencies:
+    "axios" "^0.26.0"
+    "form-data" "^4.0.0"
+
 "optionator@^0.9.1":
   "integrity" "sha512-74RlY5FCnhq4jRxVUPKDaRwrVNXMqsGsiW6AJw4XK8hmtm10wC0ypZBLw5IIp85NZMr91+qd1RvvENwg7jjRFw=="
   "resolved" "https://registry.npmjs.org/optionator/-/optionator-0.9.1.tgz"
@@ -5886,7 +5937,7 @@
     "kleur" "^3.0.3"
     "sisteransi" "^1.0.5"
 
-"prop-types@*", "prop-types@^15.7.2", "prop-types@^15.8.1":
+"prop-types@*", "prop-types@^15.6.2", "prop-types@^15.7.2", "prop-types@^15.8.1":
   "integrity" "sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   "version" "15.8.1"
@@ -5903,7 +5954,7 @@
     "end-of-stream" "^1.1.0"
     "once" "^1.3.1"
 
-"punycode@^2.1.0":
+"punycode@^2.1.0", "punycode@^2.1.1":
   "integrity" "sha512-rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA=="
   "resolved" "https://registry.npmjs.org/punycode/-/punycode-2.3.0.tgz"
   "version" "2.3.0"
@@ -5971,6 +6022,13 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
   "version" "17.0.2"
 
+"react-native-animatable@1.3.3":
+  "integrity" "sha512-2ckIxZQAsvWn25Ho+DK3d1mXIgj7tITkrS4pYDvx96WyOttSvzzFeQnM2od0+FUMzILbdHDsDEqZvnz1DYNQ1w=="
+  "resolved" "https://registry.npmjs.org/react-native-animatable/-/react-native-animatable-1.3.3.tgz"
+  "version" "1.3.3"
+  dependencies:
+    "prop-types" "^15.7.2"
+
 "react-native-codegen@^0.71.5":
   "integrity" "sha512-rfsuc0zkuUuMjFnrT55I1mDZ+pBRp2zAiRwxck3m6qeGJBGK5OV5JH66eDQ4aa+3m0of316CqrJDRzVlYufzIg=="
   "resolved" "https://registry.npmjs.org/react-native-codegen/-/react-native-codegen-0.71.5.tgz"
@@ -5996,6 +6054,14 @@
   "integrity" "sha512-OXXYgpISEqERwjSlaCiaQY6cTY5CH6j73gdkWpK0hedxtiWMWgH+i5TOi4hIGYitm9kQBeyDu+wim9fA8ROFJA=="
   "resolved" "https://registry.npmjs.org/react-native-gradle-plugin/-/react-native-gradle-plugin-0.71.17.tgz"
   "version" "0.71.17"
+
+"react-native-modal@^13.0.1":
+  "integrity" "sha512-UB+mjmUtf+miaG/sDhOikRfBOv0gJdBU2ZE1HtFWp6UixW9jCk/bhGdHUgmZljbPpp0RaO/6YiMmQSSK3kkMaw=="
+  "resolved" "https://registry.npmjs.org/react-native-modal/-/react-native-modal-13.0.1.tgz"
+  "version" "13.0.1"
+  dependencies:
+    "prop-types" "^15.6.2"
+    "react-native-animatable" "1.3.3"
 
 "react-native-ratings@^8.1.0":
   "integrity" "sha512-+QOJ4G3NjVkI1D+tk4EGx1dCvVfbD2nQdkrj9cXrcAoEiwmbep4z4bZbCKmWMpQ5h2dqbxABU8/eBnbDmvAc3g=="
@@ -6035,6 +6101,18 @@
   "resolved" "https://registry.npmjs.org/react-native-size-matters/-/react-native-size-matters-0.4.0.tgz"
   "version" "0.4.0"
 
+"react-native-typing-animation@^0.1.7":
+  "integrity" "sha512-4H3rF9M+I2yAZpYJcY0Mb29TXkn98QK12rrKSY6LZj1BQD9NNmRZuNXzwX4XHapsIz+N/J8M3p27FOQPbfzqeg=="
+  "resolved" "https://registry.npmjs.org/react-native-typing-animation/-/react-native-typing-animation-0.1.7.tgz"
+  "version" "0.1.7"
+
+"react-native-url-polyfill@^1.3.0":
+  "integrity" "sha512-w9JfSkvpqqlix9UjDvJjm1EjSt652zVQ6iwCIj1cVVkwXf4jQhQgTNXY6EVTwuAmUjg6BC6k9RHCBynoLFo3IQ=="
+  "resolved" "https://registry.npmjs.org/react-native-url-polyfill/-/react-native-url-polyfill-1.3.0.tgz"
+  "version" "1.3.0"
+  dependencies:
+    "whatwg-url-without-unicode" "8.0.0-3"
+
 "react-native-vector-icons@^9.2.0", "react-native-vector-icons@>7.0.0":
   "integrity" "sha512-wKYLaFuQST/chH3AJRjmOLoLy3JEs1JR6zMNgTaemFpNoXs0ztRnTxcxFD9xhX7cJe1/zoN5BpQYe7kL0m5yyA=="
   "resolved" "https://registry.npmjs.org/react-native-vector-icons/-/react-native-vector-icons-9.2.0.tgz"
@@ -6043,7 +6121,7 @@
     "prop-types" "^15.7.2"
     "yargs" "^16.1.1"
 
-"react-native@*", "react-native@0.71.5":
+"react-native@*", "react-native@>=0.46", "react-native@>=0.65.0", "react-native@0.71.5":
   "integrity" "sha512-fMptnHXoIPotg7gPYAvjMRnfC6gUSkTJzgaIDQJTY/f5F+g6qph5J1xT9LCuWuNguyQ9dh8b0MZTK5ROvTTV9w=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.71.5.tgz"
   "version" "0.71.5"
@@ -7134,10 +7212,24 @@
   "resolved" "https://registry.npmjs.org/webidl-conversions/-/webidl-conversions-3.0.1.tgz"
   "version" "3.0.1"
 
+"webidl-conversions@^5.0.0":
+  "integrity" "sha512-VlZwKPCkYKxQgeSbH5EyngOmRp7Ww7I9rQLERETtf5ofd9pGeswWiOtogpEO850jziPRarreGxn5QIiTqpb2wA=="
+  "resolved" "https://registry.npmjs.org/webidl-conversions/-/webidl-conversions-5.0.0.tgz"
+  "version" "5.0.0"
+
 "whatwg-fetch@^3.0.0":
   "integrity" "sha512-bJlen0FcuU/0EMLrdbJ7zOnW6ITZLrZMIarMUVmdKtsGvZna8vxKYaexICWPfZ8qwf9fzNq+UEIZrnSaApt6RA=="
   "resolved" "https://registry.npmjs.org/whatwg-fetch/-/whatwg-fetch-3.6.2.tgz"
   "version" "3.6.2"
+
+"whatwg-url-without-unicode@8.0.0-3":
+  "integrity" "sha512-HoKuzZrUlgpz35YO27XgD28uh/WJH4B0+3ttFqRo//lmq+9T/mIOJ6kqmINI9HpUpz1imRC/nR/lxKpJiv0uig=="
+  "resolved" "https://registry.npmjs.org/whatwg-url-without-unicode/-/whatwg-url-without-unicode-8.0.0-3.tgz"
+  "version" "8.0.0-3"
+  dependencies:
+    "buffer" "^5.4.3"
+    "punycode" "^2.1.1"
+    "webidl-conversions" "^5.0.0"
 
 "whatwg-url@^5.0.0":
   "integrity" "sha512-saE57nupxk6v3HY35+jzBwYa0rKSy0XR8JSxZPwgLr7ys0IBzhGviA1/TUGJLmSVqs8pb9AnvICXEuOHLprYTw=="

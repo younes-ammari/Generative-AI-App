@@ -7,10 +7,13 @@ import { useKeyboard } from '../hooks/useKeyboard'
 import TypeWriter from '../components/TypeWriter'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../constants/Colors'
-import { TypingAnimation } from "react-native-typing-animation";
 import { Configuration, OpenAIApi } from "openai"
-import config from '../config/openAI'
 
+const config={
+    organization:"org-Fmz6xGeh0r3T5iBFDCst7TRQ",
+    OPENAI_API_KEY:"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",
+
+}
 
 export default function Chat({navigation}) {
     const configuration = new Configuration({
@@ -25,7 +28,6 @@ export default function Chat({navigation}) {
     const scrollViewChatRef = useRef();
     const [message, setMessage]= useState('')
     const [isFocused, setIsFocused] = useState(false)
-    const [isLoading, setIsLoading] = useState(false)
     const [respond, setRespond]= useState('')
     
     const WH = Dimensions.get('window').height
@@ -114,27 +116,26 @@ export default function Chat({navigation}) {
 
     const messages = [];
 
-    const handleChat0=async()=>{
+    const handleChat=async()=>{
         const user_input = message;
         var i = 0
-        var old = []
 
         for (const [input_text, completion_text] of history) {
-            i=i+1
-            old.push(
+            i++
+            setData([...data , 
                 {
-                    id:`user-id-${i}`,
+                    id:i,
                     isRespond:false,
                     role: "user", 
                     content: input_text
                 },
                 {
-                    id:`assistant-id-${i}`,
+                    id:i+1,
                     isRespond:true,
                     role: "assistant", 
                     content: completion_text
                 }
-            );
+            ])
             messages.push({ role: "user", content: input_text });
             messages.push({ role: "assistant", content: completion_text });
         }
@@ -162,81 +163,38 @@ export default function Chat({navigation}) {
         }
     }
     
-    const handleChat=async()=>{
-        const user_input = message;
-        var i = 0
-        var old = []
-        var maxID = data.length>0 ? Math.max(...data.map(el=>el.id)) : 1
-        var oldData = data
-        var newData= [...oldData, 
-                {
-                    id:maxID+1,
-                    role: "user",
-                    isRespond:false,
-                    content:user_input
-                },
-                {
-                    id:maxID+2,
-                    role: "assistant",
-                    isRespond:true,
-                    content:""
-                },
-            ]
-
-        setData(newData)
-
-
-        messages.push({ role: "user", content: user_input });
-
-        setIsLoading(true)
-        try {
-            var mes = newData.map(el=>{
-                if (!el.role){el.role = 'user'}
-                return{role:el.role, content:el.content}})
-            console.log('mes', mes)
-        const completion = await openai.createChatCompletion({
-            model: "gpt-3.5-turbo",
-            messages: mes,
-        });
-
-        const completion_text = completion.data.choices[0].message.content;
-        console.log(completion_text);
-
-        history.push([user_input, completion_text]);
-
-        newData[newData.length-1] = {
-            id:maxID+2,
-            isRespond:true,
-            content:completion_text
-        }
-        console.log('last', newData[newData.length-1])
-        setData(newData)
-        
-        } catch (error) {
-        if (error.response) {
-            console.log(error.response.status);
-            console.log(error.response.data);
-        } else {
-            console.log(error.message);
-        }
-        }
-        setIsLoading(false)
-    }
-    
     const handleSendEvent=()=>{
-        var maxID = data.length>0 ? Math.max(...data.map(el=>el.id)) : 1
+        var maxID = Math.max(...data.map(el=>el.id))
         console.log(maxID)
         var oldData = data
-        console.log(oldData)
         if (message.length>3){
-            handleChat();
-           
-            setRespond('...')
-            
+            var newData= [...oldData, {
+                id:maxID+1,
+                isRespond:false,
+                content:message
+            }]
+            setData(newData)
+            setTimeout(() => {
+                setMessage('')
+                Keyboard.dismiss()
+                
+                scrollViewChatRef.current.scrollToEnd()
+            }, 10);
+            console.log('submited')
+            setTimeout(() => {
+                var resp = 'respond to' +message + 'is here ...'
+                setRespond(resp)
+                setData([...newData, {
+                    id:maxID+2,
+                    isRespond:true,
+                    content:resp.repeat(5)
+                }]);
+                scrollViewChatRef.current.scrollToEnd({ animated: true })
+            }, 1000);
             
         }
     }
-    // console.log('kb', kb)
+    console.log('kb', kb)
 
 
 
@@ -272,7 +230,6 @@ export default function Chat({navigation}) {
                 // backgroundColor:'red',
                 // height:Dimensions.get('window').height*.85
                 }]}>
-                    
 
                     <FlatList 
                         ref={scrollViewChatRef}
@@ -283,10 +240,6 @@ export default function Chat({navigation}) {
                             {
                                 var maxID =  Math.max(...data.map(el=>el.id))
                                 return(
-                                    isLoading && item.id >= maxID
-                                    ?
-                                    <Message isLoading respond text={item.content}/>
-                                    :
 
                                     item.id >= maxID && item.isRespond
                                     ?

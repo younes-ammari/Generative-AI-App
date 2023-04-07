@@ -5,6 +5,7 @@
  * @format
  */
 
+import "react-native-url-polyfill/auto"
 import React from 'react';
 import type {PropsWithChildren} from 'react';
 import {

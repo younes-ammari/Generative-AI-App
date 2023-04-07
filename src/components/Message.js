@@ -2,10 +2,13 @@ import { Dimensions, Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Colors from '../constants/Colors';
+import { TypingAnimation } from "react-native-typing-animation";
 
 export default function Message({
     text='hello world',
     respond=false,
+    isLoading=false,
+
 }) {
 
     const images={
@@ -38,10 +41,16 @@ export default function Message({
                 // backgroundColor:respond ? 'rgba(240, 131, 43, .8)' : 'rgba(100, 100, 100, .2)' 
             }]}>
 
-                <Text style={{
-                color:Colors.darker,
-                opacity:!!respond ?  .6 : 1,
-                }}>{text}</Text>
+                {
+                    isLoading
+                    ?
+                    <TypingAnimation />
+                    :
+                    <Text style={{
+                        color:Colors.darker,
+                        opacity:!!respond ?  .6 : 1,
+                        }}>{text}</Text>
+                }
             </View>
         </View>
         <View style={[styles.sender, {

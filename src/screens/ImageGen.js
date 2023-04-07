@@ -1,22 +1,44 @@
-import { Dimensions, FlatList, Keyboard, KeyboardAvoidingView, LogBox, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Dimensions, FlatList, Keyboard, ActivityIndicator, KeyboardAvoidingView, LogBox, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Pressable, Image } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import ScreenWrapper from '../ScreenWrapper'
 import Message from '../components/Message'
 // import { Colors } from 'react-native/Libraries/NewAppScreen'
 import { useKeyboard } from '../hooks/useKeyboard'
 import TypeWriter from '../components/TypeWriter'
+import Modal from "react-native-modal";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import OcticonsIcon from 'react-native-vector-icons/Octicons';
 import Colors from '../constants/Colors'
-
+import Lottie from 'lottie-react-native';
+import { Configuration, OpenAIApi } from 'openai';
+import config from '../config/openAI'
 
 export default function ImageGen({navigation}) {
 
+    const configuration = new Configuration({
+        apiKey: config.OPENAI_API_KEY,
+      });
+      const openai = new OpenAIApi(configuration);
+    
     const kb = useKeyboard();
     const scrollViewRef = useRef();
     const scrollViewChatRef = useRef();
-    const [message, setMessage]= useState('')
-    const [isFocused, setIsFocused] = useState(false)
-    const [respond, setRespond]= useState('')
+    const [visible, setIsVisible]= useState(false)
+    
+    const [isLoading, setIsLoading] = useState(false)
+
+    
+    const result=[
+        {
+            url:'https://images.nightcafe.studio/jobs/rY2TxlazqPUzLomNPmnM/rY2TxlazqPUzLomNPmnM--1--gs4f2.jpg?tr=w-640,c-at_max'
+        }
+    ]
+    const [respond, setRespond]= useState(result)
+    const [prompt, setPrompt]= useState('')
+    const [number, setNumber]= useState(1)
+    const [size, setSize]= useState("1024x1024")
+    const [isPremium, setIsPremium] = useState(false)
+    const [selectedImage, setSelectedImage] = useState({url:"https://images.nightcafe.studio/jobs/rY2TxlazqPUzLomNPmnM/rY2TxlazqPUzLomNPmnM--1--gs4f2.jpg?tr=w-640,c-at_max"})
     
     const WH = Dimensions.get('window').height
     const WW = Dimensions.get('window').width
@@ -26,10 +48,41 @@ export default function ImageGen({navigation}) {
         LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     }, []);
 
+    const SizeComponent=({title="1024x1024", end=false})=>{
+
+        return(
+            <Pressable style={{
+                flex:1,
+                paddingHorizontal:11,
+                paddingVertical:11,
+                // marginHorizontal:8,
+                marginRight:!end ? 7 : 0,
+                borderRadius:9,
+                backgroundColor:title==size ? Colors.primary : null,
+                marginVertical:8,
+                borderWidth:2,
+                borderColor:'rgba(100, 100, 100, .8)'
+
+            }}
+            onPress={()=>setSize(title)}
+            >
+                <Text style={{
+                    fontSize:15,
+                    fontWeight:"500",
+                    textAlign:"center",
+                    opacity:title==size ? 1 : .6,
+                    color:title==size ? Colors.lighter : Colors.darker,
+                }}>{title}</Text>
+
+            </Pressable>
+        )
+    }
+
 
 
     if (kb.isVisible){
-    scrollViewRef.current.scrollToEnd({ animated: true })
+    // scrollViewRef.current.scrollToEnd({ animated: true })
+    scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
     }
 
     const demos = [
@@ -42,45 +95,203 @@ export default function ImageGen({navigation}) {
 
     const [data, setData] = useState(demos)
     
-    const handleSendEvent=()=>{
-        var maxID = Math.max(...data.map(el=>el.id))
-        console.log(maxID)
-        var oldData = data
-        if (message.length>3){
-            var newData= [...oldData, {
-                id:maxID+1,
-                isRespond:false,
-                content:message
-            }]
-            setData(newData)
-            setTimeout(() => {
-                setMessage('')
-                Keyboard.dismiss()
-                
-                scrollViewChatRef.current.scrollToEnd()
-            }, 10);
-            console.log('submited')
-            setTimeout(() => {
-                var resp = 'respond to' +message + 'is here ...'
-                setRespond(resp)
-                setData([...newData, {
-                    id:maxID+2,
-                    isRespond:true,
-                    content:resp.repeat(5)
-                }]);
-                scrollViewChatRef.current.scrollToEnd({ animated: true })
-            }, 1000);
-            
-        }
+
+    const handleGenerating=async()=>{
+        Keyboard.dismiss()
+
+        // setPrompt('')
+        setIsLoading(true)
+        const response = await openai.createImage({
+            prompt: "A cute baby sea otter",
+            n: number,
+            size: size,
+          });
+
+        var resp = response.data.data
+        setRespond(resp)
+        console.log(resp)
+        setIsLoading(false)
+        // setTimeout(() => {
+        // }, 800);
     }
-    console.log('kb', kb)
+    // console.log('kb', kb)
 
 
 
+    const sizes = [
+        "1024x1024",
+        "512x512",
+        "256x256",
+    ]
 
+    const GeneratedImageComponent=({info})=>{
+        var url = "https://user-images.githubusercontent.com/3059371/49334754-3c9dfe00-f5ab-11e8-8885-0192552d12a1.gif"
+
+        return(
+            <Pressable 
+            android_ripple={{color:'rgba(100, 100, 100, .7)', }}
+            style={{
+                
+                width:(Dimensions.get('window').width /2) -21 ,
+                backgroundColor:`rgba(220, 220, 220, 1)`,
+                marginBottom:9,
+                elevation:5,
+            }}
+            onPress={()=>{
+                setSelectedImage(info)
+                setIsVisible(true);
+                console.log('pressed ')
+            }}
+            >
+                <Image
+                 source={{uri:info.url}}
+                //  source={{uri:url}}
+                //  resizeMode="cover"
+                //  resizeMode="contain"
+                 resizeMode="center"
+                 style={{
+                    zIndex:-1,
+                    width:"100%",
+                    // width:(Dimensions.get('window').width /2) -25 ,
+                    height:150,
+                    backgroundColor:`rgba(${Colors.rgb.primary}, .05)`,
+                    borderRadius:9,
+                    borderWidth:1.1,
+                    borderColor:`rgba(${Colors.rgb.primary}, .8)`,
+                    // marginHorizontal:14
+                 }}
+                 />
+            </Pressable>
+        )
+    }
+
+    const modall=()=>{
+        return(
+            <Modal 
+                isVisible={visible}
+                coverScreen={true}
+                onBackButtonPress={()=>setIsVisible(false)} 
+                onDismiss={()=>setIsVisible(false)} 
+                // style={{top:-55}}
+                deviceHeight={Dimensions.get('window').height*1.5}
+                animationIn="fadeInUp"
+                >
+                <View style={{ 
+                    // flex: 1 , 
+                    zIndex:11,
+                    width:Dimensions.get('window').width*.8,
+                    alignSelf:"center",
+                    backgroundColor:Colors.lighter, 
+                    // marginVertical:33,
+                    // marginHorizontal:22,
+                    borderRadius:9,
+                    paddingHorizontal:11,
+                    paddingVertical:11,
+                    // justifyContent:"center",
+                    alignItems:"center",
+                    }}>
+                <Image
+                 source={{uri:selectedImage.url}}
+                //  source={{uri:url}}
+                 resizeMode="cover"
+                //  resizeMode="contain"
+                //  resizeMode="center"
+                 style={{
+                    zIndex:-1,
+                    width:Dimensions.get('window').width*.74,
+                    height:Dimensions.get('window').width*.74,
+                    // width:(Dimensions.get('window').width /2) -25 ,
+                    // height:150,
+                    backgroundColor:`rgba(${Colors.rgb.primary}, .05)`,
+                    borderRadius:9,
+                    borderWidth:1.1,
+                    borderColor:`rgba(${Colors.rgb.primary}, .8)`,
+                    // marginHorizontal:14
+                 }}
+                 />
+                 <View style={{
+                    
+                    flexDirection:"row",
+                    justifyContent:"space-between",
+                    width:'100%',
+                 }}>
+                 <Pressable
+                    // disabled={!prompt.length>5}
+
+                    android_ripple={{color:'rgba(40, 40, 40, .3)'}}
+                    style={{
+                        paddingHorizontal:9,
+                        paddingVertical:14,
+                        alignItems:"center",
+                        justifyContent:"center",
+                        backgroundColor:Colors.red,
+                        borderRadius:9,
+                        marginTop:55,
+                        width:"75%",
+                        // position:'absolute',
+                        // bottom:10,
+                        // left:0,
+                        // right:0,
+                        // marginHorizontal:15,
+                    }}
+                    onPress={()=>setIsVisible(false)}
+                    >
+                            
+                            <Text style={{
+                                color:Colors.lighter,
+                                fontSize:16,
+                                fontWeight:"500"
+                            }}>Back</Text>
+                    
+
+                </Pressable>
+                 <Pressable
+                    // disabled={!prompt.length>5}
+
+                    android_ripple={{color:'rgba(40, 40, 40, .3)'}}
+                    style={{
+                        paddingHorizontal:9,
+                        paddingVertical:14,
+                        alignItems:"center",
+                        justifyContent:"center",
+                        // backgroundColor:'rgba(30, 200, 30, .9)',
+                        borderRadius:9,
+                        marginTop:55,
+                        width:"20%",
+                        // flexDirection:"row",
+                        // justifyContent:"space-between",
+                        // position:'absolute',
+                        // bottom:10,
+                        // left:0,
+                        // right:0,
+                        // marginHorizontal:15,
+                    }}
+                    onPress={()=>setIsVisible(false)}
+                    >
+                        {/* <OcticonsIcon name='download' size={22} color={Colors.lighter}/> */}
+                        <Lottie style={{
+                            // height:55,
+                            // width:55
+                        }} source={require('../lottie/download.json')} autoPlay loop />
+                            
+                        {/* <Text style={{
+                            color:Colors.lighter,
+                            fontSize:16,
+                            display:"none",
+                            fontWeight:"500"
+                        }}>Dowload</Text> */}
+                    
+
+                </Pressable>
+                </View>
+                </View>
+            </Modal>
+    )}
 
   return (
     <ScreenWrapper back>
+        
+        {modall()}
 
         <View style={styles.titleContainer}>
 
@@ -103,6 +314,10 @@ export default function ImageGen({navigation}) {
         }}>
             <View style={[styles.chatContainer, {
                 flex:1,
+                paddingHorizontal:14,
+                // justifyContent:"flex-start",
+                // alignContent:'flex-start',
+                // alignItems:'flex-start',
                 // maxHeight:WH*.78,
                 // maxHeight:WH*.9,
                 // paddingBottom:10
@@ -110,35 +325,166 @@ export default function ImageGen({navigation}) {
                 // height:Dimensions.get('window').height*.85
                 }]}>
 
-                    <FlatList 
-                        ref={scrollViewChatRef}
-                        nestedScrollEnabled
-                        data={data}
-                        keyExtractor={el=>el.id}
-                        renderItem={({item})=>
-                            {
-                                var maxID =  Math.max(...data.map(el=>el.id))
-                                return(
+                                    
+                                
+                <TextInput 
+                      value={prompt}
+                      onChangeText={(value)=>setPrompt(value)}
+                      multiline={true} // ios fix for centering it at the top-left corner 
+                      numberOfLines={7} 
+                      placeholder='Prompt' 
+                    //   placeholderTextColor={clr == Colors.lighter ? "rgba(200, 200, 200, .5)" : "rgba(100, 100, 100, .5)"}
+                      style={{
+                        backgroundColor:'rgba(100, 100, 100, .041)',
+                        padding:10,
+                        fontSize:15,
+                        justifyContent:"flex-start",
+                        alignContent:'flex-start',
+                        alignItems:'flex-start',
+                        textAlignVertical: 'top',
+                        verticalAlign:"top",
+                        borderWidth:1,
+                        borderColor:Colors.primary,
+                        borderRadius:8,
+                        marginVertical:5,
+                        marginBottom:11,
 
-                                    item.id >= maxID && item.isRespond
-                                    ?
-                                    <TypeWriter scrollRef={scrollViewChatRef} delay={50} text={item.content}/>
-                                    :
-                                    <Message respond={item.isRespond} text={item.content}/>
-                                    )
-                            
-                            }
-                        }
-                        style={{
-                            // height:kb.isVisible ? WH*.5 - kb.height: null ,
+                    }}
+                />
+                {
+                    number>1 
+                    &&
+                    <Text style={{
+                        color:Colors.red,
+                        fontSize:14,
+                        textAlign:"center",
+                        fontWeight:"600",
+                        marginRight:10,
+                    }}>require premium subscription</Text>
+                }
 
-                            // paddingTop:kb.isVisible ? kb.height : 0,
-                            paddingVertical:kb.isVisible ? 10 : 0,
-                            // paddingBottom:22,
-                            // paddingBottom:kb.isVisible ? kb.height : 0
-                        }}
-                    />
+                <View style={{
+                    flexDirection:'row',
+                    alignItems:"center",
+                    justifyContent:'flex-start',
+                    // flex:1,
+                    // backgroundColor:'red'
+
+                }}>
+
+                    <Text style={{
+                                color:Colors.darker,
+                                fontSize:18,
+                                fontWeight:"400",
+                                marginRight:10,
+                            }}>Image Number:</Text>
+
+                <Pressable style={{
+                    padding:8,
+                    backgroundColor:'rgba(100, 100, 100, .15)',
+                    marginHorizontal:3,
+                    borderRadius:22,
+                    height:44,
+                    width:44,
+                    alignItems:"center",
+                    justifyContent:"center",
+                }}
+                onPress={()=>setNumber(number+1)}
+                >
+                    <Icon name='plus' size={17} color={`rgba(${Colors.rgb.primary}, 0.9)`}/>
+                </Pressable>
+
+
+                <Text style={{
+                    marginHorizontal:5,
+                    // backgroundColor:'rgba(100, 100, 100, .041)',
+                    padding:10,
+                    fontSize:22 ,
+                    color:Colors.darker,
+                    textAlign:"center",
+                    fontWeight:"500",
+                    // justifyContent:"flex-start",
+                    // alignContent:'flex-start',
+                    // alignItems:'flex-start',
+                    textAlignVertical:"center",
+                    verticalAlign:"middle",
+                    // borderWidth:1,
+                    borderColor:Colors.primary,
+                    borderRadius:8,
+                    marginVertical:5,
+                    marginBottom:11,
+                    
+                }}>{number}</Text>
+
                 
+                <Pressable style={{
+                    padding:8,
+                    backgroundColor:'rgba(100, 100, 100, .15)',
+                    marginHorizontal:3,
+                    borderRadius:22,
+                    height:44,
+                    width:44,
+                    alignItems:"center",
+                    justifyContent:"center",
+                }}
+                onPress={()=>setNumber(number>1 ? number-1 : 1)}
+                >
+                    <Icon name='minus' size={17} color={`rgba(${Colors.rgb.primary}, 0.9)`}/>
+                </Pressable>
+
+
+
+                </View>
+
+
+                <View style={{
+                    flexDirection:'row',
+                    alignItems:"center",
+                    // justifyContent:'space-evenly',
+                    justifyContent:"space-between",
+                    marginBottom:5,
+                }}>
+
+
+
+                    {sizes.map((el, i)=><SizeComponent key={i} title={el} end={i==(sizes.length-1)}/>)}
+                </View>
+
+
+            </View>
+
+            <View style={{
+
+                flexDirection:'row',
+                alignItems:"center",
+                // width:'100%',
+                // backgroundColor:"red",
+                marginHorizontal:14,
+                flexWrap:'wrap',
+                justifyContent:"space-between",
+            }}>
+
+
+
+            {
+                isLoading
+                ?
+                <View style={{
+                    alignItems:"center",
+                    width:"100%",
+                    paddingVertical:55,
+                    justifyContent:"center",
+                }}>
+
+                <ActivityIndicator size={55} color={Colors.primary}/>
+                <Text style={{
+                    marginTop:18,
+                    fontSize:16,
+                }}>generating ...</Text>
+                </View>
+                :
+                respond.map((el, i)=><GeneratedImageComponent key={i} info={el} />)
+            }
             </View>
 
             
@@ -155,80 +501,62 @@ export default function ImageGen({navigation}) {
 
         </ScrollView>
 
-        <View style={[styles.typingContainer, {
-                    // height:51,
-                    elevation: !kb.isVisible ?  9 : 0,
-                    borderRadius: !kb.isVisible ?  16 : 0,
-                    zIndex:11,
-                    marginHorizontal: !kb.isVisible ?  22 : 0,
-                    // flex:1,
-                    // paddingBottom:25,
-                    backgroundColor:"white",
-                    // backgroundColor:'red',
-                    
-                    // paddingBottom:keyboardOffset==0 ? 8 :115,
-                    // marginBottom:15,
-                    // marginTop:7,
-                    position : kb.isVisible ? "relative" : "absolute" ,
-                    bottom : kb.isVisible ? kb.height*1.08 : 41,
-                    }]}>
-                    <TextInput 
-                        pointerEvents={'none'}
-                        multiline
-                        // clearTextOnFocus
-                        // onSubmitEditing={(text)=>setMessage(text)} 
-                        // onBlur={() => Keyboard.dismiss()}
-                        onBlur={() => setIsFocused(false)}
-                        onFocus={() => setIsFocused(true)}
-                        // onFocus={() => Keyboard.dismiss()}
-                        // keyboardType='visible-password'
-                        
-                        placeholderTextColor={'rgba(100, 100, 100, .5)'}
-                        style={{
-                            flexWrap:"wrap",
-                            flex:1,
-                            marginRight:8,
-                            borderWidth:1,
-                            color:Colors.darker,
-                            borderColor:"rgba(100, 100, 100, .7)",
-                            borderRadius:8,
-                            paddingHorizontal:11,
-                            paddingVertical:7,
-                            zIndex:1,
-                            
-                        }}
-                        placeholder='write a message here ...'
-                        value={message}
-                        onChangeText={(text)=>setMessage(text)}
-                        />
-                    
-                    
-                    <TouchableOpacity style={{
-                        opacity:message.length<4?.7:1,
-                        paddingHorizontal:13,
-                        borderRadius:8,
-                        height:44,
-                        zIndex:2,
-                        // position:"absolute",
-                        // right:8,
-                        // bottom:8,
-                        paddingVertical:5,
-                        alignItems:"center",
-                        justifyContent:"center",
-                        backgroundColor:'#0b67f5',
-                        flexDirection:'row',
-                    }}
-                    // disabled={message.length<4}
-                    onPress={handleSendEvent}
-                    >
-                        
-                        <Icon name="send" size={17} color={"#FFF"} />
-                        <Text style={{fontSize:16, color:"white", marginLeft:9}}>Send</Text>
-                    </TouchableOpacity>
+        
 
+
+        <View style={{
             
-        </View>
+            position:"absolute",
+            bottom:kb.isVisible ? kb.height*1-4 : 0,
+            left:0,
+            right:0,
+            // marginHorizontal:14,
+            paddingHorizontal:14,
+            zIndex:11,
+            paddingVertical:5,
+            paddingBottom:15,
+            backgroundColor:Colors.lighter,
+            justifyContent:'center',
+            alignSelf:'center',
+            // alignItems:'center',
+            width:Dimensions.get('window').width,
+        }}>
+            
+        
+        <Pressable
+            disabled={!prompt.length>5}
 
+            android_ripple={{color:'rgba(40, 40, 40, .3)'}}
+            style={{
+                paddingHorizontal:9,
+                opacity: prompt.length>5 ? 1 : .4,
+                paddingVertical:14,
+                alignItems:"center",
+                justifyContent:"center",
+                backgroundColor:Colors.primary,
+                borderRadius:9,
+            }}
+            onPress={handleGenerating}
+            >
+                {
+                    isLoading
+                    ?
+                    <ActivityIndicator
+                        color={Colors.lighter}
+                    />
+                    :
+                    
+                    <Text style={{
+                        color:Colors.lighter,
+                        fontSize:16,
+                        fontWeight:"500"
+                    }}>Generate</Text>
+                }
+
+        </Pressable>
+        
+        </View>
+        
         
     </ScreenWrapper>
   )

@@ -19,6 +19,7 @@ export default function ScreenWrapper(props) {
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
+        hidden
         // barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         barStyle={'light-content'}
         // backgroundColor={Colors.primary}
