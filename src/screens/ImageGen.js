@@ -1,4 +1,4 @@
-import { Dimensions, FlatList, Keyboard, ActivityIndicator, KeyboardAvoidingView, LogBox, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Pressable, Image } from 'react-native'
+import { Dimensions, FlatList, Keyboard, ActivityIndicator, KeyboardAvoidingView, LogBox, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Pressable, Image, PermissionsAndroid } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import ScreenWrapper from '../ScreenWrapper'
 import Message from '../components/Message'
@@ -12,9 +12,23 @@ import Colors from '../constants/Colors'
 import Lottie from 'lottie-react-native';
 import { Configuration, OpenAIApi } from 'openai';
 // import config from '../config/openAI'
-import config from '../config/openAI'
+import config from '../config/openAI';
+// import RNFetchBlob from 'react-native-fetch-blob'
+// Import RNFetchBlob for the file download
+import RNFetchBlob from 'rn-fetch-blob';
+import {useToast } from 'react-native-toast-notifications'
+
+
 
 export default function ImageGen({navigation}) {
+    // let dirs = RNFetchBlob.fs.dirs
+    
+    const toast = useToast();
+
+    const REMOTE_IMAGE_PATH =
+    'https://raw.githubusercontent.com/AboutReact/sampleresource/master/gift.png'
+
+
 
     const configuration = new Configuration({
         organization: config.organization,
@@ -29,6 +43,7 @@ export default function ImageGen({navigation}) {
     const [visible, setIsVisible]= useState(false)
     
     const [isLoading, setIsLoading] = useState(false)
+    const [isDownloading, setIsDownloading] = useState(false)
 
     
     const result=[
@@ -166,7 +181,7 @@ export default function ImageGen({navigation}) {
                 //  resizeMode="contain"
                  resizeMode="center"
                  style={{
-                    zIndex:-1,
+                    zIndex:1,
                     width:"100%",
                     // width:(Dimensions.get('window').width /2) -25 ,
                     height:150,
@@ -177,6 +192,17 @@ export default function ImageGen({navigation}) {
                     // marginHorizontal:14
                  }}
                  />
+                 <ActivityIndicator 
+                    color={Colors.lighter} 
+                    size={44}
+                    style={{
+                        position:"absolute",
+                        left:0,
+                        right:0,
+                        bottom:0,
+                        top:0
+                    }}
+                    />
             </Pressable>
         )
     }
@@ -213,18 +239,30 @@ export default function ImageGen({navigation}) {
                 //  resizeMode="contain"
                 //  resizeMode="center"
                  style={{
-                    zIndex:-1,
-                    width:Dimensions.get('window').width*.74,
-                    height:Dimensions.get('window').width*.74,
-                    // width:(Dimensions.get('window').width /2) -25 ,
-                    // height:150,
-                    backgroundColor:`rgba(${Colors.rgb.primary}, .05)`,
+                     width:Dimensions.get('window').width*.74,
+                     height:Dimensions.get('window').width*.74,
+                     // width:(Dimensions.get('window').width /2) -25 ,
+                     // height:150,
+                     backgroundColor:`rgba(${Colors.rgb.primary}, .05)`,
                     borderRadius:9,
                     borderWidth:1.1,
                     borderColor:`rgba(${Colors.rgb.primary}, .8)`,
                     // marginHorizontal:14
-                 }}
-                 />
+                }}
+                />
+
+                 <ActivityIndicator 
+                    color={Colors.lighter} 
+                    size={66}
+                    style={{
+                        zIndex:-1,
+                        position:"absolute",
+                        left:0,
+                        right:0,
+                        bottom:40,
+                        top:0
+                    }}
+                    />
                  <View style={{
                     
                     flexDirection:"row",
@@ -270,7 +308,7 @@ export default function ImageGen({navigation}) {
                         paddingVertical:14,
                         alignItems:"center",
                         justifyContent:"center",
-                        // backgroundColor:'rgba(30, 200, 30, .9)',
+                        backgroundColor:'rgba(30, 200, 30, .9)',
                         borderRadius:9,
                         marginTop:55,
                         width:"20%",
@@ -282,13 +320,19 @@ export default function ImageGen({navigation}) {
                         // right:0,
                         // marginHorizontal:15,
                     }}
-                    onPress={()=>setIsVisible(false)}
+                    onPress={()=>handleDownload()}
                     >
-                        {/* <OcticonsIcon name='download' size={22} color={Colors.lighter}/> */}
-                        <Lottie style={{
+                        {
+                            isDownloading
+                            ?
+                            <ActivityIndicator color={Colors.lighter} size={21}/>
+                            :
+                            <OcticonsIcon name='download' size={22} color={Colors.lighter}/>
+                        }
+                        {/* <Lottie style={{
                             // height:55,
                             // width:55
-                        }} source={require('../lottie/download.json')} autoPlay loop />
+                        }} source={require('../lottie/download.json')} autoPlay loop /> */}
                             
                         {/* <Text style={{
                             color:Colors.lighter,
@@ -302,10 +346,145 @@ export default function ImageGen({navigation}) {
                 </View>
                 </View>
             </Modal>
-    )}
+    )};
+
+    
+    const checkPermission = async (url) => {
+        
+        // Function to check the platform
+        // If iOS then start downloading
+        // If Android then ask for permission
+
+        if (Platform.OS === 'ios') {
+        downloadImage(url);
+        } else {
+        try {
+            const granted = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+            {
+                title: 'Storage Permission Required',
+                message:
+                'App needs access to your storage to download Photos',
+            }
+            );
+            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+            // Once user grant the permission start downloading
+            console.log('Storage Permission Granted.');
+            downloadImage(url);
+            } else {
+            // If permission denied then show alert
+            alert('Storage Permission Not Granted');
+            }
+        } catch (err) {
+            // To handle permission related exception
+            console.warn(err);
+        }
+        }
+    };
+
+    const downloadImage = (url) => {
+    // Main function to download the image
+
+    // To add the time suffix in filename
+    let date = new Date();
+    // Image URL which we want to download
+    // let image_URL = REMOTE_IMAGE_PATH;    
+    let image_URL = url;    
+    // Getting the extention of the file
+    let ext = getExtention(image_URL);
+    ext = '.' + ext[0];
+    // Get config and fs from RNFetchBlob
+    // config: To pass the downloading related options
+    // fs: Directory path where we want our image to download
+    // let  fileName = 'image_'+ Math.floor(date.getTime() + date.getSeconds() / 2) + ".jpg"
+    let  fileName = 'image_'+ Math.floor(date.getTime() + date.getSeconds() / 2) + ext
+    // let PictureDir = fs.dirs.PictureDir;
+    
+    const { config, fs } = RNFetchBlob;
+    // console.log('fs.dirs')
+    console.log('fileName', fileName)
+    // const destPath = RNFetchBlob.fs.dirs.DownloadDir + '/ChatGPT App/' + fileName;
+    const destPath = fs.dirs.DownloadDir + '/ChatGPT App/'+ fileName;
+    // console.log('fs.dirs.PictureDir', fs.dirs.DCIMDir , "\n", destPath)
+
+    let options = {
+        fileCache: true,
+        addAndroidDownloads: {
+        // Related to the Android only
+        useDownloadManager: true,
+        notification: true,
+        path: destPath ,
+        description: `Image generated by AI tools with a prompt of ${prompt}`,
+        },
+    };
+    config(options)
+        .fetch('GET', image_URL)
+        .then(res => {
+        // Showing alert after successful downloading
+        console.log('res -> ', JSON.stringify(res));
+        setIsDownloading(false)
+        // alert('Image Downloaded Successfully.');
+        })
+        .catch(error=>{
+            console.log('error fetch', error)
+            setIsDownloading(false)
+            });
+    };
+
+    const getExtention = filename => {
+    // To get the file extension
+    return /[.]/.exec(filename) ?
+                /[^.]+$/.exec(filename) : undefined;
+    };
+
+    
+
+    const handleDownload=()=>{
+        link = "https://miro.medium.com/v2/resize:fit:648/1*5YV51BTLjYx_dQjfbaPiEw.png"
+        setIsDownloading(true)
+        console.log(selectedImage.url)
+        setTimeout(() => {
+            setIsVisible(false)
+            
+        }, 800);
+        let id = toast.show("Downloading...", {
+            type: "normal",
+            placement: "bottom",
+            duration: 2000,
+            offset: 30,
+            // "zoom-in | slide-in",
+            animationType: "slide-in",
+          });
+        
+
+        
+        setTimeout(() => {
+            try{
+                checkPermission(selectedImage.url)
+                
+                // "normal | success | warning | danger | custom",
+                toast.update(id, "Successfully downloaded \n To : ChatGPT App", {
+                    type: "success",
+                  });
+            } catch (error){
+                console.log('download error', error)
+                toast.update(id, "Error while downloading", {
+                    type: "danger",
+                  });
+
+                }
+                
+            setIsDownloading(false)
+            
+            
+        }, 1000);
+    };
+
+
 
   return (
-    <ScreenWrapper back>
+      <ScreenWrapper back>
+            
         
         {modall()}
 
@@ -574,6 +753,7 @@ export default function ImageGen({navigation}) {
         </View>
         
         
+
     </ScreenWrapper>
   )
 }
