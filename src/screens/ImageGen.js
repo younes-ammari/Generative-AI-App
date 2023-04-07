@@ -11,14 +11,17 @@ import OcticonsIcon from 'react-native-vector-icons/Octicons';
 import Colors from '../constants/Colors'
 import Lottie from 'lottie-react-native';
 import { Configuration, OpenAIApi } from 'openai';
+// import config from '../config/openAI'
 import config from '../config/openAI'
 
 export default function ImageGen({navigation}) {
 
     const configuration = new Configuration({
+        organization: config.organization,
         apiKey: config.OPENAI_API_KEY,
+
       });
-      const openai = new OpenAIApi(configuration);
+    const openai = new OpenAIApi(configuration);
     
     const kb = useKeyboard();
     const scrollViewRef = useRef();
@@ -101,15 +104,28 @@ export default function ImageGen({navigation}) {
 
         // setPrompt('')
         setIsLoading(true)
-        const response = await openai.createImage({
-            prompt: "A cute baby sea otter",
-            n: number,
-            size: size,
-          });
+        try {
+            
+            const configuration = new Configuration({
+                organization: config.organization,
+                apiKey: config.OPENAI_API_KEY,
 
-        var resp = response.data.data
-        setRespond(resp)
-        console.log(resp)
+                });
+            const openai = new OpenAIApi(configuration);
+
+            const response = await openai.createImage({
+                prompt: prompt,
+                n: number,
+                size: size,
+            })
+            
+            var resp = response.data.data
+            setRespond(resp)
+            console.log(resp)
+        }
+        catch (error){
+            console.error("error", error)
+        }
         setIsLoading(false)
         // setTimeout(() => {
         // }, 800);
