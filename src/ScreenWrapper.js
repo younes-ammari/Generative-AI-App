@@ -11,7 +11,8 @@ export default function ScreenWrapper(props) {
 
   const backgroundStyle = {
     // backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-    backgroundColor: Colors.primary,
+    // backgroundColor: Colors.primary,
+    backgroundColor: Colors.lighter,
   };
   
 
@@ -19,18 +20,33 @@ export default function ScreenWrapper(props) {
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
-        hidden
+        // hidden
         // barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         barStyle={'light-content'}
         // backgroundColor={Colors.primary}
       />
+      <View style={{
+          // position:"absolute",
+          left:11,
+          right:11,
+          top:21,
+          paddingTop:17,
+          // backgroundColor:'red',
+          zIndex:12,
+          width:Dimensions.get('window').width,
+          alignSelf:"center",
+          justifyContent:"center",
+          alignItems:"center",
+        
+        }}
+          >
+        
       {
         props.back 
         &&
         <View style={{
           position:"absolute",
           left:11,
-          top:9,
           // backgroundColor:"red",
           // padding:5,
           zIndex:11,
@@ -53,6 +69,28 @@ export default function ScreenWrapper(props) {
         </Pressable>
           </View>
       }
+
+      {
+        props.title 
+        &&
+        <View style={{
+          
+          position:"absolute",
+          left:11,
+          right:11,
+          // top:15,
+          // backgroundColor:"red",
+          // padding:5,
+          zIndex:11,
+          alignItems:"center",
+          justifyContent:"center",
+        }}>
+          <Text style={styles.title}>{props.title}</Text>
+        </View>  
+      }
+
+      
+      </View>
       <Tag style={{
         // flex:1, 
         backgroundColor:Colors.lighter,
@@ -61,6 +99,9 @@ export default function ScreenWrapper(props) {
         // maxHeight:Dimensions.get('window').height*.9,
         width:Dimensions.get('window').width,
         // paddingBottom:22,
+        paddingTop:props.back | props.title ? 45 : 0,
+        // backgroundColor:'red',
+        // marginTop:15,
         }}>
 
       {props.children}
@@ -69,4 +110,16 @@ export default function ScreenWrapper(props) {
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  title:{
+    fontSize:21, 
+    fontWeight:"400",
+    color:Colors.darker,
+    marginVertical:15,
+    marginTop:22,
+    textAlign:"center",
+    // backgroundColor:'red',
+    width:"100%",
+
+  },
+})

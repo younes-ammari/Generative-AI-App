@@ -4,7 +4,11 @@ import ScreenWrapper from '../ScreenWrapper'
 import Card from '../components/Card'
 import Colors from '../constants/Colors'
 
-export default function Home({navigation}) {
+export default function Home({route, navigation}) {
+
+    const {appData, ...otherparams} = route.params
+    console.log("appData", appData)
+    console.log("otherparams", otherparams)
 
     const images={
         chatGPT:{uri:"https://www.primelawgroup.com/wp-content/uploads/2023/02/chatgpt-icon.png"},

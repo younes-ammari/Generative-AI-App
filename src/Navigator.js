@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import {Chat, Home, ImageGen, Settings} from './screens/Index'
+import {AuthScreen, Chat, Home, ImageGen, Login, Mode, Pay, Settings} from './screens/Index'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -38,7 +38,10 @@ const StackNav=({navigation})=>{
     )
 }
 
-const TabNav=()=>{
+const TabNav=({route, navigation})=>{
+  
+  const {appData, ...otherparams} = route.params
+  // console.log(appData)
 
   return(
     <Tab.Navigator
@@ -62,8 +65,12 @@ const TabNav=()=>{
               // route.name= 'll'
                 ? 'home'
                 : 'home-outline';
-            } else if (route.name === 'Settings') {
+            } 
+            if (route.name === 'Settings') {
               iconName = focused ? 'settings' : 'settings-outline';
+            }
+            if (route.name === 'Pay') {
+              iconName = focused ? 'newspaper' : 'newspaper-outline';
             }
 
             // You can return any component that you like here!
@@ -73,12 +80,14 @@ const TabNav=()=>{
           tabBarInactiveTintColor: 'gray',
         })}
       >
-        <Tab.Screen name="Home" component={Home} 
+        <Tab.Screen name="Home" component={Home}
+        initialParams={appData} 
         options={{
           headerShown:false,
           
         }}
         />
+        <Tab.Screen name="Pay" component={Pay} />
         <Tab.Screen name="Settings" component={Settings} />
       </Tab.Navigator>
   )
@@ -109,7 +118,7 @@ export default function Navigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator 
-    initialRouteName="TabNav"
+    initialRouteName="AuthScreen"
       screenOptions={{
         headerStyle: {
           backgroundColor: Colors.primary,
@@ -148,7 +157,10 @@ export default function Navigator() {
         }),
       }}
     >
+      <Stack.Screen name="AuthScreen" component={AuthScreen} />
+      <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="TabNav" component={TabNav} />
+      <Stack.Screen name="Mode" component={Mode} />
         <Tab.Screen name="Chat" component={Chat} options={{
           transitionSpec: {
             open: config,

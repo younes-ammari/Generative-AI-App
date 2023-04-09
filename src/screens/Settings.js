@@ -6,7 +6,7 @@ import * as Vicon  from 'react-native-vector-icons'
 import Icon  from 'react-native-vector-icons/MaterialCommunityIcons'
 import MIcon from 'react-native-vector-icons/MaterialIcons'
 
-export default function Settings() {
+export default function Settings({navigation}) {
 
 
   const Element=({
@@ -26,6 +26,7 @@ export default function Settings() {
         // marginTop:logout ? 12 : 0
       }}
       android_ripple={{ color: 'rgba(20, 20, 20, .1)' }}
+      {...props}
 
       >
         {icon && icon}
@@ -47,7 +48,9 @@ export default function Settings() {
       }/>
       <Element title='Dark mode'  icon={
         <Icon name='theme-light-dark' size={22} color={Colors.darker}/>
-      }/>
+      }
+      onPress={()=>navigation.navigate('Mode')}
+      />
       <Element title='Language' icon={
         <MIcon name='language' size={22} color={Colors.darker}/>
       }/>
@@ -56,8 +59,11 @@ export default function Settings() {
       }/>
 
       <Element title='Logout' logout icon={
-        <MIcon name='logout' size={22} color="rgba(200, 15, 22, 1)"/>
-      }/>
+        <MIcon name='logout' size={22} color="rgba(200, 15, 22, 1)"
+        />
+      }
+      onPress={()=>navigation.navigate('Login')}
+      />
       {/* <Element title='Logout' logout/> */}
     </ScreenWrapper>
   )
