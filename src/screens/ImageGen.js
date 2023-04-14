@@ -17,6 +17,7 @@ import config from '../config/openAI';
 // Import RNFetchBlob for the file download
 import RNFetchBlob from 'rn-fetch-blob';
 import {useToast } from 'react-native-toast-notifications'
+import AppContext from '../hooks/useContext'
 
 
 
@@ -24,6 +25,8 @@ export default function ImageGen({navigation}) {
     // let dirs = RNFetchBlob.fs.dirs
     
     const toast = useToast();
+
+    const { mode, styleColors} = React.useContext(AppContext)
 
     const REMOTE_IMAGE_PATH =
     'https://raw.githubusercontent.com/AboutReact/sampleresource/master/gift.png'
@@ -88,8 +91,8 @@ export default function ImageGen({navigation}) {
                     fontSize:15,
                     fontWeight:"500",
                     textAlign:"center",
-                    opacity:title==size ? 1 : .6,
-                    color:title==size ? Colors.lighter : Colors.darker,
+                    opacity:title==size ? 1 : .9,
+                    color:title==size ? Colors.lighter : styleColors.color,
                 }}>{title}</Text>
 
             </Pressable>
@@ -498,6 +501,7 @@ export default function ImageGen({navigation}) {
         //   scrollEnabled={!kb.isVisible}
           ref={scrollViewRef}
           contentContainerStyle={{
+            // backgroundColor:'red',
             paddingBottom:55,
           }}
           >
@@ -523,9 +527,12 @@ export default function ImageGen({navigation}) {
                       multiline={true} // ios fix for centering it at the top-left corner 
                       numberOfLines={7} 
                       placeholder='Prompt' 
+                      placeholderTextColor={styleColors.placeholderTextColor}
                     //   placeholderTextColor={clr == Colors.lighter ? "rgba(200, 200, 200, .5)" : "rgba(100, 100, 100, .5)"}
                       style={{
-                        backgroundColor:'rgba(100, 100, 100, .041)',
+                        // backgroundColor:'rgba(100, 100, 100, .041)',
+                        backgroundColor:styleColors.placeholder,
+                        color:styleColors.placeholderText,
                         padding:10,
                         fontSize:15,
                         justifyContent:"flex-start",
@@ -534,7 +541,7 @@ export default function ImageGen({navigation}) {
                         textAlignVertical: 'top',
                         verticalAlign:"top",
                         borderWidth:1,
-                        borderColor:Colors.primary,
+                        borderColor:styleColors.primary,
                         borderRadius:8,
                         marginVertical:5,
                         marginBottom:11,
@@ -563,7 +570,7 @@ export default function ImageGen({navigation}) {
                 }}>
 
                     <Text style={{
-                                color:Colors.darker,
+                                color:styleColors.color,
                                 fontSize:18,
                                 fontWeight:"400",
                                 marginRight:10,
@@ -581,7 +588,7 @@ export default function ImageGen({navigation}) {
                 }}
                 onPress={()=>setNumber(number+1)}
                 >
-                    <Icon name='plus' size={17} color={`rgba(${Colors.rgb.primary}, 0.9)`}/>
+                    <Icon name='plus' size={17} color={styleColors.color}/>
                 </Pressable>
 
 
@@ -590,7 +597,7 @@ export default function ImageGen({navigation}) {
                     // backgroundColor:'rgba(100, 100, 100, .041)',
                     padding:10,
                     fontSize:22 ,
-                    color:Colors.darker,
+                    color:styleColors.color,
                     textAlign:"center",
                     fontWeight:"500",
                     // justifyContent:"flex-start",
@@ -619,7 +626,7 @@ export default function ImageGen({navigation}) {
                 }}
                 onPress={()=>setNumber(number>1 ? number-1 : 1)}
                 >
-                    <Icon name='minus' size={17} color={`rgba(${Colors.rgb.primary}, 0.9)`}/>
+                    <Icon name='minus' size={17} color={styleColors.color}/>
                 </Pressable>
 
 
@@ -719,7 +726,7 @@ export default function ImageGen({navigation}) {
             zIndex:11,
             paddingVertical:5,
             paddingBottom:15,
-            backgroundColor:Colors.lighter,
+            backgroundColor:styleColors.backgroundColor,
             justifyContent:'center',
             alignSelf:'center',
             // alignItems:'center',
@@ -733,11 +740,11 @@ export default function ImageGen({navigation}) {
             android_ripple={{color:'rgba(40, 40, 40, .3)'}}
             style={{
                 paddingHorizontal:9,
-                opacity: prompt.length>5 ? 1 : .4,
+                opacity: prompt.length>5 ? 1 : .3,
                 paddingVertical:14,
                 alignItems:"center",
                 justifyContent:"center",
-                backgroundColor:Colors.primary,
+                backgroundColor:mode == "light" ? styleColors.primary : styleColors.color,
                 borderRadius:9,
             }}
             onPress={handleGenerating}
@@ -746,13 +753,15 @@ export default function ImageGen({navigation}) {
                     isLoading
                     ?
                     <ActivityIndicator
-                        color={Colors.lighter}
+                        color={styleColors.color}
                     />
                     :
                     
                     <Text style={{
-                        color:Colors.lighter,
+                        // color:mode == "light" ?  styleColors.backgroundColor : styleColors.color,
+                        color: styleColors.backgroundColor,
                         fontSize:16,
+                        opacity:prompt.length>5 ? 1: .4,
                         fontWeight:"500"
                     }}>Generate</Text>
                 }

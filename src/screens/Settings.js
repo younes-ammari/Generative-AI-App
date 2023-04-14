@@ -12,13 +12,13 @@ export default function Settings({navigation}) {
   const {
     mode, 
     setMode,
-    // styleColors,
+    styleColors,
     appData,
     setAppDataHandler,
     
   } = useContext(AppContext)
 
-  const styleColors = Colors[mode=="auto" ? useColorScheme() : mode]
+  // const styleColors = Colors[mode=="auto" ? useColorScheme() : mode]
 
 
   const logoutHandler=()=>{

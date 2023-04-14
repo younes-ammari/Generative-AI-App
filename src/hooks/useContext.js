@@ -20,7 +20,7 @@ export const AppContextProvider = (props)=> {
     //     // mode = m
     //     setAppMode(m)
     // }
-    const [mode, setMode] = useState('light')
+    const [mode, setMode] = useState('dark')
 
     const [appData, setAppData] = useState({
         mode:mode,

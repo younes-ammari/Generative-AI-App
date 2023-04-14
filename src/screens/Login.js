@@ -53,6 +53,10 @@ export default function Login({navigation}) {
                 }
             })
             navigation.navigate('TabNav', {appDatas: {appDatas:appData}});
+            setTimeout(() => {
+                
+                navigation.navigate('Home', {appDatas: {appDatas:appData}});
+            }, 100);
         
         }}
         >

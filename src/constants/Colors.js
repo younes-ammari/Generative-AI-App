@@ -30,7 +30,10 @@ export default Colors = {
         tabBar:{
             backgroundColor:"rgb(255, 255, 255)",
             ActiveTintColor:"rgb(57,45,126)"
-        }
+        },
+        placeholder:'rgba(100, 100, 100, .041)',
+        placeholderText:"rgba(10, 10, 10, .8)",
+        placeholderTextColor:"rgba(10, 10, 10, .3)",
     },
     dark:{
         primary:"rgb(57,45,126)",
@@ -52,7 +55,10 @@ export default Colors = {
         tabBar:{
             backgroundColor:"rgb(44, 44, 44)",
             ActiveTintColor:"#FFF"
-        }
+        },
+        placeholder:'rgba(100, 100, 100, .1)',
+        placeholderText:"rgba(244, 244, 244, 1)",
+        placeholderTextColor:"rgba(200, 200, 200, .4)",
     },
 
 }

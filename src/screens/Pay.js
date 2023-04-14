@@ -12,11 +12,11 @@ export default function Pay() {
   const {
     mode, 
     setMode,
-    // styleColors,
+    styleColors,
     appDatas,
 } = useContext(AppContext)
 
-const styleColors = Colors[mode=="auto" ? useColorScheme() : mode]
+// const styleColors = Colors[mode=="auto" ? useColorScheme() : mode]
 
 
 
