@@ -162,7 +162,8 @@ export default function ImageGen({navigation}) {
             <Pressable 
             android_ripple={{color:'rgba(100, 100, 100, .7)', }}
             style={{
-                
+                // flex:1,
+                maxWidth:(Dimensions.get('window').width /2) -21 ,
                 width:(Dimensions.get('window').width /2) -21 ,
                 backgroundColor:`rgba(220, 220, 220, 1)`,
                 marginBottom:9,
@@ -483,30 +484,24 @@ export default function ImageGen({navigation}) {
 
 
   return (
-      <ScreenWrapper back>
+      <ScreenWrapper back title='Image Generator'>
             
         
         {modall()}
 
-        <View style={styles.titleContainer}>
+        {/* <View style={styles.titleContainer}>
 
         <Text style={styles.title}>Image Generator</Text>
-        </View>
+        </View> */}
         <ScrollView
           keyboardShouldPersistTaps='handled'
         //   scrollEnabled={!kb.isVisible}
           ref={scrollViewRef}
+          contentContainerStyle={{
+            paddingBottom:55,
+          }}
           >
-        <View style={{
-            flex:1,
-            // backgroundColor:"red",
-            // height:WH*.95,
-            // height:WH,
-            // maxHeight:WH*.85,
-            // paddingBottom:25,
-            // alignItems:"center",
-            // justifyContent:"center",
-        }}>
+
             <View style={[styles.chatContainer, {
                 flex:1,
                 paddingHorizontal:14,
@@ -657,10 +652,12 @@ export default function ImageGen({navigation}) {
                 marginHorizontal:14,
                 flexWrap:'wrap',
                 justifyContent:"space-between",
+                paddingBottom:11,
             }}>
 
 
 
+            
             {
                 isLoading
                 ?
@@ -678,7 +675,19 @@ export default function ImageGen({navigation}) {
                 }}>generating ...</Text>
                 </View>
                 :
-                respond.map((el, i)=><GeneratedImageComponent key={i} info={el} />)
+                // <ScrollView contentContainerStyle={{
+                //     // flexWrap:"wrap",
+                //     // flexGrow:2,
+                //     // alignItems:"center",
+                //     width:"100%",
+                //     justifyContent:"center",
+                //     paddingBottom:80,
+                // }}>
+
+                    // {
+                        respond.map((el, i)=><GeneratedImageComponent key={i} info={el} />)
+                    // }
+                // </ScrollView>
             }
             </View>
 
@@ -692,7 +701,7 @@ export default function ImageGen({navigation}) {
             height: kb.isVisible ? kb.height*1 : 90,
             // backgroundColor:'red',
         }} />
-        </View>
+        
 
         </ScrollView>
 
@@ -702,7 +711,7 @@ export default function ImageGen({navigation}) {
         <View style={{
             
             position:"absolute",
-            bottom:kb.isVisible ? kb.height*1-4 : 0,
+            bottom:kb.isVisible ? kb.height*1+80 : 80,
             left:0,
             right:0,
             // marginHorizontal:14,

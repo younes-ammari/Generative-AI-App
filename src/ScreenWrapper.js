@@ -1,20 +1,31 @@
 import { Dimensions, SafeAreaView, KeyboardAvoidingView, StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import Colors from './constants/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import AppContext from './hooks/useContext';
 
 export default function ScreenWrapper(props) {
-  const isDarkMode = useColorScheme() === 'dark';
+  
   const navigation = useNavigation()
+
+
+    
+  const {
+    mode, 
+    setMode,
+    styleColors,
+    appData,
+  } = useContext(AppContext)
+
+  // const styleColors = Colors[mode=="auto" ? useColorScheme() : mode]
 
   const backgroundStyle = {
     // backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
     // backgroundColor: Colors.primary,
-    backgroundColor: Colors.lighter,
+    backgroundColor: styleColors.backgroundColor,
   };
-  
 
   const Tag = props.kav ? KeyboardAvoidingView : View
   return (
@@ -27,16 +38,19 @@ export default function ScreenWrapper(props) {
       />
       <View style={{
           // position:"absolute",
-          left:11,
-          right:11,
-          top:21,
-          paddingTop:17,
+          // left:11,
+          // right:11,
+          // top:24,
+          // paddingTop:17,
+          marginTop:15,
           // backgroundColor:'red',
           zIndex:12,
           width:Dimensions.get('window').width,
           alignSelf:"center",
-          justifyContent:"center",
           alignItems:"center",
+          flexDirection:'row',
+
+          overflow:'visible'
         
         }}
           >
@@ -45,11 +59,14 @@ export default function ScreenWrapper(props) {
         props.back 
         &&
         <View style={{
-          position:"absolute",
+          // position:"absolute",
           left:11,
+          // top:0.5,
+          // paddingTop:9,
+          // marginTop:4,
           // backgroundColor:"red",
           // padding:5,
-          zIndex:11,
+          zIndex:13,
           alignItems:"center",
           justifyContent:"center",
           borderRadius:22,
@@ -59,13 +76,17 @@ export default function ScreenWrapper(props) {
 
         <Pressable style={{
           padding:5,
-          borderRadius:22
+          height:44,
+          width:44,
+          alignItems:"center",
+          justifyContent:"center",
+          borderRadius:12
           
         }}
         android_ripple={{ color: 'rgba(20, 20, 20, .1)' }}
         onPress={()=>navigation.goBack()}
         >
-          <Icon name="ios-arrow-back" size={28} color={Colors.primary} />
+          <Icon name="ios-arrow-back" size={28} color={styleColors.header.backIconColor} />
         </Pressable>
           </View>
       }
@@ -78,6 +99,7 @@ export default function ScreenWrapper(props) {
           position:"absolute",
           left:11,
           right:11,
+          flex:1,
           // top:15,
           // backgroundColor:"red",
           // padding:5,
@@ -85,7 +107,7 @@ export default function ScreenWrapper(props) {
           alignItems:"center",
           justifyContent:"center",
         }}>
-          <Text style={styles.title}>{props.title}</Text>
+          <Text style={[styles.title, {color:styleColors.color}]}>{props.title}</Text>
         </View>  
       }
 
@@ -93,13 +115,13 @@ export default function ScreenWrapper(props) {
       </View>
       <Tag style={{
         // flex:1, 
-        backgroundColor:Colors.lighter,
+        // backgroundColor:Colors.lighter,
         height:Dimensions.get('window').height*1,
         // minHeight:Dimensions.get('window').height*.98,
         // maxHeight:Dimensions.get('window').height*.9,
         width:Dimensions.get('window').width,
         // paddingBottom:22,
-        paddingTop:props.back | props.title ? 45 : 0,
+        paddingTop:props.back | props.title ? 9 : 0,
         // backgroundColor:'red',
         // marginTop:15,
         }}>
@@ -115,11 +137,7 @@ const styles = StyleSheet.create({
     fontSize:21, 
     fontWeight:"400",
     color:Colors.darker,
-    marginVertical:15,
-    marginTop:22,
     textAlign:"center",
-    // backgroundColor:'red',
-    width:"100%",
 
   },
 })

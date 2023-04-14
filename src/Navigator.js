@@ -1,12 +1,13 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import {AuthScreen, Chat, Home, ImageGen, Login, Mode, Pay, Settings} from './screens/Index'
+import { StyleSheet, Text, useColorScheme, View } from 'react-native'
+import React, { useContext } from 'react'
+import {About, AuthScreen, Chat, Home, ImageGen, Login, Mode, Pay, Settings} from './screens/Index'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Colors from './constants/Colors';
 import { Easing } from 'react-native-reanimated';
+import AppContext from './hooks/useContext';
 
 const Stack = createNativeStackNavigator();
 
@@ -40,22 +41,40 @@ const StackNav=({navigation})=>{
 
 const TabNav=({route, navigation})=>{
   
-  const {appData, ...otherparams} = route.params
-  // console.log(appData)
+  const {
+    mode, 
+    setMode,
+    // styleColors,
+    appData,
+  } = useContext(AppContext)
+
+  const styleColors = Colors[mode=="auto" ? useColorScheme() : mode]
+
+
+  
+  // const {appDatas, ...otherparams} = route.params
+  // console.log(appDatas)
 
   return(
     <Tab.Navigator
         screenOptions={({ route }) => ({
           headerStyle: {
-            backgroundColor: Colors.primary,
+            // backgroundColor: Colors.primary,
           },
+          // tabBarBackground:'red',
           // statusBarHidden:true,
+          tabBarStyle:{
+            backgroundColor:styleColors.tabBar.backgroundColor,
+            // paddingTop:11,
+            paddingBottom:1,
+            // height:55,
+          },
           headerShown:false,
   
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            // fontWeight: 'bold',
-          },
+          // headerTintColor: '#fff',
+          // headerTitleStyle: {
+          //   // fontWeight: 'bold',
+          // },
         
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
@@ -76,8 +95,8 @@ const TabNav=({route, navigation})=>{
             // You can return any component that you like here!
             return <Ionicons name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor: Colors.primary,
-          tabBarInactiveTintColor: 'gray',
+          tabBarActiveTintColor: styleColors.tabBar.ActiveTintColor,
+          // tabBarInactiveTintColor: 'gray',
         })}
       >
         <Tab.Screen name="Home" component={Home}
@@ -161,6 +180,7 @@ export default function Navigator() {
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="TabNav" component={TabNav} />
       <Stack.Screen name="Mode" component={Mode} />
+      <Stack.Screen name="About" component={About} />
         <Tab.Screen name="Chat" component={Chat} options={{
           transitionSpec: {
             open: config,

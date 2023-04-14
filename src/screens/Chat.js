@@ -232,6 +232,8 @@ export default function Chat({navigation}) {
             handleChat();
            
             setRespond('...')
+            setMessage('')
+            Keyboard.dismiss()
             
             
         }
@@ -243,12 +245,13 @@ export default function Chat({navigation}) {
 
 
   return (
-    <ScreenWrapper back>
+    <ScreenWrapper back title="Chat">
 
-        <View style={styles.titleContainer}>
-
+        {/* <View style={styles.titleContainer}>
         <Text style={styles.title}>Chat</Text>
-        </View>
+
+        </View> */}
+
         <ScrollView
           keyboardShouldPersistTaps='handled'
         //   scrollEnabled={!kb.isVisible}
@@ -322,6 +325,7 @@ export default function Chat({navigation}) {
         </View>
 
         </ScrollView>
+    
 
         <View style={[styles.typingContainer, {
                     // height:51,
@@ -338,7 +342,7 @@ export default function Chat({navigation}) {
                     // marginBottom:15,
                     // marginTop:7,
                     position : kb.isVisible ? "relative" : "absolute" ,
-                    bottom : kb.isVisible ? kb.height*1.08 : 41,
+                    bottom : kb.isVisible ? kb.height*1.08+66 : 101,
                     }]}>
                     <TextInput 
                         pointerEvents={'none'}

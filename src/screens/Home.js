@@ -1,14 +1,30 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, useColorScheme, View } from 'react-native'
+import React, { useContext } from 'react'
 import ScreenWrapper from '../ScreenWrapper'
 import Card from '../components/Card'
 import Colors from '../constants/Colors'
+import AppContext from '../hooks/useContext'
 
 export default function Home({route, navigation}) {
 
-    const {appData, ...otherparams} = route.params
-    console.log("appData", appData)
-    console.log("otherparams", otherparams)
+    const {
+        mode, 
+        setMode,
+        // styleColors,
+        appData,
+    } = useContext(AppContext)
+
+    const styleColors = Colors[mode=="auto" ? useColorScheme() : mode]
+
+    // console.log('appData', appData)
+
+
+
+    // console.log('context > home => ', mode)
+
+    // const {appDatas, ...otherparams} = route.params
+    // console.log("appDatas", appDatas)
+    // console.log("otherparams", otherparams)
 
     const images={
         chatGPT:{uri:"https://www.primelawgroup.com/wp-content/uploads/2023/02/chatgpt-icon.png"},
@@ -18,7 +34,7 @@ export default function Home({route, navigation}) {
     <ScreenWrapper>
         <View style={{
             flex:1,
-            // backgroundColor:'red',
+            backgroundColor:styleColors.backgroundColor,
             }}>
 
 
@@ -36,18 +52,19 @@ export default function Home({route, navigation}) {
 
                     <Text style={{
                         fontSize:18,
-                        color:Colors.darker,
+                        color:styleColors.color,
                         fontWeight:"400"
                     }}>Welcome </Text>
                     <Text style={{
                         fontSize:18,
-                        color:Colors.darker,
+                        color:styleColors.color,
                         fontWeight:"600"
-                    }}>Mabrouk! </Text>
+                    // }}>dd! </Text>
+                    }}>{appData.user.name}! </Text>
                 </View>
                     <Text style={{
                         fontSize:22,
-                        color:Colors.darker,
+                        color:styleColors.color,
                         fontWeight:"500"
                     }}>Great to see you again </Text>
                 </View>

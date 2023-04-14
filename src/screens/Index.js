@@ -5,4 +5,7 @@ export {default as ImageGen } from './ImageGen'
 export {default as Pay } from './Pay'
 export {default as Login } from './Login'
 export {default as AuthScreen } from './AuthScreen'
+
+// Settings Screens
 export {default as Mode } from "./settingsScreens/Mode"
+export {default as About } from "./settingsScreens/About"
