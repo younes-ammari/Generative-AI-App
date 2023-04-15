@@ -37,11 +37,6 @@ export default function ScreenWrapper(props) {
         // backgroundColor={Colors.primary}
       />
       <View style={{
-          // position:"absolute",
-          // left:11,
-          // right:11,
-          // top:24,
-          // paddingTop:17,
           marginTop:15,
           // backgroundColor:'red',
           zIndex:12,
@@ -61,11 +56,6 @@ export default function ScreenWrapper(props) {
         <View style={{
           // position:"absolute",
           left:11,
-          // top:0.5,
-          // paddingTop:9,
-          // marginTop:4,
-          // backgroundColor:"red",
-          // padding:5,
           zIndex:13,
           alignItems:"center",
           justifyContent:"center",
@@ -100,9 +90,6 @@ export default function ScreenWrapper(props) {
           left:11,
           right:11,
           flex:1,
-          // top:15,
-          // backgroundColor:"red",
-          // padding:5,
           zIndex:11,
           alignItems:"center",
           justifyContent:"center",
@@ -114,16 +101,9 @@ export default function ScreenWrapper(props) {
       
       </View>
       <Tag style={{
-        // flex:1, 
-        // backgroundColor:Colors.lighter,
         height:Dimensions.get('window').height*1,
-        // minHeight:Dimensions.get('window').height*.98,
-        // maxHeight:Dimensions.get('window').height*.9,
         width:Dimensions.get('window').width,
-        // paddingBottom:22,
         paddingTop:props.back | props.title ? 9 : 0,
-        // backgroundColor:'red',
-        // marginTop:15,
         }}>
 
       {props.children}

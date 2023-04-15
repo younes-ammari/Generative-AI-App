@@ -13,32 +13,6 @@ const Stack = createNativeStackNavigator();
 
 const Tab = createBottomTabNavigator();
 
-
-const StackNav=({navigation})=>{
-  return(
-
-    <Stack.Navigator 
-    initialRouteName="HomeScreen"
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: Colors.primary,
-        },
-        // statusBarHidden:true,
-        headerShown:false,
-
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          // fontWeight: 'bold',
-        },
-      }}
-    >
-      <Stack.Screen name="HomeScreen" component={Home} />
-      <Stack.Screen name="Chat" component={Chat} />
-      <Stack.Screen name="ImageGen" component={ImageGen} />
-    </Stack.Navigator>
-    )
-}
-
 const TabNav=({route, navigation})=>{
   
   const {
@@ -133,6 +107,7 @@ const configClose = {
     restSpeedThreshold: 0.01,
   },
 };
+
 export default function Navigator() {
   return (
     <NavigationContainer>
@@ -201,4 +176,3 @@ export default function Navigator() {
   )
 }
 
-const styles = StyleSheet.create({})

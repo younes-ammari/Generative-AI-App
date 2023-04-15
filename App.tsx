@@ -9,23 +9,10 @@ import "react-native-url-polyfill/auto"
 import React from 'react';
 import type {PropsWithChildren} from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
   PermissionsAndroid,
   View,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 import Navigator from './src/Navigator';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 

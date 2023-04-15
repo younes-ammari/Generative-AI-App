@@ -492,10 +492,6 @@ export default function ImageGen({navigation}) {
         
         {modall()}
 
-        {/* <View style={styles.titleContainer}>
-
-        <Text style={styles.title}>Image Generator</Text>
-        </View> */}
         <ScrollView
           keyboardShouldPersistTaps='handled'
         //   scrollEnabled={!kb.isVisible}
@@ -509,14 +505,6 @@ export default function ImageGen({navigation}) {
             <View style={[styles.chatContainer, {
                 flex:1,
                 paddingHorizontal:14,
-                // justifyContent:"flex-start",
-                // alignContent:'flex-start',
-                // alignItems:'flex-start',
-                // maxHeight:WH*.78,
-                // maxHeight:WH*.9,
-                // paddingBottom:10
-                // backgroundColor:'red',
-                // height:Dimensions.get('window').height*.85
                 }]}>
 
                                     
@@ -682,19 +670,7 @@ export default function ImageGen({navigation}) {
                 }}>generating ...</Text>
                 </View>
                 :
-                // <ScrollView contentContainerStyle={{
-                //     // flexWrap:"wrap",
-                //     // flexGrow:2,
-                //     // alignItems:"center",
-                //     width:"100%",
-                //     justifyContent:"center",
-                //     paddingBottom:80,
-                // }}>
-
-                    // {
-                        respond.map((el, i)=><GeneratedImageComponent key={i} info={el} />)
-                    // }
-                // </ScrollView>
+                respond.map((el, i)=><GeneratedImageComponent key={i} info={el} />)
             }
             </View>
 
@@ -789,10 +765,6 @@ const styles = StyleSheet.create({
         alignSelf:"center",
         borderRadius:16,
         paddingHorizontal:9,
-        // elevation:9,
-        // backgroundColor:Colors.lighter,
-        // marginBottom:14,
-        // marginBottom:55,
         position:'absolute',
         bottom:40,
 
