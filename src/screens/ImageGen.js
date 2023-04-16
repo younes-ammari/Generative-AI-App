@@ -694,7 +694,7 @@ export default function ImageGen({navigation}) {
         <View style={{
             
             position:"absolute",
-            bottom:kb.isVisible ? kb.height*1+80 : 80,
+            bottom:kb.isVisible ? kb.height*1+20 : 20,
             left:0,
             right:0,
             // marginHorizontal:14,
