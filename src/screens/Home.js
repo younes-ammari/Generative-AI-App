@@ -1,5 +1,5 @@
 import { StyleSheet, Text, useColorScheme, View } from 'react-native'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import ScreenWrapper from '../ScreenWrapper'
 import Card from '../components/Card'
 import Colors from '../constants/Colors'
@@ -17,6 +17,11 @@ export default function Home({route, navigation}) {
     const styleColors = Colors[mode=="auto" ? useColorScheme() : mode]
 
     // console.log('appData', appData)
+    useEffect(()=>{
+        // !appData.user.name &&
+        //     navigation.navigate('Login')
+        
+    }, [])
 
 
 
@@ -42,7 +47,7 @@ export default function Home({route, navigation}) {
                     width:"100%",
                     minHeight:99,
                     paddingVertical:11,
-                    marginTop:11,
+                    // marginTop:11,
                     paddingHorizontal:11,
                 }}>
                     <View style={{

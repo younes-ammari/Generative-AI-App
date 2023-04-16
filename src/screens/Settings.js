@@ -65,7 +65,7 @@ export default function Settings({navigation}) {
     )
   }
   return (
-    <ScreenWrapper back title="Settings">
+    <ScreenWrapper title="Settings">
       {/* <Text style={styles.title}>Settings</Text> */}
       <Element title='Account' icon={
         <Icon name='account' size={22} color={styleColors.color}/>

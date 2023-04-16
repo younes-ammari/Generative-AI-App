@@ -51,8 +51,8 @@ export default function Pay() {
     )
   }
   return (
-    <ScreenWrapper>
-      <Text style={[styles.title, {color:styleColors.color}]}>Payment</Text>
+    <ScreenWrapper title="Payment">
+      {/* <Text style={[styles.title, {color:styleColors.color}]}>Payment</Text> */}
       
       <View 
         style={{

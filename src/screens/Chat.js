@@ -330,11 +330,13 @@ export default function Chat({navigation}) {
         <View style={[styles.typingContainer, {
                     // height:51,
                     elevation: !kb.isVisible ?  9 : 0,
+                    elevation:0,
                     borderRadius: !kb.isVisible ?  16 : 0,
                     zIndex:11,
-                    marginHorizontal: !kb.isVisible ?  22 : 0,
+                    marginHorizontal: !kb.isVisible ?  0 : 0,
                     // flex:1,
                     // paddingBottom:25,
+                    paddingHorizontal:15,
                     backgroundColor:"white",
                     // backgroundColor:'red',
                     
@@ -342,7 +344,7 @@ export default function Chat({navigation}) {
                     // marginBottom:15,
                     // marginTop:7,
                     position : kb.isVisible ? "relative" : "absolute" ,
-                    bottom : kb.isVisible ? kb.height*1.08+66 : 101,
+                    bottom : kb.isVisible ? kb.height*1.12 : 30,
                     }]}>
                     <TextInput 
                         pointerEvents={'none'}
@@ -360,7 +362,7 @@ export default function Chat({navigation}) {
                             flexWrap:"wrap",
                             flex:1,
                             marginRight:8,
-                            borderWidth:1,
+                            borderWidth:kb.isVisible ? 1 : 0,
                             color:Colors.darker,
                             borderColor:"rgba(100, 100, 100, .7)",
                             borderRadius:8,
@@ -381,6 +383,7 @@ export default function Chat({navigation}) {
                         borderRadius:8,
                         height:44,
                         zIndex:2,
+                        display:!kb.isVisible ? "none" : "flex",
                         // position:"absolute",
                         // right:8,
                         // bottom:8,
