@@ -2,11 +2,7 @@ import { Pressable, StyleSheet, Text, TouchableOpacity, useColorScheme, View } f
 import React, { useContext, useState } from 'react'
 import ScreenWrapper from '../../ScreenWrapper'
 import Colors from '../../constants/Colors'
-import * as Vicon  from 'react-native-vector-icons'
-import Icon  from 'react-native-vector-icons/MaterialCommunityIcons'
-import MIcon from 'react-native-vector-icons/MaterialIcons'
-import Octicons from 'react-native-vector-icons/Octicons'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+
 import AppContext from '../../hooks/useContext'
 import { ScrollView } from 'react-native-gesture-handler'
 

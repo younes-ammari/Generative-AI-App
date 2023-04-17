@@ -23,8 +23,7 @@ export default function ScreenWrapper(props) {
   // const styleColors = Colors[mode=="auto" ? useColorScheme() : mode]
 
   const backgroundStyle = {
-    // backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-    // backgroundColor: Colors.primary,
+    
     backgroundColor: styleColors.backgroundColor,
   };
 
@@ -44,30 +43,22 @@ export default function ScreenWrapper(props) {
 
       }}>
         <Tag style={{
-          // backgroundColor:'red',
           flex:1,
-          // alignItems:"flex-start",
           justifyContent:"flex-start",
-          // justifyContent:"center",
-          // alignItems:"center",
           }}>
 
           {
             props.back || props.title 
             ?
             <View style={{
-              // height:555,
-              // flex:1,
               width:"100%",
               paddingTop:1,
-              // backgroundColor:'red',
               flexDirection:'row',
               alignItems:'center',
               justifyContent:"center",
               paddingTop:12,
               marginBottom:21,
               paddingHorizontal:5,
-              // position:'relative',
 
             }}>
 
@@ -76,10 +67,6 @@ export default function ScreenWrapper(props) {
               props.back 
               &&
               <View style={{
-                // position:"absolute",
-                // left:11,
-                // top:'50%',
-                // bottom:'50%',
                 zIndex:13,
                 alignItems:"center",
                 justifyContent:"center",
@@ -110,16 +97,10 @@ export default function ScreenWrapper(props) {
               &&
               <View style={{
                 
-                // position:"absolute",
-                // left:'50%',
-                // right:'50%',
-                // width:'100%',
-              // backgroundColor:'red',
                 flex:1,
                 zIndex:11,
                 paddingLeft:11,
                 alignItems: !props.back ? "center" : "flex-start",
-                // justifyContent:"center",
               }}>
                 <Text style={[styles.title, {color:styleColors.color}]}>{props.title}</Text>
               </View>  
@@ -146,7 +127,5 @@ const styles = StyleSheet.create({
     fontSize:21, 
     fontWeight:"400",
     textAlign:"center",
-    // textAlign:"left",
-
   },
 })

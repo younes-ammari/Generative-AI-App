@@ -1,20 +1,17 @@
-import { Dimensions, FlatList, Keyboard, ActivityIndicator, KeyboardAvoidingView, LogBox, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Pressable, Image, PermissionsAndroid } from 'react-native'
+import { Dimensions, FlatList, Keyboard, ActivityIndicator, LogBox, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Pressable, Image, PermissionsAndroid } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import ScreenWrapper from '../ScreenWrapper'
-import Message from '../components/Message'
-// import { Colors } from 'react-native/Libraries/NewAppScreen'
+
 import { useKeyboard } from '../hooks/useKeyboard'
-import TypeWriter from '../components/TypeWriter'
+
 import Modal from "react-native-modal";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import OcticonsIcon from 'react-native-vector-icons/Octicons';
 import Colors from '../constants/Colors'
 import Lottie from 'lottie-react-native';
 import { Configuration, OpenAIApi } from 'openai';
-// import config from '../config/openAI'
+
 import config from '../config/openAI';
-// import RNFetchBlob from 'react-native-fetch-blob'
-// Import RNFetchBlob for the file download
 import RNFetchBlob from 'rn-fetch-blob';
 import {useToast } from 'react-native-toast-notifications'
 import AppContext from '../hooks/useContext'
@@ -28,8 +25,6 @@ export default function ImageGen({navigation}) {
 
     const { mode, styleColors} = React.useContext(AppContext)
 
-    const REMOTE_IMAGE_PATH =
-    'https://raw.githubusercontent.com/AboutReact/sampleresource/master/gift.png'
 
 
 
@@ -494,10 +489,8 @@ export default function ImageGen({navigation}) {
 
         <ScrollView
           keyboardShouldPersistTaps='handled'
-        //   scrollEnabled={!kb.isVisible}
           ref={scrollViewRef}
           contentContainerStyle={{
-            // backgroundColor:'red',
             paddingBottom:55,
           }}
           >
@@ -516,7 +509,6 @@ export default function ImageGen({navigation}) {
                       numberOfLines={7} 
                       placeholder='Prompt' 
                       placeholderTextColor={styleColors.placeholderTextColor}
-                    //   placeholderTextColor={clr == Colors.lighter ? "rgba(200, 200, 200, .5)" : "rgba(100, 100, 100, .5)"}
                       style={{
                         // backgroundColor:'rgba(100, 100, 100, .041)',
                         backgroundColor:styleColors.placeholder,
@@ -552,8 +544,6 @@ export default function ImageGen({navigation}) {
                     flexDirection:'row',
                     alignItems:"center",
                     justifyContent:'flex-start',
-                    // flex:1,
-                    // backgroundColor:'red'
 
                 }}>
 
@@ -588,12 +578,8 @@ export default function ImageGen({navigation}) {
                     color:styleColors.color,
                     textAlign:"center",
                     fontWeight:"500",
-                    // justifyContent:"flex-start",
-                    // alignContent:'flex-start',
-                    // alignItems:'flex-start',
                     textAlignVertical:"center",
                     verticalAlign:"middle",
-                    // borderWidth:1,
                     borderColor:Colors.primary,
                     borderRadius:8,
                     marginVertical:5,
@@ -625,7 +611,6 @@ export default function ImageGen({navigation}) {
                 <View style={{
                     flexDirection:'row',
                     alignItems:"center",
-                    // justifyContent:'space-evenly',
                     justifyContent:"space-between",
                     marginBottom:5,
                 }}>
@@ -642,8 +627,6 @@ export default function ImageGen({navigation}) {
 
                 flexDirection:'row',
                 alignItems:"center",
-                // width:'100%',
-                // backgroundColor:"red",
                 marginHorizontal:14,
                 flexWrap:'wrap',
                 justifyContent:"space-between",
@@ -682,7 +665,6 @@ export default function ImageGen({navigation}) {
 
         <View style={{
             height: kb.isVisible ? kb.height*1 : 90,
-            // backgroundColor:'red',
         }} />
         
 

@@ -2,7 +2,7 @@ import { Pressable, StyleSheet, Text, useColorScheme, View } from 'react-native'
 import React, { useContext } from 'react'
 import ScreenWrapper from '../ScreenWrapper'
 import Colors from '../constants/Colors'
-import * as Vicon  from 'react-native-vector-icons'
+
 import Icon  from 'react-native-vector-icons/MaterialCommunityIcons'
 import MIcon from 'react-native-vector-icons/MaterialIcons'
 import AppContext from '../hooks/useContext'
