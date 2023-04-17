@@ -1,4 +1,4 @@
-import { Dimensions, SafeAreaView, KeyboardAvoidingView, StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native'
+import { Dimensions, SafeAreaView, StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native'
 import React, { useContext } from 'react'
 import Colors from './constants/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
