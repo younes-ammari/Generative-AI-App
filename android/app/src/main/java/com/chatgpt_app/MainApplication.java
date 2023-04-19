@@ -9,6 +9,8 @@ import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactNativeHost;
 import com.facebook.soloader.SoLoader;
 import java.util.List;
+
+// import com.wenkesj.voice.VoicePackage;
 // import com.RNFetchBlob.RNFetchBlobPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 
@@ -29,6 +31,8 @@ public class MainApplication extends Application implements ReactApplication {
           // packages.add(new MyReactNativePackage());
           // packages.add(new VectorIconsPackage());
           // new RNFetchBlobPackage()   
+          // new VoicePackage()
+          // packages.add(new VoicePackage());
           // packages.add(new RNFetchBlobPackage());
           return packages;
         }
@@ -64,4 +68,6 @@ public class MainApplication extends Application implements ReactApplication {
     }
     ReactNativeFlipper.initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
   }
+
+  
 }

@@ -1,6 +1,7 @@
 import { Dimensions, Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Colors from '../constants/Colors';
 import { TypingAnimation } from "react-native-typing-animation";
 
@@ -21,24 +22,33 @@ export default function Message({
         flexDirection:respond ? 'row-reverse' : 'row',
         alignItems:"flex-start",
         justifyContent:respond ? "flex-start" : "flex-end" ,
+        justifyContent:"flex-end",
         // width:Dimensions.get('window').width*.95,
-        marginHorizontal:5,
+        // marginHorizontal:88,
         alignSelf:"center",
         width:"100%",
-        paddingHorizontal:11,
-        marginBottom:5,
-        backgroundColor:respond ? null : 'rgba(100, 100, 100, .2)'
+        paddingHorizontal:25,
+        marginBottom:4,
+        // backgroundColor:respond ? null : 'rgba(100, 100, 100, .2)'
+        // backgroundColor:!respond ? null : 'rgba(100, 100, 100, .2)'
+        marginStart:27,
+        marginEnd:11,
     }]}>
-        <View style={{
-            flex:respond ? 1 : 1,
-            // width:"80%",
-        }}>
+
 
             <View style={[styles.message, {
                 // flexWrap:"wrap",
-                flex:1,
-                alignItems:respond ? "flex-start" : "flex-end",
-                // backgroundColor:respond ? 'rgba(240, 131, 43, .8)' : 'rgba(100, 100, 100, .2)' 
+                // flex:1,
+                borderRadius:0,
+                borderTopLeftRadius:respond ? 0 : 12,
+                borderTopRightRadius:!respond ? 0 : 12,
+                borderBottomRightRadius:12,
+                borderBottomLeftRadius:12,
+                // alignSelf:"flex-start",
+                // alignItems:respond ? "flex-start" : "flex-end",
+                // justifyContent:"flex-start",
+                backgroundColor:respond ? 'rgba(1, 51, 253, .15)' : 'rgba(100, 100, 100, .2)' ,
+                marginTop:5,
             }]}>
 
                 {
@@ -48,32 +58,34 @@ export default function Message({
                     :
                     <Text style={{
                         color:Colors.darker,
-                        opacity:!!respond ?  .6 : 1,
+                        // opacity:!!respond ?  .6 : 1,
                         }}>{text}</Text>
                 }
-            </View>
+            
         </View>
         <View style={[styles.sender, {
             // backgroundColor:respond ? null : Colors.primary,
             backgroundColor:respond ? null : "rgba(100, 100, 100, 1)",
             borderRadius:16,
+            // backgroundColor:'red'
         }]}>
             
             {
                 respond 
                 ?
-                <Image
-                style={[styles.sender, {
-                    // backgroundColor: 'white' ,
-                    // overlayColor:'red'
-                    // padding:15,
-                    opacity:respond ? 1 : .5,
-                    borderWidth:1.4,
-                    // borderColor:'black'
-                    borderColor:respond ? '#0b67f5' : '#FF5668'
-                }]}
-                source={respond ? images.chatGPT : images.person}
-                />
+                <MaterialCommunityIcons name='robot' color={Colors.primary} size={25} />
+                // <Image
+                // style={[styles.sender, {
+                //     // backgroundColor: 'white' ,
+                //     // overlayColor:'red'
+                //     // padding:15,
+                //     opacity:respond ? 1 : .5,
+                //     borderWidth:1.4,
+                //     // borderColor:'black'
+                //     borderColor:respond ? '#0b67f5' : '#FF5668'
+                // }]}
+                // source={respond ? images.chatGPT : images.person}
+                // />
                 :
                 // <Icon name="user" size={20} color="#0b67f5" />
                 // <Icon name="user-alt" allowFontScaling size={12} color="rgba(255, 255, 255, 1)" />

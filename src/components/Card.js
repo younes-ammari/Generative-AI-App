@@ -1,16 +1,22 @@
 import { Dimensions, Image, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import Colors from '../constants/Colors'
 import { Pressable } from 'react-native'
+import AppContext from '../hooks/useContext'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 export default function Card({
     title='title',
     subtitle='subtitle',
     color=Colors.lighter,
     backgroundColor=Colors.primary,
+    icon=<MaterialCommunityIcons name='robot' color={color} size={55} />,
+    flag,
     imageSource={uri:"https://www.primelawgroup.com/wp-content/uploads/2023/02/chatgpt-icon.png"},
     ...props
 }) {
+
+    const {styleColors} = useContext(AppContext)
 
     
   return (
@@ -19,8 +25,12 @@ export default function Card({
     style={({ pressed }) => [
         styles.container,
         {
-            backgroundColor:backgroundColor,
-            overflow:'hidden'
+            // backgroundColor:backgroundColor,
+            overflow:'hidden',
+            borderWidth:1.4,
+            borderRadius:12,
+            borderColor:'rgba(100, 100, 100, .4)'
+
         //   backgroundColor: pressed ? '#ff7043' : '#ff8a65',
         },
       ]}
@@ -64,19 +74,29 @@ export default function Card({
             // maxWidth:"15%",
             height:58,
             width:60,
-            backgroundColor:color,
+            // backgroundColor:color,
             alignItems:"center",
             justifyContent:"center",
             overflow:"hidden",
             borderRadius:12
         }}>
-            <Image 
+            {icon}
+            {flag && 
+            <View style={{
+                position:"absolute",
+                right:1,
+                top:2
+            }}>
+                {flag}
+            </View>
+            }
+            {/* <Image 
             source={imageSource}
             style={{
                 height:56,
                 width:56,
             }}
-            />
+            /> */}
 
         </View>
     </Pressable>
@@ -102,12 +122,11 @@ const styles = StyleSheet.create({
     },
     container:{
         width:'40%',
-        backgroundColor:'red',
         minHeight:88,
         borderRadius:8,
         paddingVertical:11,
         paddingHorizontal:12,
-        backgroundColor:Colors.primary,
+        // backgroundColor:Colors.primary,
         flexDirection:'row',
         alignItems:"center",
         justifyContent:"space-between",

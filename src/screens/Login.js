@@ -84,6 +84,25 @@ export default function Login({navigation}) {
                 fontSize:18
             }]}>Change Mode {mode}</Text>
         </Pressable>
+        <Pressable style={{
+            // paddingHorizontal:33,
+            marginVertical:15,
+            borderRadius:12,
+            
+            width:Dimensions.get('window').width*.5,
+            backgroundColor:Colors.primary
+        }}
+        onPress={()=>{
+            navigation.navigate('Voice');
+            
+        }}
+        >
+
+            <Text style={[styles.title,{
+                color:styleColors.lighter, 
+                fontSize:18
+            }]}>Voice</Text>
+        </Pressable>
       </View>
     </ScreenWrapper>
   )

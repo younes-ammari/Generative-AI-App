@@ -9,3 +9,4 @@ export {default as AuthScreen } from './AuthScreen'
 // Settings Screens
 export {default as Mode } from "./settingsScreens/Mode"
 export {default as About } from "./settingsScreens/About"
+export {default as Voice } from "./Voice"
