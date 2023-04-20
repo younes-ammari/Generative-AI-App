@@ -11,10 +11,12 @@ import {
 import Voice from '@react-native-community/voice';
 import ScreenWrapper from '../ScreenWrapper';
 import Colors from '../constants/Colors';
+import AnimatedRing from '../components/RecordingEffect';
 
 export default function VoiceScreen (){
   const [result, setResult] = useState('');
   const [isLoading, setLoading] = useState(false);
+  const [isRecording, setRecording] = useState(false);
 
 
 
@@ -77,6 +79,8 @@ export default function VoiceScreen (){
     <View style={styles.container}>
         <Text style={styles.headingText}>Voice to Text Recognition</Text>
         <View style={styles.textInputStyle}>
+
+        {isRecording && <AnimatedRing />}
 
           <Text style={{
             color:Colors.darker,

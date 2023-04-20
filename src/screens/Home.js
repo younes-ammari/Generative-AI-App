@@ -78,7 +78,8 @@ export default function Home({route, navigation}) {
                         fontWeight:"800",
                         // marginRight:15,
                     }}>Bot </Text>
-                    <MaterialCommunityIcons style={{marginHorizontal:5,}} name='robot' color={styleColors.color} size={29} />
+                    <Ionicons style={{marginHorizontal:5,}} name='md-ice-cream' color={styleColors.color} size={29} />
+                    {/* <MaterialCommunityIcons style={{marginHorizontal:5,}} name='robot' color={styleColors.color} size={29} /> */}
                     </View>
                     {/* <Logo size={55}/> */}
                 </View>
@@ -132,8 +133,8 @@ export default function Home({route, navigation}) {
                 backgroundColor={Colors.primary}
                 title='ChatGPT'
                 subtitle='live chat with GPT-4'
-                icon={<MaterialCommunityIcons name='robot-outline' color={Colors.primary} size={39} />}
-                flag={<Ionicons name='ios-chatbubble-ellipses-outline' color={Colors.primary} size={18} />}
+                icon={<MaterialCommunityIcons name='robot-outline' color={mode=="dark"  ? Colors.lighter : Colors.primary} size={39} />}
+                flag={<Ionicons name='ios-chatbubble-ellipses-outline' color={mode=="dark"  ? Colors.lighter : Colors.primary} size={18} />}
                 imageSource={images.chatGPT}
                 onPress={()=>navigation.navigate("Chat")}
                 />
@@ -142,8 +143,8 @@ export default function Home({route, navigation}) {
                 backgroundColor={Colors.green}
                 title='Generate Images'
                 subtitle='convert any prompt into a real image'
-                flag={<MaterialCommunityIcons name='creation' color={styleColors.color} size={16} />}
-                icon={<Octicons name='image' color={styleColors.color} size={29} />}
+                flag={<MaterialCommunityIcons name='creation' color={mode=="dark"  ? Colors.lighter : styleColors.color} size={16} />}
+                icon={<Octicons name='image' color={mode=="dark"  ? Colors.lighter : styleColors.color} size={29} />}
                 imageSource={images.ai}
                 onPress={()=>navigation.navigate("ImageGen")}
             />

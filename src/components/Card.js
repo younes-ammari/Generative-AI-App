@@ -10,13 +10,13 @@ export default function Card({
     subtitle='subtitle',
     color=Colors.lighter,
     backgroundColor=Colors.primary,
-    icon=<MaterialCommunityIcons name='robot' color={color} size={55} />,
+    icon=<MaterialCommunityIcons name='robot' color={mode=="dark"  ? Colors.light : color} size={55} />,
     flag,
     imageSource={uri:"https://www.primelawgroup.com/wp-content/uploads/2023/02/chatgpt-icon.png"},
     ...props
 }) {
 
-    const {styleColors} = useContext(AppContext)
+    const {styleColors, mode} = useContext(AppContext)
 
     
   return (
@@ -34,7 +34,7 @@ export default function Card({
         //   backgroundColor: pressed ? '#ff7043' : '#ff8a65',
         },
       ]}
-      android_ripple={{ color: 'rgba(20, 20, 20, .1)' }}
+      android_ripple={{ color: mode=="dark"  ? 'rgba(100, 100, 100, .21)' : 'rgba(20, 20, 20, .1)' }}
       {...props}
     
       >
@@ -48,7 +48,8 @@ export default function Card({
             position:'absolute',
             zIndex:-1,
             top:-22,
-            right:-55
+            right:-55,
+            opacity:mode=="dark" ? .02 : .1
         }}/>
         <View style={{
             height:177,
@@ -59,15 +60,16 @@ export default function Card({
             position:'absolute',
             zIndex:-1,
             top:-92,
-            right:-2
+            right:-2,
+            opacity:mode=="dark" ? .02 : .1
         }}/>
         <View style={{
             flex:1,
             // alignItems:"center",
             justifyContent:"space-around"
         }}>
-            <Text style={[styles.title, {color:color}]}>{title}</Text>
-            <Text style={[styles.subtitle, {color:color}]}>{subtitle}</Text>
+            <Text style={[styles.title, {color:mode=="dark"  ? Colors.lighter : color}]}>{title}</Text>
+            <Text style={[styles.subtitle, {color:mode=="dark"  ? Colors.lighter : color}]}>{subtitle}</Text>
                     
         </View>
         <View style={{

@@ -1,15 +1,18 @@
 import { Dimensions, FlatList, Keyboard, KeyboardAvoidingView, LogBox, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import ScreenWrapper from '../ScreenWrapper'
 import Message from '../components/Message'
 // import { Colors } from 'react-native/Libraries/NewAppScreen'
 import { useKeyboard } from '../hooks/useKeyboard'
 import TypeWriter from '../components/TypeWriter'
-import Icon from 'react-native-vector-icons/FontAwesome';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import Colors from '../constants/Colors'
 import { TypingAnimation } from "react-native-typing-animation";
 import { Configuration, OpenAIApi } from "openai"
 import config from '../config/openAI'
+import AppContext from '../hooks/useContext'
+import AnimatedRing from '../components/RecordingEffect'
 
 
 export default function Chat({navigation}) {
@@ -22,14 +25,21 @@ export default function Chat({navigation}) {
 
     const kb = useKeyboard();
     const scrollViewRef = useRef();
+    const inputRef = useRef();
     const scrollViewChatRef = useRef();
     const [message, setMessage]= useState('')
     const [isFocused, setIsFocused] = useState(false)
+    const [isRecording, setIsRecording] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [respond, setRespond]= useState('')
+
+
     
     const WH = Dimensions.get('window').height
-    const WW = Dimensions.get('window').width
+    const WW = Dimensions.get('window').width;
+
+
+    const {mode , styleColors} = useContext(AppContext)
 
     useEffect(() => {
         
@@ -40,6 +50,8 @@ export default function Chat({navigation}) {
 
     if (kb.isVisible){
     scrollViewRef.current.scrollToEnd({ animated: true })
+    // inputRef.current.placeholder = "55"
+    // console.log('placeholder', inputRef.current)
     }
 
     const demos = [
@@ -241,6 +253,12 @@ export default function Chat({navigation}) {
     // console.log('kb', kb)
 
 
+    const handleRecordEvent=()=>{
+
+
+    }
+
+
 
 
 
@@ -251,6 +269,8 @@ export default function Chat({navigation}) {
         <Text style={styles.title}>Chat</Text>
 
         </View> */}
+
+
 
         <ScrollView
           keyboardShouldPersistTaps='handled'
@@ -267,6 +287,8 @@ export default function Chat({navigation}) {
             // alignItems:"center",
             // justifyContent:"center",
         }}>
+
+            {isRecording && <AnimatedRing />}
             <View style={[styles.chatContainer, {
                 flex:1,
                 // maxHeight:WH*.78,
@@ -331,7 +353,7 @@ export default function Chat({navigation}) {
                     // height:51,
                     elevation: !kb.isVisible ?  9 : 0,
                     elevation:0,
-                    borderRadius: !kb.isVisible ?  16 : 0,
+                    borderRadius: !kb.isVisible ?  0 : 0,
                     zIndex:11,
                     marginHorizontal: !kb.isVisible ?  0 : 0,
                     // flex:1,
@@ -339,6 +361,7 @@ export default function Chat({navigation}) {
                     paddingHorizontal:15,
                     backgroundColor:"white",
                     // backgroundColor:'red',
+                    backgroundColor:styleColors.placeholder,
                     
                     // paddingBottom:keyboardOffset==0 ? 8 :115,
                     // marginBottom:15,
@@ -349,6 +372,7 @@ export default function Chat({navigation}) {
                     <TextInput 
                         pointerEvents={'none'}
                         multiline
+                        ref={inputRef}
                         // clearTextOnFocus
                         // onSubmitEditing={(text)=>setMessage(text)} 
                         // onBlur={() => Keyboard.dismiss()}
@@ -363,7 +387,7 @@ export default function Chat({navigation}) {
                             flex:1,
                             marginRight:8,
                             borderWidth:kb.isVisible ? 1 : 0,
-                            color:Colors.darker,
+                            color:styleColors.color,
                             borderColor:"rgba(100, 100, 100, .7)",
                             borderRadius:8,
                             paddingHorizontal:11,
@@ -371,14 +395,14 @@ export default function Chat({navigation}) {
                             zIndex:1,
                             
                         }}
-                        placeholder='write a message here ...'
+                        placeholder={kb.isVisible ? "write a message ..." : 'click here to start a conversation ...'}
                         value={message}
                         onChangeText={(text)=>setMessage(text)}
                         />
                     
                     
                     <TouchableOpacity style={{
-                        opacity:message.length<4?.7:1,
+                        opacity:.5,
                         paddingHorizontal:13,
                         borderRadius:8,
                         height:44,
@@ -387,6 +411,34 @@ export default function Chat({navigation}) {
                         // position:"absolute",
                         // right:8,
                         // bottom:8,
+                        borderRadius:44,
+                        paddingVertical:5,
+                        marginHorizontal:5,
+                        alignItems:"center",
+                        justifyContent:"center",
+                        // backgroundColor:'rgba(100, 100, 100, .5)',
+                        flexDirection:'row',
+                    }}
+                    // disabled={message.length<4}
+                    onPress={handleRecordEvent}
+                    >
+                        
+                        <Ionicons name="mic" size={17} color={styleColors.color} />
+                        {/* <Text style={{fontSize:16, color:"white", marginLeft:9}}>Send</Text> */}
+                    </TouchableOpacity>
+                    
+                    
+                    <TouchableOpacity style={{
+                        opacity:message.length<4 ? .2:1,
+                        paddingHorizontal:13,
+                        borderRadius:8,
+                        height:44,
+                        zIndex:2,
+                        display:!kb.isVisible ? "none" : "flex",
+                        // position:"absolute",
+                        // right:8,
+                        // bottom:8,
+                        borderRadius:44,
                         paddingVertical:5,
                         alignItems:"center",
                         justifyContent:"center",
@@ -397,8 +449,8 @@ export default function Chat({navigation}) {
                     onPress={handleSendEvent}
                     >
                         
-                        <Icon name="send" size={17} color={"#FFF"} />
-                        <Text style={{fontSize:16, color:"white", marginLeft:9}}>Send</Text>
+                        <FontAwesome name="send" size={17} color={"#FFF"} />
+                        {/* <Text style={{fontSize:16, color:"white", marginLeft:9}}>Send</Text> */}
                     </TouchableOpacity>
 
             
