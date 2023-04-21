@@ -5,19 +5,23 @@ import Colors from '../../constants/Colors'
 
 import Octicons from 'react-native-vector-icons/Octicons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import AppContext from '../../hooks/useContext'
 
 export default function Mode({navigation}) {
 
     const {
-        mode, 
+        displayMode, 
         setMode,
-        // styleColors,
+        styleColors,
         appData,
         setAppDataHandler,
       } = useContext(AppContext)
+
+
+    const deviceMode = useColorScheme()
     
-    const styleColors = Colors[mode=="auto" ? useColorScheme() : mode]
+    // const styleColors = Colors[displayMode=="auto" ? deviceMode : displayMode]
     
     
 
@@ -27,9 +31,9 @@ export default function Mode({navigation}) {
 
         return(
             <TouchableOpacity onPress={()=>{
-                setMode(title.toLowerCase())
-                setAppDataHandler(appData)
-            }} activeOpacity={mode==title.toLowerCase() ? 1 :.7} style={[styles.flex, styles.center, styles.sb, {
+                // setMode(title.toLowerCase())
+                setAppDataHandler(appData, title.toLowerCase())
+            }} activeOpacity={displayMode==title.toLowerCase() ? 1 :.7} style={[styles.flex, styles.center, styles.sb, {
                 borderBottomWidth:1,
                 borderBottomColor:"rgba(131, 131, 131, .1)",
                 marginBottom:5,
@@ -45,11 +49,11 @@ export default function Mode({navigation}) {
                     fontSize:17,
                     marginHorizontal:11,
                     fontWeight:'300',
-                }, mode==title.toLowerCase() && {fontWeight:'600'}]}>{title}</Text>
+                }, displayMode==title.toLowerCase() && {fontWeight:'600'}]}>{title}</Text>
 
                 </View>
                 {
-                    mode==title.toLowerCase()
+                    displayMode==title.toLowerCase()
                     ?
                     <Octicons name='check-circle' color={styleColors.color} size={16} style={{opacity:1}}/>
                     :
@@ -66,6 +70,7 @@ export default function Mode({navigation}) {
             {/* <Text style={styles.title}>Mode</Text> */}
                 <View>
                     {/* <Element title="Auto"/> */}
+                    <Element title="Auto" icon={<MaterialCommunityIcons name='theme-light-dark' color={styleColors.color} size={16} style={styles.icon}/>}/>
                     <Element title="Dark" icon={<Ionicons name='moon' color={styleColors.color} size={16} style={styles.icon}/>}/>
                     <Element title="Light" icon={<Octicons name='sun' color={styleColors.color} size={16} style={styles.icon}/>}/>
                     

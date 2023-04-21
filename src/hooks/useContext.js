@@ -11,19 +11,18 @@ export const AppContextProvider = (props)=> {
     // const route = useRoute();
     // const navigation = useNavigation();
     // setActiveScreen(route.name);
-
     
-    // const [mode, setAppMode] = useState('auto')
-    // var mode="auto"
+    const deviceMode = useColorScheme()
+    
+    
+    
 
-    // const setMode=async(m)=>{
-    //     // mode = m
-    //     setAppMode(m)
-    // }
-    const [mode, setMode] = useState('dark')
+
+
+    const [displayMode, setMode] = useState("auto");
 
     const [appData, setAppData] = useState({
-        mode:mode,
+        mode:displayMode,
         user:{
             name:'',
         }
@@ -32,11 +31,18 @@ export const AppContextProvider = (props)=> {
 
     const [demo, setDemo] = useState(1)
 
-    const setAppDataHandler=(appData)=>{
-        setAppData(appData)
+    const setAppDataHandler=(
+        data=appData, 
+        m=displayMode
+    )=>{
+        let past = data
+        past.mode = m
+        // console.log('m', m)
+        setAppData(past)
+        setMode(m)
         storage.save({
             key: 'appData', // Note: Do not use underscore("_") in key!
-            data: appData,
+            data: past,
             // data: {data:"demp"},
             // userData: json.data, // Note: Do not use underscore("_") in key!
         
@@ -55,20 +61,18 @@ export const AppContextProvider = (props)=> {
         .load({
             key: 'appData'
         })
-        .then(result => {
+        .then(ret => {
             // found data goes to then()
-            console.log("(UserContext) => appData", result);
-            setAppData(result)
-            setMode(result.mode)
+            console.log("(UserContext) => appData", ret, ret.mode);
+            ret.mode && setAppDataHandler(ret)
+            ret.mode && setMode(ret.mode)
             
+          })
+          .catch(err => {
+            setAppDataHandler({})
+            setMode("auto")
             
-            
-        })
-        .catch(err => {
-            setAppData({})
-            // any exception including data not found
-            // goes to catch()
-            // console.warn("(UserContext) => ", err.message);
+
             switch (err.name) {
             case 'NotFoundError':
                 // TODO;
@@ -101,39 +105,51 @@ export const AppContextProvider = (props)=> {
     //     //     setConnectionState(state);
     //     //   }
     //     })};
-    // console.warn('outside useeffect')    
-    useEffect(()=>{
-        // setMode('auto')
-        
-        // console.log('inside useeffect',"UUID",  UUID ? true : false)    
-        // checkInternetConnection()
-        // loadAppDataHandler()
-        
-        
-        // loadAsyncData()
-       
-        // dd()
-        
+    // console.warn('outside useeffect')  
     
+    const loadAsyncData=async()=>{
+        storage
+        .load({
+            key: 'appData'
+        })
+        .then(ret => {
+            // found data goes to then()
+            console.log("(UserContext) => appData", ret, ret.mode);
+            ret.mode && setAppDataHandler(ret, ret.mode)
+            
+          })
+          .catch(err => {
+            setAppDataHandler({}, "auto")
+            // setMode("auto")
+            
+
+            switch (err.name) {
+            case 'NotFoundError':
+                // TODO;
+                break;
+            case 'ExpiredError':
+                // TODO
+                break;
+            }
+        });
+    };
+
+    useEffect(()=>{  
+        // loadAsyncData()
 
     },[]);
 
 
-    // if (appData.mode=='auto'){
-    //     setMode(useColorScheme())
-    // } else {
-    //     setMode(appData.mode)
-    // }
-
     const data = {
         setMode,
-        mode, 
+        setAppData,
+        displayMode, 
         appData,
         demo,
         setDemo,
         setAppDataHandler,
         loadAppDataHandler,
-        styleColors:Colors[mode=="auto" ? useColorScheme() : mode]
+        styleColors:Colors[displayMode=="auto" ? deviceMode : displayMode]
     }
     
 

@@ -9,19 +9,33 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 export default function ScreenWrapper(props) {
   
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
 
-    
+  
   const {
-    mode, 
+    displayMode, 
+    loadAppDataHandler,
     setMode,
     styleColors,
     appData,
   } = useContext(AppContext)
 
-  // const styleColors = Colors[mode=="auto" ? useColorScheme() : mode]
+  
+  React.useEffect(()=>{
+    // loadAppDataHandler();
+    
+  }, [])
+  
+  
+  const deviceMode = useColorScheme()
+    
+  // const styleColors = Colors[displayMode=="auto" ? deviceMode : displayMode]
+  
+  
 
+  // const styleColors = Colors[useColorScheme()]
+  // var styleColors = Colors["dark"]
   const backgroundStyle = {
     
     backgroundColor: styleColors.backgroundColor,

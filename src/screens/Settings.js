@@ -10,7 +10,7 @@ import AppContext from '../hooks/useContext'
 export default function Settings({navigation}) {
       
   const {
-    mode, 
+    displayMode, 
     setMode,
     styleColors,
     appData,
@@ -18,7 +18,12 @@ export default function Settings({navigation}) {
     
   } = useContext(AppContext)
 
-  // const styleColors = Colors[mode=="auto" ? useColorScheme() : mode]
+
+  const deviceMode = useColorScheme()
+    
+  // const styleColors = Colors[displayMode=="auto" ? deviceMode : displayMode]
+  
+  
 
 
   const logoutHandler=()=>{
@@ -26,7 +31,7 @@ export default function Settings({navigation}) {
       user:{
         name:''
       },
-      mode:mode})
+      mode:displayMode})
     navigation.navigate('Login')
 
   }

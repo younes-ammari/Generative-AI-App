@@ -18,6 +18,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { ToastProvider } from 'react-native-toast-notifications'
 import { AppContextProvider } from "./src/hooks/useContext";
+import 'react-native-gesture-handler'
+
 
 const requestCameraPermission = async () => {
   try {

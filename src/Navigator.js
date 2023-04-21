@@ -1,6 +1,6 @@
 import { StyleSheet, Text, useColorScheme, View } from 'react-native'
 import React, { useContext } from 'react'
-import {About, AuthScreen, Chat, Home, ImageGen, Login, Mode, Pay, Settings, Voice} from './screens/Index'
+import {About, AuthScreen, Chat, Home, ImageGen, Login, Mode, Pay, Rec, Settings, Voice} from './screens/Index'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -16,14 +16,17 @@ const Tab = createBottomTabNavigator();
 const TabNav=({route, navigation})=>{
   
   const {
-    mode, 
+    displayMode, 
     setMode,
-    // styleColors,
+    styleColors,
     appData,
   } = useContext(AppContext)
 
-  const styleColors = Colors[mode=="auto" ? useColorScheme() : mode]
-
+  const deviceMode = useColorScheme()
+    
+  // const styleColors = Colors[displayMode=="auto" ? deviceMode : displayMode]
+  
+  
 
   
   // const {appDatas, ...otherparams} = route.params
@@ -152,10 +155,11 @@ export default function Navigator() {
       }}
     >
       <Stack.Screen name="AuthScreen" component={AuthScreen} />
-      <Stack.Screen name="Voice" component={Voice} />
       <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="TabNav" component={TabNav} />
       <Stack.Screen name="Mode" component={Mode} />
+      <Stack.Screen name="Voice" component={Voice} />
+      <Stack.Screen name="Rec" component={Rec} />
+      <Stack.Screen name="TabNav" component={TabNav} />
       <Stack.Screen name="About" component={About} />
         <Tab.Screen name="Chat" component={Chat} options={{
           transitionSpec: {

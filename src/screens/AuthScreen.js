@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, useColorScheme, View } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import ScreenWrapper from '../ScreenWrapper'
 import Colors from '../constants/Colors'
@@ -10,69 +10,121 @@ import AppContext from '../hooks/useContext'
 export default function AuthScreen({navigation}) {
 
     const [loading, setLoading] = useState(true)
+    const [loadingAsync, setLoadingAsync] = useState(false)
+    const [asyncData, setAsyncData] = useState({})
     
     const {
         appData,
-        mode,
+        setAppData,
+        displayMode,
+        setMode,
         loadAppDataHandler,
         setAppDataHandler,
         styleColors,
     } = useContext(AppContext)
 
-        
+    // var styleColors = Colors[useColorScheme()]
+
+    const deviceMode = useColorScheme()
+    
+    // const styleColors = Colors[displayMode=="auto" ? deviceMode : displayMode]
+    
+    
+ 
     const loadAsyncData=async()=>{
         setLoading(true)
+        setLoadingAsync(true)
+
         storage
         .load({
             key: 'appData'
         })
         .then(ret => {
             // found data goes to then()
-            console.log("(UserContext) => appData", ret);
-            setAppData(ret)
-            navigation.navigate('TabNav', {appData: appData})
+            console.log("(AuthScreen) => appData", ret, ret.mode);
+            setAsyncData(ret)
+            
+              // console.log(asyncData.mode)
+            ret.mode && setMode(ret.mode)
+            setTimeout(() => {
+              
+              if (ret.user.name.length>2){
+                setAppData(ret)
+                navigation.navigate('TabNav', {appData: appData})
+                
+              } else {
+                navigation.navigate('Login')
+                
+              }
+            }, 1000);
+              
             
             
+            // console.warn("(AuthScreen) => ", err.message);
+            
+          })
+          .catch(err => {
+            // // setAsyncData({})
+            // setAppData({})
+            // setMode('auto')
+            setAppData(appData)
+            setMode('auto')
+            setTimeout(() => {
+              
+              navigation.navigate('Login')
+            }, 1000);
+            
+            // console.warn("(AuthScreen) => ", err.message);
         })
-        .catch(err => {
-            setAppData({})
-            navigation.navigate('Login')
-            // navigation.navigate('TabNav', {appData: appData})
-            // any exception including data not found
-            // goes to catch()
-            // console.warn("(UserContext) => ", err.message);
-            switch (err.name) {
-            case 'NotFoundError':
-                // TODO;
-                break;
-            case 'ExpiredError':
-                // TODO
-                break;
-            }
+        .finally(()=>{
+          setLoadingAsync(false)
+          // setTimeout(() => {
+            
+            
+            // try{
+            //   // console.log(asyncData.mode)
+            //   asyncData.mode && setMode(asyncData.mode)
+            //   if (asyncData.user.name.length>2){
+            //     setAppData(asyncData)
+            //     navigation.navigate('TabNav', {appData: appData})
+
+            //   } else {
+            //     navigation.navigate('Login')
+
+            //   }
+              
+            // }
+            // catch (err){
+            //   setAppData(appData)
+            //   setMode('auto')
+            //   navigation.navigate('Login')
+              
+            //   // console.warn("(AuthScreen) => ", err.message);
+
+            // }
+          // }, 2000);
+          
         });
-        // setLoading(false)
-    }
+        
+    };
 
 
     useEffect(()=>{
 
-        // loadAsyncData()
-        loadAppDataHandler()
-        setTimeout(() => {
-            // setAppDataHandler({
-            //     mode:mode,
-            //     user:{
-            //         name:'Mabrouk',
-            //     }
-            // })
-            
-            appData.user.name.length>2 ? navigation.navigate("TabNav") : navigation.navigate('Login')
-        }, 1000);
-    }, [loading])
+        loadAsyncData()
+        
+    }, [])
 
 
 
 
+  if (loadingAsync) {
+    
+    console.log('loadingAsync')
+    
+    return(
+      <></>
+      )}
   
     
   return (
@@ -80,7 +132,7 @@ export default function AuthScreen({navigation}) {
         
       <View 
         style={{
-        //   flex:1,
+          flex:1,
           backgroundColor:styleColors.backgroundColor,
           justifyContent:'center',
           alignItems:'center'

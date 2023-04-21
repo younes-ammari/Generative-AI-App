@@ -1,4 +1,4 @@
-import { Dimensions, Image, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, Image, StyleSheet, Text, View, useColorScheme } from 'react-native'
 import React, { useContext } from 'react'
 import Colors from '../constants/Colors'
 import { Pressable } from 'react-native'
@@ -10,13 +10,22 @@ export default function Card({
     subtitle='subtitle',
     color=Colors.lighter,
     backgroundColor=Colors.primary,
-    icon=<MaterialCommunityIcons name='robot' color={mode=="dark"  ? Colors.light : color} size={55} />,
+    icon=<MaterialCommunityIcons name='robot' color={Colors.light} size={55} />,
     flag,
     imageSource={uri:"https://www.primelawgroup.com/wp-content/uploads/2023/02/chatgpt-icon.png"},
     ...props
 }) {
 
-    const {styleColors, mode} = useContext(AppContext)
+    const deviceMode = useColorScheme()
+
+    const {styleColors, displayMode} = useContext(AppContext)
+
+
+    const mode = displayMode=="auto" ? deviceMode : displayMode
+
+
+
+    
 
     
   return (

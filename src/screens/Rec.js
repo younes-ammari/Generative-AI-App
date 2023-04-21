@@ -23,50 +23,11 @@ import Animated, {
 } from "react-native-reanimated";
 
 
-// import AnimatedRing from '../components/RecordingEffect';
-
-const Ring = ({ delay }) => {
-  const ring = useSharedValue(0);
-
-  const {mode} = React.useContext(AppContext)
-
-  const ringStyle = useAnimatedStyle(() => {
-    return {
-      opacity: 0.8 - ring.value,
-      transform: [
-        {
-          scale: interpolate(ring.value, [0, 1], [0, 4]),
-        },
-      ],
-    };
-  });
-  useEffect(() => {
-    ring.value = withDelay(
-      delay,
-      withRepeat(
-        withTiming(1, {
-          duration: 4000,
-        }),
-        -1,
-        false
-      )
-    );
-  }, []);
-  // return <Animated.View style={[styles.ring,{borderColor:mode=="dark" ? Colors.lighter : 'tomato'}, ringStyle]} />;
-  return <Animated.View style={[styles.ring, ringStyle]} />;
-};
-
-export default function VoiceScreen (){
+export default function Rec (){
   const [result, setResult] = useState('');
   const [isLoading, setLoading] = useState(false);
   const [isRecording, setRecording] = useState(false);
 
-  const voiceVolumeMeter = useSharedValue(0);
-  const voiceVolumeMeterStyles = useAnimatedStyle(() => {
-      return {
-      borderWidth: voiceVolumeMeter.value,
-      };
-  });
 
 
 
@@ -74,12 +35,6 @@ export default function VoiceScreen (){
 
   const speechStartHandler = e => {
     
-
-  voiceVolumeMeter.value = withSpring(55 + e.currentMetering, {
-    stiffness: 90,
-    velocity: 12,
-    mass: 0.5,
-  });
     console.log('speechStart successful', e);
   };
   const speechEndHandler = e => {
@@ -139,12 +94,8 @@ export default function VoiceScreen (){
         <Text style={styles.headingText}>Voice to Text Recognition</Text>
         <View style={styles.textInputStyle}>
 
-        <Animated.View style={[styles.volumeMeterContainer, voiceVolumeMeterStyles]}>
-          <View style={styles.recorderCircle}>
-            <Text style={styles.audioRecorderTimer}>{recorderState.duration}</Text>
-          </View>
-        </Animated.View>
-
+        
+{/* 
         {isRecording && (
           <>
           <Ring delay={0} />
@@ -152,22 +103,13 @@ export default function VoiceScreen (){
           <Ring delay={100} />
           <Ring delay={1000} />
           </>
-        )}
+        )} */}
         {/* {isRecording && <AnimatedRing />} */}
 
           <Text style={{
             color:Colors.darker,
           }}>{result ? result : "say something!"}</Text>
-          {/* <TextInput
-            value={result}
-            multiline={true}
-            placeholder="say something!"
-            style={{
-              flex: 1,
-              height: '100%',
-            }}
-            onChangeText={text => setResult(text)}
-          /> */}
+          
         </View>
 
         <View style={styles.btnContainer}>

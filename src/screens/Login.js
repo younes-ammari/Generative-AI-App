@@ -10,17 +10,24 @@ import { useColorScheme } from 'react-native'
 
 export default function Login({navigation}) {
 
+  const deviceMode = useColorScheme()
+
     const {
         setMode,
-        mode, 
+        displayMode, 
         setAppDataHandler,
         styleColors,
         appData,
     } = useContext(AppContext)
+    
+    
+    // const styleColors = Colors[displayMode=="auto" ? deviceMode : displayMode]
+    
+    
 
-    // const styleColors = Colors[mode=="auto" ? useColorScheme() : mode]
+
     // const styleColors = Colors["light"]
-    console.log('Login -> appData:', appData)
+    // console.log('Login -> appData:', appData)
 
   
     
@@ -45,11 +52,11 @@ export default function Login({navigation}) {
         }}
         onPress={()=>{
             setAppDataHandler({
-                mode:mode,
+                mode:displayMode,
                 user:{
                     name:'Mabrouk',
                 }
-            })
+            }, displayMode)
             navigation.navigate('TabNav', {appDatas: {appDatas:appData}});
             setTimeout(() => {
                 
@@ -73,7 +80,33 @@ export default function Login({navigation}) {
             backgroundColor:Colors.primary
         }}
         onPress={()=>{
-            setMode(mode == 'light' ? 'dark' : 'light')
+          let changeMode
+
+          // console.log('mode', mode)
+          switch (displayMode) {
+            case "auto":
+              changeMode = deviceMode== 'light' ? 'dark' : 'light'
+              break
+            case "dark":
+              changeMode = 'light'
+              break
+            case "light":
+              changeMode = 'dark'              
+              break
+          }
+
+          // console.info('mode', displayMode, "changeMode", changeMode)
+
+          // console.log('changeMode', changeMode, "deviceMode", deviceMode)
+
+            // setMode(changeMode)
+            // console.warn(setMode)
+            var dd = appData
+            dd['mode'] = changeMode
+            // console.log('dd', dd)
+            navigation.navigate("Mode")
+            // setAppDataHandler()
+            // setAppDataHandler(dd, changeMode)
             // setMode('light')
             
         }}
@@ -82,9 +115,9 @@ export default function Login({navigation}) {
             <Text style={[styles.title,{
                 color:styleColors.lighter, 
                 fontSize:18
-            }]}>Change Mode {mode}</Text>
+            }]}>Change Mode {displayMode}</Text>
         </Pressable>
-        <Pressable style={{
+        {/* <Pressable style={{
             // paddingHorizontal:33,
             marginVertical:15,
             borderRadius:12,
@@ -103,6 +136,25 @@ export default function Login({navigation}) {
                 fontSize:18
             }]}>Voice</Text>
         </Pressable>
+        <Pressable style={{
+            // paddingHorizontal:33,
+            marginVertical:15,
+            borderRadius:12,
+            
+            width:Dimensions.get('window').width*.5,
+            backgroundColor:Colors.primary
+        }}
+        onPress={()=>{
+            navigation.navigate('Rec');
+            
+        }}
+        >
+
+            <Text style={[styles.title,{
+                color:styleColors.lighter, 
+                fontSize:18
+            }]}>Rec</Text>
+        </Pressable> */}
       </View>
     </ScreenWrapper>
   )

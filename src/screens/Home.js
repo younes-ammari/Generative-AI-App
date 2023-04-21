@@ -11,13 +11,21 @@ import Octicons from 'react-native-vector-icons/Octicons'
 export default function Home({route, navigation}) {
 
     const {
-        mode, 
+        displayMode, 
         setMode,
-        // styleColors,
+        styleColors,
         appData,
     } = useContext(AppContext)
 
-    const styleColors = Colors[mode=="auto" ? useColorScheme() : mode]
+    const deviceMode = useColorScheme()
+
+
+    const mode = displayMode=="auto" ? deviceMode : displayMode
+
+
+
+
+    // const styleColors = Colors[mode]
 
     // console.log('appData', appData)
     useEffect(()=>{

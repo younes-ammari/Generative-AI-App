@@ -12,7 +12,8 @@ import { TypingAnimation } from "react-native-typing-animation";
 import { Configuration, OpenAIApi } from "openai"
 import config from '../config/openAI'
 import AppContext from '../hooks/useContext'
-import AnimatedRing from '../components/RecordingEffect'
+// import AnimatedRing from '../components/RecordingEffect'
+import Voice from '@react-native-community/voice';
 
 
 export default function Chat({navigation}) {
@@ -41,9 +42,68 @@ export default function Chat({navigation}) {
 
     const {mode , styleColors} = useContext(AppContext)
 
+    
+  const [result, setResult] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [recording, setRecording] = useState(false);
+
+    
+  const speechStartHandler = e => {
+    
+    console.log('speechStart successful', e);
+  };
+  const speechEndHandler = e => {
+    setLoading(false);
+    setIsRecording(false)
+    console.log('stop handler', e);
+  };
+
+  const speechResultsHandler = e => {
+    const text = e.value[0];
+    setResult(text);
+    let newMessage = message + " " + text + " "
+    setMessage(newMessage)
+    console.log('result', text)
+    console.log('newMessage', newMessage)
+  };
+
+  const startRecording = async () => {
+    setLoading(true);
+    setRecording(true);
+    try {
+      await Voice.start('en-Us');
+    } catch (error) {
+      console.log('error', error);
+      setLoading(false);
+    }
+  };
+
+  const stopRecording = async () => {
+    setRecording(false);
+    try {
+      await Voice.stop();
+      setLoading(false);
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
+  const clear = () => {
+    setResult('');
+    setMessage('')
+  };
+
+
     useEffect(() => {
         
         LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+        Voice.onSpeechStart = speechStartHandler;
+        Voice.onSpeechEnd = speechEndHandler;
+        Voice.onSpeechResults = speechResultsHandler;
+
+        return () => {
+        Voice.destroy().then(Voice.removeAllListeners);
+        };
     }, []);
 
 
@@ -251,9 +311,25 @@ export default function Chat({navigation}) {
         }
     }
     // console.log('kb', kb)
+    
+  console.info('message', message)
 
 
     const handleRecordEvent=()=>{
+        var rec = !isRecording
+        setIsRecording(!isRecording)
+        if (rec){
+            console.log('start recording ...')
+            startRecording()
+            
+        }
+        else{
+            console.log('end recording ...')
+            stopRecording()
+        }
+        setTimeout(() => {
+            // setIsRecording(false)
+        }, 2000);
 
 
     }
@@ -270,6 +346,8 @@ export default function Chat({navigation}) {
 
         </View> */}
 
+        
+
 
 
         <ScrollView
@@ -277,6 +355,7 @@ export default function Chat({navigation}) {
         //   scrollEnabled={!kb.isVisible}
           ref={scrollViewRef}
           >
+            
         <View style={{
             flex:1,
             // backgroundColor:"red",
@@ -288,7 +367,10 @@ export default function Chat({navigation}) {
             // justifyContent:"center",
         }}>
 
-            {isRecording && <AnimatedRing />}
+            
+
+            {/* {isRecording && <AnimatedRing />} */}
+            
             <View style={[styles.chatContainer, {
                 flex:1,
                 // maxHeight:WH*.78,
@@ -297,6 +379,8 @@ export default function Chat({navigation}) {
                 // backgroundColor:'red',
                 // height:Dimensions.get('window').height*.85
                 }]}>
+
+                    
                     
 
                     <FlatList 
@@ -332,6 +416,38 @@ export default function Chat({navigation}) {
                         }}
                     />
                 
+
+                {   isRecording
+                &&
+                <View style={{
+                    width:"100%",
+                    backgroundColor:'red',
+                    paddingVertical:18,
+                    opacity:.8,
+                    // position:"absolute",
+                    justifyContent:"center",
+                    alignItems:"center",
+                    // top:"50%",
+                    // bottom:"50%",
+                    // bottom:"50%",
+                    zIndex:5,
+                    paddingBottom:33,
+                }}>
+
+                {/* <Text style={{
+                    color:Colors.lighter,
+                    zIndex:21,
+                    fontSize:21,
+                    textAlign:"center",
+                }}>recording ...</Text> */}
+                {/* dotAmplitude, dotSpeed, dotY */}
+
+                <TypingAnimation 
+                    dotMargin={9}
+                    dotColor={Colors.lighter}
+                    
+                    />
+                </View>}
             </View>
 
             
@@ -369,37 +485,57 @@ export default function Chat({navigation}) {
                     position : kb.isVisible ? "relative" : "absolute" ,
                     bottom : kb.isVisible ? kb.height*1.12 : 30,
                     }]}>
-                    <TextInput 
-                        pointerEvents={'none'}
-                        multiline
-                        ref={inputRef}
-                        // clearTextOnFocus
-                        // onSubmitEditing={(text)=>setMessage(text)} 
-                        // onBlur={() => Keyboard.dismiss()}
-                        onBlur={() => setIsFocused(false)}
-                        onFocus={() => setIsFocused(true)}
-                        // onFocus={() => Keyboard.dismiss()}
-                        // keyboardType='visible-password'
-                        
-                        placeholderTextColor={'rgba(100, 100, 100, .5)'}
-                        style={{
-                            flexWrap:"wrap",
-                            flex:1,
-                            marginRight:8,
-                            borderWidth:kb.isVisible ? 1 : 0,
-                            color:styleColors.color,
-                            borderColor:"rgba(100, 100, 100, .7)",
-                            borderRadius:8,
-                            paddingHorizontal:11,
-                            paddingVertical:7,
-                            zIndex:1,
-                            
-                        }}
-                        placeholder={kb.isVisible ? "write a message ..." : 'click here to start a conversation ...'}
-                        value={message}
-                        onChangeText={(text)=>setMessage(text)}
-                        />
-                    
+                        <View style={{flex:1}}>
+                            <TextInput 
+                                pointerEvents={'none'}
+                                multiline
+                                ref={inputRef}
+                                // clearTextOnFocus
+                                // onSubmitEditing={(text)=>setMessage(text)} 
+                                // onBlur={() => Keyboard.dismiss()}
+                                onBlur={() => setIsFocused(false)}
+                                onFocus={() => setIsFocused(true)}
+                                // onFocus={() => Keyboard.dismiss()}
+                                // keyboardType='visible-password'
+                                
+                                placeholderTextColor={'rgba(100, 100, 100, .5)'}
+                                style={{
+                                    flexWrap:"wrap",
+                                    flex:1,
+                                    marginRight:8,
+                                    borderWidth:kb.isVisible ? 1 : 0,
+                                    color:styleColors.color,
+                                    borderColor:"rgba(100, 100, 100, .7)",
+                                    borderRadius:8,
+                                    paddingHorizontal:11,
+                                    paddingVertical:7,
+                                    zIndex:1,
+                                    
+                                }}
+                                placeholder={isRecording ? "start talking ..." : kb.isVisible ? "write a message ..." : 'click here to start a conversation ...'}
+                                value={message}
+                                onChangeText={(text)=>setMessage(text)}
+                                />
+
+                            {message.length>4 && <TouchableOpacity style={{
+                                position:"absolute",
+                                right:15,
+                                top:10,
+                                bottom:10,
+                                zIndex:11,
+                                backgroundColor:styleColors.color,
+                                justifyContent:"center",
+                                alignItems:"center",
+                                borderRadius:22,
+                                height:18,
+                                width:18,
+                            }}
+                            onPress={clear}
+                            >
+
+                            <Ionicons name="close" size={11} color={styleColors.backgroundColor} />
+                            </TouchableOpacity>}
+                        </View>
                     
                     <TouchableOpacity style={{
                         opacity:.5,
@@ -416,14 +552,14 @@ export default function Chat({navigation}) {
                         marginHorizontal:5,
                         alignItems:"center",
                         justifyContent:"center",
-                        // backgroundColor:'rgba(100, 100, 100, .5)',
+                        backgroundColor:isRecording ? 'rgba(250, 100, 100, .2)' : 'rgba(100, 100, 100, .2)',
                         flexDirection:'row',
                     }}
                     // disabled={message.length<4}
                     onPress={handleRecordEvent}
                     >
                         
-                        <Ionicons name="mic" size={17} color={styleColors.color} />
+                        <Ionicons name="mic" size={17} color={isRecording ? 'red' : styleColors.color} />
                         {/* <Text style={{fontSize:16, color:"white", marginLeft:9}}>Send</Text> */}
                     </TouchableOpacity>
                     
