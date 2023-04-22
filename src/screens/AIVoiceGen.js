@@ -25,10 +25,13 @@ import Voice from '@react-native-community/voice';
 
 import {Picker} from '@react-native-picker/picker';
 
+import Sound from 'react-native-sound'
 
 
 export default function AIVoiceGen({navigation}) {
     // let dirs = RNFetchBlob.fs.dirs
+    
+    var API_URL = "https://play.ht/api/v2"
     
     const toast = useToast();
 
@@ -207,37 +210,6 @@ export default function AIVoiceGen({navigation}) {
     scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
     }
 
-    const handleGenerating=async()=>{
-        Keyboard.dismiss()
-
-        // setPrompt('')
-        setIsLoading(true)
-        try {
-            
-            const configuration = new Configuration({
-                organization: config.organization,
-                apiKey: config.OPENAI_API_KEY,
-
-                });
-            const openai = new OpenAIApi(configuration);
-
-            const response = await openai.createImage({
-                prompt: prompt,
-                n: number,
-                size: size,
-            })
-            
-            var resp = response.data.data
-            setRespond(resp)
-            console.log(resp)
-        }
-        catch (error){
-            console.error("error", error)
-        }
-        setIsLoading(false)
-        // setTimeout(() => {
-        // }, 800);
-    }
     // console.log('kb', kb)
 
     const dataDemo=[
@@ -787,10 +759,10 @@ export default function AIVoiceGen({navigation}) {
 
 
     };
+    
 
     const fetchData=async()=>{
         setFetchingData(true)
-        var API_URL = "https://play.ht/api/v2"
         var url = `${API_URL}/voices`
 
         var myHeaders = new Headers();
@@ -815,20 +787,6 @@ export default function AIVoiceGen({navigation}) {
 
             // let initOptions = data[0]
             // setGender(title);
-            console.log(initOptions)
-                
-
-            // setLanguages(getUniques(data.map(el=>el.language)))
-            // setLanguage(initOptions.language)
-
-            // setAges(getUniques(data.filter(el=>el.language==language && el.gender == title.toLowerCase()).map(el=>el.age)))
-            // setAge(initOptions.age)
-            
-            // setVoices(getUniques(data.filter(el=>el.language==language && el.age==age && el.gender == title.toLowerCase()).map(el=> {return({name: el.name, id:el.id})})))
-            // setVoice(initOptions)
-            // setLoudnesses(getUniques(data.filter(el=>el.language==language && el.age==age && el.gender == title.toLowerCase()).map(el=> el.loudness)))
-            // setLoudness(initOptions.loudness)
-            
 
             setLanguages(getUniques(result.map(el=>el.language)))
             setLanguage(initOptions.language)
@@ -840,9 +798,7 @@ export default function AIVoiceGen({navigation}) {
             setVoice(initOptions)
             setLoudnesses(getUniques(result.filter(el=>el.language==language && el.age==age && el.gender == gender).map(el=> el.loudness)))
             setLoudness(initOptions.loudness)
-            // setAges(uniqueArrAge)
-            // setLanguages(uniqueArrLang)
-            // setVoices(uniqueArrNames)
+            
         
         })
         .catch(error => {
@@ -852,10 +808,153 @@ export default function AIVoiceGen({navigation}) {
             setFetchingData(false)
         })
         ;
+    };
+
+
+
+    
+    const [audioLink ,setAudioLink] = useState('')
+    const [isPlaying ,setIsPlaying] = useState(false)
+    const [started ,setStarted] = useState(false)
+
+
+
+    const handleGenerating=async()=>{
+        Keyboard.dismiss()
+        setAudioLink('')
+        
+        var url = `${API_URL}/tts`
+
+        // setPrompt('')
+        setIsLoading(true)
+        try {
+            
+            const options = {
+            method: 'POST',
+            headers: {
+                accept: 'application/json',
+                'content-type': 'application/json',
+                AUTHORIZATION: `Bearer ${voiceOverConfig.SECRET_KEY}`,
+                'X-USER-ID': voiceOverConfig.USER_ID
+            },
+            body: JSON.stringify({
+                text: prompt,
+                voice: voice.id,
+                quality: 'medium',
+                output_format: format.toLowerCase(),
+                speed: 1,
+                sample_rate: 24000,
+                seed: 1
+            })
+            };
+
+            
+            var myHeaders = new Headers();
+            myHeaders.append("X-User-Id", voiceOverConfig.USER_ID);
+            myHeaders.append("Authorization", `Bearer ${voiceOverConfig.SECRET_KEY}`);
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+            "text": prompt,
+            // "speed": 1,
+            "voice": voice.id,
+            // "quality": "medium",
+            // "output_format": format.toLowerCase(),
+            // "sample_rate": 24000
+            });
+
+            // console.log(raw)
+            
+
+            var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+            };
+
+            fetch(url, options)
+            .then(response => response.json())
+            .then(result => {
+                // console.log(result)
+                // var resp = result.data.data
+                setRespond(result)
+                // fetch(result.)
+            })
+            .catch(error => console.log('error', error))
+            .finally(res=>{
+                // console.log("respond", respond.created)
+                var link = `${API_URL}/tts/${respond.id}?format=event-stream`
+                console.log('gg', link)
+                    
+                                
+                var myHeaders = new Headers();
+                myHeaders.append("X-User-Id", voiceOverConfig.USER_ID);
+                myHeaders.append("Authorization", `Bearer ${voiceOverConfig.SECRET_KEY}`);
+                myHeaders.append("Content-Type", "application/json");
+
+                var requestOptions = {
+                    method: 'GET',
+                    headers: myHeaders,
+                    redirect: 'follow'
+                  };
+                  
+                fetch(link, requestOptions)
+                .then(response => response.text())
+                .then(result => {
+                    var demo1 = result.split("data: ", undefined)
+                    var demo1 = demo1[demo1.length-1]
+                    var demo2 = JSON.parse(demo1)
+                    
+                    let audioLink = demo2.url
+
+                    setAudioLink(audioLink)
+                    scrollViewRef.current.scrollToEnd({ animated: true })
+                    
+                    console.log("audioLink", audioLink)
+                    // console('ded')
+                    })
+                .catch(error => console.log('finally error', error))
+            })
+            
+        }
+        catch (error){
+            console.error("error", error)
+        }
+        
+        setIsLoading(false)
+        console.log('finished')
+        // setTimeout(() => {
+        // }, 800);
+    };
+
+
+
+
+    const handlePlaySound=()=>{
+        setIsPlaying(true)
+
+        const sound = new Sound(audioLink,
+        undefined,
+        error => {
+        if (error) {
+            console.error(error)
+            setIsPlaying(false)
+        } else {
+            setStarted(true)
+            setIsPlaying(false)
+            console.log("Playing sound");
+            
+            sound.play(() => {
+                // Release when it's done so we're not using up resources
+                sound.release();
+                // console.log('gelf e')
+                setStarted(false)
+            });
+        }
+        });
     }
-
-
-
+        
 
 
 
@@ -1227,20 +1326,65 @@ export default function AIVoiceGen({navigation}) {
 
 
 
-                <Text style={[styles.title, {color:styleColors.color}]}>Choose a Voice</Text>
-                
+                        
 
-
-                <View style={{
-                    flexDirection:'row',
-                    alignItems:"center",
-                    justifyContent:"space-between",
-                    marginBottom:5,
+                {audioLink
+                    &&
+                    <View style={{
+                    marginTop:22,
+                    paddingHorizontal:14,
+                    zIndex:11,
+                    backgroundColor:styleColors.backgroundColor,
+                    justifyContent:'center',
+                    alignSelf:'center',
+                    // alignItems:'center',
+                    width:Dimensions.get('window').width,
                 }}>
+                    
+                
+                <Pressable
+                    // disabled={!audioLink.length>5}
+
+                    android_ripple={{color:'rgba(40, 40, 40, .3)'}}
+                    style={{
+                        paddingHorizontal:9,
+                        // opacity: audioLink.length>4 ? 1 : .2,
+                        paddingVertical:14,
+                        alignItems:"center",
+                        flexDirection:'row',
+                        justifyContent:"center",
+                        // borderWidth:1,
+                        borderColor:mode == "dark" ? styleColors.color : undefined,
+                        // backgroundColor:mode == "light" ? styleColors.primary : undefined,
+                        borderRadius:9,
+                    }}
+                    onPress={handlePlaySound}
+                        >
+                            {
+                                isPlaying 
+                                ?
+                                <ActivityIndicator color={Colors.red} size={21} />
+                                :
+                                <Ionicons name={started ? "pause-circle-outline" : "play"} color={Colors.red} size={21} />
+
+                            }
+                        
+                            <Text style={{
+                                // color:mode == "light" ?  styleColors.backgroundColor : styleColors.color,
+                                color:isPlaying ? styleColors.color : Colors.red,
+                                // color: styleColors.backgroundColor,
+                                fontSize:16,
+                                zIndex:55,
+                                marginStart:7,
+                                // opacity:audioLink.length>5 ? 1: .4,
+                                fontWeight:"500"
+                            }}>{isPlaying ? started ? "Stop" : "Playing ..." : "Play Sound"}</Text>
+                        
+
+                </Pressable>
 
 
 
-                </View>
 
 
 
@@ -1252,44 +1396,11 @@ export default function AIVoiceGen({navigation}) {
 
 
 
+                </View>}
             </View>
 
 
 
-
-            <View style={{
-
-                flexDirection:'row',
-                alignItems:"center",
-                marginHorizontal:14,
-                flexWrap:'wrap',
-                justifyContent:"space-between",
-                paddingBottom:11,
-            }}>
-
-
-
-            
-            {
-                isLoading
-                ?
-                <View style={{
-                    alignItems:"center",
-                    width:"100%",
-                    paddingVertical:55,
-                    justifyContent:"center",
-                }}>
-
-                <ActivityIndicator size={55} color={Colors.primary}/>
-                <Text style={{
-                    marginTop:18,
-                    fontSize:16,
-                }}>generating ...</Text>
-                </View>
-                :
-                respond.map((el, i)=><GeneratedImageComponent key={i} info={el} />)
-            }
-            </View>
 
             
 
@@ -1297,9 +1408,6 @@ export default function AIVoiceGen({navigation}) {
             
 
 
-        <View style={{
-            // height: kb.isVisible ? kb.height*1 : 90,
-        }} />
         
 
 
@@ -1365,6 +1473,9 @@ export default function AIVoiceGen({navigation}) {
         </View>
 
 
+        <View style={{
+            height: kb.isVisible ? kb.height*1 : 5,
+        }} />
         
         </ScrollView>
 :
@@ -1380,6 +1491,7 @@ export default function AIVoiceGen({navigation}) {
 }
         
         
+
 
     </ScreenWrapper>
   )
