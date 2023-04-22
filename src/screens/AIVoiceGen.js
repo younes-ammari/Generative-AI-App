@@ -14,7 +14,9 @@ import Lottie from 'lottie-react-native';
 import { Configuration, OpenAIApi } from 'openai';
 import { TypingAnimation } from "react-native-typing-animation";
 
+
 import config from '../config/openAI';
+import voiceOverConfig from '../config/playHt';
 import RNFetchBlob from 'rn-fetch-blob';
 import {useToast } from 'react-native-toast-notifications'
 import AppContext from '../hooks/useContext'
@@ -72,6 +74,7 @@ export default function AIVoiceGen({navigation}) {
 
     const [result, setResult] = useState('');
     const [loading, setLoading] = useState(false);
+    const [fetchingData, setFetchingData] = useState(false);
     const [recording, setRecording] = useState(false);
 
 
@@ -126,6 +129,7 @@ export default function AIVoiceGen({navigation}) {
 
 
     useEffect(() => {
+        fetchData()
         
         LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
         Voice.onSpeechStart = speechStartHandler;
@@ -142,7 +146,8 @@ export default function AIVoiceGen({navigation}) {
         end=false,
         icon
     })=>{
-        var iconName = ['female', 'male'].includes(title.toLowerCase()) ? title.toLowerCase() : "male"
+        var selected = gender==title
+        var iconName = ['female', 'male'].includes(title) ? title : "male"
 
         return(
             <Pressable style={{
@@ -155,23 +160,41 @@ export default function AIVoiceGen({navigation}) {
                 // marginHorizontal:8,
                 marginRight:!end ? 7 : 0,
                 borderRadius:9,
-                backgroundColor:title==gender ? Colors.primary : null,
+                backgroundColor:selected ? Colors.primary : null,
                 marginVertical:4,
                 borderWidth:1.5,
+                opacity:selected ? 1 : .71,
                 borderColor:'rgba(100, 100, 100, .5)'
 
             }}
-            onPress={()=>setGender(title)}
+            onPress={()=>{
+                let initOptions = data[0]
+                setGender(title);
+                // console.log(initOptions)
+                    
+
+                setLanguages(getUniques(data.map(el=>el.language)))
+                setLanguage(initOptions.language)
+
+                setAges(getUniques(data.filter(el=>el.gender == title).map(el=>el.age)))
+                setAge(initOptions.age)
+                
+                setVoices(getUniques(data.filter(el=>el.gender == title).map(el=> {return({name: el.name, id:el.id})})))
+                setVoice(initOptions)
+                setLoudnesses(getUniques(data.filter(el=>el.gender == title).map(el=> el.loudness)))
+                setLoudness(initOptions.loudness)
+            
+            }}
             >
-                <Fontisto name={iconName} size={17} color={title==gender ? Colors.lighter : styleColors.color}/>
+                <Fontisto name={iconName} size={17} color={selected ? Colors.lighter : styleColors.color}/>
                 <Text style={{
                     fontSize:15,
                     fontWeight:"500",
                     textAlign:"center",
                     marginStart:5,
-                    opacity:title==gender ? 1 : .9,
-                    color:title==gender ? Colors.lighter : styleColors.color,
-                }}>{title}</Text>
+                    opacity:selected ? 1 : .9,
+                    color:selected ? Colors.lighter : styleColors.color,
+                }}>{title.replace(/\b\w/g, letter => letter.toUpperCase())}</Text>
 
             </Pressable>
         )
@@ -183,17 +206,6 @@ export default function AIVoiceGen({navigation}) {
     // scrollViewRef.current.scrollToEnd({ animated: true })
     scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
     }
-
-    const demos = [
-        {
-            id:1,
-            isRespond:true,
-            content:'welcome in ChatGPT'
-        },
-    ]
-
-    const [data, setData] = useState(demos)
-    
 
     const handleGenerating=async()=>{
         Keyboard.dismiss()
@@ -228,20 +240,194 @@ export default function AIVoiceGen({navigation}) {
     }
     // console.log('kb', kb)
 
+    const dataDemo=[
+        {
+            "id": "abram",
+            "name": "Abram",
+            "sample": "https://peregrine-samples.s3.amazonaws.com/editor-samples/abram.wav",
+            "accent": "british",
+            "age": "old",
+            "gender": "male",
+            "language": "English (US)",
+            "language_code": "en-US",
+            "loudness": "low",
+            "style": "narrative",
+            "tempo": "slow",
+            "texture": "round",
+            "is_cloned": false
+        },
+        {
+            "id": "ahmed",
+            "name": "Logan",
+            "sample": "https://peregrine-samples.s3.amazonaws.com/editor-samples/ahmed.wav",
+            "accent": "british",
+            "age": "old",
+            "gender": "male",
+            "language": "English (US)",
+            "language_code": "en-US",
+            "loudness": "neutral",
+            "style": "narrative",
+            "tempo": "neutral",
+            "texture": "thick",
+            "is_cloned": false
+        },
+        {
+            "id": "alex",
+            "name": "Alex",
+            "sample": "https://peregrine-samples.s3.amazonaws.com/editor-samples/alex.wav",
+            "accent": "british",
+            "age": "adult",
+            "gender": "male",
+            "language": "English (US)",
+            "language_code": "en-US",
+            "loudness": "high",
+            "style": "narrative",
+            "tempo": "slow",
+            "texture": "thick",
+            "is_cloned": false
+        },
+        {
+            "id": "Alexander",
+            "name": "Alexander",
+            "sample": "https://peregrine-samples.s3.amazonaws.com/editor-samples/Alexander.wav",
+            "accent": "british",
+            "age": "old",
+            "gender": "male",
+            "language": "English (US)",
+            "language_code": "en-US",
+            "loudness": "high",
+            "style": "narrative",
+            "tempo": "fast",
+            "texture": "thick",
+            "is_cloned": false
+        },
+        {
+            "id": "alfonso",
+            "name": "Alfonso",
+            "sample": "https://peregrine-samples.s3.amazonaws.com/editor-samples/alfonso.wav",
+            "accent": "american",
+            "age": "adult",
+            "gender": "male",
+            "language": "English (US)",
+            "language_code": "en-US",
+            "loudness": "neutral",
+            "style": "videos",
+            "tempo": "neutral",
+            "texture": "gravelly",
+            "is_cloned": false
+        },
+        {
+            "id": "amado",
+            "name": "Amado",
+            "sample": "https://peregrine-samples.s3.amazonaws.com/editor-samples/amado.wav",
+            "accent": "american",
+            "age": "old",
+            "gender": "male",
+            "language": "English (US)",
+            "language_code": "en-US",
+            "loudness": "low",
+            "style": "narrative",
+            "tempo": "fast",
+            "texture": "smooth",
+            "is_cloned": false
+        },
+        {
+            "id": "anny",
+            "name": "Anny",
+            "sample": "https://peregrine-samples.s3.amazonaws.com/editor-samples/anny.wav",
+            "accent": "american",
+            "age": "youth",
+            "gender": "female",
+            "language": "English (US)",
+            "language_code": "en-US",
+            "loudness": "neutral",
+            "style": "narrative",
+            "tempo": "neutral",
+            "texture": "thick",
+            "is_cloned": false
+        },
+        {
+            "id": "Anthony",
+            "name": "Anthony",
+            "sample": "https://peregrine-samples.s3.amazonaws.com/editor-samples/Anthony.wav",
+            "accent": "american",
+            "age": "adult",
+            "gender": "male",
+            "language": "English (US)",
+            "language_code": "en-US",
+            "loudness": "neutral",
+            "style": "training",
+            "tempo": "slow",
+            "texture": "thick",
+            "is_cloned": false
+        },
+        {
+            "id": "arthur",
+            "name": "Arthur",
+            "sample": "https://peregrine-samples.s3.amazonaws.com/editor-samples/arthur.wav",
+            "accent": "british",
+            "age": "adult",
+            "gender": "male",
+            "language": "English (US)",
+            "language_code": "en-US",
+            "loudness": "neutral",
+            "style": "narrative",
+            "tempo": "neutral",
+            "texture": "smooth",
+            "is_cloned": false
+        },
+    ]
 
+    const [data, setData] = useState(dataDemo)
+
+    
+
+    const getUniques=(list)=>{
+        return Array.from(new Set(list.map(JSON.stringify))).map(JSON.parse)
+    }
 
     const genders = [
-        "Male",
-        "Female",
+        "male",
+        "female",
         // "Auto",
     ]
 
     
-    const [gender, setGender]= useState("Male")
+    const [gender, setGender]= useState('male')
 
 
 
+    const languagesDemo = getUniques(data.map(el=>el.language))
 
+    const [languages, setLanguages] = useState(languagesDemo)
+    const [language, setLanguage] = useState(languagesDemo[0])
+    // const [language, setLanguage] = useState(data[0].language)
+    
+
+
+    const agesDemo = getUniques(data.filter(el=>el.language==language).map(el=>el.age))
+
+    const [ages, setAges] = useState(agesDemo)
+    // const [age, setAge] = useState(agesDemo[0])
+    const [age, setAge] = useState(data[0].age)
+
+    
+    const voicesDemo = getUniques(data.filter(el=>el.language==language && el.age==age).map(el=> {return({name: el.name, id:el.id})}))
+
+
+    const [voices ,setVoices] = useState(voicesDemo)
+    // const [voice ,setVoice] = useState(voicesDemo[0])
+    const [voice ,setVoice] = useState('null')
+
+
+
+    const loudnessesDemo = data.map(el=>el.loudness)
+
+    const [loudnesses, setLoudnesses] = useState(loudnessesDemo)
+    const [loudness, setLoudness] = useState(loudnessesDemo[0])
+
+
+    
     const formats = [
         "MP3",
         "WAV",
@@ -252,41 +438,7 @@ export default function AIVoiceGen({navigation}) {
 
     const [format, setFormat] = useState("WAV")
 
-
     
-
-    const voices = [
-        "Ahmed",
-        "Khaled",
-        "FLAC",
-        "ALAW",
-        "ULAW"
-    ]
-
-    const [voice ,setVoice] = useState("Ahmed")
-
-
-    
-
-    const languages = [
-        "English",
-        "French",
-        "العربية",
-        "Turkish",
-        "Auto"
-    ]
-
-    const [language, setLanguage] = useState("English")
-    
-
-    const ages = [
-        "Old",
-        "Adult",
-        "Young",
-    ]
-
-    const [age, setAge] = useState("Adult")
-
 
 
     const GeneratedImageComponent=({info})=>{
@@ -301,7 +453,7 @@ export default function AIVoiceGen({navigation}) {
                 width:(Dimensions.get('window').width /2) -21 ,
                 backgroundColor:`rgba(220, 220, 220, 1)`,
                 marginBottom:9,
-                elevation:5,
+                // elevation:5,
             }}
             onPress={()=>{
                 setSelectedImage(info)
@@ -634,6 +786,72 @@ export default function AIVoiceGen({navigation}) {
         }, 2000);
 
 
+    };
+
+    const fetchData=async()=>{
+        setFetchingData(true)
+        var API_URL = "https://play.ht/api/v2"
+        var url = `${API_URL}/voices`
+
+        var myHeaders = new Headers();
+        myHeaders.append("X-User-Id", voiceOverConfig.USER_ID);
+        myHeaders.append("Authorization", `Bearer ${voiceOverConfig.SECRET_KEY}`);
+
+        var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+        };
+
+        fetch(url, requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            
+            console.log("result length",result.length)
+            setData(result)
+
+            let initOptions = result[0]
+
+
+            // let initOptions = data[0]
+            // setGender(title);
+            console.log(initOptions)
+                
+
+            // setLanguages(getUniques(data.map(el=>el.language)))
+            // setLanguage(initOptions.language)
+
+            // setAges(getUniques(data.filter(el=>el.language==language && el.gender == title.toLowerCase()).map(el=>el.age)))
+            // setAge(initOptions.age)
+            
+            // setVoices(getUniques(data.filter(el=>el.language==language && el.age==age && el.gender == title.toLowerCase()).map(el=> {return({name: el.name, id:el.id})})))
+            // setVoice(initOptions)
+            // setLoudnesses(getUniques(data.filter(el=>el.language==language && el.age==age && el.gender == title.toLowerCase()).map(el=> el.loudness)))
+            // setLoudness(initOptions.loudness)
+            
+
+            setLanguages(getUniques(result.map(el=>el.language)))
+            setLanguage(initOptions.language)
+
+            setAges(getUniques(result.filter(el=>el.language==language && el.gender == gender).map(el=>el.age)))
+            setAge(initOptions.age)
+            
+            setVoices(getUniques(result.filter(el=>el.language==language && el.age==age && el.gender == gender).map(el=> {return({name: el.name, id:el.id})})))
+            setVoice(initOptions)
+            setLoudnesses(getUniques(result.filter(el=>el.language==language && el.age==age && el.gender == gender).map(el=> el.loudness)))
+            setLoudness(initOptions.loudness)
+            // setAges(uniqueArrAge)
+            // setLanguages(uniqueArrLang)
+            // setVoices(uniqueArrNames)
+        
+        })
+        .catch(error => {
+            console.log('error', error)
+        })
+        .finally(()=>{
+            setFetchingData(false)
+        })
+        ;
     }
 
 
@@ -647,12 +865,12 @@ export default function AIVoiceGen({navigation}) {
             
         
         {modall()}
-
+{!fetchingData?
         <ScrollView
           keyboardShouldPersistTaps='handled'
           ref={scrollViewRef}
           contentContainerStyle={{
-            paddingBottom:55,
+            paddingBottom:22,
           }}
           >
 
@@ -798,7 +1016,7 @@ export default function AIVoiceGen({navigation}) {
                 <View style={{
                     marginBottom:9,
                 }}>
-                <Text style={[styles.title, {color:styleColors.color}]}>Language</Text>
+                <Text style={[styles.title, {color:styleColors.color}]}>Language ({languages.length})</Text>
                 
 
 
@@ -813,13 +1031,13 @@ export default function AIVoiceGen({navigation}) {
                         }}
                         dropdownIconColor={styleColors.color}
                         onValueChange={(itemValue, itemIndex) =>
-                            setLanguage(itemValue)
+                            setLanguage(itemValue.toLowerCase())
                         }>
                             {languages.map((el,i)=>{
                                 var selected = el==language
                             
                             return(
-                            <Picker.Item key={i} label={el} value={el} style={{
+                            <Picker.Item key={i} label={el.replace(/\b\w/g, letter => letter.toUpperCase())} value={el} style={{
                                 borderRadius:9,
                                 // color:mode=="light"? styleColors.color:,
                                 color:mode=="light"? selected ? "rgb(0, 0, 0)" : "rgb(150, 150, 150)" : selected ? "rgb(255, 255, 255)" : "rgb(100, 100, 100)",
@@ -844,7 +1062,7 @@ export default function AIVoiceGen({navigation}) {
                 <View style={{
                     marginBottom:9,
                 }}>
-                <Text style={[styles.title, {color:styleColors.color}]}>Age</Text>
+                <Text style={[styles.title, {color:styleColors.color}]}>Age ({ages.length})</Text>
                 
 
 
@@ -858,14 +1076,31 @@ export default function AIVoiceGen({navigation}) {
                             backgroundColor:styleColors.placeholder
                         }}
                         dropdownIconColor={styleColors.color}
-                        onValueChange={(itemValue, itemIndex) =>
+                        onValueChange={(itemValue, itemIndex) =>{
                             setAge(itemValue)
-                        }>
+
+                            
+                            var newData = getUniques(data.filter(el=>el.language==language && el.age==itemValue && el.gender == gender).map(el=> {return({name: el.name, id:el.id})}))
+                            
+
+                            var initOptions = newData[0]
+
+                            setVoice(initOptions)
+                            setLoudnesses(getUniques(data.filter(el=>el.language==language && el.age==itemValue && el.gender == gender).map(el=> el.loudness)))
+                            setLoudness(initOptions.loudness)
+                        
+                            setVoices(newData)
+                            setVoice(newData[0])
+                            // console.info('names', itemValue, newData.length)
+
+
+
+                        }}>
                             {ages.map((el,i)=>{
                                 var selected = el==age
                             
                             return(
-                            <Picker.Item key={i} label={el} value={el} style={{
+                            <Picker.Item key={i} label={el.replace(/\b\w/g, letter => letter.toUpperCase())} value={el} style={{
                                 borderRadius:9,
                                 // color:mode=="light"? styleColors.color:,
                                 color:mode=="light"? selected ? "rgb(0, 0, 0)" : "rgb(150, 150, 150)" : selected ? "rgb(255, 255, 255)" : "rgb(100, 100, 100)",
@@ -890,28 +1125,31 @@ export default function AIVoiceGen({navigation}) {
                 <View style={{
                     marginBottom:9,
                 }}>
-                <Text style={[styles.title, {color:styleColors.color}]}>Voice</Text>
+                <Text style={[styles.title, {color:styleColors.color}]}>Voice ({voices.length})</Text>
                 
 
 
 
                     <Picker
                         mode='dropdown'
-                        selectedValue={voice}
+                        
+                        selectedValue={voice.id}
                         style={{
                             paddingVertical:0,
                             marginVertical:0,
                             backgroundColor:styleColors.placeholder
                         }}
                         dropdownIconColor={styleColors.color}
-                        onValueChange={(itemValue, itemIndex) =>
-                            setVoice(itemValue)
-                        }>
+                        onValueChange={(itemValue, itemIndex) =>{
+                            setVoice(voices.filter(el=>el.id==itemValue)[0])
+                        }}>
                             {voices.map((el,i)=>{
-                                var selected = el==voice
+                                var selected = el.id==voice.id
+                                // console.log('jj', selected, voice, '=', el)
+                                // var selected = el==voice.toLowerCase()
                             
                             return(
-                            <Picker.Item key={i} label={el} value={el} style={{
+                            <Picker.Item key={i} label={el.name} value={el.id} style={{
                                 borderRadius:9,
                                 // color:mode=="light"? styleColors.color:,
                                 color:mode=="light"? selected ? "rgb(0, 0, 0)" : "rgb(150, 150, 150)" : selected ? "rgb(255, 255, 255)" : "rgb(100, 100, 100)",
@@ -935,55 +1173,10 @@ export default function AIVoiceGen({navigation}) {
                 <View style={{
                     alignItems:"center",
                     justifyContent:"center",
-                    paddingTop:11,
+                    paddingTop:15,
                     paddingBottom:5,
                 }}>
-                    <Text>-------- result options ----------</Text>
-                </View>
-
-
-
-
-                <View style={{
-                    marginBottom:9,
-                }}>
-                <Text style={[styles.title, {color:styleColors.color}]}>Output format</Text>
-                
-
-
-
-                    <Picker
-                        mode='dropdown'
-                        selectedValue={format}
-                        style={{
-                            paddingVertical:0,
-                            marginVertical:0,
-                            backgroundColor:styleColors.placeholder
-                        }}
-                        dropdownIconColor={styleColors.color}
-                        onValueChange={(itemValue, itemIndex) =>
-                            setFormat(itemValue)
-                        }>
-                            {formats.map((el,i)=>{
-                                var selected = el==format
-                            
-                            return(
-                            <Picker.Item key={i} label={"."+el} value={el} style={{
-                                borderRadius:9,
-                                // color:mode=="light"? styleColors.color:,
-                                color:mode=="light"? selected ? "rgb(0, 0, 0)" : "rgb(150, 150, 150)" : selected ? "rgb(255, 255, 255)" : "rgb(100, 100, 100)",
-                                // marginTop:0,
-                                fontWeight:selected ? "700" : "bold",
-                                backgroundColor:styleColors.placeholder,
-                                // backgroundColor:selected ? styleColors.backgroundColor : styleColors.placeholder ,
-                            }}/>
-                            )})}
-                        
-                        
-                        </Picker>
-
-
-
+                    <Text style={{color:styleColors.color, opacity:.4}}>------------------------ result options ------------------------</Text>
                 </View>
 
 
@@ -1105,27 +1298,22 @@ export default function AIVoiceGen({navigation}) {
 
 
         <View style={{
-            height: kb.isVisible ? kb.height*1 : 90,
+            // height: kb.isVisible ? kb.height*1 : 90,
         }} />
         
 
-        </ScrollView>
-
-        
 
 
         <View style={{
-            
-            position:"absolute",
-            bottom:kb.isVisible ? kb.height*1+0 : 0,
+            marginTop:22,
+            // position:"absolute",
+            // bottom:kb.isVisible ? kb.height*1+0 : 0,
             // opacity:kb.isVisible ? !prompt.length>5 ? 1 : 1 : .4, 
-            left:0,
-            right:0,
+            // left:0,
+            // right:0,
             // marginHorizontal:14,
             paddingHorizontal:14,
             zIndex:11,
-            paddingVertical:5,
-            paddingBottom:15,
             backgroundColor:styleColors.backgroundColor,
             justifyContent:'center',
             alignSelf:'center',
@@ -1175,6 +1363,21 @@ export default function AIVoiceGen({navigation}) {
         </Pressable>
         
         </View>
+
+
+        
+        </ScrollView>
+:
+<View style={{
+    flex:1,
+    justifyContent:"center",
+    alignItems:"center",
+}}>
+
+    <ActivityIndicator size={22} color={styleColors.color}/>
+    <Text style={[styles.title, {color:styleColors.color, fontSize:14, marginTop:11,}]}>waite a while ...</Text>
+</View>
+}
         
         
 
