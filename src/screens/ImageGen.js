@@ -1,4 +1,4 @@
-import { Dimensions, FlatList, Keyboard, ActivityIndicator, LogBox, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Pressable, Image, PermissionsAndroid } from 'react-native'
+import { Dimensions, FlatList, Keyboard, useColorScheme, ActivityIndicator, LogBox, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Pressable, Image, PermissionsAndroid } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import ScreenWrapper from '../ScreenWrapper'
 
@@ -7,15 +7,18 @@ import { useKeyboard } from '../hooks/useKeyboard'
 import Modal from "react-native-modal";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import OcticonsIcon from 'react-native-vector-icons/Octicons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import Colors from '../constants/Colors'
 import Lottie from 'lottie-react-native';
 import { Configuration, OpenAIApi } from 'openai';
+import { TypingAnimation } from "react-native-typing-animation";
 
 import config from '../config/openAI';
 import RNFetchBlob from 'rn-fetch-blob';
 import {useToast } from 'react-native-toast-notifications'
 import AppContext from '../hooks/useContext'
 
+import Voice from '@react-native-community/voice';
 
 
 export default function ImageGen({navigation}) {
@@ -23,10 +26,13 @@ export default function ImageGen({navigation}) {
     
     const toast = useToast();
 
-    const { mode, styleColors} = React.useContext(AppContext)
+    const { displayMode, styleColors} = React.useContext(AppContext)
 
-
-
+    const deviceMode = useColorScheme()
+    
+    const mode = displayMode=="auto" ? deviceMode : displayMode
+    
+    
 
     const configuration = new Configuration({
         organization: config.organization,
@@ -44,12 +50,12 @@ export default function ImageGen({navigation}) {
     const [isDownloading, setIsDownloading] = useState(false)
 
     
-    const result=[
+    const demoResult=[
         {
             url:'https://images.nightcafe.studio/jobs/rY2TxlazqPUzLomNPmnM/rY2TxlazqPUzLomNPmnM--1--gs4f2.jpg?tr=w-640,c-at_max'
         }
     ]
-    const [respond, setRespond]= useState(result)
+    const [respond, setRespond]= useState(demoResult)
     const [prompt, setPrompt]= useState('')
     const [number, setNumber]= useState(1)
     const [size, setSize]= useState("1024x1024")
@@ -59,9 +65,73 @@ export default function ImageGen({navigation}) {
     const WH = Dimensions.get('window').height
     const WW = Dimensions.get('window').width
 
+
+
+    const [result, setResult] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [recording, setRecording] = useState(false);
+
+
+    
+    const [isRecording, setIsRecording] = useState(false)
+  
+      
+    const speechStartHandler = e => {
+      
+      console.log('speechStart successful', e);
+    };
+    const speechEndHandler = e => {
+      setLoading(false);
+      setIsRecording(false)
+      console.log('stop handler', e);
+    };
+  
+    const speechResultsHandler = e => {
+      const text = e.value[0];
+      setResult(text);
+      let newMessage = message + " " + text + " "
+      setPrompt(newMessage)
+      console.log('result', text)
+      console.log('newMessage', newMessage)
+    };
+  
+    const startRecording = async () => {
+      setLoading(true);
+      setRecording(true);
+      try {
+        await Voice.start('en-Us');
+      } catch (error) {
+        console.log('error', error);
+        setLoading(false);
+      }
+    };
+  
+    const stopRecording = async () => {
+      setRecording(false);
+      try {
+        await Voice.stop();
+        setLoading(false);
+      } catch (error) {
+        console.log('error', error);
+      }
+    };
+    
+    const clear = () => {
+        setResult('');
+        setPrompt('')
+    };
+
+
     useEffect(() => {
         
         LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+        Voice.onSpeechStart = speechStartHandler;
+        Voice.onSpeechEnd = speechEndHandler;
+        Voice.onSpeechResults = speechResultsHandler;
+
+        return () => {
+        Voice.destroy().then(Voice.removeAllListeners);
+        };
     }, []);
 
     const SizeComponent=({title="1024x1024", end=false})=>{
@@ -480,6 +550,31 @@ export default function ImageGen({navigation}) {
     };
 
 
+    
+    const handleRecordEvent=()=>{
+        var rec = !isRecording
+        setIsRecording(!isRecording)
+        if (rec){
+            console.log('start recording ...')
+            startRecording()
+            
+        }
+        else{
+            console.log('end recording ...')
+            stopRecording()
+        }
+        setTimeout(() => {
+            // setIsRecording(false)
+        }, 2000);
+
+
+    }
+
+
+
+
+
+
 
   return (
       <ScreenWrapper back title='Image Generator'>
@@ -500,34 +595,108 @@ export default function ImageGen({navigation}) {
                 paddingHorizontal:14,
                 }]}>
 
-                                    
-                                
-                <TextInput 
-                      value={prompt}
-                      onChangeText={(value)=>setPrompt(value)}
-                      multiline={true} // ios fix for centering it at the top-left corner 
-                      numberOfLines={7} 
-                      placeholder='Prompt' 
-                      placeholderTextColor={styleColors.placeholderTextColor}
-                      style={{
-                        // backgroundColor:'rgba(100, 100, 100, .041)',
-                        backgroundColor:styleColors.placeholder,
-                        color:styleColors.placeholderText,
-                        padding:10,
-                        fontSize:15,
-                        justifyContent:"flex-start",
-                        alignContent:'flex-start',
-                        alignItems:'flex-start',
-                        textAlignVertical: 'top',
-                        verticalAlign:"top",
-                        borderWidth:1,
-                        borderColor:styleColors.primary,
-                        borderRadius:8,
-                        marginVertical:5,
-                        marginBottom:11,
+                    {   isRecording
+                    &&
+                    <View style={{
+                        width:"100%",
+                        backgroundColor:'red',
+                        paddingVertical:9,
+                        paddingBottom:29,
+                        opacity:.8,
+                        borderRadius:4,
+                        // flexDirection:'row',
+                        // position:"absolute",
+                        justifyContent:"center",
+                        alignItems:"center",
+                        // top:"50%",
+                        // bottom:"50%",
+                        // right:"50%",
+                        // left:"50%",
+                        // bottom:"50%",
+                        zIndex:5,
+                        // paddingBottom:33,
+                        marginBottom:5,
+                    }}>
 
+                    {/* <Text style={{
+                        color:Colors.lighter,
+                        // zIndex:21,
+                        // fontSize:18,
+                        // marginEnd:5,
+                        // verticalAlign:"bottom",
+                        textAlign:"center",
+                    }}>recording ...</Text> */}
+                    {/* dotAmplitude, dotSpeed, dotY */}
+
+                    <TypingAnimation 
+                        dotMargin={9}
+                        dotColor={Colors.lighter}
+                        
+                        />
+                    </View>}
+
+
+                <View style={{
+                    flexDirection:'row',
+                    // alignItems:"center",
+                    justifyContent:"space-between"
+                }}>
+                                    
+                    <TextInput 
+                        value={prompt}
+                        onChangeText={(value)=>setPrompt(value)}
+                        multiline={true} // ios fix for centering it at the top-left corner 
+                        numberOfLines={7} 
+                        placeholder={isRecording ? "start talking ..." : kb.isVisible ? 'Write a prompt here ...' : 'click here to start a conversation ...'} 
+                        placeholderTextColor={styleColors.placeholderTextColor}
+                        style={{
+                            // backgroundColor:'rgba(100, 100, 100, .041)',
+                            backgroundColor:styleColors.placeholder,
+                            color:styleColors.placeholderText,
+                            padding:10,
+                            flex:1,
+                            fontSize:15,
+                            justifyContent:"flex-start",
+                            alignContent:'flex-start',
+                            alignItems:'flex-start',
+                            textAlignVertical: 'top',
+                            verticalAlign:"top",
+                            borderWidth:1,
+                            borderColor:styleColors.primary,
+                            borderRadius:8,
+                            marginVertical:5,
+                            marginBottom:11,
+                            
+                        }}
+                        />
+
+                    <TouchableOpacity style={{
+                        opacity:.5,
+                        paddingHorizontal:13,
+                        borderRadius:8,
+                        height:44,
+                        zIndex:2,
+                        marginTop:5,
+                        // display:!kb.isVisible ? "none" : "flex",
+                        // position:"absolute",
+                        // right:8,
+                        // bottom:8,
+                        borderRadius:44,
+                        paddingVertical:5,
+                        marginStart:9,
+                        alignItems:"center",
+                        justifyContent:"center",
+                        backgroundColor:isRecording ? 'rgba(250, 100, 100, .2)' : 'rgba(100, 100, 100, .2)',
+                        flexDirection:'row',
                     }}
-                />
+                    // disabled={message.length<4}
+                    onPress={handleRecordEvent}
+                    >
+                        
+                        <Ionicons name="mic" size={17} color={isRecording ? 'red' : styleColors.color} />
+                        {/* <Text style={{fontSize:16, color:"white", marginLeft:9}}>Send</Text> */}
+                    </TouchableOpacity>
+                </View>
                 {
                     number>1 
                     &&
@@ -676,7 +845,8 @@ export default function ImageGen({navigation}) {
         <View style={{
             
             position:"absolute",
-            bottom:kb.isVisible ? kb.height*1+20 : 20,
+            bottom:kb.isVisible ? kb.height*1+0 : 0,
+            // opacity:kb.isVisible ? !prompt.length>5 ? 1 : 1 : .4, 
             left:0,
             right:0,
             // marginHorizontal:14,
@@ -698,31 +868,37 @@ export default function ImageGen({navigation}) {
             android_ripple={{color:'rgba(40, 40, 40, .3)'}}
             style={{
                 paddingHorizontal:9,
-                opacity: prompt.length>5 ? 1 : .3,
+                opacity: prompt.length>4 ? 1 : .2,
                 paddingVertical:14,
                 alignItems:"center",
+                flexDirection:'row',
                 justifyContent:"center",
-                backgroundColor:mode == "light" ? styleColors.primary : styleColors.color,
+                borderWidth:1,
+                borderColor:mode == "dark" ? styleColors.color : undefined,
+                backgroundColor:mode == "light" ? styleColors.primary : undefined,
                 borderRadius:9,
             }}
             onPress={handleGenerating}
             >
                 {
                     isLoading
-                    ?
+                    &&
                     <ActivityIndicator
+                        // color={mode=="dark" ? styleColors.color : styleColors.backgroundColor}
                         color={styleColors.color}
                     />
-                    :
+                }
                     
                     <Text style={{
-                        // color:mode == "light" ?  styleColors.backgroundColor : styleColors.color,
-                        color: styleColors.backgroundColor,
+                        color:mode == "light" ?  styleColors.backgroundColor : styleColors.color,
+                        // color: styleColors.backgroundColor,
                         fontSize:16,
-                        opacity:prompt.length>5 ? 1: .4,
+                        zIndex:55,
+                        marginStart:7,
+                        // opacity:prompt.length>5 ? 1: .4,
                         fontWeight:"500"
-                    }}>Generate</Text>
-                }
+                    }}>{isLoading ? "Generating ..." : "Generate"}</Text>
+                
 
         </Pressable>
         

@@ -1,9 +1,10 @@
-import { Dimensions, Image, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, Image, StyleSheet, Text, View, useColorScheme } from 'react-native'
 import React from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Colors from '../constants/Colors';
 import { TypingAnimation } from "react-native-typing-animation";
+import AppContext from '../hooks/useContext';
 
 export default function Message({
     text='hello world',
@@ -12,11 +13,32 @@ export default function Message({
 
 }) {
 
+          
+  const {
+    displayMode, 
+    setMode,
+    styleColors,
+    appData,
+    setAppDataHandler,
+    
+  } = React.useContext(AppContext)
+
+
+  const deviceMode = useColorScheme()
+    
+  const mode = displayMode=="auto" ? deviceMode : displayMode
+  
+  
+
+
     const images={
         chatGPT:{uri:"https://www.primelawgroup.com/wp-content/uploads/2023/02/chatgpt-icon.png"},
         // person:{uri:"https://icons.veryicon.com/png/o/internet--web/55-common-web-icons/person-4.png"}
         person:{uri:"https://www.pngitem.com/pimgs/m/391-3918613_personal-service-platform-person-icon-circle-png-transparent.png"}
     }
+
+
+
   return (
     <View style={[styles.container, {
         flexDirection:respond ? 'row-reverse' : 'row',
@@ -43,22 +65,25 @@ export default function Message({
                 borderTopLeftRadius:respond ? 0 : 12,
                 borderTopRightRadius:!respond ? 0 : 12,
                 borderBottomRightRadius:12,
+                padding:2,
                 borderBottomLeftRadius:12,
                 // alignSelf:"flex-start",
                 // alignItems:respond ? "flex-start" : "flex-end",
                 // justifyContent:"flex-start",
                 backgroundColor:respond ? 'rgba(1, 51, 253, .15)' : 'rgba(100, 100, 100, .2)' ,
                 marginTop:5,
+                paddingHorizontal:11,
+                paddingVertical:9,
             }]}>
 
                 {
                     isLoading
                     ?
-                    <TypingAnimation />
+                    <TypingAnimation dotColor={styleColors.color} dotMargin={8}/>
                     :
                     <Text style={{
-                        color:Colors.darker,
-                        // opacity:!!respond ?  .6 : 1,
+                        color:styleColors.color,
+                        opacity:!!respond ?  .8 : 1,
                         }}>{text}</Text>
                 }
             

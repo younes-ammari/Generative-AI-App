@@ -1,4 +1,4 @@
-import { Dimensions, FlatList, Keyboard, KeyboardAvoidingView, LogBox, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Dimensions, FlatList, Keyboard, KeyboardAvoidingView, LogBox, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, useColorScheme, View } from 'react-native'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import ScreenWrapper from '../ScreenWrapper'
 import Message from '../components/Message'
@@ -28,8 +28,8 @@ export default function Chat({navigation}) {
     const scrollViewRef = useRef();
     const inputRef = useRef();
     const scrollViewChatRef = useRef();
-    const [message, setMessage]= useState('')
     const [isFocused, setIsFocused] = useState(false)
+    const [message, setMessage]= useState('')
     const [isRecording, setIsRecording] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [respond, setRespond]= useState('')
@@ -40,8 +40,12 @@ export default function Chat({navigation}) {
     const WW = Dimensions.get('window').width;
 
 
-    const {mode , styleColors} = useContext(AppContext)
+    const { displayMode, styleColors} = useContext(AppContext)
 
+    const deviceMode = useColorScheme()
+    
+    const mode = displayMode=="auto" ? deviceMode : displayMode
+    
     
   const [result, setResult] = useState('');
   const [loading, setLoading] = useState(false);
@@ -483,9 +487,9 @@ export default function Chat({navigation}) {
                     // marginBottom:15,
                     // marginTop:7,
                     position : kb.isVisible ? "relative" : "absolute" ,
-                    bottom : kb.isVisible ? kb.height*1.12 : 30,
+                    bottom : kb.isVisible ? kb.height*1.1 : 0,
+                    paddingBottom:kb.isVisible ? 0 : 22,
                     }]}>
-                        <View style={{flex:1}}>
                             <TextInput 
                                 pointerEvents={'none'}
                                 multiline
@@ -515,13 +519,16 @@ export default function Chat({navigation}) {
                                 placeholder={isRecording ? "start talking ..." : kb.isVisible ? "write a message ..." : 'click here to start a conversation ...'}
                                 value={message}
                                 onChangeText={(text)=>setMessage(text)}
+                                // keyboardAppearance="dark"
+                                keyboardAppearance={mode}
                                 />
 
                             {message.length>4 && <TouchableOpacity style={{
                                 position:"absolute",
-                                right:15,
-                                top:10,
+                                right:127,
+                                top:17,
                                 bottom:10,
+                                opacity:.7,
                                 zIndex:11,
                                 backgroundColor:styleColors.color,
                                 justifyContent:"center",
@@ -535,7 +542,7 @@ export default function Chat({navigation}) {
 
                             <Ionicons name="close" size={11} color={styleColors.backgroundColor} />
                             </TouchableOpacity>}
-                        </View>
+                        {/* </View> */}
                     
                     <TouchableOpacity style={{
                         opacity:.5,
@@ -605,17 +612,9 @@ const styles = StyleSheet.create({
         alignItems:"flex-end",
         paddingVertical:8,
         // width:'100%',
-        height:'auto',
+        // height:'auto',
         // height:55,
         alignSelf:"center",
-        borderRadius:16,
-        paddingHorizontal:9,
-        // elevation:9,
-        // backgroundColor:Colors.lighter,
-        // marginBottom:14,
-        // marginBottom:55,
-        position:'absolute',
-        bottom:40,
 
     },
     chatContainer:{
