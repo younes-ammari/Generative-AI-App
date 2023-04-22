@@ -31,7 +31,7 @@ export default Colors = {
             backgroundColor:"rgb(255, 255, 255)",
             ActiveTintColor:"rgb(57,45,126)"
         },
-        placeholder:'rgba(100, 100, 100, .041)',
+        placeholder:'rgb(245, 245, 245)',
         placeholderText:"rgba(10, 10, 10, .8)",
         placeholderTextColor:"rgba(10, 10, 10, .3)",
     },

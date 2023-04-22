@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Text, View } from 'react-native';
 import Message from './Message';
 
-const TypeWriter = ({text, delay, scrollRef }) => {
+const TypeWriter = ({text, delay, isWriting, scrollRef }) => {
   const [typedText, setTypedText] = useState('');
+  
+
   
   useEffect(() => {
     let index = 0;
@@ -15,14 +17,25 @@ const TypeWriter = ({text, delay, scrollRef }) => {
         setTypedText(text.substring(0, index));
         index++;
         // scrollRef && scrollRef.current.scrollToEnd()
-      if (index > text.length) clearInterval(timer);
+      if (isWriting){
+          isWriting(true)
+        }
+      if (index > text.length) {
+        clearInterval(timer)
+        if (isWriting){
+          isWriting(false)
+        }
+      };
     }, delay);
     return () => {
         
-        clearInterval(scrollTimer);
+        // clearInterval(scrollTimer);
         clearInterval(timer);
     }
   }, [text, delay]);
+
+  
+
 
   return (
     <>

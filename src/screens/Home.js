@@ -143,18 +143,29 @@ export default function Home({route, navigation}) {
                 subtitle='live chat with GPT-4'
                 icon={<MaterialCommunityIcons name='robot-outline' color={mode=="dark"  ? Colors.lighter : Colors.primary} size={39} />}
                 flag={<Ionicons name='ios-chatbubble-ellipses-outline' color={mode=="dark"  ? Colors.lighter : Colors.primary} size={18} />}
-                imageSource={images.chatGPT}
                 onPress={()=>navigation.navigate("Chat")}
                 />
             <Card 
                 color={styleColors.color}
                 backgroundColor={Colors.green}
                 title='Generate Images'
-                subtitle='convert any prompt into a real image'
+                // subtitle='Create beautiful art and images with AI, enter your prompts and convert text to image in different art styles quickly'
+                subtitle='Create beautiful art and images with AI in different art styles quickly'
                 flag={<MaterialCommunityIcons name='creation' color={mode=="dark"  ? Colors.lighter : styleColors.color} size={16} />}
                 icon={<Octicons name='image' color={mode=="dark"  ? Colors.lighter : styleColors.color} size={29} />}
-                imageSource={images.ai}
                 onPress={()=>navigation.navigate("ImageGen")}
+            />
+            <Card 
+                color={styleColors.color}
+                backgroundColor={Colors.green}
+                title='AI Voice Over'
+                // subtitle='Transform your content with high-quality, AI generated voiceovers, professional voices in 100 languages'
+                subtitle='Transform your content with high-quality, AI generated voiceovers, professional voices in 100 languages'
+                // flag={<MaterialCommunityIcons name='text-to-speech' color={mode=="dark"  ? Colors.lighter : styleColors.color} size={16} />}
+                icon={<MaterialCommunityIcons name='text-to-speech' color={mode=="dark"  ? Colors.lighter : styleColors.color} size={39} />}
+                // icon={<MaterialCommunityIcons name='account-voice' color={mode=="dark"  ? Colors.lighter : styleColors.color} size={39} />}
+                // icon={<Octicons name='image' color={mode=="dark"  ? Colors.lighter : styleColors.color} size={29} />}
+                onPress={()=>navigation.navigate("AIVoiceGen")}
             />
         </View>
     </ScreenWrapper>

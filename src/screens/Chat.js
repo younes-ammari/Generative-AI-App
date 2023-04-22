@@ -22,13 +22,20 @@ export default function Chat({navigation}) {
       });
       const openai = new OpenAIApi(configuration);
     
-      const history = [];
+      const history = [{
+        content:"hello",
+        isRespond:true,
+      }];
 
     const kb = useKeyboard();
     const scrollViewRef = useRef();
     const inputRef = useRef();
     const scrollViewChatRef = useRef();
     const [isFocused, setIsFocused] = useState(false)
+
+    const [isWriting, setIsWriting] = useState(false)
+    const delay = 50
+    
     const [message, setMessage]= useState('')
     const [isRecording, setIsRecording] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
@@ -40,7 +47,7 @@ export default function Chat({navigation}) {
     const WW = Dimensions.get('window').width;
 
 
-    const { displayMode, styleColors} = useContext(AppContext)
+    const { displayMode, styleColors, appData} = useContext(AppContext)
 
     const deviceMode = useColorScheme()
     
@@ -186,7 +193,11 @@ export default function Chat({navigation}) {
         },
     ]
 
-    const [data, setData] = useState([])
+    const [data, setData] = useState([{
+        id:0,
+        isRespond:true,
+        content:`Hey ${appData.user.name}, how can i assist you !`
+    }])
 
     const messages = [];
 
@@ -316,7 +327,7 @@ export default function Chat({navigation}) {
     }
     // console.log('kb', kb)
     
-  console.info('message', message)
+//   console.info('message', message)
 
 
     const handleRecordEvent=()=>{
@@ -370,6 +381,7 @@ export default function Chat({navigation}) {
             // alignItems:"center",
             // justifyContent:"center",
         }}>
+            {/* <Text style={{color:'red'}}>{String(isWriting)}</Text> */}
 
             
 
@@ -403,7 +415,7 @@ export default function Chat({navigation}) {
 
                                     item.id >= maxID && item.isRespond
                                     ?
-                                    <TypeWriter scrollRef={scrollViewChatRef} delay={50} text={item.content}/>
+                                    <TypeWriter scrollRef={scrollViewChatRef} delay={delay} text={item.content} isWriting={(state)=>setIsWriting(state)}/>
                                     :
                                     <Message respond={item.isRespond} text={item.content}/>
                                     )
@@ -487,8 +499,8 @@ export default function Chat({navigation}) {
                     // marginBottom:15,
                     // marginTop:7,
                     position : kb.isVisible ? "relative" : "absolute" ,
-                    bottom : kb.isVisible ? kb.height*1.1 : 0,
-                    paddingBottom:kb.isVisible ? 0 : 22,
+                    bottom : kb.isVisible ? kb.height*1 : 0,
+                    paddingBottom:kb.isVisible ? 22 : 22,
                     }]}>
                             <TextInput 
                                 pointerEvents={'none'}
@@ -572,7 +584,7 @@ export default function Chat({navigation}) {
                     
                     
                     <TouchableOpacity style={{
-                        opacity:message.length<4 ? .2:1,
+                        opacity:message.length<4 || isWriting ? .2:1,
                         paddingHorizontal:13,
                         borderRadius:8,
                         height:44,
@@ -588,7 +600,7 @@ export default function Chat({navigation}) {
                         backgroundColor:'#0b67f5',
                         flexDirection:'row',
                     }}
-                    // disabled={message.length<4}
+                    disabled={message.length<4 || isWriting}
                     onPress={handleSendEvent}
                     >
                         

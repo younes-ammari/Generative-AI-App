@@ -1655,6 +1655,11 @@
   dependencies:
     "invariant" "^2.2.4"
 
+"@react-native-picker/picker@^2.4.10":
+  "integrity" "sha512-EvAlHmPEPOwvbP6Pjg/gtDV3XJzIjIxr10fXFNlX5r9HeHw582G1Zt2o8FLyB718nOttgj8HYUTGxvhu4N65sQ=="
+  "resolved" "https://registry.npmjs.org/@react-native-picker/picker/-/picker-2.4.10.tgz"
+  "version" "2.4.10"
+
 "@react-native/assets@1.0.0":
   "integrity" "sha512-KrwSpS1tKI70wuKl68DwJZYEvXktDHdZMG0k2AXD/rJVSlB23/X2CB2cutVR0HwNMJIal9HOUOBB2rVfa6UGtQ=="
   "resolved" "https://registry.npmjs.org/@react-native/assets/-/assets-1.0.0.tgz"
@@ -6388,7 +6393,7 @@
     "prop-types" "^15.7.2"
     "yargs" "^16.1.1"
 
-"react-native@*", "react-native@^0.0.0-0 || 0.60 - 0.72 || 1000.0.0", "react-native@>=0.40.0", "react-native@>=0.46", "react-native@>=0.65.0", "react-native@0.71.5":
+"react-native@*", "react-native@^0.0.0-0 || 0.60 - 0.72 || 1000.0.0", "react-native@>=0.40.0", "react-native@>=0.46", "react-native@>=0.57", "react-native@>=0.65.0", "react-native@0.71.5":
   "integrity" "sha512-fMptnHXoIPotg7gPYAvjMRnfC6gUSkTJzgaIDQJTY/f5F+g6qph5J1xT9LCuWuNguyQ9dh8b0MZTK5ROvTTV9w=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.71.5.tgz"
   "version" "0.71.5"
@@ -6450,7 +6455,7 @@
     "react-shallow-renderer" "^16.15.0"
     "scheduler" "^0.23.0"
 
-"react@*", "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^18.2.0", "react@>=17.0.0", "react@18.2.0":
+"react@*", "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^18.2.0", "react@>=16", "react@>=17.0.0", "react@18.2.0":
   "integrity" "sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   "version" "18.2.0"
