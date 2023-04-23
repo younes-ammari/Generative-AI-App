@@ -14,5 +14,8 @@ export {default as Voice } from "./Voice"
 
 
 export {default as AIVoiceGen } from "./AIVoiceGen"
+export {default as PlayerScreen } from "./PlayerScreen"
+
+export {default as Score } from "./Score"
 
 export {default as Rec } from "./Rec"

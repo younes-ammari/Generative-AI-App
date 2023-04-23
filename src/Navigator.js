@@ -1,10 +1,11 @@
 import { StyleSheet, Text, useColorScheme, View } from 'react-native'
 import React, { useContext } from 'react'
-import {About, AIVoiceGen, AuthScreen, Chat, Home, ImageGen, Login, Mode, Pay, PlayerScreen, Rec, Settings, Voice} from './screens/Index'
+import {About, AIVoiceGen, AuthScreen, Chat, Home, ImageGen, Login, Mode, Pay, PlayerScreen, Rec, Score, Settings, Voice} from './screens/Index'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Entypo from 'react-native-vector-icons/Entypo';
 import Colors from './constants/Colors';
 import { Easing } from 'react-native-reanimated';
 import AppContext from './hooks/useContext';
@@ -80,7 +81,11 @@ const TabNav=({route, navigation})=>{
             }
 
             // You can return any component that you like here!
-            return <Ionicons name={iconName} size={focused ? 24 : 20} color={!focused ? "rgba(200, 200, 200, .7)" : '#FFF'} />;
+            return route.name !== "Score" ?
+            <Ionicons name={iconName} size={focused ? 24 : 20} color={!focused ? "rgba(200, 200, 200, .7)" : '#FFF'} />
+            :
+            <Entypo name={"credit"} size={focused ? 24 : 20} color={!focused ? "rgba(200, 200, 200, .7)" : '#FFF'} />;
+            
           },
           tabBarActiveTintColor: styleColors.tabBar.ActiveTintColor,
           tabBarActiveTintColor: styleColors.lighter,
@@ -94,6 +99,7 @@ const TabNav=({route, navigation})=>{
           
         }}
         />
+        <Tab.Screen name="Score" component={Score} />
         <Tab.Screen name="Pay" component={Pay} />
         <Tab.Screen name="Settings" component={Settings} />
       </Tab.Navigator>

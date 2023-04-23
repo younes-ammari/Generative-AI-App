@@ -42,6 +42,7 @@ export default function ScreenWrapper(props) {
   };
 
   const Tag = props.scroll ? ScrollView : View
+  const styleProp = props.scroll ? "contentContainerStyle" : "style"
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -58,7 +59,7 @@ export default function ScreenWrapper(props) {
       }}>
         <Tag style={{
           flex:1,
-          justifyContent:"flex-start",
+          // justifyContent:"flex-start",
           }}>
 
           {
