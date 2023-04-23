@@ -54,7 +54,7 @@ export default function ScreenWrapper(props) {
       <View style={{
         height:Dimensions.get('window').height*1,
         width:Dimensions.get('window').width,
-        paddingTop:props.back || props.title ? 9 : 0,
+        paddingTop:props.back || props.title ? 5 : 9,
 
       }}>
         <Tag style={{
@@ -115,12 +115,21 @@ export default function ScreenWrapper(props) {
                 flex:1,
                 zIndex:11,
                 paddingLeft:11,
+                justifyContent:"center",
+                flexDirection:props.icon ? "row" : undefined,
                 alignItems: !props.back ? "center" : "flex-start",
               }}>
-                <Text style={[styles.title, {color:styleColors.color}]}>{props.title}</Text>
+                {
+                  props.icon 
+                  &&
+                  props.icon
+
+                }
+                <Text style={[styles.title, {color:styleColors.color, marginStart:9,}]}>{props.title}</Text>
               </View>  
 
             }
+            
 
         
           </View>

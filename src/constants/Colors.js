@@ -1,17 +1,17 @@
 export default Colors = {
-    primary:"rgb(57,45,126)",
+    primary:"rgba(93, 95, 239, 1)",
     green:"#C3E6E2",
     bleu : "#0b67f5",
     lighter:'#FFF',
     darker:"#000",
     red:'rgba(200, 80, 50, 1))',
     rgb:{
-        primary:"57,45,126",
+        primary:"93, 95, 239",
 
     },
 
     light:{
-        primary:"rgb(57,45,126)",
+        primary:"rgba(93, 95, 239, 1)",
         green:"#C3E6E2",
         bleu : "#0b67f5",
         backgroundColor:'#FFF',
@@ -20,23 +20,23 @@ export default Colors = {
         darker:"#000",
         red:'rgba(200, 80, 50, 1))',
         rgb:{
-            primary:"57,45,126",
+            primary:"93, 95, 239",
 
         },
         androidRippleColor:'rgba(20, 20, 20, .1)',
         header:{
-            backIconColor:"rgb(57,45,126)",
+            backIconColor:"rgba(93, 95, 239, 1)",
         },
         tabBar:{
             backgroundColor:"rgb(255, 255, 255)",
-            ActiveTintColor:"rgb(57,45,126)"
+            ActiveTintColor:"rgba(93, 95, 239, 1)"
         },
         placeholder:'rgb(245, 245, 245)',
         placeholderText:"rgba(10, 10, 10, .8)",
         placeholderTextColor:"rgba(10, 10, 10, .3)",
     },
     dark:{
-        primary:"rgb(57,45,126)",
+        primary:"rgba(93, 95, 239, 1)",
         green:"#C3E6E2",
         bleu : "#0b67f5",
         color:'#FFF',
@@ -45,7 +45,7 @@ export default Colors = {
         backgroundColor:"rgb(20, 20, 20)",
         red:'rgba(200, 80, 50, 1))',
         rgb:{
-            primary:"57,45,126",
+            primary:"93, 95, 239",
 
         },
         androidRippleColor:'rgba(200, 200, 200, .2)',
