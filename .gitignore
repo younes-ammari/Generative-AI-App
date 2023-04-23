@@ -37,6 +37,7 @@ local.properties
 # config
 #
 config/
+copy/
 Chat-copy.js
 ImageGen-copy.js
 

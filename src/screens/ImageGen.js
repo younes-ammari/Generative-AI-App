@@ -75,46 +75,45 @@ export default function ImageGen({navigation}) {
     
     const [isRecording, setIsRecording] = useState(false)
   
-      
+
     const speechStartHandler = e => {
-      
-      console.log('speechStart successful', e);
-    };
-    const speechEndHandler = e => {
-      setLoading(false);
-      setIsRecording(false)
-      console.log('stop handler', e);
-    };
-  
-    const speechResultsHandler = e => {
-      const text = e.value[0];
-      setResult(text);
-      let newMessage = message + " " + text + " "
-      setPrompt(newMessage)
-      console.log('result', text)
-      console.log('newMessage', newMessage)
-    };
-  
-    const startRecording = async () => {
-      setLoading(true);
-      setRecording(true);
-      try {
-        await Voice.start('en-Us');
-      } catch (error) {
-        console.log('error', error);
-        setLoading(false);
-      }
-    };
-  
-    const stopRecording = async () => {
-      setRecording(false);
-      try {
-        await Voice.stop();
-        setLoading(false);
-      } catch (error) {
-        console.log('error', error);
-      }
-    };
+        setRecording(true)
+        
+        console.log('speechStart successful', e);
+      };
+      const speechEndHandler = e => {
+        setRecording(false);
+        console.log('stop handler', e);
+      };
+    
+      const speechResultsHandler = e => {
+        const text = e.value[0];
+        setResult(text);
+        setPrompt(prompt + " " + text + " ")
+        console.log('result', text)
+      };
+    
+      const startRecording = async () => {
+        // setLoading(true);
+        try {
+            setRecording(true);
+          await Voice.start('en-Us');
+        } catch (error) {
+          console.log('error', error);
+          setRecording(false);
+        }
+      };
+    
+      const stopRecording = async () => {
+        // setRecording(false);
+        try {
+          await Voice.stop();
+          setRecording(false);
+        } catch (error) {
+          setRecording(false);
+          console.log('error', error);
+        }
+      };
     
     const clear = () => {
         setResult('');
@@ -473,7 +472,7 @@ export default function ImageGen({navigation}) {
     // console.log('fs.dirs')
     console.log('fileName', fileName)
     // const destPath = RNFetchBlob.fs.dirs.DownloadDir + '/ChatGPT App/' + fileName;
-    const destPath = fs.dirs.DownloadDir + '/ChatGPT App/'+ fileName;
+    const destPath = fs.dirs.DownloadDir + '/ChatGPT App/Images/'+ fileName;
     // console.log('fs.dirs.PictureDir', fs.dirs.DCIMDir , "\n", destPath)
 
     let options = {
@@ -552,9 +551,9 @@ export default function ImageGen({navigation}) {
 
     
     const handleRecordEvent=()=>{
-        var rec = !isRecording
+        var rec = isRecording
         setIsRecording(!isRecording)
-        if (rec){
+        if (!rec){
             console.log('start recording ...')
             startRecording()
             
@@ -563,9 +562,6 @@ export default function ImageGen({navigation}) {
             console.log('end recording ...')
             stopRecording()
         }
-        setTimeout(() => {
-            // setIsRecording(false)
-        }, 2000);
 
 
     }
@@ -833,7 +829,7 @@ export default function ImageGen({navigation}) {
 
 
         <View style={{
-            height: kb.isVisible ? kb.height*1 : 90,
+            height: kb.isVisible ? kb.height*1.1 : 90,
         }} />
         
 
@@ -845,7 +841,7 @@ export default function ImageGen({navigation}) {
         <View style={{
             
             position:"absolute",
-            bottom:kb.isVisible ? kb.height*1+0 : 0,
+            bottom:kb.isVisible ? kb.height*1+18 : 18,
             // opacity:kb.isVisible ? !prompt.length>5 ? 1 : 1 : .4, 
             left:0,
             right:0,
@@ -885,7 +881,7 @@ export default function ImageGen({navigation}) {
                     &&
                     <ActivityIndicator
                         // color={mode=="dark" ? styleColors.color : styleColors.backgroundColor}
-                        color={styleColors.color}
+                        color={styleColors.lighter}
                     />
                 }
                     

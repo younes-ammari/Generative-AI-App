@@ -1,6 +1,6 @@
 import { StyleSheet, Text, useColorScheme, View } from 'react-native'
 import React, { useContext } from 'react'
-import {About, AIVoiceGen, AuthScreen, Chat, Home, ImageGen, Login, Mode, Pay, Rec, Settings, Voice} from './screens/Index'
+import {About, AIVoiceGen, AuthScreen, Chat, Home, ImageGen, Login, Mode, Pay, PlayerScreen, Rec, Settings, Voice} from './screens/Index'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -8,6 +8,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Colors from './constants/Colors';
 import { Easing } from 'react-native-reanimated';
 import AppContext from './hooks/useContext';
+import Player from './screens/Player';
 
 const Stack = createNativeStackNavigator();
 
@@ -168,8 +169,11 @@ export default function Navigator() {
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Mode" component={Mode} />
       <Stack.Screen name="Voice" component={Voice} />
+
       <Stack.Screen name="AIVoiceGen" component={AIVoiceGen} />
-      
+      <Stack.Screen name="Player" component={Player} />
+
+
       <Stack.Screen name="Rec" component={Rec} />
       <Stack.Screen name="TabNav" component={TabNav} />
       <Stack.Screen name="About" component={About} />

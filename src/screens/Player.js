@@ -12,125 +12,20 @@ import Voice from '@react-native-community/voice';
 import ScreenWrapper from '../ScreenWrapper';
 import Colors from '../constants/Colors';
 import AppContext from '../hooks/useContext';
+import PlayerScreen from './PlayerScreen';
 
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withDelay,
-  withRepeat,
-  withTiming,
-  interpolate,
-} from "react-native-reanimated";
-
-
-export default function Rec (){
+export default function Player ({route, navigation}){
+    
+  const {url, ...otherparams} = route.params
   const [result, setResult] = useState('');
   const [isLoading, setLoading] = useState(false);
   const [isRecording, setRecording] = useState(false);
 
 
-
-
-  // console.log(Voice)
-
-  const speechStartHandler = e => {
-    setRecording(true)
-    
-    console.log('speechStart successful', e);
-  };
-  const speechEndHandler = e => {
-    setRecording(false);
-    console.log('stop handler', e);
-  };
-
-  const speechResultsHandler = e => {
-    const text = e.value[0];
-    setResult(text);
-    console.log('result', text)
-  };
-
-  const startRecording = async () => {
-    // setLoading(true);
-    setRecording(true);
-    try {
-      await Voice.start('en-Us');
-    } catch (error) {
-      console.log('error', error);
-      setRecording(false);
-    }
-  };
-
-  const stopRecording = async () => {
-    // setRecording(false);
-    try {
-      await Voice.stop();
-      setRecording(false);
-    } catch (error) {
-      setRecording(false);
-      console.log('error', error);
-    }
-  };
-
-  const clear = () => {
-    setResult('');
-  };
-
-  useEffect(() => {
-    Voice.onSpeechStart = speechStartHandler;
-    Voice.onSpeechEnd = speechEndHandler;
-    Voice.onSpeechResults = speechResultsHandler;
-
-    return () => {
-      Voice.destroy().then(Voice.removeAllListeners);
-    };
-  }, []);
-
-  // console.info(Voice.)
-  
-  // console.log('speech recognition');
-
-
   return (
-    <ScreenWrapper back title='Voice'>
+    <ScreenWrapper back title='Voice Player'>
     <View style={styles.container}>
-        <Text style={styles.headingText}>Voice to Text Recognition</Text>
-        <View style={styles.textInputStyle}>
-
-        
-{/* 
-        {isRecording && (
-          <>
-          <Ring delay={0} />
-          <Ring delay={10} />
-          <Ring delay={100} />
-          <Ring delay={1000} />
-          </>
-        )} */}
-        {/* {isRecording && <AnimatedRing />} */}
-
-          <Text style={{
-            color:Colors.darker,
-          }}>{result ? result : "say something!"}</Text>
-          
-        </View>
-
-        <View style={styles.btnContainer}>
-          {isLoading ? 
-            <ActivityIndicator size="large" color="black" />
-           : (
-            <TouchableOpacity onPress={startRecording} style={styles.speak}>
-              <Text style={{color: 'white', fontWeight: 'bold'}}>Speak</Text>
-            </TouchableOpacity>
-          )}
-
-          <TouchableOpacity style={styles.stop} onPress={stopRecording}>
-            <Text style={{color: 'white', fontWeight: 'bold'}}>Stop</Text>
-          </TouchableOpacity>
-        </View>
-
-        <TouchableOpacity style={styles.clear} onPress={clear}>
-          <Text style={{color: 'white', fontWeight: 'bold'}}>Clear</Text>
-        </TouchableOpacity>
+        <PlayerScreen url="https://peregrine-results.s3.amazonaws.com/pigeon/eJLhFdV2DdE0P5Q9vy_0.wav"/>
     </View>
     </ScreenWrapper>
   );

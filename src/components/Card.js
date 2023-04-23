@@ -6,8 +6,8 @@ import AppContext from '../hooks/useContext'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 export default function Card({
-    title='title',
-    subtitle='subtitle',
+    title,
+    subtitle,
     color=Colors.lighter,
     backgroundColor=Colors.primary,
     icon=<MaterialCommunityIcons name='robot' color={Colors.light} size={55} />,
@@ -78,7 +78,7 @@ export default function Card({
             justifyContent:"space-around"
         }}>
             <Text style={[styles.title, {color:mode=="dark"  ? Colors.lighter : color}]}>{title}</Text>
-            <Text style={[styles.subtitle, {color:mode=="dark"  ? Colors.lighter : color}]}>{subtitle}</Text>
+            {subtitle&&<Text style={[styles.subtitle, {color:mode=="dark"  ? Colors.lighter : color}]}>{subtitle}</Text>}
                     
         </View>
         <View style={{
