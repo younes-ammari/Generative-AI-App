@@ -51,9 +51,9 @@ export default function ImageGen({navigation}) {
 
     
     const demoResult=[
-        {
-            url:'https://images.nightcafe.studio/jobs/rY2TxlazqPUzLomNPmnM/rY2TxlazqPUzLomNPmnM--1--gs4f2.jpg?tr=w-640,c-at_max'
-        }
+        // {
+        //     url:'https://images.nightcafe.studio/jobs/rY2TxlazqPUzLomNPmnM/rY2TxlazqPUzLomNPmnM--1--gs4f2.jpg?tr=w-640,c-at_max'
+        // }
     ]
     const [respond, setRespond]= useState(demoResult)
     const [prompt, setPrompt]= useState('')
@@ -465,7 +465,7 @@ export default function ImageGen({navigation}) {
     // config: To pass the downloading related options
     // fs: Directory path where we want our image to download
     // let  fileName = 'image_'+ Math.floor(date.getTime() + date.getSeconds() / 2) + ".jpg"
-    let  fileName = 'image_'+ Math.floor(date.getTime() + date.getSeconds() / 2) + ext
+    let  fileName = 'generatedImage_'+ Math.floor(date.getTime() + date.getSeconds() / 2) + ext
     // let PictureDir = fs.dirs.PictureDir;
     
     const { config, fs } = RNFetchBlob;
@@ -818,6 +818,16 @@ export default function ImageGen({navigation}) {
                 }}>generating ...</Text>
                 </View>
                 :
+                respond.length<1
+                ?
+
+                <Text style={{
+                    flex:1,
+                    verticalAlign:"middle",
+                    textAlign:"center",
+                    padding:66,
+                }}>no result</Text>
+                :
                 respond.map((el, i)=><GeneratedImageComponent key={i} info={el} />)
             }
             </View>
@@ -841,7 +851,7 @@ export default function ImageGen({navigation}) {
         <View style={{
             
             position:"absolute",
-            bottom:kb.isVisible ? kb.height*1+18 : 18,
+            bottom:kb.isVisible ? kb.height*1 : 1,
             // opacity:kb.isVisible ? !prompt.length>5 ? 1 : 1 : .4, 
             left:0,
             right:0,
@@ -849,7 +859,7 @@ export default function ImageGen({navigation}) {
             paddingHorizontal:14,
             zIndex:11,
             paddingVertical:5,
-            paddingBottom:15,
+            paddingBottom:19,
             backgroundColor:styleColors.backgroundColor,
             justifyContent:'center',
             alignSelf:'center',

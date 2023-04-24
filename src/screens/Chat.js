@@ -500,7 +500,7 @@ export default function Chat({navigation}) {
                     // marginTop:7,
                     position : kb.isVisible ? "relative" : "absolute" ,
                     bottom : kb.isVisible ? kb.height*1 : 0,
-                    paddingBottom:kb.isVisible ? 22 : 22,
+                    paddingBottom:kb.isVisible ? 25 : 33,
                     }]}>
                             <TextInput 
                                 pointerEvents={'none'}

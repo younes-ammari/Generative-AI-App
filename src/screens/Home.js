@@ -168,19 +168,7 @@ export default function Home({route, navigation}) {
                 // icon={<Octicons name='image' color={mode=="dark"  ? Colors.lighter : styleColors.color} size={29} />}
                 onPress={()=>navigation.navigate("AIVoiceGen")}
             />
-            <Card 
-                color={styleColors.color}
-                backgroundColor={Colors.green}
-                title='Play Sound'
-                // subtitle='Transform your content with high-quality, AI generated voiceovers, professional voices in 100 languages'
-                // subtitle=''
-                // flag={<MaterialCommunityIcons name='text-to-speech' color={mode=="dark"  ? Colors.lighter : styleColors.color} size={16} />}
-                icon={<MaterialCommunityIcons name='play' color={mode=="dark"  ? Colors.lighter : styleColors.color} size={39} />}
-                // icon={<MaterialCommunityIcons name='account-voice' color={mode=="dark"  ? Colors.lighter : styleColors.color} size={39} />}
-                // icon={<Octicons name='image' color={mode=="dark"  ? Colors.lighter : styleColors.color} size={29} />}
-                // onPress={()=>navigation.navigate("Player", {title: "audio test", filepath: "https://peregrine-results.s3.amazonaws.com/pigeon/eJLhFdV2DdE0P5Q9vy_0.wav"})}
-                onPress={()=>navigation.navigate("Rec", {title: "audio test", filepath: "https://peregrine-results.s3.amazonaws.com/pigeon/eJLhFdV2DdE0P5Q9vy_0.wav"})}
-            />
+            
         </ScrollView>
     </ScreenWrapper>
   )

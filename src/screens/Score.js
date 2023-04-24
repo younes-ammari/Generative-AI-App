@@ -38,6 +38,7 @@ export default function Score({navigation}) {
           backgroundColor:Colors.primary,
           paddingVertical:22,
           paddingBottom:30,
+          paddingTop:44,
           borderBottomLeftRadius:44,
           borderBottomRightRadius:44,
         }}>
@@ -51,7 +52,6 @@ export default function Score({navigation}) {
               fontSize:19,
               // letterSpacing:.523,
               margin:11,
-              opacity:.8,
               marginBottom:10,
               // paddingBottom:5,
               // margin:0,
@@ -98,14 +98,15 @@ export default function Score({navigation}) {
 
           <Pressable style={{
               marginTop:25,
-              width:"40%",
-              paddingHorizontal:33,
+              // width:"40%",
+              paddingHorizontal:44,
               paddingVertical:9,
               borderWidth:1,
               // justifyContent:"center",
               alignItems:"center",
               borderRadius:12,
-              borderColor:Colors.yellow
+              // backgroundColor:Colors.yellow,
+              borderColor:Colors.yellow,
 
             }}
             
@@ -116,12 +117,11 @@ export default function Score({navigation}) {
                 fontSize:17,
                 // letterSpacing:.523,
                 // margin:11,
-                opacity:.8,
                 // paddingBottom:5,
                 // margin:0,
                 color:Colors.lighter,
                 fontWeight:"400",
-              }}>Buy credit</Text>
+              }}>+ Buy points</Text>
             </Pressable>
         </View>
 

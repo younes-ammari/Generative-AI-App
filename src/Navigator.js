@@ -1,4 +1,4 @@
-import { StyleSheet, Text, useColorScheme, View } from 'react-native'
+import { Pressable, StyleSheet, Text, useColorScheme, View } from 'react-native'
 import React, { useContext } from 'react'
 import {About, AIVoiceGen, AuthScreen, Chat, Home, ImageGen, Login, Mode, Pay, PlayerScreen, Rec, Score, Settings, Voice} from './screens/Index'
 import { NavigationContainer } from '@react-navigation/native';
@@ -10,10 +10,132 @@ import Colors from './constants/Colors';
 import { Easing } from 'react-native-reanimated';
 import AppContext from './hooks/useContext';
 import Player from './screens/Player';
+import { createDrawerNavigator, DrawerItemList, DrawerContentScrollView } from '@react-navigation/drawer';
+import CustomDrawer from './components/CustomDrawer';
+
+
+
+const Drawer = createDrawerNavigator();
 
 const Stack = createNativeStackNavigator();
 
 const Tab = createBottomTabNavigator();
+
+
+const DrawerNav=({route, navigation})=>{
+  
+  const {
+    displayMode, 
+    setMode,
+    styleColors,
+    appData,
+  } = useContext(AppContext)
+
+  const deviceMode = useColorScheme()
+    
+  // const styleColors = Colors[displayMode=="auto" ? deviceMode : displayMode]
+  
+  
+
+  
+  // const {appDatas, ...otherparams} = route.params
+  // console.log(appDatas)
+
+  return(
+    <Drawer.Navigator
+        drawerContent={props => <CustomDrawer {...props} />}
+        screenOptions={({ route, navigation }) => ({
+          overlayColor:"rgba(0, 0, 0, .6)",
+          drawerContentStyle:{
+            backgroundColor:styleColors.placeholder,
+            // borderRadius:19,
+          },
+          // headerShown: false,
+          drawerActiveBackgroundColor: Colors.primary,
+          drawerActiveTintColor: '#fff',
+          // drawerInactiveTintColor: '#333',
+          drawerItemStyle:{
+            padding:0,
+            // backgroundColor:'red',
+            // justifyContent:"flex-start",
+            // flexDirection:'row',
+            // alignItems:"flex-start",
+            // margin:0,
+            borderRadius:9,
+          },
+          drawerLabelStyle: {
+            // marginLeft: -25,
+            // fontFamily: 'Roboto-Medium',
+            fontSize: 17,
+            paddingVertical:5,
+            // paddingHorizontal:0,
+            // marginHorizontal:0,
+            margin:0
+          },
+          drawerPosition:'left',
+          drawerContentOptions:{
+            activeTintColor: 'white',
+            inactiveTintColor: 'white',
+            itemStyle: { alignItems:'flex-end' },
+          },
+
+          headerLeft: props => 
+            <Pressable onPress={navigation.toggleDrawer} style={{
+
+              padding:15,
+              // paddingLeft:10,
+            }}>
+              <Ionicons name={"menu"} size={29} color={styleColors.color}/>
+            </Pressable>,
+          headerStyle:{
+            // paddingTop:1,
+            // marginTop:1,
+            backgroundColor:"rgba(0, 0, 0, 0)"
+          },
+          headerTransparent:true,
+          headerTitle:'',
+          drawerIcon:({focused, size})=>
+              <Ionicons name={"menu"} size={20} color={'red'} />
+        
+          // drawerIcon:
+        })}
+      >
+        <Drawer.Screen name="Home" component={Home}
+        initialParams={appData} 
+        options={{
+          // headerShown:false,
+          drawerIcon:({focused, size, color})=>
+              <Ionicons name={"home"} size={20} color={color} />
+        }}
+        />
+        <Drawer.Screen name="Score" component={Score} 
+        options={({ route, navigation }) => ({
+          // headerShown:false,
+          drawerIcon:({focused, size, color})=>
+              <Entypo name={"credit"} size={20} color={color} />,
+          
+          headerTransparent:true,
+          headerTitle:'',
+          headerLeft: props => 
+          <Pressable onPress={navigation.toggleDrawer} style={{
+
+            padding:15,
+            // paddingLeft:10,
+          }}>
+            <Ionicons name={"menu"} size={29} color={Colors.lighter}/>
+          </Pressable>,
+        })}
+        />
+        <Drawer.Screen name="Settings" component={Settings} 
+        options={{
+          // headerShown:false,
+          drawerIcon:({focused, size, color})=>
+              <Ionicons name={"settings"} size={20} color={color} />
+        }}
+        />
+      </Drawer.Navigator>
+  )
+}
 
 const TabNav=({route, navigation})=>{
   
@@ -104,6 +226,8 @@ const TabNav=({route, navigation})=>{
       </Tab.Navigator>
   )
 }
+
+
 const config = {
   animation: 'spring',
   config: {
@@ -172,6 +296,7 @@ export default function Navigator() {
     >
       
       <Stack.Screen name="Pay" component={Pay} />
+      <Stack.Screen name="TabNav" component={DrawerNav} />
       <Stack.Screen name="AuthScreen" component={AuthScreen} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Mode" component={Mode} />
@@ -182,16 +307,17 @@ export default function Navigator() {
 
 
       <Stack.Screen name="Rec" component={Rec} />
-      <Stack.Screen name="TabNav" component={TabNav} />
+      {/* <Stack.Screen name="TabNav" component={TabNav} /> */}
       <Stack.Screen name="About" component={About} />
-        <Tab.Screen name="Chat" component={Chat} options={{
+
+      <Stack.Screen name="Chat" component={Chat} options={{
           transitionSpec: {
             open: config,
             close: configClose,
           },
           
         }}/>
-        <Tab.Screen name="ImageGen" component={ImageGen} options={{
+        <Stack.Screen name="ImageGen" component={ImageGen} options={{
           transitionSpec: {
             open: config,
             close: configClose,

@@ -26,9 +26,11 @@ export default function Pay({navigation}) {
   const [points, setPoints] = useState(1)
   const Icon = <FontAwesome5 name='coins' size={20} color={styleColors.color}/>
 
+  const result = (points*PointPrise).toFixed(2)
 
+  
   return (
-    <ScreenWrapper back scroll title="Buy credit" 
+    <ScreenWrapper back scroll title="Buy points" 
     // icon={Icon}
     > 
       
@@ -93,7 +95,7 @@ export default function Pay({navigation}) {
             marginEnd:22,
             color:styleColors.color,
             fontWeight:"500",
-          }}>{points*PointPrise} $</Text>
+          }}>{result} $</Text>
         </View>
         <Step number={3} title="Choose a method" />
 
