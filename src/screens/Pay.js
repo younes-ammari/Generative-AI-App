@@ -34,6 +34,7 @@ export default function Pay() {
         style={{
           flex:1,
           backgroundColor:styleColors.backgroundColor,
+          paddingHorizontal:15,
           // backgroundColor:styleColors.red,
         }}
       >

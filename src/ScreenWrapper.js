@@ -54,13 +54,20 @@ export default function ScreenWrapper(props) {
       <View style={{
         height:Dimensions.get('window').height*1,
         width:Dimensions.get('window').width,
-        paddingTop:props.back || props.title ? 5 : 9,
+        paddingTop:props.back || props.title ? 5 : 0,
 
       }}>
-        <Tag style={{
-          flex:1,
+        <Tag style={[{
+          // flex:1,
           // justifyContent:"flex-start",
-          }}>
+          }, !props.scroll && {
+            flex:1,
+            justifyContent:"flex-start",}
+            ]} contentContainerStyle={[props.scroll && {
+              // backgroundColor:'red',
+              // padding:555,
+              paddingBottom:71,
+            }]}>
 
           {
             props.back || props.title 

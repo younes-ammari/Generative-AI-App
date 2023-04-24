@@ -22,7 +22,7 @@ export default function Step({
     <View style={[styles.flex, styles.aCenter, {
       marginVertical:5,
       marginBottom:18,
-      paddingHorizontal:11,
+      // paddingHorizontal:11,
     }]}>
       <View style={[styles.jCenter, styles.aCenter, {
         backgroundColor:Colors.primary,

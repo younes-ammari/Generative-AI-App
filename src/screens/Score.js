@@ -8,6 +8,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import AppContext from '../hooks/useContext'
 import Step from '../components/Step'
 import PaymentMethod from '../components/PaymentMethod'
+import Activity from '../components/Activity'
 
 export default function Score() {
 
@@ -23,89 +24,119 @@ export default function Score() {
   const mode = displayMode=="auto" ? deviceMode : displayMode
 
 
-  const [points, setPoints] = useState(1)
+  const [points, setPoints] = useState(135)
   const Icon = <FontAwesome5 name='coins' size={20} color={styleColors.color}/>
 
 
   return (
     <ScreenWrapper scroll> 
       
-      <View 
-        style={{
-          flex:1,
-          backgroundColor:styleColors.backgroundColor,
-          // backgroundColor:styleColors.red,
-        }}
-      >
-        <Step number={1} title="Enter the point you want to buy" />
+        
         <View style={{
-          flexDirection:'row',
-          justifyContent:"center",
-          // alignItems:"center",
-          alignItems:"baseline",
-          alignItems:"flex-end",
-          // paddingBottom:5,
-        }}>
-          <TextInput 
-           placeholder='12'
-           value={String(points)}
-           onChangeText={(value)=>setPoints(value)}
-           keyboardType="numeric"
-           style={{
-            padding:0,
-            margin:0,
-            // borderWidth:1,
-            verticalAlign:"middle",
-            textAlign:"center",
-            textAlignVertical:"center",
-            fontSize:55,
-           }}
-          />
-          <Text style={{
-            fontSize:20,
-            // letterSpacing:.523,
-            margin:11,
-            opacity:.8,
-            marginBottom:10,
-            // paddingBottom:5,
-            // margin:0,
-            color:styleColors.color,
-            fontWeight:"500",
-          }}>x {PointPrise} $</Text>
-        </View>
-
-        <View style={{
-          flexDirection:'row',
-          justifyContent:"space-between",
+          // justifyContent:"center",
           alignItems:"center",
-          marginTop:21,
+          backgroundColor:Colors.primary,
+          paddingVertical:22,
+          paddingBottom:50,
+          borderBottomLeftRadius:44,
+          borderBottomRightRadius:44,
+        }}>
+          <View style={{
+            flexDirection:'row',
+            justifyContent:"center",
+            alignItems:"center",
+          }}>
+            <FontAwesome5 name='coins' size={17} color={Colors.lighter}/>
+            <Text style={{
+              fontSize:19,
+              // letterSpacing:.523,
+              margin:11,
+              opacity:.8,
+              marginBottom:10,
+              // paddingBottom:5,
+              // margin:0,
+              color:Colors.lighter,
+              fontWeight:"500",
+            }}>Your credit</Text>
+          </View>
+
+          
+          <View style={{
+            flexDirection:'row',
+            justifyContent:"center",
+            alignItems:"flex-end",
+            backgroundColor:"rgba(180, 181, 255, 0.13)",
+            paddingHorizontal:22,
+            paddingVertical:13,
+            marginTop:11,
+            width:"60%",
+            borderRadius:9,
+          }}>
+            <FontAwesome5 name='coins' size={19} color={"#FFD233"} style={{alignSelf:"center"}}/>
+            <Text style={{
+              fontSize:33,
+              marginHorizontal:7,
+              // letterSpacing:.523,
+              // marginBottom:10,
+              color:Colors.lighter,
+              fontWeight:"500",
+            }}>{points}</Text>
+            <Text style={{
+              fontSize:15,
+              // letterSpacing:.523,
+              opacity:.8,
+              // paddingBottom:5,
+              // margin:0,
+              color:Colors.lighter,
+              fontWeight:"400",
+            }}>points</Text>
+          </View>
+
+
+
+
+        </View>
+
+        <View style={{
+          paddingHorizontal:15,
         }}>
 
-          <Step number={2} title="Dollars" />
           <Text style={{
-            fontSize:25,
-            margin:0,
-            padding:0,
-            marginEnd:22,
+            fontSize:21,
+            marginTop:18,
+            marginBottom:9,
             color:styleColors.color,
             fontWeight:"500",
-          }}>{points*PointPrise} $</Text>
-        </View>
-        <Step number={3} title="Choose a method" />
+          }}>Last Activities</Text>
 
-        <PaymentMethod 
-          method='paypal'
-          onPress={()=>{
-            console.log('paypal pressed')
-          }}
+          <Activity 
+            title="Chat with ChatGPT"
+            details="14 message"
+            plus
+            amont={55}
           />
-        <PaymentMethod 
-          method='stripe'
-          onPress={()=>{
-            console.log('stripe pressed')
-          }}
+          <Activity 
+            title="Image generator"
+            details="4 images"
+            amont={12}
           />
-
+          <Activity 
+            title="AI Voiceover "
+            details="26 sec"
+            amont={5}
+          />
+          <Activity 
+            title="Payment"
+            details="+20 points"
+            plus
+            amont={20}
+          />
+          <Activity 
+            title="Trial points"
+            details="+16 points"
+            plus
+            amont={16}
+          />
       </View>
     </ScreenWrapper>
   )

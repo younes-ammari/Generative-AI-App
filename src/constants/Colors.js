@@ -1,6 +1,6 @@
 export default Colors = {
     primary:"rgba(93, 95, 239, 1)",
-    green:"#C3E6E2",
+    green:"rgba(67, 240, 105, 1)",
     bleu : "#0b67f5",
     lighter:'#FFF',
     darker:"#000",
@@ -12,7 +12,7 @@ export default Colors = {
 
     light:{
         primary:"rgba(93, 95, 239, 1)",
-        green:"#C3E6E2",
+        green:"rgba(67, 240, 105, 1)",
         bleu : "#0b67f5",
         backgroundColor:'#FFF',
         color:"#000",
@@ -37,7 +37,7 @@ export default Colors = {
     },
     dark:{
         primary:"rgba(93, 95, 239, 1)",
-        green:"#C3E6E2",
+        green:"rgba(67, 240, 105, 1)",
         bleu : "#0b67f5",
         color:'#FFF',
         lighter:'#FFF',
