@@ -100,7 +100,6 @@ const TabNav=({route, navigation})=>{
         }}
         />
         <Tab.Screen name="Score" component={Score} />
-        <Tab.Screen name="Pay" component={Pay} />
         <Tab.Screen name="Settings" component={Settings} />
       </Tab.Navigator>
   )
@@ -171,6 +170,8 @@ export default function Navigator() {
         }),
       }}
     >
+      
+      <Stack.Screen name="Pay" component={Pay} />
       <Stack.Screen name="AuthScreen" component={AuthScreen} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Mode" component={Mode} />

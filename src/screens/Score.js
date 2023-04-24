@@ -10,7 +10,7 @@ import Step from '../components/Step'
 import PaymentMethod from '../components/PaymentMethod'
 import Activity from '../components/Activity'
 
-export default function Score() {
+export default function Score({navigation}) {
 
   const PointPrise = 0.2
 
@@ -37,7 +37,7 @@ export default function Score() {
           alignItems:"center",
           backgroundColor:Colors.primary,
           paddingVertical:22,
-          paddingBottom:50,
+          paddingBottom:30,
           borderBottomLeftRadius:44,
           borderBottomRightRadius:44,
         }}>
@@ -58,6 +58,8 @@ export default function Score() {
               color:Colors.lighter,
               fontWeight:"500",
             }}>Your credit</Text>
+
+            
           </View>
 
           
@@ -87,14 +89,40 @@ export default function Score() {
               opacity:.8,
               // paddingBottom:5,
               // margin:0,
-              color:Colors.lighter,
+              color:Colors.yellow,
               fontWeight:"400",
             }}>points</Text>
           </View>
 
 
 
+          <Pressable style={{
+              marginTop:25,
+              width:"40%",
+              paddingHorizontal:33,
+              paddingVertical:9,
+              borderWidth:1,
+              // justifyContent:"center",
+              alignItems:"center",
+              borderRadius:12,
+              borderColor:Colors.yellow
 
+            }}
+            
+            android_ripple={{color:mode=="dark"  ? 'rgba(100, 100, 100, .21)' : 'rgba(20, 20, 20, .05)' }}
+            onPress={()=>navigation.navigate('Pay')}
+            >
+              <Text style={{
+                fontSize:17,
+                // letterSpacing:.523,
+                // margin:11,
+                opacity:.8,
+                // paddingBottom:5,
+                // margin:0,
+                color:Colors.lighter,
+                fontWeight:"400",
+              }}>Buy credit</Text>
+            </Pressable>
         </View>
 
         <View style={{

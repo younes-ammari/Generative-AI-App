@@ -9,7 +9,7 @@ import AppContext from '../hooks/useContext'
 import Step from '../components/Step'
 import PaymentMethod from '../components/PaymentMethod'
 
-export default function Pay() {
+export default function Pay({navigation}) {
 
   const PointPrise = 0.2
 
@@ -28,7 +28,9 @@ export default function Pay() {
 
 
   return (
-    <ScreenWrapper scroll title="Buy credit" icon={Icon}> 
+    <ScreenWrapper back scroll title="Buy credit" 
+    // icon={Icon}
+    > 
       
       <View 
         style={{
