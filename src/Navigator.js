@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, useColorScheme, View } from 'react-native'
 import React, { useContext } from 'react'
-import {About, AIVoiceGen, AuthScreen, Chat, Home, ImageGen, Login, Mode, Pay, PlayerScreen, Rec, Score, Settings, Voice} from './screens/Index'
+import {About, Account, AIVoiceGen, AuthScreen, Chat, Home, ImageGen, Login, Mode, Pay, PlayerScreen, Rec, Register, Score, Settings, Voice} from './screens/Index'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -54,6 +54,8 @@ const DrawerNav=({route, navigation})=>{
           drawerActiveBackgroundColor: Colors.primary,
           drawerActiveTintColor: '#fff',
           // drawerInactiveTintColor: '#333',
+          // drawerInactiveTintColor: styleColors.placeholderTextColor,
+          drawerInactiveTintColor: styleColors.color,
           drawerItemStyle:{
             padding:0,
             // backgroundColor:'red',
@@ -108,6 +110,7 @@ const DrawerNav=({route, navigation})=>{
               <Ionicons name={"home"} size={20} color={color} />
         }}
         />
+
         <Drawer.Screen name="Score" component={Score} 
         options={({ route, navigation }) => ({
           // headerShown:false,
@@ -126,11 +129,38 @@ const DrawerNav=({route, navigation})=>{
           </Pressable>,
         })}
         />
-        <Drawer.Screen name="Settings" component={Settings} 
+
+        <Drawer.Screen name="Account" component={Account} 
+        options={{
+          // headerShown:false,
+          drawerIcon:({focused, size, color})=>
+              <Ionicons name={"information-circle"} size={22} color={color} />
+        }}
+        />
+
+
+        {/* <Drawer.Screen name="Settings" component={Settings} 
         options={{
           // headerShown:false,
           drawerIcon:({focused, size, color})=>
               <Ionicons name={"settings"} size={20} color={color} />
+        }}
+        /> */}
+        
+
+        <Drawer.Screen name="Darkmode" component={Mode} 
+        options={{
+          // headerShown:false,
+          drawerIcon:({focused, size, color})=>
+              <Ionicons name={"moon"} size={20} color={color} />
+        }}
+        />
+
+        <Drawer.Screen name="About us" component={About} 
+        options={{
+          // headerShown:false,
+          drawerIcon:({focused, size, color})=>
+              <Ionicons name={"information-circle"} size={22} color={color} />
         }}
         />
       </Drawer.Navigator>
@@ -299,6 +329,7 @@ export default function Navigator() {
       <Stack.Screen name="TabNav" component={DrawerNav} />
       <Stack.Screen name="AuthScreen" component={AuthScreen} />
       <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="Mode" component={Mode} />
       <Stack.Screen name="Voice" component={Voice} />
 

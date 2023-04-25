@@ -89,12 +89,12 @@ export default function Settings({navigation}) {
       onPress={()=>navigation.navigate('About')}
       />
 
-      <Element title='Logout' logout icon={
+      {/* <Element title='Logout' logout icon={
         <MIcon name='logout' size={22} color="rgba(200, 15, 22, 1)"
         />
       }
       onPress={logoutHandler}
-      />
+      /> */}
       {/* <Element title='Logout' logout/> */}
     </ScreenWrapper>
   )

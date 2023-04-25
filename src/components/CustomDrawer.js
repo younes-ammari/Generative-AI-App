@@ -12,6 +12,7 @@ import {
   DrawerItemList,
 } from '@react-navigation/drawer';
 
+import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -19,6 +20,8 @@ import AppContext from '../hooks/useContext';
 import Colors from '../constants/Colors';
 
 const CustomDrawer = props => {
+
+  const navigation = useNavigation()
 
   
   const {
@@ -152,15 +155,16 @@ const CustomDrawer = props => {
             </Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {}} style={{paddingVertical: 15}}>
+        <TouchableOpacity onPress={() => {navigation.navigate('Login')}} style={{paddingVertical: 15}}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Ionicons name="exit-outline" size={22} color={styleColors.color}/>
+            <Ionicons name="exit-outline" size={22} color={Colors.red}/>
             <Text
               style={{
                 fontSize: 15,
                 fontFamily: 'Roboto-Medium',
                 marginLeft: 5,
-                color:styleColors.color
+                // color:styleColors.color
+                color:Colors.red
               }}>
               Sign Out
             </Text>

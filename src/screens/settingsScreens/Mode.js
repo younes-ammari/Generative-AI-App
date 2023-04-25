@@ -64,7 +64,7 @@ export default function Mode({navigation}) {
         )
         }
   return (
-    <ScreenWrapper back title="Mode">
+    <ScreenWrapper title="Mode">
         <View style={styles.conatiner}>
 
             {/* <Text style={styles.title}>Mode</Text> */}

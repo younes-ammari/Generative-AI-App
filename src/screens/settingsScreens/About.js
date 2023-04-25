@@ -29,7 +29,7 @@ export default function About({navigation}) {
     `
 
   return (
-    <ScreenWrapper back title="About">
+    <ScreenWrapper title="About">
         <View style={styles.conatiner}>
 
             {/* <Text style={styles.title}>Mode</Text> */}

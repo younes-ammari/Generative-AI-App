@@ -1,179 +1,190 @@
-import { Dimensions, Pressable, StyleSheet, Text, View } from 'react-native'
-import React, { useContext, useState } from 'react'
-import ScreenWrapper from '../ScreenWrapper'
-import Colors from '../constants/Colors'
+import React, { useContext } from 'react';
+import {
+  SafeAreaView,
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  useColorScheme,
+} from 'react-native';
+
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
-import { ActivityIndicator } from 'react-native'
-import AppContext from '../hooks/useContext'
-import { useColorScheme } from 'react-native'
+import LoginImage from '../images/login.png';
+import GoogleImage from '../images/google.png';
+import FacebookImage from '../images/facebook.png';
+import TwitterImage from '../images/twitter.png';
 
-export default function Login({navigation}) {
-
-  const deviceMode = useColorScheme()
-
-    const {
-        setMode,
-        displayMode, 
-        setAppDataHandler,
-        styleColors,
-        appData,
-    } = useContext(AppContext)
-    
-    
-    // const styleColors = Colors[displayMode=="auto" ? deviceMode : displayMode]
-    
-    
+import CustomButton from '../components/CustomButton';
+import InputField from '../components/InputField';
+import Colors from '../constants/Colors';
+import AppContext from '../hooks/useContext';
+import ScreenWrapper from '../ScreenWrapper';
 
 
-    // const styleColors = Colors["light"]
-    // console.log('Login -> appData:', appData)
+export default function Login ({navigation}){
 
   
-    
+  const {
+    displayMode, 
+    setMode,
+    styleColors,
+    appData,
+} = useContext(AppContext)
+
+const deviceMode = useColorScheme()
+
+
+const mode = displayMode=="auto" ? deviceMode : displayMode
+
+
+
   return (
     <ScreenWrapper>
-        
-      <View 
-        style={{
-            flex:1,
-            backgroundColor:styleColors.backgroundColor,
-            // justifyContent:'center',
-            alignItems:'center'
-          }}
-      >
-        <Pressable style={{
-            // paddingHorizontal:33,
-            marginVertical:15,
-            borderRadius:12,
-            
-            width:Dimensions.get('window').width*.5,
-            backgroundColor:Colors.primary
-        }}
-        onPress={()=>{
-            setAppDataHandler({
-                mode:displayMode,
-                user:{
-                    name:'Mabrouk',
-                }
-            }, displayMode)
-            navigation.navigate('TabNav', {appDatas: {appDatas:appData}});
-            setTimeout(() => {
-                
-                navigation.navigate('Home', {appDatas: {appDatas:appData}});
-            }, 100);
-        
-        }}
-        >
+      <View style={{paddingHorizontal: 25}}>
+        <View style={{alignItems: 'center'}}>
+          
+        <Image  
+            source={LoginImage}
+            style={{
+            height:222,
+            width:222,
+            marginTop:11,
+            }}
+            resizeMethod="scale"
+            resizeMode="contain"
+            />
+        </View>
 
-            <Text style={[styles.title,{
-                color:styleColors.lighter, 
-                fontSize:18
-            }]}>Home</Text>
-        </Pressable>
-        <Pressable style={{
-            // paddingHorizontal:33,
-            marginVertical:15,
-            borderRadius:12,
-            
-            width:Dimensions.get('window').width*.5,
-            backgroundColor:Colors.primary
-        }}
-        onPress={()=>{
-          let changeMode
+        <Text
+          style={{
+            fontFamily: 'Roboto-Medium',
+            fontSize: 28,
+            fontWeight: '500',
+            color: styleColors.color,
+            opacity:.8,
+            marginBottom: 30,
+          }}>
+          Login
+        </Text>
 
-          // console.log('mode', mode)
-          switch (displayMode) {
-            case "auto":
-              changeMode = deviceMode== 'light' ? 'dark' : 'light'
-              break
-            case "dark":
-              changeMode = 'light'
-              break
-            case "light":
-              changeMode = 'dark'              
-              break
+        <InputField
+          label={'Email ID'}
+          icon={
+            <MaterialIcons
+            name="alternate-email"
+            size={20}
+            color={styleColors.placeholderTextColor}
+            style={{marginRight: 5}}
+          />
           }
+          keyboardType="email-address"
+        />
 
-          // console.info('mode', displayMode, "changeMode", changeMode)
+        <InputField
+          label={'Password'}
+          icon={
+            <Ionicons
+            name="ios-lock-closed-outline"
+            size={20}
+            color={styleColors.placeholderTextColor}
+            style={{marginRight: 5}}
+          />
+          }
+          inputType="password"
+          fieldButtonLabel={"Forgot?"}
+          fieldButtonFunction={() => {}}
+        />
+        
+        <CustomButton label={"Login"} onPress={() => {navigation.navigate('TabNav')}} />
 
-          // console.log('changeMode', changeMode, "deviceMode", deviceMode)
+        <Text style={{textAlign: 'center', color: '#666', marginBottom: 30}}>
+          Or, login with ...
+        </Text>
 
-            // setMode(changeMode)
-            // console.warn(setMode)
-            var dd = appData
-            dd['mode'] = changeMode
-            // console.log('dd', dd)
-            navigation.navigate("Mode")
-            // setAppDataHandler()
-            // setAppDataHandler(dd, changeMode)
-            // setMode('light')
-            
-        }}
-        >
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginBottom: 30,
+          }}>
+          <TouchableOpacity
+            onPress={() => {}}
+            style={{
+              borderColor: '#ddd',
+              borderWidth: 2,
+              borderRadius: 10,
+              paddingHorizontal: 30,
+              paddingVertical: 10,
+            }}>
+              <Image  
+               source={GoogleImage}
+               style={{
+                height:22,
+                width:22
+               }}
+               resizeMethod="scale"
+               resizeMode="contain"
+              />
+            {/* <GoogleSVG height={24} width={24} /> */}
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {}}
+            style={{
+              borderColor: '#ddd',
+              borderWidth: 2,
+              borderRadius: 10,
+              paddingHorizontal: 30,
+              paddingVertical: 10,
+            }}>
+              <Image  
+               source={FacebookImage}
+               style={{
+                height:22,
+                width:22
+               }}
+               resizeMethod="scale"
+               resizeMode="contain"
+              />
+            {/* <FacebookSVG height={24} width={24} /> */}
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {}}
+            style={{
+              borderColor: '#ddd',
+              borderWidth: 2,
+              borderRadius: 10,
+              paddingHorizontal: 30,
+              paddingVertical: 10,
+            }}>
+              <Image  
+               source={TwitterImage}
+               style={{
+                height:22,
+                width:22
+               }}
+               resizeMethod="scale"
+               resizeMode="contain"
+              />
+            {/* <TwitterSVG height={24} width={24} /> */}
+          </TouchableOpacity>
+        </View>
 
-            <Text style={[styles.title,{
-                color:styleColors.lighter, 
-                fontSize:18
-            }]}>Change Mode {displayMode}</Text>
-        </Pressable>
-        {/* <Pressable style={{
-            // paddingHorizontal:33,
-            marginVertical:15,
-            borderRadius:12,
-            
-            width:Dimensions.get('window').width*.5,
-            backgroundColor:Colors.primary
-        }}
-        onPress={()=>{
-            navigation.navigate('Voice');
-            
-        }}
-        >
-
-            <Text style={[styles.title,{
-                color:styleColors.lighter, 
-                fontSize:18
-            }]}>Voice</Text>
-        </Pressable>
-        <Pressable style={{
-            // paddingHorizontal:33,
-            marginVertical:15,
-            borderRadius:12,
-            
-            width:Dimensions.get('window').width*.5,
-            backgroundColor:Colors.primary
-        }}
-        onPress={()=>{
-            navigation.navigate('Rec');
-            
-        }}
-        >
-
-            <Text style={[styles.title,{
-                color:styleColors.lighter, 
-                fontSize:18
-            }]}>Rec</Text>
-        </Pressable> */}
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginBottom: 30,
+          }}>
+          <Text style={{color:styleColors.color}}>New to the app?</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+            <Text style={{color: Colors.primary, fontWeight: '700'}}> Register</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </ScreenWrapper>
-  )
-}
-
-const styles = StyleSheet.create({
-  title:{
-    fontSize:17, 
-    fontWeight:"400",
-    color:Colors.darker,
-    marginVertical:15,
-    marginTop:22,
-    textAlign:"center"
-
-  },
-  btn:{
-    marginVertical:5,
-    padding:9,
-    paddingHorizontal:35,
-    backgroundColor:"rgba(100, 100, 100, .2)"
-  }
-})
+  );
+};
