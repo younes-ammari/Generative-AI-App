@@ -29,7 +29,7 @@ export default function About({navigation}) {
     `
 
   return (
-    <ScreenWrapper title="About">
+    <ScreenWrapper fill title="About" drawer>
         <View style={styles.conatiner}>
 
             {/* <Text style={styles.title}>Mode</Text> */}
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     // backgroundColor:'red',
   },
   scroll:{
-    paddingBottom:115,
+    // paddingBottom:115,
     // backgroundColor:'red',
 
   },
@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
     flex:1,
     padding:15,
     paddingVertical:8,
+    paddingTop:70,
     // backgroundColor:'red',
 },
 flex:{

@@ -1,5 +1,6 @@
 export default Colors = {
-    primary:"rgba(93, 95, 239, 1)",
+    // primary:"rgba(93, 95, 239, 1)",
+    primary:"rgba(35, 52, 161, 1)",
     green:"rgba(67, 240, 105, 1)",
     bleu : "#0b67f5",
     lighter:'#FFF',
@@ -7,12 +8,12 @@ export default Colors = {
     yellow:"rgba(255, 210, 51, 1)",
     red:'rgba(200, 80, 50, 1))',
     rgb:{
-        primary:"93, 95, 239",
+        primary:"35, 52, 161",
 
     },
 
     light:{
-        primary:"rgba(93, 95, 239, 1)",
+        primary:"rgba(35, 52, 161, 1)",
         green:"rgba(67, 240, 105, 1)",
         bleu : "#0b67f5",
         backgroundColor:'#FFF',
@@ -21,23 +22,23 @@ export default Colors = {
         darker:"#000",
         red:'rgba(200, 80, 50, 1))',
         rgb:{
-            primary:"93, 95, 239",
+            primary:"35, 52, 161",
 
         },
         androidRippleColor:'rgba(20, 20, 20, .1)',
         header:{
-            backIconColor:"rgba(93, 95, 239, 1)",
+            backIconColor:"rgba(35, 52, 161, 1)",
         },
         tabBar:{
             backgroundColor:"rgb(255, 255, 255)",
-            ActiveTintColor:"rgba(93, 95, 239, 1)"
+            ActiveTintColor:"rgba(35, 52, 161, 1)"
         },
         placeholder:'rgb(245, 245, 245)',
         placeholderText:"rgba(10, 10, 10, .8)",
-        placeholderTextColor:"rgba(10, 10, 10, .3)",
+        placeholderTextColor:"rgba(160, 160, 160, 1)",
     },
     dark:{
-        primary:"rgba(93, 95, 239, 1)",
+        primary:"rgba(35, 52, 161, 1)",
         green:"rgba(67, 240, 105, 1)",
         bleu : "#0b67f5",
         color:'#FFF',
@@ -46,7 +47,7 @@ export default Colors = {
         backgroundColor:"rgb(20, 20, 20)",
         red:'rgba(200, 80, 50, 1))',
         rgb:{
-            primary:"93, 95, 239",
+            primary:"35, 52, 161",
 
         },
         androidRippleColor:'rgba(200, 200, 200, .2)',
@@ -59,7 +60,7 @@ export default Colors = {
         },
         placeholder:'rgba(30, 30, 30, 1)',
         placeholderText:"rgba(244, 244, 244, 1)",
-        placeholderTextColor:"rgba(200, 200, 200, .4)",
+        placeholderTextColor:"rgba(100, 100, 100, 1)",
     },
 
 }

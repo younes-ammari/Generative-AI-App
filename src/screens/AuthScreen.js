@@ -6,6 +6,8 @@ import Colors from '../constants/Colors'
 import storage from '../hooks/useStorage'
 import { ActivityIndicator } from 'react-native'
 import AppContext from '../hooks/useContext'
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
+
 
 export default function AuthScreen({navigation}) {
 
@@ -142,10 +144,14 @@ export default function AuthScreen({navigation}) {
             loading
             &&
             <>
+            <MaterialCommunityIcons name='robot' color={styleColors.color} size={77} />
             <ActivityIndicator 
                 color={styleColors.color}
+                style={{
+                  paddingVertical:15,
+                }}
             />
-            <Text style={[styles.title, {color:styleColors.color}]}>loading</Text>
+            {/* <Text style={[styles.title, {color:styleColors.color}]}>loading</Text> */}
             </>
         }
       </View>

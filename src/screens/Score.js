@@ -29,7 +29,7 @@ export default function Score({navigation}) {
 
 
   return (
-    <ScreenWrapper scroll> 
+    <ScreenWrapper scroll drawer drawerIconColor={Colors.lighter}> 
       
         
         <View style={{

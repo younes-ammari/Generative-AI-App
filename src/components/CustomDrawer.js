@@ -37,12 +37,14 @@ const CustomDrawer = props => {
 
   const mode = displayMode=="auto" ? deviceMode : displayMode
 
+  const bkg = styleColors.placeholder
+
 
   return (
-    <View style={{flex: 1, backgroundColor: styleColors.backgroundColor}}>
+    <View style={{flex: 1, backgroundColor: bkg}}>
       <DrawerContentScrollView
         {...props}
-        contentContainerStyle={{backgroundColor: styleColors.backgroundColor}}>
+        contentContainerStyle={{backgroundColor: bkg}}>
           <View
           // resizeMode=""
           // source={require('../images/drawerBackground.jpg')}
@@ -56,7 +58,7 @@ const CustomDrawer = props => {
             // backgroundColor:'red',
              paddingHorizontal:15,
              // justifyContent:"center",
-             alignItems:"center",
+            //  alignItems:"center",
              flexDirection:'row',
             //  paddingVertical:22,
             //  paddingTop:33,
@@ -74,6 +76,7 @@ const CustomDrawer = props => {
               <View style={{
                 width:"113%",
                 position:"absolute",
+                height:70,
                 height:111,
                 backgroundColor:`rgba(${Colors.rgb.primary}, .9)`,
                 borderRadius:16,
@@ -88,6 +91,7 @@ const CustomDrawer = props => {
                   opacity:.5,
                   width:'100%',
                   height:111,
+                  // height:70,
                   // paddingBottom:85,
                   // flex:1,
                   position:"absolute",
@@ -106,37 +110,52 @@ const CustomDrawer = props => {
                     width:55,
                     marginEnd:9,
                     borderRadius:55,
-                    backgroundColor:Colors.yellow,
+                    backgroundColor:styleColors.placeholderTextColor,
+                    borderWidth:1,
+                    borderColor:Colors.lighter,
+                    alignItems:"center",
+                    justifyContent:"center",
+                    bottom:-5,
                   }}
-                />
-            <View>
+                >
+                  <Ionicons name={"person"}  size={26} color={Colors.lighter}/>
+                </View>
+            
+            
+            <View style={{
+                    bottom:-13,
+                    // paddingVertical:15,
+
+            }}>
               
               <Text
               style={{
                 color: '#fff',
                 fontSize: 18,
                 fontFamily: 'Roboto-Medium',
-                marginBottom: 5,
+                marginBottom: 1,
               }}>
                 {appData.user.name}
               </Text>
               <View style={{flexDirection: 'row'}}>
                 <Text
                   style={{
-                    color: '#fff',
+                    // color: '#fff',
+                    color:Colors.lighter,
+                    // opacity:.8,
                     fontFamily: 'Roboto-Regular',
                     marginRight: 5,
                   }}>
                   120 Coins
                 </Text>
-                <FontAwesome5 name="coins" size={14} color="#fff" />
+                <FontAwesome5 name="coins" size={14} color={Colors.yellow} />
               </View>
           
           </View>
 
           </View>
         
-        <View style={{flex: 1, backgroundColor: styleColors.backgroundColor, paddingTop: 10}}>
+        <View style={{flex: 1, backgroundColor: bkg, paddingTop: 1}}>
           <DrawerItemList {...props} />
         </View>
       </DrawerContentScrollView>

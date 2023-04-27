@@ -33,6 +33,8 @@ export default function Login ({navigation}){
     setMode,
     styleColors,
     appData,
+    setAppData
+
 } = useContext(AppContext)
 
 const deviceMode = useColorScheme()
@@ -41,10 +43,23 @@ const deviceMode = useColorScheme()
 const mode = displayMode=="auto" ? deviceMode : displayMode
 
 
+const handleLogin=()=>{
+  setAppData({mode:displayMode,
+    user:{
+        name:'Mabrouk',
+    }})
+
+  navigation.navigate("TabNav")
+  setTimeout(() => {
+    navigation.navigate('Home')
+  }, 100);
+}
+
+
 
   return (
     <ScreenWrapper>
-      <View style={{paddingHorizontal: 25}}>
+      <View style={{paddingHorizontal: 25, paddingBottom:15,}}>
         <View style={{alignItems: 'center'}}>
           
         <Image  
@@ -99,7 +114,7 @@ const mode = displayMode=="auto" ? deviceMode : displayMode
           fieldButtonFunction={() => {}}
         />
         
-        <CustomButton label={"Login"} onPress={() => {navigation.navigate('TabNav')}} />
+        <CustomButton label={"Login"} onPress={handleLogin} />
 
         <Text style={{textAlign: 'center', color: '#666', marginBottom: 30}}>
           Or, login with ...

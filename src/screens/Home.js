@@ -47,7 +47,7 @@ export default function Home({route, navigation}) {
         ai:{uri:"https://www.pngmart.com/files/21/AI-PNG-Picture.png"}
     }
   return (
-    <ScreenWrapper>
+    <ScreenWrapper drawer>
         <ScrollView contentContainerStyle={{
             // flex:1,
             backgroundColor:styleColors.backgroundColor,

@@ -48,7 +48,8 @@ export default function Register({navigation}){
     <ScreenWrapper>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{paddingHorizontal: 25}}>
+        contentContainerStyle={{paddingHorizontal: 25, paddingBottom:15,}}
+        >
         <View style={{alignItems: 'center'}}>
         <Image  
             source={RegisterImage}

@@ -39,6 +39,7 @@ export default function Pay({navigation}) {
           flex:1,
           backgroundColor:styleColors.backgroundColor,
           paddingHorizontal:15,
+          paddingTop:71,
           // backgroundColor:styleColors.red,
         }}
       >

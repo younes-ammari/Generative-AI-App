@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Colors from './constants/Colors';
 import { Easing } from 'react-native-reanimated';
@@ -32,6 +33,7 @@ const DrawerNav=({route, navigation})=>{
   } = useContext(AppContext)
 
   const deviceMode = useColorScheme()
+  const mode = displayMode=="auto" ? deviceMode : displayMode
     
   // const styleColors = Colors[displayMode=="auto" ? deviceMode : displayMode]
   
@@ -47,10 +49,11 @@ const DrawerNav=({route, navigation})=>{
         screenOptions={({ route, navigation }) => ({
           overlayColor:"rgba(0, 0, 0, .6)",
           drawerContentStyle:{
-            backgroundColor:styleColors.placeholder,
+            // backgroundColor:styleColors.placeholder,
             // borderRadius:19,
+            // backgroundColor:"red"
           },
-          // headerShown: false,
+          headerShown: false,
           drawerActiveBackgroundColor: Colors.primary,
           drawerActiveTintColor: '#fff',
           // drawerInactiveTintColor: '#333',
@@ -66,13 +69,10 @@ const DrawerNav=({route, navigation})=>{
             borderRadius:9,
           },
           drawerLabelStyle: {
-            // marginLeft: -25,
+            marginLeft: -20,
             // fontFamily: 'Roboto-Medium',
-            fontSize: 17,
-            paddingVertical:5,
-            // paddingHorizontal:0,
-            // marginHorizontal:0,
-            margin:0
+            fontSize: 16,
+            paddingVertical:4,
           },
           drawerPosition:'left',
           drawerContentOptions:{
@@ -115,7 +115,7 @@ const DrawerNav=({route, navigation})=>{
         options={({ route, navigation }) => ({
           // headerShown:false,
           drawerIcon:({focused, size, color})=>
-              <Entypo name={"credit"} size={20} color={color} />,
+              <FontAwesome5 name={"coins"} size={20} color={color} />,
           
           headerTransparent:true,
           headerTitle:'',
@@ -132,9 +132,9 @@ const DrawerNav=({route, navigation})=>{
 
         <Drawer.Screen name="Account" component={Account} 
         options={{
-          // headerShown:false,
+          headerShown:false,
           drawerIcon:({focused, size, color})=>
-              <Ionicons name={"information-circle"} size={22} color={color} />
+              <Ionicons name={"person"} size={21} color={color} />
         }}
         />
 

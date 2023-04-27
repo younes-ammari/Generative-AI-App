@@ -64,7 +64,7 @@ export default function Mode({navigation}) {
         )
         }
   return (
-    <ScreenWrapper title="Mode">
+    <ScreenWrapper fill title="Mode" drawer>
         <View style={styles.conatiner}>
 
             {/* <Text style={styles.title}>Mode</Text> */}
@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
     flex:1,
     padding:15,
     paddingVertical:8,
+    paddingTop:70,
     // backgroundColor:'red',
 },
 flex:{

@@ -10,6 +10,7 @@ export default function InputField({
   keyboardType,
   fieldButtonLabel,
   fieldButtonFunction,
+  ...props
 }) {
 
   
@@ -42,6 +43,8 @@ const mode = displayMode=="auto" ? deviceMode : displayMode
           placeholderTextColor={styleColors.placeholderTextColor}
           style={{flex: 1, paddingVertical: 0, color:styleColors.color}}
           secureTextEntry={true}
+          {...props}
+          
         />
       ) : (
         <TextInput
@@ -49,6 +52,7 @@ const mode = displayMode=="auto" ? deviceMode : displayMode
           keyboardType={keyboardType}
           placeholderTextColor={styleColors.placeholderTextColor}
           style={{flex: 1, paddingVertical: 0, color:styleColors.color}}
+          {...props}
         />
       )}
       <TouchableOpacity onPress={fieldButtonFunction}>
