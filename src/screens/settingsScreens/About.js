@@ -33,7 +33,7 @@ export default function About({navigation}) {
         <View style={styles.conatiner}>
 
             {/* <Text style={styles.title}>Mode</Text> */}
-                <ScrollView contentContainerStyle={styles.scroll}>
+                <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
                   <Text style={[styles.about, {
                     color:styleColors.color
                   }]}>
@@ -76,7 +76,6 @@ const styles = StyleSheet.create({
     flex:1,
     padding:15,
     paddingVertical:8,
-    paddingTop:70,
     // backgroundColor:'red',
 },
 flex:{

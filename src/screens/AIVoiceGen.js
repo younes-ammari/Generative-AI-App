@@ -888,7 +888,7 @@ export default function AIVoiceGen({navigation}) {
 
 
   return (
-      <ScreenWrapper back title='AI Voiceover Generator'>
+      <ScreenWrapper fill back title='AI Voiceover Generator'>
             
         
         {modall()}

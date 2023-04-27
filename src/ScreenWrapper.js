@@ -52,7 +52,7 @@ export default function ScreenWrapper(props) {
     backgroundColor: styleColors.backgroundColor,
   };
 
-  const Tag = props.scroll ? ScrollView : View
+  const Tag = props.scroll ? ScrollView  : View
   const styleProp = props.scroll ? "contentContainerStyle" : "style"
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -68,8 +68,10 @@ export default function ScreenWrapper(props) {
         // paddingTop:props.back || props.title ? 5 : 0,
 
       }}>
-        <Tag style={[{
-          flex:1,
+        <Tag  showsVerticalScrollIndicator={false} style={[{
+          // flex:11,
+          // backgroundColor:'green',
+          paddingTop:props.fill ? 71 : 0,
           // paddingTop:55,
           // justifyContent:"flex-start",
           }, !props.scroll && {
@@ -78,6 +80,7 @@ export default function ScreenWrapper(props) {
             ]} contentContainerStyle={[props.scroll && {
               // backgroundColor:'red',
               // padding:555,
+              paddingTop:props.fill ? 71 : 0,
               paddingBottom:71,
             }]}>
 

@@ -354,14 +354,14 @@ export default function Chat({navigation}) {
 
 
   return (
-    <ScreenWrapper back title="Chat">
+    <ScreenWrapper fill back title="Chat">
 
         {/* <View style={styles.titleContainer}>
         <Text style={styles.title}>Chat</Text>
 
         </View> */}
 
-        
+        {/* <View style/> */}
 
 
 
@@ -369,6 +369,7 @@ export default function Chat({navigation}) {
           keyboardShouldPersistTaps='handled'
         //   scrollEnabled={!kb.isVisible}
           ref={scrollViewRef}
+          
           >
             
         <View style={{

@@ -10,8 +10,14 @@ import AppContext from '../hooks/useContext'
 import InputField from '../components/InputField'
 import CustomButton from '../components/CustomButton'
 import { Picker } from '@react-native-picker/picker'
+import { useKeyboard } from '../hooks/useKeyboard'
+import Modal from "react-native-modal";
+
 
 export default function Settings({navigation}) {
+
+
+  const Keyboard = useKeyboard()
       
   const {
     displayMode, 
@@ -52,10 +58,11 @@ export default function Settings({navigation}) {
   }
   const [buttonAction, setButtonAction]= React.useState('')
   const [show, setShow] = React.useState(false)
+  const [visible, setVisible] = React.useState(false)
 
 
   const handleShow=()=>{
-    if (!show){
+    if (show==false){
 
       setShow(true)
       console.log('show')
@@ -85,8 +92,12 @@ export default function Settings({navigation}) {
       }}
       android_ripple={{color:styleColors.androidRippleColor}}
       onPress={()=>{
-        console.log(label)
-        
+        console.log(label);
+        setShow(false)
+        setVisible(true)
+        setTimeout(() => {
+          setVisible(false)
+        }, 3000);
       }}
       >
         <Text style={{
@@ -97,7 +108,28 @@ export default function Settings({navigation}) {
     )
   }
 
+  const ModalView=()=>{
 
+    return(
+      <Modal
+        isVisible={visible}
+        onDismiss={()=>setVisible(false)}
+      >
+        <View style={{ 
+          backgroundColor:styleColors.placeholder,
+          padding:22,
+          borderRadius:9
+        }}>
+          <Text>I am the modal content!</Text>
+        </View>
+      </Modal>
+    )
+  }
+
+  const changed = !JSON.stringify(userData)===JSON.stringify(user);
+  // console.log(changed);
+  // console.log(JSON.stringify(userData));
+  // console.log(JSON.stringify(user));
   return (
     <ScreenWrapper fill drawer title="Account" 
     button={
@@ -117,7 +149,7 @@ export default function Settings({navigation}) {
           // backgroundColor:'red'
         }}
         // android_ripple={{color:styleColors.android_ripple}}
-      onPress={()=>{handleShow();console.log('pressed')}}
+      onPress={()=>{handleShow()}}
       >
         <MaterialCommunityIcons name={"dots-vertical"}  size={22} color={ mode == "dark" ? Colors.lighter :Colors.primary}
           />
@@ -149,17 +181,19 @@ export default function Settings({navigation}) {
       
     }
     >
- 
-      <ScrollView contentContainerStyle={{
-        width:"100%",
-        paddingTop:79,
-        paddingHorizontal:25,
-      }}
-      >
-        <Pressable 
+      {ModalView()}
+      <Pressable 
           onPress={()=>setShow(false)}
           onLongPress={()=>setShow(false)}
           >
+ 
+      <ScrollView contentContainerStyle={{
+        width:"100%",
+        paddingHorizontal:25,
+        // backgroundColor:'red',
+      }}
+      >
+        
 
       <View 
         style={{
@@ -250,14 +284,14 @@ export default function Settings({navigation}) {
           keyboardType="email-address"
         />
 
-        <Text style={{
+        {/* <Text style={{
           marginBottom:12,
           // marginTop:5,
           // fontWeight:"500",
           fontSize:17,
           textAlign:"center",
           color:styleColors.color
-        }}>Password</Text>
+        }}>Password</Text> */}
 
         {/* <InputField
           value={userData.password}
@@ -276,17 +310,28 @@ export default function Settings({navigation}) {
 
         
       </View>
-      <View style={{height:55,}}/>
+      <View style={{height:222,}}/>
 
-      <CustomButton label={"Save"}/>
+      <CustomButton label={"Save"} onPress={()=>{
+        // console.log(JSON.stringify(userData));
+        console.log('check')
+        console.log(JSON.stringify(userData)===JSON.stringify(user));
+        // !JSON.stringify(userData)===JSON.stringify(user)
+        // console.log(changed);
+        }}/>
       {
-        user!==userData 
-        && 
+        JSON.stringify(userData)==JSON.stringify(user)
+        ? 
+        <></>
+        :
         <CustomButton label={"Cancel"} outline/>
       }
       
-      </Pressable>
+      <View style={{
+        height:Keyboard.isVisible ? Keyboard.height : 11
+      }}/>
       </ScrollView>
+      </Pressable>
     </ScreenWrapper>
   )
 }
