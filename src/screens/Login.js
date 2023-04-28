@@ -51,8 +51,10 @@ const handleLogin=()=>{
 
   navigation.navigate("TabNav")
   setTimeout(() => {
+    
     navigation.navigate('Home')
-  }, 100);
+  }, 20);
+  
 }
 
 

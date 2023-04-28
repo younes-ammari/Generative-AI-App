@@ -78,7 +78,7 @@ export default function Settings({navigation}) {
     }
   }
 
-  const ActionElement=({label, labelColor})=>{
+  const ActionElement=({label, labelColor, ...props})=>{
 
     return(
       <Pressable style={{
@@ -91,14 +91,7 @@ export default function Settings({navigation}) {
         justifyContent:"center",
       }}
       android_ripple={{color:styleColors.androidRippleColor}}
-      onPress={()=>{
-        console.log(label);
-        setShow(false)
-        setVisible(true)
-        setTimeout(() => {
-          setVisible(false)
-        }, 3000);
-      }}
+      {...props}
       >
         <Text style={{
           color:labelColor? labelColor : styleColors.color,
@@ -112,15 +105,37 @@ export default function Settings({navigation}) {
 
     return(
       <Modal
+      animationOut={"pulse"}
+        animationIn={"pulse"}
+        animationOutTiming={10}
         isVisible={visible}
         onDismiss={()=>setVisible(false)}
       >
         <View style={{ 
           backgroundColor:styleColors.placeholder,
           padding:22,
+          // paddingVertical:18,
+          paddingBottom:15,
           borderRadius:9
         }}>
-          <Text>I am the modal content!</Text>
+          <Text style={[styles.title, {color:styleColors.color, fontSize:15,}]}>
+            Are you sure that you wanna delete your account?
+          </Text>
+
+          <View style={{
+            flexDirection:'row',
+            // backgroundColor:'red',
+            marginTop:22,
+            justifyContent:"space-evenly"
+          }}>
+            <CustomButton 
+            // color={Colors.red}
+            outline label={'Yes sure'} style={{flex:1 ,marginHorizontal:5, paddingVertical:11}}/>
+            <CustomButton 
+            // color={Colors.red}
+            onPress={()=>{setVisible(false);console.log('pressed')}}
+            label={'No'} style={{flex:1 ,marginHorizontal:5, paddingVertical:11}}/>
+          </View>
         </View>
       </Modal>
     )
@@ -172,9 +187,17 @@ export default function Settings({navigation}) {
           elevation:2,
           
         }}>
-          <ActionElement label={"Feedback"}/>
+          <ActionElement label={"Feedback"} onPress={()=>{
+            // setShow(false)
+            // setVisible(true)
+            
+          }}/>
           {/* <ActionElement label={""}/> */}
-          <ActionElement label={"Delet account"} labelColor={'red'}/>
+          <ActionElement label={"Delet account"} labelColor={'red'} onPress={()=>{
+            setShow(false)
+            setVisible(true)
+            
+          }}/>
         </View>
       }
       </View>
@@ -190,6 +213,7 @@ export default function Settings({navigation}) {
       <ScrollView contentContainerStyle={{
         width:"100%",
         paddingHorizontal:25,
+        paddingBottom:11,
         // backgroundColor:'red',
       }}
       >

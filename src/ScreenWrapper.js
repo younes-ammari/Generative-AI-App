@@ -6,11 +6,14 @@ import { Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AppContext from './hooks/useContext';
 import { ScrollView } from 'react-native-gesture-handler';
+import Modal from "react-native-modal";
+
 import {
   DrawerContentScrollView,
   DrawerItemList,
   useDrawerStatus,
 } from '@react-navigation/drawer';
+import CustomButton from './components/CustomButton';
 
 
 export default function ScreenWrapper(props) {
@@ -30,6 +33,9 @@ export default function ScreenWrapper(props) {
     setMode,
     styleColors,
     appData,
+    visibleLogout, 
+    setVisibleLogout,
+    setAppDataHandler,
   } = useContext(AppContext)
 
   
@@ -44,6 +50,61 @@ export default function ScreenWrapper(props) {
   const mode =displayMode=="auto" ? deviceMode : displayMode
   
   
+  const ModalView=()=>{
+
+    return(
+      <Modal
+      backdropColor={"rgba(10, 10, 10, .6)"}
+      // animationOut={"zoomOut"}
+      animationOut={"pulse"}
+      animationIn={"pulse"}
+      animationOutTiming={10}
+        // animationIn={"pulse"}
+        isVisible={visibleLogout}
+        onDismiss={()=>setVisibleLogout(false)}
+      >
+        <View style={{ 
+          backgroundColor:styleColors.placeholder,
+          padding:22,
+          // paddingVertical:18,
+          paddingBottom:15,
+          borderRadius:9
+        }}>
+          <Text style={[styles.title, {color:styleColors.color, fontSize:15,}]}>
+            Are you sure that you wanna delete your account?
+          </Text>
+
+          <View style={{
+            flexDirection:'row',
+            // backgroundColor:'red',
+            marginTop:22,
+            justifyContent:"space-evenly"
+          }}>
+            <CustomButton 
+            // color={Colors.red}
+            outline label={'Yes sure'} style={{flex:1 ,marginHorizontal:5, paddingVertical:11}}
+            onPress={logoutHandler}
+            />
+            <CustomButton 
+            // color={Colors.red}
+            onPress={()=>{setVisibleLogout(false);console.log('pressed')}}
+            label={'No'} style={{flex:1 ,marginHorizontal:5, paddingVertical:11}}/>
+          </View>
+        </View>
+      </Modal>
+    )
+  }
+
+  const logoutHandler=()=>{
+    setVisibleLogout(false)
+    setAppDataHandler({
+      user:{
+        name:''
+      },
+      mode:displayMode})
+    navigation.navigate('Login')
+
+  }
 
   // const styleColors = Colors[useColorScheme()]
   // var styleColors = Colors["dark"]
@@ -68,6 +129,7 @@ export default function ScreenWrapper(props) {
         // paddingTop:props.back || props.title ? 5 : 0,
 
       }}>
+        {ModalView()}
         <Tag  showsVerticalScrollIndicator={false} style={[{
           // flex:11,
           // backgroundColor:'green',

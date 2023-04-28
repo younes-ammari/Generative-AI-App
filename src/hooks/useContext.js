@@ -17,7 +17,8 @@ export const AppContextProvider = (props)=> {
     
     
 
-
+    
+    const [visibleLogout, setVisibleLogout] = React.useState(false)
 
     const [displayMode, setMode] = useState("auto");
 
@@ -149,6 +150,7 @@ export const AppContextProvider = (props)=> {
         setDemo,
         setAppDataHandler,
         loadAppDataHandler,
+        visibleLogout, setVisibleLogout,
         styleColors:Colors[displayMode=="auto" ? deviceMode : displayMode]
     }
     

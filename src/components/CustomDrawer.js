@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import {
   View,
   Text,
+  Share,
   ImageBackground,
   Image,
   TouchableOpacity,
@@ -15,6 +16,7 @@ import {
 import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AppContext from '../hooks/useContext';
 import Colors from '../constants/Colors';
@@ -29,6 +31,7 @@ const CustomDrawer = props => {
     setMode,
     styleColors,
     appData,
+    setVisibleLogout,
   } = useContext(AppContext)
 
 
@@ -38,6 +41,40 @@ const CustomDrawer = props => {
   const mode = displayMode=="auto" ? deviceMode : displayMode
 
   const bkg = styleColors.placeholder
+
+  const onShare = async () => {
+    const shareOptions = {
+      // content: {
+        title: 'Install our App',
+        message: 'We use the latest AI available tools install our app now \n https://play.google.com/store/apps/details?id=AzoBot'
+      // }
+      ,
+      // options:{
+        url: 'https://play.google.com/store/apps/details?id=AzoBot',
+        social:"SMS",
+        // social: Share.Social.WHATSAPP,
+        // whatsAppNumber: "9199999999",  // country code + phone number
+        // filename: 'test' , // only for base64 file in Android
+    // }
+  };
+    try {
+      const result = await Share.share(shareOptions);
+      if (result.action === Share.sharedAction) {
+        console.log("type", result)
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+          console.log("type", result.activityType)
+        } else {
+          // shared
+          console.log("shared", result)
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      Alert.alert(error.message);
+    }
+  };
 
 
   return (
@@ -160,28 +197,30 @@ const CustomDrawer = props => {
         </View>
       </DrawerContentScrollView>
       <View style={{padding: 20, borderTopWidth: 1, borderTopColor: '#ccc'}}>
-        <TouchableOpacity onPress={() => {}} style={{paddingVertical: 15}}>
+        <TouchableOpacity onPress={onShare} style={{paddingVertical: 15}}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Ionicons name="share-social-outline" size={22} color={styleColors.color}/>
+            <Ionicons name="share-social-sharp" size={21} color={styleColors.color}/>
             <Text
               style={{
                 fontSize: 15,
                 fontFamily: 'Roboto-Medium',
-                marginLeft: 5,
+                marginLeft: 9,
+                fontWeight:"600",
                 color:styleColors.color
               }}>
               Tell a Friend
             </Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {navigation.navigate('Login')}} style={{paddingVertical: 15}}>
+        <TouchableOpacity onPress={() => {setVisibleLogout(true)}} style={{paddingVertical: 15}}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Ionicons name="exit-outline" size={22} color={Colors.red}/>
+            <MaterialIcons name="logout" size={21} color={Colors.red}/>
             <Text
               style={{
                 fontSize: 15,
                 fontFamily: 'Roboto-Medium',
-                marginLeft: 5,
+                marginLeft: 9,
+                fontWeight:"600",
                 // color:styleColors.color
                 color:Colors.red
               }}>
