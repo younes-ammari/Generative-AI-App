@@ -15,6 +15,7 @@ export {default as Account } from './Account'
 export {default as Mode } from "./settingsScreens/Mode"
 export {default as About } from "./settingsScreens/About"
 export {default as Voice } from "./Voice"
+export {default as NewInfo } from "./NewInfo"
 
 
 

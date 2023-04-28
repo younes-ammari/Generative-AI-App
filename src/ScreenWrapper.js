@@ -227,7 +227,7 @@ export default function ScreenWrapper(props) {
                   android_ripple={{ color: 'rgba(20, 20, 20, .1)' }}
                   onPress={()=>navigation.goBack()}
                   >
-                    <Icon name="ios-arrow-back" size={28} color={styleColors.header.backIconColor} />
+                    <Icon name="ios-arrow-back" size={28} color={props.backIconColor ? props.backIconColor : styleColors.header.backIconColor} />
                   </Pressable>
                 }
             

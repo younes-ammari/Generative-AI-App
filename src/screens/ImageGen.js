@@ -573,7 +573,7 @@ export default function ImageGen({navigation}) {
 
 
   return (
-      <ScreenWrapper back title='Image Generator'>
+      <ScreenWrapper fill back title='Image Generator'>
             
         
         {modall()}

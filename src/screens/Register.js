@@ -87,6 +87,10 @@ export default function Register({navigation}){
               borderColor: styleColors.placeholderTextColor,
               borderWidth: 2,
               borderRadius: 10,
+              flex:1,
+              alignItems:"center",
+              justifyContent:"center",
+              marginHorizontal:3,
               paddingHorizontal: 30,
               paddingVertical: 10,
             }}>
@@ -99,7 +103,6 @@ export default function Register({navigation}){
                resizeMethod="scale"
                resizeMode="contain"
               />
-            {/* <GoogleSVG height={24} width={24} /> */}
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {}}
@@ -107,6 +110,10 @@ export default function Register({navigation}){
               borderColor: styleColors.placeholderTextColor,
               borderWidth: 2,
               borderRadius: 10,
+              flex:1,
+              alignItems:"center",
+              justifyContent:"center",
+              marginHorizontal:3,
               paddingHorizontal: 30,
               paddingVertical: 10,
             }}>
@@ -119,28 +126,8 @@ export default function Register({navigation}){
              resizeMethod="scale"
              resizeMode="contain"
             />
-          {/* <FacebookSVG height={24} width={24} /> */}
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {}}
-            style={{
-              borderColor: styleColors.placeholderTextColor,
-              borderWidth: 2,
-              borderRadius: 10,
-              paddingHorizontal: 30,
-              paddingVertical: 10,
-            }}>
-            <Image  
-             source={TwitterImage}
-             style={{
-              height:22,
-              width:22
-             }}
-             resizeMethod="scale"
-             resizeMode="contain"
-            />
-          {/* <TwitterSVG height={24} width={24} /> */}
-          </TouchableOpacity>
+          
         </View>
 
         <Text style={{textAlign: 'center', color: '#666', marginBottom: 30}}>
@@ -198,7 +185,7 @@ export default function Register({navigation}){
           inputType="password"
         />
 
-        <View
+        {/* <View
           style={{
             flexDirection: 'row',
             borderBottomColor: '#ccc',
@@ -234,7 +221,7 @@ export default function Register({navigation}){
           onCancel={() => {
             setOpen(false);
           }}
-        />
+        /> */}
 
         <CustomButton label={'Register'} onPress={() => {navigation.navigate('TabNav')}} />
 

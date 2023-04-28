@@ -131,13 +131,17 @@ const handleLogin=()=>{
           <TouchableOpacity
             onPress={() => {}}
             style={{
-              borderColor: '#ddd',
+              borderColor: styleColors.placeholderTextColor,
               borderWidth: 2,
               borderRadius: 10,
+              flex:1,
+              alignItems:"center",
+              justifyContent:"center",
+              marginHorizontal:3,
               paddingHorizontal: 30,
               paddingVertical: 10,
             }}>
-              <Image  
+                <Image  
                source={GoogleImage}
                style={{
                 height:22,
@@ -146,29 +150,31 @@ const handleLogin=()=>{
                resizeMethod="scale"
                resizeMode="contain"
               />
-            {/* <GoogleSVG height={24} width={24} /> */}
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {}}
             style={{
-              borderColor: '#ddd',
+              borderColor: styleColors.placeholderTextColor,
               borderWidth: 2,
               borderRadius: 10,
+              flex:1,
+              alignItems:"center",
+              justifyContent:"center",
+              marginHorizontal:3,
               paddingHorizontal: 30,
               paddingVertical: 10,
             }}>
-              <Image  
-               source={FacebookImage}
-               style={{
-                height:22,
-                width:22
-               }}
-               resizeMethod="scale"
-               resizeMode="contain"
-              />
-            {/* <FacebookSVG height={24} width={24} /> */}
+            <Image  
+             source={FacebookImage}
+             style={{
+              height:22,
+              width:22
+             }}
+             resizeMethod="scale"
+             resizeMode="contain"
+            />
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => {}}
             style={{
               borderColor: '#ddd',
@@ -186,8 +192,7 @@ const handleLogin=()=>{
                resizeMethod="scale"
                resizeMode="contain"
               />
-            {/* <TwitterSVG height={24} width={24} /> */}
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
 
         <View

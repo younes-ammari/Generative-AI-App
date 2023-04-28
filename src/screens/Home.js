@@ -1,7 +1,9 @@
-import { StyleSheet, Text, ScrollView, useColorScheme, View } from 'react-native'
+import { StyleSheet, Text, ScrollView, useColorScheme, Pressable, Image, ImageBackground, View } from 'react-native'
 import React, { useContext, useEffect } from 'react'
 import ScreenWrapper from '../ScreenWrapper'
 import Card from '../components/Card'
+import CardImage from '../components/CardImage'
+import CardNew from '../components/CardNew'
 import Colors from '../constants/Colors'
 import AppContext from '../hooks/useContext'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -47,22 +49,50 @@ export default function Home({route, navigation}) {
         ai:{uri:"https://www.pngmart.com/files/21/AI-PNG-Picture.png"}
     }
   return (
-    <ScreenWrapper drawer>
+    <ScreenWrapper>
+
+        
+        
         <ScrollView contentContainerStyle={{
             // flex:1,
             backgroundColor:styleColors.backgroundColor,
             paddingBottom:85,
+            paddingHorizontal:15
             }}>
+                
+                <View style={{
+                  zIndex:16,
+                  height:44,
+                  width:44,
+                  alignItems:"center",
+                  justifyContent:"center",
+                  borderRadius:22,
+                  position:"absolute",
+                  left:10,
+                  top:10,
+
+                }}>
+                  <Pressable style={{
+                    padding:5,
+                    height:44,
+                    width:44,
+                    alignItems:"center",
+                    justifyContent:"center",
+                    borderRadius:12
+                    
+                  }}
+                  android_ripple={{ color: 'rgba(20, 20, 20, .1)' }}
+                  onPress={()=>navigation.toggleDrawer()}
+                  >
+                    <Ionicons name="menu" size={29} color={styleColors.header.backIconColor} />
+                  </Pressable>
+              </View>
+              
 
                 <View style={{
-                    // position:"absolute",
-                    // top:19,
-                    // right:5,
-                    // left:5,
                     justifyContent:"center",
                     alignItems:"center",
                     marginTop:11,
-                    // width:"100%",
                 }}>
                     <View style={{
                         alignItems:"center",
@@ -71,9 +101,9 @@ export default function Home({route, navigation}) {
                         paddingVertical:7,
                         flexDirection:'row',
                         backgroundColor:"rgba(11, 84, 211, .2)",
-                        // backgroundColor:Colors.bleu,
 
                     }}>
+
 
 
                     <Text style={{
@@ -85,32 +115,64 @@ export default function Home({route, navigation}) {
                         fontSize:23,
                         color:Colors.bleu,
                         fontWeight:"800",
-                        // marginRight:15,
                     }}>Bot </Text>
                     <Ionicons style={{marginHorizontal:5,}} name='md-ice-cream' color={styleColors.color} size={29} />
-                    {/* <MaterialCommunityIcons style={{marginHorizontal:5,}} name='robot' color={styleColors.color} size={29} /> */}
                     </View>
-                    {/* <Logo size={55}/> */}
                 </View>
 
+                {/* <View style={{
+                // width:"110%",
+                // position:"absolute",
+                // height:70,
+                // marginBottom:22,
+                height:111,
+                // backgroundColor:`rgba(${Colors.rgb.primary}, .9)`,
+                borderRadius:16,
+                overflow:"hidden",
 
-                <View style={{
-                    flexDirection:'row',
+              }}>
+                
+              <Image 
+                source={require("../images/drawerBackground.jpg")}
+                resizeMode='cover'
+                style={{
+                //   opacity:.5,
+                  width:'100%',
+                  height:111,
+                //   height:70,
+                //   paddingBottom:85,
+                //   flex:1,
+                //   position:"absolute",
+
+
+                }}
+                />
+                
+              </View> */}
+
+
+                <ImageBackground style={{
+                    // flexDirection:'row',
                     alignItems:"center",
-                    marginTop:33,
+                    marginTop:15,
                     paddingVertical:15,
-                    marginBottom:30,
-                    // paddingHorizontal:15,
-                }}>
-                    {/* <MaterialCommunityIcons name='robot' color={styleColors.color} size={51} /> */}
+                    marginBottom:5,
+                    borderRadius:12,
+                    overflow:'hidden',
+                    paddingVertical:33,
+                    paddingHorizontal:11,
+                    marginBottom:22,
+                }} 
+                imageStyle={{
+                    opacity:.9
+                }}
+                source={require("../images/drawerBackground.jpg")}
+                resizeMode='cover'
+                >
+                    
                     
                 <View style={{
                     width:"100%",
-                    // minHeight:66,
-                    // backgroundColor:'red',
-                    // paddingVertical:11,
-                    // marginTop:11,
-                    paddingHorizontal:15,
                 }}>
                     <View style={{
                         flexDirection:'row'
@@ -119,55 +181,123 @@ export default function Home({route, navigation}) {
 
                     <Text style={{
                         fontSize:18,
-                        color:styleColors.color,
+                        color:Colors.lighter,
                         fontWeight:"400"
                     }}>Welcome </Text>
                     <Text style={{
                         fontSize:18,
-                        color:styleColors.color,
+                        color:Colors.lighter,
                         fontWeight:"600"
                     // }}>dd! </Text>
                     }}>{appData.user.name}! </Text>
                 </View>
                     <Text style={{
                         fontSize:22,
-                        color:styleColors.color,
+                        color:Colors.lighter,
                         fontWeight:"500"
                     }}>Great to see you again </Text>
                 </View>
-            </View>
+            </ImageBackground>
 
-            <Card 
-                color={Colors.primary}
+            <CardImage 
+                color={styleColors.color}
                 backgroundColor={Colors.primary}
                 title='ChatGPT'
-                subtitle='live chat with GPT-4'
-                icon={<MaterialCommunityIcons name='robot-outline' color={mode=="dark"  ? Colors.lighter : Colors.primary} size={39} />}
-                flag={<Ionicons name='ios-chatbubble-ellipses-outline' color={mode=="dark"  ? Colors.lighter : Colors.primary} size={18} />}
+                subtitle='direct chat, anytime, lots of features '
+                imageSource={require('../images/home/chatGPT.png')}
                 onPress={()=>navigation.navigate("Chat")}
                 />
-            <Card 
+            <CardImage 
                 color={styleColors.color}
-                backgroundColor={Colors.green}
-                title='Generate Images'
-                // subtitle='Create beautiful art and images with AI, enter your prompts and convert text to image in different art styles quickly'
-                subtitle='Create beautiful art and images with AI in different art styles quickly'
-                flag={<MaterialCommunityIcons name='creation' color={mode=="dark"  ? Colors.lighter : styleColors.color} size={16} />}
-                icon={<Octicons name='image' color={mode=="dark"  ? Colors.lighter : styleColors.color} size={29} />}
+                backgroundColor={Colors.primary}
+                title='Generate Image'
+                subtitle='Create beautiful art and images with AI in different art styles quickl'
+                imageSource={require('../images/home/imageGen.png')}
                 onPress={()=>navigation.navigate("ImageGen")}
-            />
-            <Card 
+                />
+            <CardImage 
                 color={styleColors.color}
-                backgroundColor={Colors.green}
-                title='AI Voice Over'
-                // subtitle='Transform your content with high-quality, AI generated voiceovers, professional voices in 100 languages'
+                backgroundColor={Colors.primary}
+                title='AI Voiceover Generator'
                 subtitle='Transform your content with high-quality, AI generated voiceovers, professional voices in 100 languages'
-                // flag={<MaterialCommunityIcons name='text-to-speech' color={mode=="dark"  ? Colors.lighter : styleColors.color} size={16} />}
-                icon={<MaterialCommunityIcons name='text-to-speech' color={mode=="dark"  ? Colors.lighter : styleColors.color} size={39} />}
-                // icon={<MaterialCommunityIcons name='account-voice' color={mode=="dark"  ? Colors.lighter : styleColors.color} size={39} />}
-                // icon={<Octicons name='image' color={mode=="dark"  ? Colors.lighter : styleColors.color} size={29} />}
+                imageSource={require('../images/home/voiceGen.png')}
                 onPress={()=>navigation.navigate("AIVoiceGen")}
-            />
+                />
+            <CardImage 
+                color={styleColors.color}
+                backgroundColor={Colors.primary}
+                title='Content Creation'
+                subtitle='Create different types of content – both long and short-form'
+                imageSource={require('../images/home/contentGen.png')}
+                onPress={()=>navigation.navigate("Home")}
+                />
+            <CardImage 
+                color={styleColors.color}
+                backgroundColor={Colors.primary}
+                title='Video summarize'
+                subtitle='Get a summary of any long YouTube video, like a lecture, live event or a government meeting. Powered by ChatGPT.'
+                imageSource={require('../images/home/summarize.png')}
+                onPress={()=>navigation.navigate("Home")}
+                />
+
+            <Text style={{
+                        fontSize:22,
+                        color:styleColors.color,
+                        fontWeight:"500",
+                    }}>Added New </Text>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+
+                <CardNew 
+                color={styleColors.color}
+                backgroundColor={Colors.primary}
+                title='Video summarize'
+                subtitle='Get a summary of any long YouTube video, like a lecture, live event or a government meeting. Powered by ChatGPT.'
+                imageSource={require('../images/home/summarize.png')}
+                onPress={()=>navigation.navigate("NewInfo", {
+                    info:{
+                        screen:"Home",
+                        title:'Video summarize',
+                        imageSource:require('../images/home/summarize.png'),
+                        subtitle:'Get a summary of any long YouTube video, like a lecture, live event or a government meeting. Powered by ChatGPT.',
+
+                
+                    }})}
+                />
+                <CardNew 
+                color={styleColors.color}
+                backgroundColor={Colors.primary}
+                title='AI Voiceover Generator'
+                subtitle='Transform your content with high-quality, AI generated voiceovers, professional voices in 100 languages'
+                imageSource={require('../images/home/voiceGen.png')}
+                onPress={()=>navigation.navigate("NewInfo", {
+                    info:{
+                        screen:"AIVoiceGen",
+                        title:'AI Voiceover Generator',
+                        subtitle:'Transform your content with high-quality, AI generated voiceovers, professional voices in 100 languages',
+                        imageSource:require('../images/home/voiceGen.png'),
+
+                
+                    }})}
+                />
+                <CardNew 
+                color={styleColors.color}
+                backgroundColor={Colors.primary}
+                title='Generate Image'
+                subtitle='Create beautiful art and images with AI in different art styles quickl'
+                imageSource={require('../images/home/imageGen.png')}
+                onPress={()=>navigation.navigate("NewInfo", {
+                    info:{
+                        screen:"ImageGen",
+                        title:'Generate Image',
+                        subtitle:'Create beautiful art and images with AI in different art styles quickl',
+                        imageSource:require('../images/home/imageGen.png'),
+
+                
+                    }})}
+                />
+
+
+            </ScrollView>
             
         </ScrollView>
     </ScreenWrapper>

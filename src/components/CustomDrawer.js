@@ -89,25 +89,11 @@ const CustomDrawer = props => {
             //  width:"100%",
             marginHorizontal:9,
             marginTop:11,
-            // opacity:.5,
-            // flex:1,
             
-            // backgroundColor:'red',
              paddingHorizontal:15,
-             // justifyContent:"center",
-            //  alignItems:"center",
              flexDirection:'row',
-            //  paddingVertical:22,
-            //  paddingTop:33,
              padding:33,
           }}>
-            {/* <MaterialCommunityIcons name='robot-outline'size={66} color={mode=="dark"  ? Colors.lighter : Colors.primary}  />
-            <Text style={{
-              // marginTop:22,
-              color:styleColors.color,
-              fontSize:25,
-              fontWeight:"500",
-            }}>IceBot</Text> */}
 
 
               <View style={{
