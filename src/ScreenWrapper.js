@@ -16,11 +16,22 @@ import {
 import CustomButton from './components/CustomButton';
 
 
-export default function ScreenWrapper(props) {
+export default function ScreenWrapper({
+  drawer,
+  scroll,
+  back,
+  title,
+  fill,
+  onBack,
+  icon,
+  backIconColor,
+  button,  
+  drawerIconColor,
+  ...props}) {
   
   const navigation = useNavigation();
   var status
-  if (props.drawer){
+  if (drawer){
 
     status  = useDrawerStatus()
   }
@@ -113,8 +124,8 @@ export default function ScreenWrapper(props) {
     backgroundColor: styleColors.backgroundColor,
   };
 
-  const Tag = props.scroll ? ScrollView  : View
-  const styleProp = props.scroll ? "contentContainerStyle" : "style"
+  const Tag = scroll ? ScrollView  : View
+  const styleProp = scroll ? "contentContainerStyle" : "style"
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -126,27 +137,28 @@ export default function ScreenWrapper(props) {
       <View style={{
         height:Dimensions.get('window').height*1,
         width:Dimensions.get('window').width,
-        // paddingTop:props.back || props.title ? 5 : 0,
+        // paddingTop:back || title ? 5 : 0,
 
       }}>
         {ModalView()}
         <Tag  showsVerticalScrollIndicator={false} style={[{
           // flex:11,
           // backgroundColor:'green',
-          paddingTop:props.fill ? 71 : 0,
+          paddingTop:!scroll&&fill ? 71 : 0,
           // paddingTop:55,
           // justifyContent:"flex-start",
-          }, !props.scroll && {
+          }, !scroll && {
             flex:1,
-            justifyContent:"flex-start",}
-            ]} contentContainerStyle={[props.scroll && {
+            justifyContent:"flex-start",
+          }
+            ]} contentContainerStyle={[scroll && {
               // backgroundColor:'red',
               // padding:555,
-              paddingTop:props.fill ? 71 : 0,
+              paddingTop:fill ? 71 : 0,
               paddingBottom:71,
             }]}>
 
-              {props.fill
+              {fill
               &&<View style={{
                 width:"100%",
                 backgroundColor:styleColors.backgroundColor,
@@ -157,7 +169,7 @@ export default function ScreenWrapper(props) {
               }}/>}
           
               {
-                props.drawer
+                drawer
                 &&
                 <View style={{
                   zIndex:16,
@@ -183,13 +195,13 @@ export default function ScreenWrapper(props) {
                   android_ripple={{ color: 'rgba(20, 20, 20, .1)' }}
                   onPress={()=>navigation.toggleDrawer()}
                   >
-                    <Icon name="menu" size={29} color={props.drawerIconColor ? props.drawerIconColor : styleColors.header.backIconColor} />
+                    <Icon name="menu" size={29} color={drawerIconColor ? drawerIconColor : styleColors.header.backIconColor} />
                   </Pressable>
               </View>
               }
 
               {
-                props.button
+                button
                 &&
                 <View style={{
                   zIndex:16,
@@ -203,12 +215,12 @@ export default function ScreenWrapper(props) {
                   top:10,
 
                 }}>
-                    {props.button}
+                    {button}
               </View>
               }
 
                 {
-                props.back
+                back
                 &&
                   <Pressable style={{
                     padding:5,
@@ -220,20 +232,18 @@ export default function ScreenWrapper(props) {
                     alignItems:"center",
                     justifyContent:"center",
                     borderRadius:12,
-                    // backgroundColor:'red',
                     zIndex:22,
-                    
                   }}
                   android_ripple={{ color: 'rgba(20, 20, 20, .1)' }}
-                  onPress={()=>navigation.goBack()}
+                  onPress={()=>onBack ? onBack() : navigation.goBack()}
                   >
-                    <Icon name="ios-arrow-back" size={28} color={props.backIconColor ? props.backIconColor : styleColors.header.backIconColor} />
+                    <Icon name="ios-arrow-back" size={28} color={backIconColor ? backIconColor : styleColors.header.backIconColor} />
                   </Pressable>
                 }
             
 
             {
-              props.title 
+              title 
               &&
               <View style={{
                 
@@ -247,16 +257,16 @@ export default function ScreenWrapper(props) {
                 // paddingLeft:11,
                 // alignSelf:"center",
                 justifyContent:"center",
-                flexDirection:props.icon ? "row" : undefined,
-                alignItems: !props.back ? "center" : "flex-start",
+                flexDirection:icon ? "row" : undefined,
+                alignItems: !back ? "center" : "flex-start",
               }}>
                 {
-                  props.icon 
+                  icon 
                   &&
-                  props.icon
+                  icon
 
                 }
-                <Text style={[styles.title, {color:styleColors.color}]}>{props.title}</Text>
+                <Text style={[styles.title, {color:styleColors.color}]}>{title}</Text>
               </View>  
 
             }

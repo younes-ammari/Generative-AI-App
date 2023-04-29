@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, useColorScheme, View } from 'react-native'
 import React, { useContext } from 'react'
-import {About, Account, AIVoiceGen, AuthScreen, Chat, Home, ImageGen, Login, Mode, NewInfo, Pay, PlayerScreen, Rec, Register, Score, Settings, Voice} from './screens/Index'
+import {About, Account, AIVoiceGen, AuthScreen, Chat, History, Home, ImageGen, Login, Mode, NewInfo, Pay, PlayerScreen, Rec, Register, Coins, Settings, Voice, ForgotPassword, ResetCode, ResetPassword} from './screens/Index'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -111,7 +111,7 @@ const DrawerNav=({route, navigation})=>{
         }}
         />
 
-        <Drawer.Screen name="Score" component={Score} 
+        <Drawer.Screen name="Coins" component={Coins} 
         options={({ route, navigation }) => ({
           // headerShown:false,
           drawerIcon:({focused, size, color})=>
@@ -233,7 +233,7 @@ const TabNav=({route, navigation})=>{
             }
 
             // You can return any component that you like here!
-            return route.name !== "Score" ?
+            return route.name !== "Coins" ?
             <Ionicons name={iconName} size={focused ? 24 : 20} color={!focused ? "rgba(200, 200, 200, .7)" : '#FFF'} />
             :
             <Entypo name={"credit"} size={focused ? 24 : 20} color={!focused ? "rgba(200, 200, 200, .7)" : '#FFF'} />;
@@ -251,7 +251,7 @@ const TabNav=({route, navigation})=>{
           
         }}
         />
-        <Tab.Screen name="Score" component={Score} />
+        <Tab.Screen name="Coins" component={Coins} />
         <Tab.Screen name="Settings" component={Settings} />
       </Tab.Navigator>
   )
@@ -324,15 +324,19 @@ export default function Navigator() {
         }),
       }}
     >
+      <Stack.Screen name="AuthScreen" component={AuthScreen} />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+      <Stack.Screen name="ResetCode" component={ResetCode} />
+      <Stack.Screen name="ResetPassword" component={ResetPassword} />
+      <Stack.Screen name="Register" component={Register} />
       
       <Stack.Screen name="Pay" component={Pay} />
       <Stack.Screen name="TabNav" component={DrawerNav} />
-      <Stack.Screen name="AuthScreen" component={AuthScreen} />
-      <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="Mode" component={Mode} />
       <Stack.Screen name="Voice" component={Voice} />
 
+      <Stack.Screen name="History" component={History} />
       <Stack.Screen name="NewInfo" component={NewInfo} />
 
       <Stack.Screen name="AIVoiceGen" component={AIVoiceGen} />

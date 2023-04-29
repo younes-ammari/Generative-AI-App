@@ -23,14 +23,14 @@ export default function Pay({navigation}) {
   const mode = displayMode=="auto" ? deviceMode : displayMode
 
 
-  const [points, setPoints] = useState(1)
+  const [coins, setCoins] = useState(1)
   const Icon = <FontAwesome5 name='coins' size={20} color={styleColors.color}/>
 
-  const result = (points*PointPrise).toFixed(2)
+  const result = (coins*PointPrise).toFixed(2)
 
   
   return (
-    <ScreenWrapper back scroll title="Buy points" 
+    <ScreenWrapper back scroll title="Buy coins" 
     // icon={Icon}
     > 
       
@@ -54,8 +54,8 @@ export default function Pay({navigation}) {
         }}>
           <TextInput 
            placeholder='12'
-           value={String(points)}
-           onChangeText={(value)=>setPoints(value)}
+           value={String(coins)}
+           onChangeText={(value)=>setCoins(value)}
            keyboardType="numeric"
            style={{
             padding:0,

@@ -5,7 +5,14 @@ import Colors from '../constants/Colors';
 import AppContext from '../hooks/useContext';
 
 
-export default function CustomButton({color, label, onPress, outline=false, style}) {
+export default function CustomButton({
+  color, 
+  label, 
+  onPress, 
+  outline=false, 
+  style,
+  ...props
+}) {
     
   const {
     displayMode, 
@@ -37,7 +44,9 @@ export default function CustomButton({color, label, onPress, outline=false, styl
         borderRadius: 10,
         marginBottom: 15,
         // elevation:11,
-      }, outline && {borderWidth:1, borderColor: mode == "dark" ? Colors.lighter : color ? color : Colors.primary}, style&&style]}>
+      }, outline && {borderWidth:1, borderColor: mode == "dark" ? Colors.lighter : color ? color : Colors.primary}, style&&style]}
+      {...props}
+      >
       <Text
         style={{
           textAlign: 'center',

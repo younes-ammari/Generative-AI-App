@@ -851,7 +851,7 @@ export default function ImageGen({navigation}) {
         <View style={{
             
             position:"absolute",
-            bottom:kb.isVisible ? kb.height*1 : 1,
+            bottom:kb.isVisible ? kb.height*1+20 : 20,
             // opacity:kb.isVisible ? !prompt.length>5 ? 1 : 1 : .4, 
             left:0,
             right:0,

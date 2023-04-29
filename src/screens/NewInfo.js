@@ -80,7 +80,7 @@ export default function NewInfo({route, navigation}) {
 
         <View style={{
             position:"absolute",
-            bottom:10,
+            bottom:20,
             width:"100%",
             paddingHorizontal:15
         }}>

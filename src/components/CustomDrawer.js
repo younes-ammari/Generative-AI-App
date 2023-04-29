@@ -7,6 +7,7 @@ import {
   Image,
   TouchableOpacity,
   useColorScheme,
+  StyleSheet
 } from 'react-native';
 import {
   DrawerContentScrollView,
@@ -78,138 +79,93 @@ const CustomDrawer = props => {
 
 
   return (
-    <View style={{flex: 1, backgroundColor: bkg}}>
+    <View style={{flex: 1, backgroundColor: bkg, paddingTop:0}}>
       <DrawerContentScrollView
         {...props}
-        contentContainerStyle={{backgroundColor: bkg}}>
+        contentContainerStyle={{backgroundColor: bkg, paddingTop:0}}>
           <View
-          // resizeMode=""
-          // source={require('../images/drawerBackground.jpg')}
            style={{
-            //  width:"100%",
-            marginHorizontal:9,
-            marginTop:11,
-            
-             paddingHorizontal:15,
-             flexDirection:'row',
-             padding:33,
+            backgroundColor:styleColors.androidRippleColor,
+            paddingHorizontal:15,
+            paddingVertical:22,
+            // marginBottom:11,
+            backgroundColor:Colors.primary
           }}>
 
 
-              <View style={{
-                width:"113%",
-                position:"absolute",
-                height:70,
-                height:111,
-                backgroundColor:`rgba(${Colors.rgb.primary}, .9)`,
-                borderRadius:16,
-                overflow:"hidden",
-
-              }}>
-                
-              <Image 
-                source={require("../images/drawerBackground.jpg")}
-                resizeMode='cover'
-                style={{
-                  opacity:.5,
-                  width:'100%',
-                  height:111,
-                  // height:70,
-                  // paddingBottom:85,
-                  // flex:1,
-                  position:"absolute",
-
-
-                }}
-                />
-                
-              </View>
-            
-
-
                 <View 
-                  style={{
-                    height:55,
-                    width:55,
-                    marginEnd:9,
-                    borderRadius:55,
+                  style={[styles.profileContainer,{
                     backgroundColor:styleColors.placeholderTextColor,
-                    borderWidth:1,
-                    borderColor:Colors.lighter,
-                    alignItems:"center",
-                    justifyContent:"center",
-                    bottom:-5,
-                  }}
+                  }]}
                 >
-                  <Ionicons name={"person"}  size={26} color={Colors.lighter}/>
+                  <Image
+                  source={{uri:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6CtBpkapybS4LjkdLC1SZnUpApzu439CAq_CYrLQLHwhW2CG3MwpblZvTreUfOhxKroQ&usqp=CAU"}}
+                  style={styles.profileImage}
+                  />
+                  {/* <Ionicons name={"person"}  size={26} color={Colors.lighter}/> */}
                 </View>
             
-            
-            <View style={{
-                    bottom:-13,
-                    // paddingVertical:15,
-
-            }}>
+            {/* username & coins */}
+            <View>
               
               <Text
-              style={{
-                color: '#fff',
-                fontSize: 18,
-                fontFamily: 'Roboto-Medium',
-                marginBottom: 1,
-              }}>
+              style={[styles.userName,{
+                color:styleColors.color,
+                color:Colors.lighter,
+              }]}>
                 {appData.user.name}
               </Text>
-              <View style={{flexDirection: 'row'}}>
+              <View style={styles.coinsContainer}>
                 <Text
-                  style={{
-                    // color: '#fff',
+                  style={[styles.userCoins,{
+                    color:styleColors.color,
                     color:Colors.lighter,
-                    // opacity:.8,
-                    fontFamily: 'Roboto-Regular',
-                    marginRight: 5,
-                  }}>
-                  120 Coins
+                  }]}>
+                  {appData.user.coins} Coins
                 </Text>
-                <FontAwesome5 name="coins" size={14} color={Colors.yellow} />
+                <FontAwesome5 name="coins" size={15} color={Colors.yellow} />
               </View>
           
+            </View>
           </View>
 
-          </View>
+          
+
+
+          <View style={{
+            width:"100%",
+            backgroundColor:bkg,
+            // backgroundColor:'red',
+            height:19,
+            top:-11,
+            bottom:1,
+            margin:0,
+            // position:"absolute",
+            zIndex:11,
+            borderRadius:22,
+          }}/>
+
+          {/* </View> */}
         
-        <View style={{flex: 1, backgroundColor: bkg, paddingTop: 1}}>
+        <View style={[styles.drawerItemsContainer, {backgroundColor: bkg}]}>
           <DrawerItemList {...props} />
         </View>
       </DrawerContentScrollView>
       <View style={{padding: 20, borderTopWidth: 1, borderTopColor: '#ccc'}}>
         <TouchableOpacity onPress={onShare} style={{paddingVertical: 15}}>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <View style={styles.shareConatiner}>
             <Ionicons name="share-social-sharp" size={21} color={styleColors.color}/>
             <Text
-              style={{
-                fontSize: 15,
-                fontFamily: 'Roboto-Medium',
-                marginLeft: 9,
-                fontWeight:"600",
-                color:styleColors.color
-              }}>
+              style={[styles.shareTitle, {color:styleColors.color}]}>
               Tell a Friend
             </Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => {setVisibleLogout(true)}} style={{paddingVertical: 15}}>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <View style={styles.signoutContainer}>
             <MaterialIcons name="logout" size={21} color={Colors.red}/>
             <Text
-              style={{
-                fontSize: 15,
-                fontFamily: 'Roboto-Medium',
-                marginLeft: 9,
-                fontWeight:"600",
-                // color:styleColors.color
-                color:Colors.red
-              }}>
+              style={styles.signoutTitle}>
               Sign Out
             </Text>
           </View>
@@ -218,5 +174,64 @@ const CustomDrawer = props => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  profileImage:{
+    // flex:1,
+    height:55,
+    width:55,
+  },
+  profileContainer:{
+    height:55,
+    width:55,
+    borderRadius:55,
+    overflow:"hidden",
+    alignItems:"center",
+    justifyContent:"center",
+    marginBottom:5
+  },
+  coinsContainer:{
+    flexDirection: 'row',
+    alignItems:"center",
+  },
+  userName:{
+    color: '#fff',
+    fontSize: 18,
+    marginBottom: 1
+  },
+  
+  userCoins:{
+    color: '#fff',
+    fontSize: 15,
+    marginEnd:9,
+    marginBottom: 1
+  },
+  
+  drawerItemsContainer:{
+    flex: 1, 
+    paddingTop: 1,
+  },
+  // Share Tell a friend
+  shareConatiner:{flexDirection: 'row', alignItems: 'center'},
+  shareTitle:{
+    fontSize: 15,
+    fontFamily: 'Roboto-Medium',
+    marginLeft: 9,
+    fontWeight:"600",
+    
+  },
+
+  // Sign out
+  signoutContainer:{flexDirection: 'row', alignItems: 'center'},
+  signoutTitle:{
+    fontSize: 15,
+    fontFamily: 'Roboto-Medium',
+    marginLeft: 9,
+    fontWeight:"600",
+    color:Colors.red
+  }
+
+
+})
 
 export default CustomDrawer;

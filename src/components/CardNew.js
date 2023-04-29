@@ -29,7 +29,11 @@ export default function CardNew({
   return (
     <Pressable 
     
-    style={styles.container}
+    style={[styles.container,  {
+        backgroundColor:styleColors.placeholder,
+        // borderColor:'rgba(100, 100, 100, .4)'
+        borderColor:styleColors.placeholderTextColor
+    }]}
         
       android_ripple={{ color: mode=="dark"  ? 'rgba(100, 100, 100, .21)' : 'rgba(20, 20, 20, .1)' }}
       {...props}

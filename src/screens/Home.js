@@ -9,6 +9,8 @@ import AppContext from '../hooks/useContext'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Octicons from 'react-native-vector-icons/Octicons'
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import Logo from '../components/Logo'
 
 export default function Home({route, navigation}) {
 
@@ -53,121 +55,50 @@ export default function Home({route, navigation}) {
 
         
         
-        <ScrollView contentContainerStyle={{
-            // flex:1,
-            backgroundColor:styleColors.backgroundColor,
-            paddingBottom:85,
-            paddingHorizontal:15
-            }}>
-                
-                <View style={{
-                  zIndex:16,
-                  height:44,
-                  width:44,
-                  alignItems:"center",
-                  justifyContent:"center",
-                  borderRadius:22,
-                  position:"absolute",
-                  left:10,
-                  top:10,
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.container}>
 
-                }}>
-                  <Pressable style={{
-                    padding:5,
-                    height:44,
-                    width:44,
-                    alignItems:"center",
-                    justifyContent:"center",
-                    borderRadius:12
-                    
-                  }}
-                  android_ripple={{ color: 'rgba(20, 20, 20, .1)' }}
+            <View style={styles.upperContainer}>
+
+                
+                  <Pressable style={styles.drawerButton}
+                  android_ripple={{ color: styleColors.androideRippleColor }}
                   onPress={()=>navigation.toggleDrawer()}
                   >
                     <Ionicons name="menu" size={29} color={styleColors.header.backIconColor} />
                   </Pressable>
-              </View>
               
 
-                <View style={{
-                    justifyContent:"center",
-                    alignItems:"center",
-                    marginTop:11,
-                }}>
-                    <View style={{
-                        alignItems:"center",
-                        borderRadius:16,
-                        paddingHorizontal:33,
-                        paddingVertical:7,
-                        flexDirection:'row',
-                        backgroundColor:"rgba(11, 84, 211, .2)",
-
-                    }}>
-
-
-
-                    <Text style={{
-                        fontSize:23,
-                        color:styleColors.color,
-                        fontWeight:"600"
-                    }}>Azo</Text>
-                    <Text style={{
-                        fontSize:23,
-                        color:Colors.bleu,
-                        fontWeight:"800",
-                    }}>Bot </Text>
-                    <Ionicons style={{marginHorizontal:5,}} name='md-ice-cream' color={styleColors.color} size={29} />
-                    </View>
+                    {/* <Logo /> */}
+                <Pressable style={styles.coinsContainer}
+                onPress={()=>navigation.navigate('Coins')}
+                >
+                    <Text style={[styles.coinsNumber, {color:styleColors.color}]}>{appData.user.coins}</Text>
+                    <FontAwesome5 name={"coins"} size={20} color={styleColors.color} />
+                </Pressable>
                 </View>
-
-                {/* <View style={{
-                // width:"110%",
-                // position:"absolute",
-                // height:70,
-                // marginBottom:22,
-                height:111,
-                // backgroundColor:`rgba(${Colors.rgb.primary}, .9)`,
-                borderRadius:16,
-                overflow:"hidden",
-
-              }}>
-                
-              <Image 
-                source={require("../images/drawerBackground.jpg")}
-                resizeMode='cover'
-                style={{
-                //   opacity:.5,
-                  width:'100%',
-                  height:111,
-                //   height:70,
-                //   paddingBottom:85,
-                //   flex:1,
-                //   position:"absolute",
-
-
-                }}
-                />
-                
-              </View> */}
-
 
                 <ImageBackground style={{
                     // flexDirection:'row',
                     alignItems:"center",
                     marginTop:15,
-                    paddingVertical:15,
-                    marginBottom:5,
-                    borderRadius:12,
+                    borderRadius:14,
+                    // backgroundColor:'red',
+                    // width:"100%",
+                    minHeight:111,
                     overflow:'hidden',
                     paddingVertical:33,
                     paddingHorizontal:11,
                     marginBottom:22,
                 }} 
                 imageStyle={{
+                    overflow:'hidden',
                     opacity:.9
                 }}
                 source={require("../images/drawerBackground.jpg")}
                 resizeMode='cover'
+                // resizeMethod="resize"
+                // resizeMode="contain"
                 >
                     
                     
@@ -239,13 +170,25 @@ export default function Home({route, navigation}) {
                 imageSource={require('../images/home/summarize.png')}
                 onPress={()=>navigation.navigate("Home")}
                 />
+            <CardImage 
+                color={styleColors.color}
+                backgroundColor={Colors.primary}
+                title='Generate Video'
+                subtitle='Create AI-generated videos quickly using simple text'
+                soon
+                imageSource={require('../images/home/videoGen.png')}
+                // onPress={()=>navigation.navigate("")}
+                />
 
             <Text style={{
-                        fontSize:22,
-                        color:styleColors.color,
-                        fontWeight:"500",
-                    }}>Added New </Text>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                fontSize:22,
+                color:styleColors.color,
+                fontWeight:"500",
+                marginTop:9,
+            }}>Added New </Text>
+            
+            </View>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollNewContainer}>
 
                 <CardNew 
                 color={styleColors.color}
@@ -304,4 +247,42 @@ export default function Home({route, navigation}) {
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    scrollNewContainer:{
+        paddingHorizontal:15,
+    },
+    scrollContainer:{
+        paddingBottom:15,
+    },
+    container:{
+        // paddingBottom:85,
+        paddingHorizontal:15
+    },
+    upperContainer:{
+        flexDirection:'row',
+        justifyContent:"space-between",
+        alignItems:"center",
+        // paddingBottom:5,
+        paddingTop:9
+    },
+    drawerButton:{
+        zIndex:16,
+        alignItems:"center",
+        justifyContent:"center",
+        borderRadius:22,
+        // backgroundColor:'red',
+        
+    },
+    coinsContainer:{
+        justifyContent:"center",
+        alignItems:'flex-end',
+        alignSelf:"flex-end",
+        flexDirection:'row',
+    },
+    coinsNumber:{
+        fontSize:18,
+        marginEnd:11,
+        fontWeight:"500",
+
+    }
+})

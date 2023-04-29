@@ -47,6 +47,7 @@ const handleLogin=()=>{
   setAppData({mode:displayMode,
     user:{
         name:'Mabrouk',
+        coins:135
     }})
 
   navigation.navigate("TabNav")
@@ -113,7 +114,7 @@ const handleLogin=()=>{
           }
           inputType="password"
           fieldButtonLabel={"Forgot?"}
-          fieldButtonFunction={() => {}}
+          fieldButtonFunction={() => {navigation.navigate('ForgotPassword')}}
         />
         
         <CustomButton label={"Login"} onPress={handleLogin} />

@@ -32,6 +32,7 @@ export default function Register({navigation}){
         displayMode, 
         setMode,
         styleColors,
+        setAppData,
         appData,
     } = useContext(AppContext)
 
@@ -43,6 +44,23 @@ export default function Register({navigation}){
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [dobLabel, setDobLabel] = useState('Date of Birth');
+
+  const handleRegister=()=>{
+  
+    setAppData({mode:displayMode,
+      user:{
+          name:'Mabrouk',
+          coins:135
+      }})
+  
+    navigation.navigate("TabNav")
+    setTimeout(() => {
+      
+      navigation.navigate('Home')
+    }, 20);
+    
+  
+  }
 
   return (
     <ScreenWrapper>
@@ -223,7 +241,7 @@ export default function Register({navigation}){
           }}
         /> */}
 
-        <CustomButton label={'Register'} onPress={() => {navigation.navigate('TabNav')}} />
+        <CustomButton label={'Register'} onPress={handleRegister} />
 
         <View
           style={{
