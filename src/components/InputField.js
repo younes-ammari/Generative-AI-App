@@ -12,6 +12,7 @@ export default function InputField({
   fieldButtonLabel,
   fieldButtonIcon,
   fieldButtonFunction,
+  onChangeText,
   ...props
 }) {
 
@@ -49,6 +50,7 @@ export default function InputField({
           placeholderTextColor={styleColors.placeholderTextColor}
           style={{flex: 1, paddingVertical: 0, color:styleColors.color}}
           secureTextEntry={secure}
+          onChangeText={onChangeText}
           {...props}
           
         />
@@ -58,6 +60,7 @@ export default function InputField({
           keyboardType={keyboardType}
           placeholderTextColor={styleColors.placeholderTextColor}
           style={{flex: 1, paddingVertical: 0, color:styleColors.color}}
+          onChangeText={onChangeText}
           {...props}
         />
       )}
