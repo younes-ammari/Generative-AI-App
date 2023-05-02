@@ -145,12 +145,12 @@ export default function AuthScreen({navigation}) {
             &&
             <>
             <MaterialCommunityIcons name='robot' color={styleColors.color} size={77} />
-            <ActivityIndicator 
+            {/* <ActivityIndicator 
                 color={styleColors.color}
                 style={{
                   paddingVertical:15,
                 }}
-            />
+            /> */}
             {/* <Text style={[styles.title, {color:styleColors.color}]}>loading</Text> */}
             </>
         }

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   SafeAreaView,
   View,
@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   Image,
   useColorScheme,
+  ActivityIndicator,
+  StyleSheet
 } from 'react-native';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -23,6 +25,7 @@ import InputField from '../components/InputField';
 import Colors from '../constants/Colors';
 import AppContext from '../hooks/useContext';
 import ScreenWrapper from '../ScreenWrapper';
+import ReactNativeModal from 'react-native-modal';
 
 
 export default function Login ({navigation}){
@@ -35,33 +38,130 @@ export default function Login ({navigation}){
     appData,
     setAppData
 
-} = useContext(AppContext)
+  } = useContext(AppContext)
 
-const deviceMode = useColorScheme()
-
-
-const mode = displayMode=="auto" ? deviceMode : displayMode
+  const deviceMode = useColorScheme()
 
 
-const handleLogin=()=>{
-  setAppData({mode:displayMode,
-    user:{
-        name:'Mabrouk',
-        coins:135
-    }})
+  const mode = displayMode=="auto" ? deviceMode : displayMode
 
-  navigation.navigate("TabNav")
-  setTimeout(() => {
-    
-    navigation.navigate('Home')
-  }, 20);
+  const [visibleLogin, setVisibleLogin] = useState(false)
+
+  const [inputs, setInputs] = useState({
+    email:"",
+    password:""
+  })
+  const [errors, setErrors] = useState({
+    email:"",
+    password:""
+  })
+
+
   
-}
+  const LoginModal=()=>{
+
+    const styles = StyleSheet.create({
+      title:{
+        fontSize:21, 
+        fontWeight:"400",
+        textAlign:"center",
+      },
+      loadingContainer:{
+        paddingVertical:22,
+      }
+    })
+
+    return(
+      <ReactNativeModal
+      hasBackdrop
+      hideModalContentWhileAnimating
+      backdropColor={"rgba(10, 10, 10, .6)"}
+      // animationOut={"zoomOut"}
+      animationOut={"pulse"}
+      animationIn={"pulse"}
+      animationOutTiming={10}
+        // animationIn={"pulse"}
+        isVisible={visibleLogin}
+        onDismiss={()=>setVisibleLogin(false)}
+      >
+        <View style={{ 
+          backgroundColor:styleColors.placeholder,
+          padding:22,
+          // paddingVertical:18,
+          paddingBottom:15,
+          borderRadius:9
+        }}>
+          <Text style={[styles.title, {color:styleColors.color, fontSize:15,}]}>
+            Login in progress ...
+          </Text>
+          <Text style={[styles.title, {color:styleColors.color, fontSize:15,}]}>
+            waite a while
+          </Text>
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size={33} color={styleColors.color}/>
+          </View>
+
+        </View>
+      </ReactNativeModal>
+    )
+  }
+
+  const handleChecking=()=>{
+    
+    inputs.email.match(/\S+@\S+\.\S+/) && console.log('validEmail')
+    inputs.password.length>7 && console.log('validPassword')
+    
+    if (inputs.email.match(/\S+@\S+\.\S+/)){
+      if(inputs.password.length>7){
+        //make Request
+        console.log('login successfully')
+        // return true
+      } else{
+        setErrors({...errors, password:"enter a valid password, must be at least 8 characters"})
+      }
+    } else{
+      setErrors({...errors, email:"enter a valid email"})
+    }
+    console.log(errors)
+
+
+    
+  }
+
+  const handleLogin=()=>{
+    setAppData({mode:displayMode,
+      user:{
+          name:'Mabrouk',
+          coins:135
+      }})
+    handleChecking()
+    setVisibleLogin(true)
+    setTimeout(() => {
+      setErrors({
+        email:"",
+        password:""
+      })
+    }, 4000);
+    
+    
+    setTimeout(() => {
+      setVisibleLogin(false)
+      
+      
+      navigation.navigate("TabNav")
+      setTimeout(() => {
+          navigation.navigate('Home')
+        }, 20);
+    }, 1000);
+  
+  }
+
 
 
 
   return (
     <ScreenWrapper>
+      {LoginModal()}
       <View style={{paddingHorizontal: 25, paddingBottom:15,}}>
         <View style={{alignItems: 'center'}}>
           
@@ -91,6 +191,7 @@ const handleLogin=()=>{
 
         <InputField
           label={'Email ID'}
+          error={errors.email}
           icon={
             <MaterialIcons
             name="alternate-email"
@@ -99,19 +200,22 @@ const handleLogin=()=>{
             style={{marginRight: 5}}
           />
           }
+          onChangeText={text=>setInputs({...inputs, email:text})}
           keyboardType="email-address"
-        />
+          />
 
         <InputField
           label={'Password'}
+          error={errors.password}
           icon={
             <Ionicons
             name="ios-lock-closed-outline"
             size={20}
             color={styleColors.placeholderTextColor}
             style={{marginRight: 5}}
-          />
+            />
           }
+          onChangeText={text=>setInputs({...inputs, password:text})}
           inputType="password"
           fieldButtonLabel={"Forgot?"}
           fieldButtonFunction={() => {navigation.navigate('ForgotPassword')}}

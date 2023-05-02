@@ -7,9 +7,16 @@ export {default as ResetPassword } from './ResetPassword'
 export {default as Register } from './Register'
 
 export {default as Home } from './Home'
-export {default as Chat } from './Chat'
 export {default as Settings } from './Settings'
+
+export {default as Chat } from './Chat'
 export {default as ImageGen } from './ImageGen'
+export {default as AIVoiceGen } from "./AIVoiceGen"
+export {default as PlayerScreen } from "./PlayerScreen"
+export {default as Content } from './Content'
+export {default as Video } from './Video'
+
+
 export {default as Pay } from './Pay'
 export {default as Account } from './Account'
 
@@ -23,8 +30,6 @@ export {default as History } from "./History"
 
 
 
-export {default as AIVoiceGen } from "./AIVoiceGen"
-export {default as PlayerScreen } from "./PlayerScreen"
 
 export {default as Coins } from "./Coins"
 

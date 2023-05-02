@@ -160,7 +160,7 @@ export default function Home({route, navigation}) {
                 title='Content Creation'
                 subtitle='Create different types of content – both long and short-form'
                 imageSource={require('../images/home/contentGen.png')}
-                onPress={()=>navigation.navigate("Home")}
+                onPress={()=>navigation.navigate("Content")}
                 />
             <CardImage 
                 color={styleColors.color}
@@ -168,7 +168,7 @@ export default function Home({route, navigation}) {
                 title='Video summarize'
                 subtitle='Get a summary of any long YouTube video, like a lecture, live event or a government meeting. Powered by ChatGPT.'
                 imageSource={require('../images/home/summarize.png')}
-                onPress={()=>navigation.navigate("Home")}
+                onPress={()=>navigation.navigate("Video")}
                 />
             <CardImage 
                 color={styleColors.color}

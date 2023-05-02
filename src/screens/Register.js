@@ -1,13 +1,16 @@
 import React, {useContext, useState} from 'react';
 import {
   SafeAreaView,
+  Pressable,
   ScrollView,
   View,
   Text,
   TextInput,
   TouchableOpacity,
   useColorScheme,
-  Image
+  StyleSheet,
+  Image,
+  ActivityIndicator
 } from 'react-native';
 
 import DatePicker from 'react-native-date-picker';
@@ -16,15 +19,19 @@ import InputField from '../components/InputField';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Octicons from 'react-native-vector-icons/Octicons';
 
 import RegisterImage from '../images/register.png';
 import GoogleImage from '../images/google.png';
 import FacebookImage from '../images/facebook.png';
-import TwitterImage from '../images/twitter.png';
+
 import CustomButton from '../components/CustomButton';
 import Colors from '../constants/Colors';
 import ScreenWrapper from '../ScreenWrapper';
 import AppContext from '../hooks/useContext';
+import ReactNativeModal from 'react-native-modal';
+
+
 
 export default function Register({navigation}){
     
@@ -43,7 +50,109 @@ export default function Register({navigation}){
 
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
+  const [visibleRegistration, setVisibleRegistration] = useState(false);
   const [dobLabel, setDobLabel] = useState('Date of Birth');
+
+  
+  const [inputs, setInputs] = useState({
+    fullName:"",
+    email:"",
+    password:"",
+    confirmPassword:""
+  })
+  const [errors, setErrors] = useState({
+    fullName:"",
+    email:"",
+    password:"",
+    confirmPassword:""
+  })
+
+  const RegistrationModal=()=>{
+
+    const styles = StyleSheet.create({
+      title:{
+        fontSize:21, 
+        fontWeight:"400",
+        textAlign:"center",
+      },
+      loadingContainer:{
+        paddingVertical:22,
+      }
+    })
+
+    return(
+      <ReactNativeModal
+      hasBackdrop
+      hideModalContentWhileAnimating
+      backdropColor={"rgba(10, 10, 10, .6)"}
+      // animationOut={"zoomOut"}
+      animationOut={"pulse"}
+      animationIn={"pulse"}
+      animationOutTiming={10}
+        // animationIn={"pulse"}
+        isVisible={visibleRegistration}
+        onDismiss={()=>setVisibleRegistration(false)}
+      >
+        <View style={{ 
+          backgroundColor:styleColors.placeholder,
+          padding:22,
+          // paddingVertical:18,
+          paddingBottom:15,
+          borderRadius:9
+        }}>
+          <Text style={[styles.title, {color:styleColors.color, fontSize:15,}]}>
+            Registration in progress ...
+          </Text>
+          <Text style={[styles.title, {color:styleColors.color, fontSize:15,}]}>
+            waite a while
+          </Text>
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size={33} color={styleColors.color}/>
+          </View>
+
+        </View>
+      </ReactNativeModal>
+    )
+  }
+
+
+
+  const handleChecking=()=>{
+    
+
+    if (inputs.fullName.length<4) return setErrors({...errors, fullName:"Enter a valid full name"})
+    
+    if (inputs.email.match(/\S+@\S+\.\S+/)){
+      if(inputs.password.length>7){
+        if(inputs.confirmPassword.length>7){
+          if(inputs.confirmPassword===inputs.password){
+            //make Request
+            
+            setVisibleRegistration(true)
+            console.log('register successfully')
+            setTimeout(() => {
+              setVisibleRegistration(false)
+            }, 1000);
+            // return true
+          } else{
+            setErrors({...errors, confirmPassword:"not matched passwords"})
+          }
+
+        } else{
+          setErrors({...errors, confirmPassword:"enter a valid confirm password, must be at least 8 characters"})
+        }
+      } else{
+        setErrors({...errors, password:"enter a valid password, must be at least 8 characters"})
+      }
+    } else{
+      setErrors({...errors, email:"enter a valid email"})
+    }
+    // console.log(errors)
+
+
+
+    
+  }
 
   const handleRegister=()=>{
   
@@ -52,18 +161,33 @@ export default function Register({navigation}){
           name:'Mabrouk',
           coins:135
       }})
-  
-    navigation.navigate("TabNav")
+    handleChecking()
+    setVisibleRegistration(true)
     setTimeout(() => {
+      setErrors({
+        fullName:"",
+        email:"",
+        password:"",
+        confirmPassword:""
+      })
+    }, 4000);
+    
+    setTimeout(() => {
+      setVisibleRegistration(false)  
       
-      navigation.navigate('Home')
-    }, 20);
+      navigation.navigate("TabNav")
+      setTimeout(() => {
+        
+          navigation.navigate('Home')
+      }, 20);
+    }, 1000);
     
   
   }
 
   return (
     <ScreenWrapper>
+      {RegistrationModal()}
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingHorizontal: 25, paddingBottom:15,}}
@@ -154,6 +278,8 @@ export default function Register({navigation}){
 
         <InputField
           label={'Full Name'}
+          error={errors.fullName}
+          onChangeText={(text)=>setInputs({...inputs, fullName:text})}
           icon={
             <Ionicons
               name="person-outline"
@@ -166,6 +292,8 @@ export default function Register({navigation}){
 
         <InputField
           label={'Email ID'}
+          error={errors.email}
+          onChangeText={(text)=>setInputs({...inputs, email:text})}
           icon={
             <MaterialIcons
               name="alternate-email"
@@ -179,28 +307,45 @@ export default function Register({navigation}){
 
         <InputField
           label={'Password'}
+          error={errors.password}
           icon={
             <Ionicons
-              name="ios-lock-closed-outline"
-              size={20}
-              color={styleColors.placeholderTextColor}
-              style={{marginRight: 5}}
-            />
+            name="ios-lock-closed-outline"
+            size={20}
+            color={styleColors.placeholderTextColor}
+            style={{marginRight: 5}}
+          />
           }
           inputType="password"
+          onChangeText={text=>setInputs({...inputs, password:text})}
         />
-
+        
         <InputField
           label={'Confirm Password'}
+          error={errors.confirmPassword}
           icon={
             <Ionicons
-              name="ios-lock-closed-outline"
-              size={20}
-              color={styleColors.placeholderTextColor}
-              style={{marginRight: 5}}
-            />
+            name="ios-lock-closed-outline"
+            size={20}
+            color={styleColors.placeholderTextColor}
+            style={{marginRight: 5}}
+          />
           }
           inputType="password"
+          onChangeText={text=>setInputs({...inputs, confirmPassword:text})}
+          // fieldButtonLabel={"Forgot?"}
+          fieldButtonIcon={
+            inputs.confirmPassword.length>7
+            ?
+            inputs.confirmPassword==inputs.password
+            ?
+            <Ionicons name='ios-checkmark-done-sharp' size={22} color={Colors.green} />
+            :
+            <Octicons name='x' size={22} color={Colors.red} />
+            :
+            <></>
+          }
+          // fieldButtonFunction={() => {navigation.navigate('ForgotPassword')}}
         />
 
         {/* <View
@@ -258,3 +403,14 @@ export default function Register({navigation}){
       </ScreenWrapper>
   );
 };
+
+
+
+
+const styles = StyleSheet.create({
+  title:{
+    fontSize:21, 
+    fontWeight:"400",
+    textAlign:"center",
+  },
+})

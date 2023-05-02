@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, useColorScheme, View } from 'react-native'
 import React, { useContext } from 'react'
-import {About, Account, AIVoiceGen, AuthScreen, Chat, History, Home, ImageGen, Login, Mode, NewInfo, Pay, PlayerScreen, Rec, Register, Coins, Settings, Voice, ForgotPassword, ResetCode, ResetPassword} from './screens/Index'
+import {About, Account, AIVoiceGen, AuthScreen, Chat, History, Home, ImageGen, Login, Mode, NewInfo, Pay, PlayerScreen, Rec, Register, Coins, Settings, Voice, ForgotPassword, ResetCode, ResetPassword, Content, Video} from './screens/Index'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -333,6 +333,10 @@ export default function Navigator() {
       
       <Stack.Screen name="Pay" component={Pay} />
       <Stack.Screen name="TabNav" component={DrawerNav} />
+
+
+      <Stack.Screen name="Video" component={Video} />
+      <Stack.Screen name="Content" component={Content} />
       <Stack.Screen name="Mode" component={Mode} />
       <Stack.Screen name="Voice" component={Voice} />
 
