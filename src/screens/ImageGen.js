@@ -152,7 +152,7 @@ export default function ImageGen({navigation}) {
             onPress={()=>setSize(title)}
             >
                 <Text style={{
-                    fontSize:15,
+                    fontSize:13,
                     fontWeight:"500",
                     textAlign:"center",
                     opacity:title==size ? 1 : .9,
@@ -166,8 +166,7 @@ export default function ImageGen({navigation}) {
 
 
     if (kb.isVisible){
-    // scrollViewRef.current.scrollToEnd({ animated: true })
-    scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
+        scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
     }
 
     const demos = [

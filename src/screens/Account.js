@@ -33,7 +33,7 @@ export default function Settings({navigation}) {
   const mode = displayMode=="auto" ? deviceMode : displayMode
 
   const user= {
-    fullName:appData.user.name,
+    displayName:appData.user.displayName,
     email:"mail@demo.com",
     password:"123456789"
   }
@@ -41,7 +41,7 @@ export default function Settings({navigation}) {
   // const styleColors = Colors[displayMode=="auto" ? deviceMode : displayMode]
   
   const [userData, setUserData] = React.useState({
-    fullName:appData.user.name,
+    displayName:appData.user.displayName,
     email:"mail@demo.com",
     password:"123456789"
   }) 
@@ -271,8 +271,8 @@ export default function Settings({navigation}) {
         }}>Full name</Text>
 
         <InputField
-          value={userData.fullName}
-          onChangeText={(text)=>setUserData({...userData, fullName:text})}
+          value={userData.displayName}
+          onChangeText={(text)=>setUserData({...userData, displayName:text})}
           label={'Full Name'}
           icon={
             <Ionicons

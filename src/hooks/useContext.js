@@ -25,7 +25,7 @@ export const AppContextProvider = (props)=> {
     const [appData, setAppData] = useState({
         mode:displayMode,
         user:{
-            name:'',
+            displayName:'',
         }
     });
     const [connectionState, setConnectionState] = useState({isConnected:false});

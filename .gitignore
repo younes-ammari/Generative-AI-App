@@ -34,10 +34,16 @@ local.properties
 *.keystore
 !debug.keystore
 
+# demo
+#
+src0
+App - Copy.tsx
+
 # config
 #
 config/
 copy/
+google-services.json
 Chat-copy.js
 ImageGen-copy.js
 

@@ -1,18 +1,35 @@
-import { Pressable, StyleSheet, Text, useColorScheme, View } from 'react-native'
-import React, { useContext } from 'react'
-import {About, Account, AIVoiceGen, AuthScreen, Chat, History, Home, ImageGen, Login, Mode, NewInfo, Pay, PlayerScreen, Rec, Register, Coins, Settings, Voice, ForgotPassword, ResetCode, ResetPassword, Content, Video} from './screens/Index'
+import React, { useContext } from 'react';
+import {createStackNavigator} from '@react-navigation/stack';
+// import ProfileScreen from '../screens/ProfileScreen';
+
+// import Ionicons from 'react-native-vector-icons/Ionicons';
+
+// import Home from '../screens/Home';
+
+// import Chat from '../screens/Chat';
+
+// import ImageGen from '../screens/ImageGen';
+
+// import  Settings  from '../screens/Settings'
+import {useColorScheme, Pressable } from 'react-native'
+
 import { NavigationContainer } from '@react-navigation/native';
+import AuthStack from './AuthStack'
+import { Home, Chat, ImageGen, Settings, AIVoiceGen, Pay, About, Content, History, Mode, NewInfo, Rec, Video, Voice, Account, Coins } from '../screens/Index';
+
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Entypo from 'react-native-vector-icons/Entypo';
-import Colors from './constants/Colors';
 import { Easing } from 'react-native-reanimated';
-import AppContext from './hooks/useContext';
-import Player from './screens/Player';
+import AppContext from '../hooks/useContext';
+import CustomDrawer from '../components/CustomDrawer';
 import { createDrawerNavigator, DrawerItemList, DrawerContentScrollView } from '@react-navigation/drawer';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import CustomDrawer from './components/CustomDrawer';
+import Colors from '../constants/Colors';
+
+
+
 
 
 
@@ -167,97 +184,6 @@ const DrawerNav=({route, navigation})=>{
   )
 }
 
-const TabNav=({route, navigation})=>{
-  
-  const {
-    displayMode, 
-    setMode,
-    styleColors,
-    appData,
-  } = useContext(AppContext)
-
-  const deviceMode = useColorScheme()
-    
-  // const styleColors = Colors[displayMode=="auto" ? deviceMode : displayMode]
-  
-  
-
-  
-  // const {appDatas, ...otherparams} = route.params
-  // console.log(appDatas)
-
-  return(
-    <Tab.Navigator
-        screenOptions={({ route }) => ({
-          headerStyle: {
-            // backgroundColor: Colors.primary,
-          },
-          // tabBarBackground:'red',
-          // statusBarHidden:true,
-          tabBarStyle:{
-            backgroundColor:styleColors.tabBar.backgroundColor,
-            backgroundColor:styleColors.primary,
-            // paddingTop:11,
-            height:55,
-            paddingBottom:1,
-            // elevation:11,
-            // position:"absolute",
-            // marginHorizontal:15,
-            // marginBottom:15,
-            // borderRadius:16,
-            paddingVertical:2,
-            paddingBottom:9,
-            // height:55,
-          },
-          headerShown:false,
-  
-          // headerTintColor: '#fff',
-          // headerTitleStyle: {
-          //   // fontWeight: 'bold',
-          // },
-        
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
-
-            if (route.name === 'Home') {
-              iconName = focused
-              // route.name= 'll'
-                ? 'home'
-                : 'home-outline';
-            } 
-            if (route.name === 'Settings') {
-              iconName = focused ? 'settings' : 'settings-outline';
-            }
-            if (route.name === 'Pay') {
-              iconName = focused ? 'wallet' : 'wallet-outline';
-            }
-
-            // You can return any component that you like here!
-            return route.name !== "Coins" ?
-            <Ionicons name={iconName} size={focused ? 24 : 20} color={!focused ? "rgba(200, 200, 200, .7)" : '#FFF'} />
-            :
-            <Entypo name={"credit"} size={focused ? 24 : 20} color={!focused ? "rgba(200, 200, 200, .7)" : '#FFF'} />;
-            
-          },
-          tabBarActiveTintColor: styleColors.tabBar.ActiveTintColor,
-          tabBarActiveTintColor: styleColors.lighter,
-          // tabBarInactiveTintColor: 'gray',
-        })}
-      >
-        <Tab.Screen name="Home" component={Home}
-        initialParams={appData} 
-        options={{
-          headerShown:false,
-          
-        }}
-        />
-        <Tab.Screen name="Coins" component={Coins} />
-        <Tab.Screen name="Settings" component={Settings} />
-      </Tab.Navigator>
-  )
-}
-
-
 const config = {
   animation: 'spring',
   config: {
@@ -281,11 +207,13 @@ const configClose = {
   },
 };
 
-export default function Navigator() {
+
+
+
+export default function AppStack() {
   return (
-    <>
       <Stack.Navigator 
-    initialRouteName="AuthScreen"
+    initialRouteName="AuthStack"
       screenOptions={{
         headerStyle: {
           backgroundColor: Colors.primary,
@@ -324,15 +252,10 @@ export default function Navigator() {
         }),
       }}
     >
-      <Stack.Screen name="AuthScreen" component={AuthScreen} />
-      <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-      <Stack.Screen name="ResetCode" component={ResetCode} />
-      <Stack.Screen name="ResetPassword" component={ResetPassword} />
-      <Stack.Screen name="Register" component={Register} />
+      <Stack.Screen name="AuthStack" component={AuthStack} />
       
-      <Stack.Screen name="Pay" component={Pay} />
       <Stack.Screen name="TabNav" component={DrawerNav} />
+      <Stack.Screen name="Pay" component={Pay} />
 
 
       <Stack.Screen name="Video" component={Video} />
@@ -344,30 +267,16 @@ export default function Navigator() {
       <Stack.Screen name="NewInfo" component={NewInfo} />
 
       <Stack.Screen name="AIVoiceGen" component={AIVoiceGen} />
-      <Stack.Screen name="Player" component={Player} />
 
 
-      <Stack.Screen name="Rec" component={Rec} />
-      {/* <Stack.Screen name="TabNav" component={TabNav} /> */}
       <Stack.Screen name="About" component={About} />
 
-      <Stack.Screen name="Chat" component={Chat} options={{
-          transitionSpec: {
-            open: config,
-            close: configClose,
-          },
-          
-        }}/>
-        <Stack.Screen name="ImageGen" component={ImageGen} options={{
-          transitionSpec: {
-            open: config,
-            close: configClose,
-          },
-          
-        }}/>
+      <Stack.Screen name="Chat" component={Chat}/>
+        <Stack.Screen name="ImageGen" component={ImageGen}/>
     </Stack.Navigator>
       
-    </>
   )
 }
 
+
+// export default AppStack;

@@ -216,7 +216,7 @@ export default function Content({navigation}) {
                 fontWeight:"500",
                 marginBottom:5,
                 paddingHorizontal:11,
-                paddingVertical:2,
+                paddingVertical:5,
                 alignSelf:"flex-end",
                 borderRadius:4,
                 fontSize:12,
@@ -248,7 +248,7 @@ export default function Content({navigation}) {
                 justifyContent:"center",
                 paddingHorizontal:15,
                 borderRadius:4,
-                paddingVertical:5,
+                paddingVertical:7,
                 marginEnd:7,
             },
             moreButton:{
@@ -258,7 +258,7 @@ export default function Content({navigation}) {
                 justifyContent:"center",
                 paddingHorizontal:15,
                 borderRadius:4,
-                paddingVertical:5,
+                paddingVertical:7,
             },
             
         })

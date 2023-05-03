@@ -31,7 +31,7 @@ export default function Home({route, navigation}) {
 
     // const styleColors = Colors[mode]
 
-    // console.log('appData', appData)
+    console.log('appData', appData)
     useEffect(()=>{
         // !appData.user.name &&
         //     navigation.navigate('Login')
@@ -120,7 +120,7 @@ export default function Home({route, navigation}) {
                         color:Colors.lighter,
                         fontWeight:"600"
                     // }}>dd! </Text>
-                    }}>{appData.user.name}! </Text>
+                    }}>{appData.user.displayName}! </Text>
                 </View>
                     <Text style={{
                         fontSize:22,
