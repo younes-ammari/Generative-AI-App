@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useRef } from 'react';
 import {
   SafeAreaView,
   View,
@@ -9,7 +9,8 @@ import {
   useColorScheme,
   ActivityIndicator,
   StyleSheet,
-  Dimensions
+  Dimensions,
+  Linking,
 } from 'react-native';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -34,7 +35,6 @@ import { AuthContext } from '../navigation/AuthProvider';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
-import { WebView } from 'react-native-webview';
 
 
 
@@ -261,14 +261,16 @@ export default function Login({ navigation }) {
     //     }, 20);
     // }, 1000);
 
-  }
+  };
+
+  
 
 
 
 
   return (
     <ScreenWrapper>
-      {/* {LoginModal()}
+      {LoginModal()}
       <View style={{ paddingHorizontal: 25, paddingBottom: 15, }}>
         <View style={{ alignItems: 'center' }}>
 
@@ -341,7 +343,7 @@ export default function Login({ navigation }) {
             marginBottom: 30,
           }}>
           <TouchableOpacity
-            onPress={() => { }}
+            onPress={() => { navigation.navigate('WebViewer', {url:"google.com"})}}
             style={{
               borderColor: styleColors.placeholderTextColor,
               borderWidth: 2,
@@ -400,11 +402,8 @@ export default function Login({ navigation }) {
             <Text style={{ color: Colors.primary, fontWeight: '700' }}> Sign up</Text>
           </TouchableOpacity>
         </View>
-      </View> */}
       
-      <WebView
-        source={{ uri: 'https://www.google.com/' }}
-      />
+      </View>
     </ScreenWrapper>
   );
 };

@@ -34,3 +34,6 @@ export {default as History } from "./History"
 export {default as Coins } from "./Coins"
 
 export {default as Rec } from "./Rec"
+
+
+export {default as WebViewer } from "./WebViewer"

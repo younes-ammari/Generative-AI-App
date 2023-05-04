@@ -15,7 +15,7 @@ import {useColorScheme, Pressable } from 'react-native'
 
 import { NavigationContainer } from '@react-navigation/native';
 import AuthStack from './AuthStack'
-import { Home, Chat, ImageGen, Settings, AIVoiceGen, Pay, About, Content, History, Mode, NewInfo, Rec, Video, Voice, Account, Coins } from '../screens/Index';
+import { Home, Chat, ImageGen, Settings, AIVoiceGen, Pay, About, Content, History, Mode, NewInfo, Rec, Video, Voice, Account, Coins, WebViewer } from '../screens/Index';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -265,6 +265,8 @@ export default function AppStack() {
       
       <Stack.Screen name="TabNav" component={DrawerNav} />
       <Stack.Screen name="Pay" component={Pay} />
+
+      <Stack.Screen name="WebViewer" component={WebViewer} initialParams={{url:"google.com"}} />
 
 
       <Stack.Screen name="Video" component={Video} />
