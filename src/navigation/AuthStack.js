@@ -18,8 +18,11 @@ import Login from '../screens/Login';
 import ResetPassword from '../screens/ResetPassword';
 import Register from '../screens/Register';
 import Colors from '../constants/Colors';
+import ForgotPassword from '../screens/ForgotPassword';
+import ResetCode from '../screens/ResetCode';
 
 
+// const webClientId= '657963629746-rnj8nm5e3fjnrb4rq3d0n5a2nq5mr9hb.apps.googleusercontent.com'
 const webClientId= '657963629746-rnj8nm5e3fjnrb4rq3d0n5a2nq5mr9hb.apps.googleusercontent.com'
 
 
@@ -57,71 +60,31 @@ const AuthStack = () => {
 
 
   return (
-    <Stack.Navigator initialRouteName={routeName}>
+    <Stack.Navigator initialRouteName={routeName} screenOptions={{headerShown:false}}>
       <Stack.Screen
         name="WelcomeScreen"
         component={Login}
-        options={{header: () => null}}
+        // options={{headerShown:false,header: () => null}}
       />
       <Stack.Screen
         name="Login"
-        component={Login}
-        
-        options={{
-          headerShown:false,
-          title: 'Sign In',
-          headerStyle: {
-            elevation: 0,
-            shadowOpacity: 0,
-            height:45
-          },
-          headerTitleStyle: {
-            // color: Colors.purple,
-            fontWeight:'bold',
+        component={Login}/>
 
-          }
-        }}
-      />
+      <Stack.Screen
+        name="ForgotPassword"
+        component={ForgotPassword}/>
+	  
+      <Stack.Screen
+        name="ResetCode"
+        component={ResetCode}/>
 	  
 	  <Stack.Screen
-        name="Rest"
-        component={ResetPassword}
-
-        options={{
-          headerShown:false,
-          headerStyle: {
-            elevation: 0,
-            shadowOpacity: 0,
-            height:45,
-          },
-          title: 'Forgot Password',
-          headerTitleStyle: {
-            // color: Colors.purple,
-            fontWeight:'bold',
-          }
-        }}
-      />
+        name="ResetPassword"
+        component={ResetPassword}/>
 	  
       <Stack.Screen
         name="Signup"
-        component={Register}
-        options={{
-          title: 'Create Account',
-          headerShown:false,
-          headerStyle: {
-            backgroundColor:"rgba(1, 1, 1, .0)",
-            // backgroundColor:"red",
-            elevation: 0,
-            shadowOpacity: 0,
-            height:45
-          },
-          headerTitleStyle: {
-            color: Colors.primary,
-            fontWeight:'bold',
-
-          }
-        }}
-      />
+        component={Register}/>
     </Stack.Navigator>
   );
 };

@@ -37,7 +37,6 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
 
-
 export default function Register({ navigation }) {
   const { register, googleSignUp, fbSignUp } = useContext(AuthContext);
 
@@ -183,7 +182,8 @@ export default function Register({ navigation }) {
                       email: email,
                       coins: 121,
                       createdAt: firestore.Timestamp.fromDate(new Date()),
-                      userImg: null,
+                      photoURL: null,
+                      uid:uid
                     })
 
                     .then(res => {
@@ -195,7 +195,7 @@ export default function Register({ navigation }) {
                           displayName: displayName,
                           email: email,
                           coins: 121,
-                          // photoURL: photoURL,
+                          photoURL: null,
                           uid: uid,
                         }
                       })
@@ -329,7 +329,7 @@ export default function Register({ navigation }) {
           }}>
           Register
         </Text>
-
+      
         <View
           style={{
             flexDirection: 'row',
@@ -337,7 +337,7 @@ export default function Register({ navigation }) {
             marginBottom: 30,
           }}>
           <TouchableOpacity
-            onPress={() => { }}
+            onPress={() => {console.info('ggl');googleSignUp() }}
             style={{
               borderColor: styleColors.placeholderTextColor,
               borderWidth: 2,
@@ -360,7 +360,7 @@ export default function Register({ navigation }) {
             />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => { }}
+            onPress={() => {console.info('fb');fbSignUp() }}
             style={{
               borderColor: styleColors.placeholderTextColor,
               borderWidth: 2,

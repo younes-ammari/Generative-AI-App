@@ -3,7 +3,6 @@
 import React, {useContext, useState, useEffect} from 'react';
 
 // import NavigationContainer, Firebase auth and AuthContext
-import {NavigationContainer} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 import {AuthContext} from './AuthProvider';
 

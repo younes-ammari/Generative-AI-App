@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">GenBot</string>
 
-    	<string name="facebook_app_id">979344833250089</string>
-<string name="fb_login_protocol_scheme">fb979344833250089</string>
+    <string name="facebook_app_id">941723766868599</string>
+    <string name="facebook_client_token">60507008554bfe8527c89c448688be21</string>
+    <!-- <string name="fb_login_protocol_scheme">fb979344833250089</string> -->
 </resources>

@@ -99,7 +99,7 @@ const CustomDrawer = props => {
                   }]}
                 >
                   <Image
-                  source={{uri:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6CtBpkapybS4LjkdLC1SZnUpApzu439CAq_CYrLQLHwhW2CG3MwpblZvTreUfOhxKroQ&usqp=CAU"}}
+                  source={{uri:appData.user.photoURL ? appData.user.photoURL : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6CtBpkapybS4LjkdLC1SZnUpApzu439CAq_CYrLQLHwhW2CG3MwpblZvTreUfOhxKroQ&usqp=CAU"}}
                   style={styles.profileImage}
                   />
                   {/* <Ionicons name={"person"}  size={26} color={Colors.lighter}/> */}
@@ -113,7 +113,7 @@ const CustomDrawer = props => {
                 color:styleColors.color,
                 color:Colors.lighter,
               }]}>
-                {appData.user.name}
+                {appData.user.displayName}
               </Text>
               <View style={styles.coinsContainer}>
                 <Text

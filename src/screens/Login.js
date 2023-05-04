@@ -34,6 +34,10 @@ import { AuthContext } from '../navigation/AuthProvider';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
+import { WebView } from 'react-native-webview';
+
+
+
 export default function Login({ navigation }) {
 
 
@@ -264,7 +268,7 @@ export default function Login({ navigation }) {
 
   return (
     <ScreenWrapper>
-      {LoginModal()}
+      {/* {LoginModal()}
       <View style={{ paddingHorizontal: 25, paddingBottom: 15, }}>
         <View style={{ alignItems: 'center' }}>
 
@@ -382,25 +386,7 @@ export default function Login({ navigation }) {
               resizeMode="contain"
             />
           </TouchableOpacity>
-          {/* <TouchableOpacity
-            onPress={() => {}}
-            style={{
-              borderColor: '#ddd',
-              borderWidth: 2,
-              borderRadius: 10,
-              paddingHorizontal: 30,
-              paddingVertical: 10,
-            }}>
-              <Image  
-               source={TwitterImage}
-               style={{
-                height:22,
-                width:22
-               }}
-               resizeMethod="scale"
-               resizeMode="contain"
-              />
-          </TouchableOpacity> */}
+          
         </View>
 
         <View
@@ -414,7 +400,11 @@ export default function Login({ navigation }) {
             <Text style={{ color: Colors.primary, fontWeight: '700' }}> Sign up</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </View> */}
+      
+      <WebView
+        source={{ uri: 'https://www.google.com/' }}
+      />
     </ScreenWrapper>
   );
 };

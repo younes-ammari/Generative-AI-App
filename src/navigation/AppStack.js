@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 // import ProfileScreen from '../screens/ProfileScreen';
 
-// import Ionicons from 'react-native-vector-icons/Ionicons';
+import Octicons from 'react-native-vector-icons/Octicons';
 
 // import Home from '../screens/Home';
 
@@ -125,6 +125,15 @@ const DrawerNav=({route, navigation})=>{
           // headerShown:false,
           drawerIcon:({focused, size, color})=>
               <Ionicons name={"home"} size={20} color={color} />
+        }}
+        />
+
+        <Drawer.Screen name="History" component={History}
+        initialParams={appData} 
+        options={{
+          // headerShown:false,
+          drawerIcon:({focused, size, color})=>
+              <Octicons name={"history"} size={20} color={color} />
         }}
         />
 

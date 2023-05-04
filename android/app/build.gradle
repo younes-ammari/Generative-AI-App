@@ -3,6 +3,7 @@ apply plugin: "com.facebook.react"
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 import com.android.build.OutputFile
 apply plugin: 'com.google.gms.google-services'
+
 /**
  * This is the configuration block to customize your React Native Android app.
  * By default you don't need to apply any configuration, just uncomment the lines you need.
@@ -125,6 +126,7 @@ android {
         keyPassword 'mypassword'
         }
     }
+
     // signingConfigs {
     //     debug {
     //         storeFile file('debug.keystore')
@@ -170,8 +172,9 @@ dependencies {
 
     // compile project(':@react-native-community_voice')
     // implementation(':@react-native-community_voice')
+    
 
-        implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
 
 
 
@@ -193,3 +196,4 @@ dependencies {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+// apply plugin: 'com.google.gms.google-services' // <--- this should be the last line

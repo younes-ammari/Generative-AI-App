@@ -42,7 +42,7 @@ export default function Settings({navigation}) {
   
   const [userData, setUserData] = React.useState({
     displayName:appData.user.displayName,
-    email:"mail@demo.com",
+    email:appData.user.email,
     password:"123456789"
   }) 
 
@@ -210,151 +210,151 @@ export default function Settings({navigation}) {
           onLongPress={()=>setShow(false)}
           >
  
-      <ScrollView contentContainerStyle={{
-        width:"100%",
-        paddingHorizontal:25,
-        paddingBottom:11,
-        // backgroundColor:'red',
-      }}
-      >
-        
-
-      <View 
-        style={{
-          padding:22,
-          width:"auto",
-          // marginEnd:9,
-          borderRadius:9,
-          backgroundColor:styleColors.placeholder,
-          // borderWidth:1,
-          // borderColor:Colors.lighter,
-          alignItems:"center",
-          justifyContent:"center",
-          // bottom:-5,
+        <ScrollView contentContainerStyle={{
+          width:"100%",
+          paddingHorizontal:25,
+          paddingBottom:15,
+          // backgroundColor:'red',
         }}
         >
-      <View 
-        style={{
-          padding:22,
-          width:"auto",
-          // marginEnd:9,
-          borderRadius:55,
-          // backgroundColor:styleColors.placeholderTextColor,
-          backgroundColor:`rgba(${Colors.rgb.primary}, .2)`,
-          // borderWidth:1,
-          // borderColor:Colors.lighter,
-          alignItems:"center",
-          justifyContent:"center",
-          // bottom:-5,
-        }}
-        >
-        <Ionicons name={"person"}  size={55} color={ mode == "dark" ? Colors.lighter :Colors.primary}/>
-      </View>
-      </View>
+          
+
+        <View 
+          style={{
+            padding:22,
+            width:"auto",
+            // marginEnd:9,
+            borderRadius:9,
+            backgroundColor:styleColors.placeholder,
+            // borderWidth:1,
+            // borderColor:Colors.lighter,
+            alignItems:"center",
+            justifyContent:"center",
+            // bottom:-5,
+          }}
+          >
+        <View 
+          style={{
+            padding:22,
+            width:"auto",
+            // marginEnd:9,
+            borderRadius:55,
+            // backgroundColor:styleColors.placeholderTextColor,
+            backgroundColor:`rgba(${Colors.rgb.primary}, .2)`,
+            // borderWidth:1,
+            // borderColor:Colors.lighter,
+            alignItems:"center",
+            justifyContent:"center",
+            // bottom:-5,
+          }}
+          >
+          <Ionicons name={"person"}  size={55} color={ mode == "dark" ? Colors.lighter :Colors.primary}/>
+        </View>
+        </View>
 
 
-      <View style={{
-        paddingTop:15,
-        // backgroundColor:'red',
+        <View style={{
+          paddingTop:15,
+          // backgroundColor:'red',
 
-      }}>
+        }}>
 
-        {/* <Text style={[styles.title ,{color:styleColors.color}]}>{appData.user.name}</Text> */}
+          {/* <Text style={[styles.title ,{color:styleColors.color}]}>{appData.user.name}</Text> */}
 
-        <Text style={{
-          marginBottom:12,
-          // marginTop:5,
-          // fontWeight:"500",
-          fontSize:17,
-          textAlign:"center",
-          color:styleColors.color
-        }}>Full name</Text>
+          <Text style={{
+            marginBottom:12,
+            // marginTop:5,
+            // fontWeight:"500",
+            fontSize:17,
+            textAlign:"center",
+            color:styleColors.color
+          }}>Full name</Text>
 
-        <InputField
-          value={userData.displayName}
-          onChangeText={(text)=>setUserData({...userData, displayName:text})}
-          label={'Full Name'}
-          icon={
-            <Ionicons
-              name="person-outline"
-              size={20}
-              color={styleColors.placeholderTextColor}
-              style={{marginRight: 5}}
-            />
-          }
-        />
+          <InputField
+            value={userData.displayName}
+            onChangeText={(text)=>setUserData({...userData, displayName:text})}
+            label={'Full Name'}
+            icon={
+              <Ionicons
+                name="person-outline"
+                size={20}
+                color={styleColors.placeholderTextColor}
+                style={{marginRight: 5}}
+              />
+            }
+          />
 
-        <Text style={{
-          marginBottom:12,
-          // marginTop:5,
-          // fontWeight:"500",
-          fontSize:17,
-          textAlign:"center",
-          color:styleColors.color
-        }}>Email</Text>
+          <Text style={{
+            marginBottom:12,
+            // marginTop:5,
+            // fontWeight:"500",
+            fontSize:17,
+            textAlign:"center",
+            color:styleColors.color
+          }}>Email</Text>
 
-        <InputField
-          value={userData.email}
-          onChangeText={(text)=>setUserData({...userData, email:text})}
-          label={'Email ID'}
-          icon={
-            <MaterialIcons
-              name="alternate-email"
-              size={20}
-              color={styleColors.placeholderTextColor}
-              style={{marginRight: 5}}
-            />
-          }
-          keyboardType="email-address"
-        />
+          <InputField
+            value={userData.email}
+            onChangeText={(text)=>setUserData({...userData, email:text})}
+            label={'Email ID'}
+            icon={
+              <MaterialIcons
+                name="alternate-email"
+                size={20}
+                color={styleColors.placeholderTextColor}
+                style={{marginRight: 5}}
+              />
+            }
+            keyboardType="email-address"
+          />
 
-        {/* <Text style={{
-          marginBottom:12,
-          // marginTop:5,
-          // fontWeight:"500",
-          fontSize:17,
-          textAlign:"center",
-          color:styleColors.color
-        }}>Password</Text> */}
+          {/* <Text style={{
+            marginBottom:12,
+            // marginTop:5,
+            // fontWeight:"500",
+            fontSize:17,
+            textAlign:"center",
+            color:styleColors.color
+          }}>Password</Text> */}
 
-        {/* <InputField
-          value={userData.password}
-          onChangeText={(text)=>setUserData({...userData, password:text})}
-          label={'Password'}
-          icon={
-            <Ionicons
-              name="ios-lock-closed-outline"
-              size={20}
-              color={styleColors.placeholderTextColor}
-              style={{marginRight: 5}}
-            />
-          }
-          inputType="password"
-        /> */}
+          {/* <InputField
+            value={userData.password}
+            onChangeText={(text)=>setUserData({...userData, password:text})}
+            label={'Password'}
+            icon={
+              <Ionicons
+                name="ios-lock-closed-outline"
+                size={20}
+                color={styleColors.placeholderTextColor}
+                style={{marginRight: 5}}
+              />
+            }
+            inputType="password"
+          /> */}
 
+          
+        </View>
+        <View style={{height:95,bottom:0}}/>
+
+        <CustomButton label={"Save"} onPress={()=>{
+          // console.log(JSON.stringify(userData));
+          console.log('check')
+          console.log(JSON.stringify(userData)===JSON.stringify(user));
+          // !JSON.stringify(userData)===JSON.stringify(user)
+          // console.log(changed);
+          }}/>
+        {
+          JSON.stringify(userData)==JSON.stringify(user)
+          ? 
+          <></>
+          :
+          <CustomButton label={"Cancel"} outline/>
+        }
         
-      </View>
-      <View style={{height:222,}}/>
-
-      <CustomButton label={"Save"} onPress={()=>{
-        // console.log(JSON.stringify(userData));
-        console.log('check')
-        console.log(JSON.stringify(userData)===JSON.stringify(user));
-        // !JSON.stringify(userData)===JSON.stringify(user)
-        // console.log(changed);
+        <View style={{
+          height:Keyboard.isVisible ? Keyboard.height : 11
         }}/>
-      {
-        JSON.stringify(userData)==JSON.stringify(user)
-        ? 
-        <></>
-        :
-        <CustomButton label={"Cancel"} outline/>
-      }
-      
-      <View style={{
-        height:Keyboard.isVisible ? Keyboard.height : 11
-      }}/>
-      </ScrollView>
+        </ScrollView>
       </Pressable>
     </ScreenWrapper>
   )

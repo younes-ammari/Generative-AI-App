@@ -8,7 +8,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import AppContext from '../hooks/useContext'
 import Step from '../components/Step'
 import PaymentMethod from '../components/PaymentMethod'
-import HistoryComponent from '../components/HistoryComponent'
+import Activity from '../components/Activity'
 import CustomButton from '../components/CustomButton'
 
 export default function History({navigation}) {
@@ -36,50 +36,50 @@ export default function History({navigation}) {
     <ScreenWrapper scroll back fill title="Last Activities">
 
         <View style={styles.viewContainer}>
-          <HistoryComponent 
+          <Activity 
             type='chatgpt'
             title="Chat with ChatGPT"
             details="14 message"
             amont={15}
             />
-          <HistoryComponent 
+          <Activity 
             type='imagegen'
             title="Image generator"
             details="4 images"
             amont={12}
             />
-          <HistoryComponent 
+          <Activity 
             type='voicegen'
             title="AI Voiceover "
             details="26 sec"
             amont={5}
             />
-          <HistoryComponent 
+          <Activity 
             type='imagegen'
             title="Image generator"
             details="4 images"
             amont={12}
             />
-          <HistoryComponent 
+          <Activity 
             type='voicegen'
             title="AI Voiceover "
             details="26 sec"
             amont={5}
             />
-          <HistoryComponent 
+          <Activity 
             type='voicegen'
             title="AI Voiceover "
             details="26 sec"
             amont={5}
             />
-          <HistoryComponent 
+          <Activity 
             type='payment'
             title="Payment"
             details="+20 coins"
             plus
             amont={20}
             />
-          <HistoryComponent 
+          <Activity 
             type='payment'
             title="Trial coins"
             details="+16 coins"

@@ -6,6 +6,7 @@ import Colors from '../../constants/Colors'
 import AppContext from '../../hooks/useContext'
 import { ScrollView } from 'react-native-gesture-handler'
 
+
 export default function About({navigation}) {
 
     const {
@@ -39,6 +40,7 @@ export default function About({navigation}) {
                   }]}>
                     {about} 
                   </Text>
+                  
                 </ScrollView>
             {/* <Element title='Logout' logout/> */}
         </View>
