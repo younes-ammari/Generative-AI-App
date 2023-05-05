@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from 'react';
+import React, { useContext, useState, useRef, useEffect } from 'react';
 import {
   SafeAreaView,
   View,
@@ -34,6 +34,7 @@ import { AuthContext } from '../navigation/AuthProvider';
 
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import { GoogleSignin } from '@react-native-community/google-signin';
 
 
 
@@ -60,6 +61,7 @@ export default function Login({ navigation }) {
 
   const [visibleLogin, setVisibleLogin] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [hasBack, setHasBack] = useState(false)
 
   const [response, setResponse] = useState({
     message: "",
@@ -77,17 +79,45 @@ export default function Login({ navigation }) {
   })
 
 
+  useEffect(() => {
+    setInputs({
+      email: "",
+      password: ""
+    })
+    setVisibleLogin(false)
+
+  }, [])
+
+
 
   const LoginModal = () => {
 
     const styles = StyleSheet.create({
       title: {
-        fontSize: 21,
+        fontSize: 18,
+        fontWeight: "600",
+        textAlign: "center",
+        marginBottom: 7
+      },
+      subTitle: {
+        fontSize: 15,
         fontWeight: "400",
         textAlign: "center",
       },
       loadingContainer: {
         paddingVertical: 22,
+      },
+      container: {
+        padding: 22,
+        // paddingVertical:18,
+        paddingBottom: 0,
+        borderRadius: 9,
+        // alignItems: "center",
+        justifyContent: "center",
+        // height: Dimensions.get("window").height * .3,
+        width: Dimensions.get("window").width * .9,
+        alignSelf: "center",
+
       }
     })
 
@@ -96,159 +126,152 @@ export default function Login({ navigation }) {
         hasBackdrop
         hideModalContentWhileAnimating
         backdropColor={"rgba(10, 10, 10, .6)"}
-        // animationOut={"zoomOut"}
         animationOut={"pulse"}
         animationIn={"pulse"}
         animationOutTiming={10}
-        // animationIn={"pulse"}
         isVisible={visibleLogin}
         onDismiss={() => setVisibleLogin(false)}
       >
-        <View style={{
+        <View style={[styles.container, {
           backgroundColor: styleColors.placeholder,
-          padding: 22,
-          // paddingVertical:18,
-          paddingBottom: 15,
-          borderRadius: 9,
-          alignItems: "center",
-          justifyContent: "center",
-          height: Dimensions.get("window").height * .2,
-        }}>
-          <Text style={[styles.title, { color: styleColors.color, fontSize: 17, marginBottom: 7 }]}>
+        }]}>
+          <Text style={[styles.title, { color: styleColors.color, }]}>
             {loading ? "Login in progress ..." : response.message}
           </Text>
-          <Text style={[styles.title, { color: styleColors.color, fontSize: 14, }]}>
-            {loading ? "waite a while" : String(response.error ? response.message : "")}
+          <Text style={[styles.subTitle, { color: styleColors.color }]}>
+            {loading ? "waite a while" : String(response.error ? response.details : "")}
           </Text>
-          {
-            loading
-            &&
-            <>
-              <View style={styles.loadingContainer}>
+          <View style={styles.loadingContainer}>
+            {
+              loading
+                ?
                 <ActivityIndicator size={33} color={styleColors.color} />
-              </View>
-            </>
-          }
+                :
+                // <View>
+
+                response.error &&
+                <>
+                  {
+                    response.goRegister &&
+                    <CustomButton noFill labelColor={Colors.primary} style={{ marginBottom: 0, width: "100%", paddingVertical: 11, }} label={"Signup now"} onPress={() => { setVisibleLogin(false);navigation.navigate('Signup');  }} />
+                  }
+                  <CustomButton noFill labelColor={styleColors.red} style={{ marginBottom: 0, width: "100%", paddingVertical: 11, }} label={"back"} onPress={() => setVisibleLogin(false)} />
+                </>
+              // </View>
+            }
+          </View>
 
         </View>
       </ReactNativeModal>
     )
   }
 
-  const handleChecking = async () => {
+  const handleLogin = async () => {
 
-    inputs.email.match(/\S+@\S+\.\S+/) && console.log('validEmail')
-    inputs.password.length > 7 && console.log('validPassword')
-    var email = inputs.email
-    var password = inputs.password
-
-    if (inputs.email.match(/\S+@\S+\.\S+/)) {
-      if (inputs.password.length > 7) {
-        //make Request
-        setLoading(true)
-        setVisibleLogin(true)
-        try {
-          if (email == '' || password == '') {
-            // alert("Filling all fields are required ...")
-            return
-          }
-          await auth().signInWithEmailAndPassword(email, password)
-            .then(res => {
-              setResponse({ message: "login successfully", error: false })
-              console.info(res);
-              var uid = res.user.uid;
-
-              firestore().collection('users').doc(auth().currentUser.uid)
-                .get()
-
-                .then(res => {
-                  // setResponse({ message: "register successfully", error: false })
-
-                  console.info(res);
-                  setAppData({
-                    ...appData, user: {
-                      displayName: res["_data"].displayName,
-                      email: res["_data"].email,
-                      coins:res["_data"].coins,
-                      photoURL: res["_data"].userImg,
-                      uid: uid,
-                    }
-                  })
-                  navigation.navigate("TabNav")
-                  setTimeout(() => {
-                    navigation.navigate('Home')
-                  }, 10)
-                })
-
-
-
-
-                /**
-               * ensure we catch any errors at this stage to advise us if something does go wrong
-               */
-                .catch(error => {
-                  // alert(error)
-                  setResponse({ message: "Something went wrong with added user to firestore", details: error, error: true })
-
-                  console.log('Something went wrong with added user to firestore: ', error);
-                })
-
-              
-            })
-
-            .catch(error => {
-              // alert(error)
-              setResponse({ message: "Something went wrong with Login", details: error, error: true })
-
-
-              // console.log('Something went wrong with Login: ', error);
-            });
-        }
-        catch (e) {
-          // alert(e)
-          console.log(e);
-          setResponse({ message: "Something went wrong with Login", details: e, error: true })
-        }
-
-        setLoading(false)
-        setTimeout(() => {
-
-          setVisibleLogin(false)
-        }, 1300);
-
-        // console.log('login successfully')
-        // return true
-      } else {
-        setErrors({ ...errors, password: "enter a valid password, must be at least 8 characters" })
-      }
-    } else {
-      setErrors({ ...errors, email: "enter a valid email" })
-    }
-    console.log(errors)
-
-
-
-  }
-
-  const handleLogin = () => {
-    setResponse({
-      message: "",
-      details: "",
-      error: false
-    })
-    // setAppData({mode:displayMode,
-    //   user:{
-    //       name:'Mabrouk',
-    //       coins:135
-    //   }})
-
-    handleChecking()
     setTimeout(() => {
       setErrors({
         email: "",
         password: ""
       })
     }, 4000);
+    console.log("login ");
+
+
+    if (handleValidation()) {
+      setLoading(true)
+      setVisibleLogin(true)
+
+      setResponse({
+        message: "",
+        details: "",
+        error: false
+      })
+
+      var email = inputs.email
+      var password = inputs.password
+
+      //make Request
+      try {
+        if (email == '' || password == '') {
+          // alert("Filling all fields are required ...")
+          return
+        }
+        await auth().signInWithEmailAndPassword(email, password)
+          .then(res => {
+            // setResponse({ message: "login successfully", error: false })
+            console.info(res);
+            var uid = res.user.uid;
+
+            firestore().collection('users').doc(auth().currentUser.uid)
+              .get()
+
+              .then(res => {
+                setResponse({ message: "login successfully", error: false })
+
+                console.info(res);
+                setAppData({
+                  ...appData, user: {
+                    displayName: res["_data"].displayName,
+                    email: res["_data"].email,
+                    coins: res["_data"].coins,
+                    photoURL: res["_data"].userImg,
+                    uid: uid,
+                  }
+                })
+                navigation.navigate("TabNav")
+                setTimeout(() => {
+                  navigation.navigate('Home')
+                }, 10)
+              })
+              .finally(() => {
+                setLoading(false)
+                setVisibleLogin(false)
+
+              })
+
+
+
+
+              /**
+             * ensure we catch any errors at this stage to advise us if something does go wrong
+             */
+              .catch(error => {
+                // alert(error)
+                const errorMessage = error.message.split('] ')[1];
+                setResponse({ message: "Something went wrong with added user to firestore", details: error, error: true })
+
+                console.log('Something went wrong with added user to firestore: ', error);
+              })
+
+
+          })
+
+          .catch(error => {
+            // alert(error)
+            // console.log(error)
+            const errorMessage = error.message.split('] ')[1];
+            console.log(error.message)
+            setResponse({ message: "Something went wrong with Login", details: errorMessage, error: true })
+
+            setLoading(false)
+            return
+
+
+            // console.log('Something went wrong with Login: ', error);
+          });
+      }
+      catch (e) {
+        // alert(e)
+        console.log(e);
+        const errorMessage = error.message.split('] ')[1];
+        setResponse({ message: "Something went wrong with Login", details: errorMessage, error: true })
+        setLoading(false)
+        return
+      }
+      ;
+
+
+    }
 
 
     // setTimeout(() => {
@@ -261,12 +284,126 @@ export default function Login({ navigation }) {
     //     }, 20);
     // }, 1000);
 
-  };
-
-  
 
 
 
+
+  }
+
+  const handleValidation = () => {
+
+    if (inputs.email.match(/\S+@\S+\.\S+/)) {
+      if (inputs.password.length > 7) {
+        return true
+      } else {
+        setErrors({ ...errors, password: "enter a valid password, must be at least 8 characters" })
+      }
+    } else {
+      setErrors({ ...errors, email: "enter a valid email" })
+    }
+    return false
+
+
+
+  }
+
+
+
+
+  async function handleGoogleLogin() {
+    try {
+      // Sign out of Google
+      await GoogleSignin.signOut();
+      auth().currentUser && await auth().signOut()
+      console.log('try')
+      /**
+     * Getting the users ID token
+     */
+      const { idToken, user } = await GoogleSignin.signIn();
+
+      setLoading(true)
+      setVisibleLogin(true)
+      setResponse({ message: "logging in progress", error: false })
+      // console.log('googleCredential', googleCredential)
+      console.log('user', user)
+
+
+      // Check if the user is present in a specific Firestore collection
+
+      const email = user.email;
+      // Perform a query to find the user with the given email
+      firestore().collection('users').where('email', '==', email)
+        .get()
+        .then(snapshot => {
+          // console.log(snapshot)
+
+
+
+
+          // Check if any documents were returned
+          if (snapshot.empty) {
+            console.log('No user found with email:', email);
+            setLoading(false)
+            setResponse({ message: "Login Failed!", details: user.name + " you're not registred yet, try to register", error: true, goRegister: true })
+          } else {
+            const userdata = snapshot["_docs"][0]["_data"]
+            console.log(userdata)
+            console.log('User found with email:', email);
+
+            setResponse({ message: "login successfully", error: false })
+
+            setAppData({
+              ...appData, user: {
+                displayName: userdata.displayName,
+                email: userdata.email,
+                coins: userdata.coins,
+                photoURL: userdata.userImg,
+                uid: userdata.uid,
+              }
+            })
+            navigation.navigate("TabNav")
+            setTimeout(() => {
+              navigation.navigate('Home')
+            }, 10)
+            setLoading(false)
+            setVisibleLogin(false)
+          }
+        })
+
+
+      // const userRef = firestore().collection('users').get({ email: email });
+      // const userDoc = await userRef.get();
+
+      // if (userDoc.exists) {
+      //   console.log("firestore", true)
+      //   // The user is present in the Firestore collection
+      //   // Do something with the user data
+      // } else {
+      //   console.log("firestore", false)
+      //   // The user is not present in the Firestore collection
+      //   // Handle the case where the user is not authorized to access your app
+      // }
+
+      /**
+     * Sign-in the user with the credential
+     */
+
+      // const userEmail = user.email
+      // const data = firestore().collection('users').doc(auth().currentUser.uid)
+
+      // console.log("firestore", data)
+
+
+
+    } catch (error) {
+      console.log('catch')
+      alert(error)
+      console.log({ error });
+    }
+
+
+
+  }
 
   return (
     <ScreenWrapper>
@@ -343,7 +480,7 @@ export default function Login({ navigation }) {
             marginBottom: 30,
           }}>
           <TouchableOpacity
-            onPress={() => { navigation.navigate('WebViewer', {url:"google.com"})}}
+            onPress={handleGoogleLogin}
             style={{
               borderColor: styleColors.placeholderTextColor,
               borderWidth: 2,
@@ -365,7 +502,7 @@ export default function Login({ navigation }) {
               resizeMode="contain"
             />
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => { }}
             style={{
               borderColor: styleColors.placeholderTextColor,
@@ -387,8 +524,8 @@ export default function Login({ navigation }) {
               resizeMethod="scale"
               resizeMode="contain"
             />
-          </TouchableOpacity>
-          
+          </TouchableOpacity> */}
+
         </View>
 
         <View
@@ -402,7 +539,7 @@ export default function Login({ navigation }) {
             <Text style={{ color: Colors.primary, fontWeight: '700' }}> Sign up</Text>
           </TouchableOpacity>
         </View>
-      
+
       </View>
     </ScreenWrapper>
   );

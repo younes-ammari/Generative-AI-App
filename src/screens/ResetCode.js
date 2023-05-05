@@ -13,14 +13,8 @@ import {
   useColorScheme,
 } from 'react-native';
 
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
-
-import LoginImage from '../images/login.png';
-import GoogleImage from '../images/google.png';
-import FacebookImage from '../images/facebook.png';
-import TwitterImage from '../images/twitter.png';
+import PasswordImage from '../images/password.png';
 
 import CustomButton from '../components/CustomButton';
 import InputField from '../components/InputField';
@@ -91,7 +85,7 @@ const mode = displayMode=="auto" ? deviceMode : displayMode
         <View style={{alignItems: 'center'}}>
           
         <Image  
-            source={LoginImage}
+            source={PasswordImage}
             style={styles.upperImage}
             resizeMethod="scale"
             resizeMode="contain"

@@ -222,7 +222,7 @@ const configClose = {
 export default function AppStack() {
   return (
       <Stack.Navigator 
-    initialRouteName="History"
+    initialRouteName="AuthStack"
       screenOptions={{
         headerStyle: {
           backgroundColor: Colors.primary,

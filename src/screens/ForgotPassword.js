@@ -15,7 +15,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
-import LoginImage from '../images/login.png';
+import PasswordImage from '../images/password.png';
 import GoogleImage from '../images/google.png';
 import FacebookImage from '../images/facebook.png';
 import TwitterImage from '../images/twitter.png';
@@ -59,7 +59,7 @@ const handleSendCode=()=>{
         <View style={{alignItems: 'center'}}>
           
         <Image  
-            source={LoginImage}
+            source={PasswordImage}
             style={{
             height:222,
             width:222,

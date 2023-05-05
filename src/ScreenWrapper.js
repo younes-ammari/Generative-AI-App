@@ -93,7 +93,8 @@ export default function ScreenWrapper({
           }}>
             <CustomButton 
             // color={Colors.red}
-            outline label={'Yes sure'} style={{flex:1 ,marginHorizontal:5, paddingVertical:11}}
+            outlined 
+            label={'Yes sure'} style={{flex:1 ,marginHorizontal:5, paddingVertical:11}}
             onPress={logoutHandler}
             />
             <CustomButton 

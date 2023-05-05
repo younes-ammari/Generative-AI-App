@@ -12,11 +12,8 @@ import {
 import Octicons from 'react-native-vector-icons/Octicons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+import ResetImage from '../images/reset.png';
 
-import LoginImage from '../images/login.png';
-import GoogleImage from '../images/google.png';
-import FacebookImage from '../images/facebook.png';
-import TwitterImage from '../images/twitter.png';
 
 import CustomButton from '../components/CustomButton';
 import InputField from '../components/InputField';
@@ -67,7 +64,7 @@ const handleSave=()=>{
         <View style={{alignItems: 'center'}}>
           
         <Image  
-            source={LoginImage}
+            source={ResetImage}
             style={{
             height:222,
             width:222,
