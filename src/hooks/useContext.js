@@ -20,7 +20,7 @@ export const AppContextProvider = (props)=> {
     
     const [visibleLogout, setVisibleLogout] = React.useState(false)
 
-    const [displayMode, setMode] = useState("auto");
+    const [displayMode, setMode] = useState("light");
 
     const [appData, setAppData] = useState({
         mode:displayMode,

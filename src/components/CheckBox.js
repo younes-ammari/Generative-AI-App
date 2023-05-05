@@ -4,7 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import Colors from '../constants/Colors'
 import AppContext from '../hooks/useContext'
 
-export default function CheckBox({value, onPress, title}){
+export default function CheckBox({value, onPress, title, disabled=false}){
     const selected = value
     
     const { displayMode, styleColors} = React.useContext(AppContext)
@@ -17,7 +17,7 @@ export default function CheckBox({value, onPress, title}){
 
 
     return(
-        <Pressable style={styles.conatiner} onPress={onPress}>
+        <Pressable style={styles.conatiner} onPress={onPress} disabled={disabled}>
             <View style={[styles.checkBackground, {
                     // backgroundColor: selected ? Colors.green : null,
                     borderColor:styleColors.color,}]}>
