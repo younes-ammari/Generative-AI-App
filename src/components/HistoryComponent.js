@@ -231,10 +231,10 @@ export default function HistoryComponent({
                 </View>
 
             </View>
-            <TouchableOpacity activeOpacity={.5} style={styles.button}
+            <TouchableOpacity activeOpacity={.5} style={[styles.button, {backgroundColor: styleColors.softFill}]}
                 onPress={() => onPress && onPress()}
             >
-                <Text style={styles.buttonText}> details </Text>
+                <Text style={[styles.buttonText, {color:styleColors.color}]}> details </Text>
 
             </TouchableOpacity>
         </Pressable>
@@ -243,7 +243,8 @@ export default function HistoryComponent({
 
 const styles = StyleSheet.create({
     buttonText: {
-        fontSize: 14,
+        fontSize: 16,
+        fontWeight:"500",
         color: Colors.lighter,
         // fon
 
@@ -252,9 +253,9 @@ const styles = StyleSheet.create({
         marginTop: 16,
         alignItems: "center",
         justifyContent: "center",
-        paddingVertical: 12,
+        paddingVertical: 14,
         borderRadius: 4,
-        backgroundColor: Colors.primary
+        // backgroundColor: Colors.primary
 
     },
     subtitle: {

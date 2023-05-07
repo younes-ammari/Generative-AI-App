@@ -1,25 +1,17 @@
 
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import {
-  SafeAreaView,
   View,
   Text,
-  TextInput,
-  TouchableOpacity,
   Image,
   StyleSheet,
   useColorScheme,
 } from 'react-native';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-
+import auth from '@react-native-firebase/auth';
 
 import PasswordImage from '../images/password.png';
-import GoogleImage from '../images/google.png';
-import FacebookImage from '../images/facebook.png';
-import TwitterImage from '../images/twitter.png';
-
 import CustomButton from '../components/CustomButton';
 import InputField from '../components/InputField';
 import Colors from '../constants/Colors';
@@ -27,47 +19,81 @@ import AppContext from '../hooks/useContext';
 import ScreenWrapper from '../ScreenWrapper';
 
 
-export default function ForgotPassword ({navigation}){
+export default function ForgotPassword({ navigation }) {
 
-  
+
   const {
-    displayMode, 
+    displayMode,
     setMode,
     styleColors,
     appData,
     setAppData
 
-} = useContext(AppContext)
+  } = useContext(AppContext)
 
-const deviceMode = useColorScheme()
+  const deviceMode = useColorScheme()
+
+  const [response, setResponse] = useState({
+    message: "",
+    details: "",
+    error: false
+  })
+
+  const [email, setEmail] = useState("")
+  const [error, setError] = useState("")
 
 
-const mode = displayMode=="auto" ? deviceMode : displayMode
+  const mode = displayMode == "auto" ? deviceMode : displayMode
+
+  const handleValidation = () => {
+
+    if (email.match(/\S+@\S+\.\S+/)) {
+      return true
+    } else {
+      setError("enter a valid email")
+    }
+    return false
 
 
-const handleSendCode=()=>{
-//   
 
-  navigation.navigate("ResetCode")
-}
+  }
+  const handleSendCode = () => {
+    // setError('error')
+    setTimeout(() => {
+      setError('')
+    }, 2000);
+    //   
+    if (handleValidation()) {
+      auth()
+        .sendPasswordResetEmail(email)
+        .then((res) => {
+          console.log('Password reset email sent successfully', res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      // navigation.navigate("ResetCode")
+    }
+  }
 
 
 
   return (
     <ScreenWrapper back>
-      <View style={{paddingHorizontal: 25,flex:1, paddingBottom:10}}>
-        <View style={{alignItems: 'center'}}>
-          
-        <Image  
+      <View style={{ paddingHorizontal: 25, flex: 1, paddingBottom: 10 }}>
+        <View style={{ alignItems: 'center' }}>
+
+          <Image
             source={PasswordImage}
             style={{
-            height:222,
-            width:222,
-            marginTop:11,
+              height: 222,
+              width: 222,
+              marginTop: 11,
             }}
             resizeMethod="scale"
             resizeMode="contain"
-            />
+          />
         </View>
 
         <Text
@@ -76,29 +102,32 @@ const handleSendCode=()=>{
             fontSize: 28,
             fontWeight: '500',
             color: styleColors.color,
-            opacity:.8,
+            opacity: .8,
             marginBottom: 30,
           }}>
           Forgot Password
         </Text>
 
         <InputField
+          value={email}
+          error={error}
+          onChangeText={(text) => setEmail(text)}
           label={'Email ID'}
           icon={
             <MaterialIcons
-            name="alternate-email"
-            size={20}
-            color={styleColors.placeholderTextColor}
-            style={{marginRight: 5}}
-          />
+              name="alternate-email"
+              size={20}
+              color={styleColors.placeholderTextColor}
+              style={{ marginRight: 5 }}
+            />
           }
           keyboardType="email-address"
         />
 
         <View style={styles.buttonContainer}>
-            <CustomButton label={"Send code"} onPress={handleSendCode} style={{
-                marginTop:55,
-            }}/>
+          <CustomButton label={"Send code"} onPress={handleSendCode} style={{
+            marginTop: 55,
+          }} />
         </View>
 
       </View>
@@ -107,10 +136,10 @@ const handleSendCode=()=>{
 };
 
 const styles = StyleSheet.create({
-    buttonContainer:{
-        position:"absolute",
-        bottom:22,
-        width:'100%',
-        alignSelf:"center",
-    }
+  buttonContainer: {
+    position: "absolute",
+    bottom: 22,
+    width: '100%',
+    alignSelf: "center",
+  }
 })

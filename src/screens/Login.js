@@ -1,16 +1,14 @@
-import React, { useContext, useState, useRef, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import {
-  SafeAreaView,
   View,
   Text,
-  TextInput,
   TouchableOpacity,
   Image,
   useColorScheme,
   ActivityIndicator,
   StyleSheet,
   Dimensions,
-  Linking,
+  ScrollView,
 } from 'react-native';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -153,7 +151,7 @@ export default function Login({ navigation }) {
                 <>
                   {
                     response.goRegister &&
-                    <CustomButton noFill labelColor={Colors.primary} style={{ marginBottom: 0, width: "100%", paddingVertical: 11, }} label={"Signup now"} onPress={() => { setVisibleLogin(false);navigation.navigate('Signup');  }} />
+                    <CustomButton noFill labelColor={Colors.primary} style={{ marginBottom: 0, width: "100%", paddingVertical: 11, }} label={"Signup now"} onPress={() => { setVisibleLogin(false); navigation.navigate('Signup'); }} />
                   }
                   <CustomButton noFill labelColor={styleColors.red} style={{ marginBottom: 0, width: "100%", paddingVertical: 11, }} label={"back"} onPress={() => setVisibleLogin(false)} />
                 </>
@@ -214,7 +212,7 @@ export default function Login({ navigation }) {
                     displayName: res["_data"].displayName,
                     email: res["_data"].email,
                     coins: res["_data"].coins,
-                    photoURL: res["_data"].userImg,
+                    photoURL: res["_data"].photoURL,
                     uid: uid,
                   }
                 })
@@ -357,7 +355,7 @@ export default function Login({ navigation }) {
                 displayName: userdata.displayName,
                 email: userdata.email,
                 coins: userdata.coins,
-                photoURL: userdata.userImg,
+                photoURL: userdata.photoURL,
                 uid: userdata.uid,
               }
             })
@@ -408,7 +406,10 @@ export default function Login({ navigation }) {
   return (
     <ScreenWrapper>
       {LoginModal()}
-      <View style={{ paddingHorizontal: 25, paddingBottom: 15, }}>
+      <ScrollView 
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingHorizontal: 25, paddingBottom: 15, }}
+      >
         <View style={{ alignItems: 'center' }}>
 
           <Image
@@ -488,15 +489,17 @@ export default function Login({ navigation }) {
               flex: 1,
               alignItems: "center",
               justifyContent: "center",
+              flexDirection: 'row',
               marginHorizontal: 3,
               paddingHorizontal: 30,
-              paddingVertical: 10,
+              paddingVertical: 15,
             }}>
+            <Text style={{ color: styleColors.color }}>Login with google   </Text>
             <Image
               source={GoogleImage}
               style={{
-                height: 22,
-                width: 22
+                height: 19,
+                width: 19
               }}
               resizeMethod="scale"
               resizeMode="contain"
@@ -540,7 +543,7 @@ export default function Login({ navigation }) {
           </TouchableOpacity>
         </View>
 
-      </View>
+      </ScrollView>
     </ScreenWrapper>
   );
 };

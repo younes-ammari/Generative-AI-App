@@ -115,7 +115,7 @@ export default function Register({ navigation }) {
           height: Dimensions.get("window").height * .2,
         }}>
           <Text style={[styles.title, { color: styleColors.color, fontSize: 17, marginBottom: 7 }]}>
-            {loading ? "Registration in progress ..."  :  response.message}
+            {loading ? "Registration in progress ..." : response.message}
           </Text>
           <Text style={[styles.title, { color: styleColors.color, fontSize: 14, }]}>
             {loading ? "waite a while" : String(response.error ? response.message : "")}
@@ -183,7 +183,7 @@ export default function Register({ navigation }) {
                       coins: 121,
                       createdAt: firestore.Timestamp.fromDate(new Date()),
                       photoURL: null,
-                      uid:uid
+                      uid: uid
                     })
 
                     .then(res => {
@@ -329,7 +329,7 @@ export default function Register({ navigation }) {
           }}>
           Register
         </Text>
-      
+
         <View
           style={{
             flexDirection: 'row',
@@ -337,7 +337,7 @@ export default function Register({ navigation }) {
             marginBottom: 30,
           }}>
           <TouchableOpacity
-            onPress={() => {console.info('ggl');googleSignUp() }}
+            onPress={() => { console.info('ggl'); googleSignUp() }}
             style={{
               borderColor: styleColors.placeholderTextColor,
               borderWidth: 2,
@@ -345,10 +345,12 @@ export default function Register({ navigation }) {
               flex: 1,
               alignItems: "center",
               justifyContent: "center",
+              flexDirection: 'row',
               marginHorizontal: 3,
               paddingHorizontal: 30,
-              paddingVertical: 10,
+              paddingVertical: 15,
             }}>
+            <Text style={{ color: styleColors.color }}>Register with google   </Text>
             <Image
               source={GoogleImage}
               style={{
@@ -359,8 +361,8 @@ export default function Register({ navigation }) {
               resizeMode="contain"
             />
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {console.info('fb');fbSignUp() }}
+          {/* <TouchableOpacity
+            onPress={() => { console.info('fb'); fbSignUp() }}
             style={{
               borderColor: styleColors.placeholderTextColor,
               borderWidth: 2,
@@ -381,7 +383,7 @@ export default function Register({ navigation }) {
               resizeMethod="scale"
               resizeMode="contain"
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
         </View>
 
