@@ -5,7 +5,7 @@ import React, { createContext, useContext, useState } from 'react';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { GoogleSignin } from '@react-native-community/google-signin';
-import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
+
 import { useNavigation } from '@react-navigation/native';
 import AppContext from '../hooks/useContext';
 
@@ -141,133 +141,6 @@ export const AuthProvider = ({ children }) => {
             console.log({ error });
           }
         },
-
-
-
-        //       fbLogin: async () => {
-        //         try {
-        //   /**
-        //  * Attempt login with permissions
-        //  */
-        //           const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
-
-        //           if (result.isCancelled) {
-
-        //             throw 'User cancelled the login process';
-        //           }
-        //   /**
-        //  * Once signed in, get the users AccesToken
-        //  */
-        //           const data = await AccessToken.getCurrentAccessToken();
-
-        //           if (!data) {
-        //             throw 'Something went wrong obtaining access token';
-        //           }
-        //   /**
-        //  * Create Firebase credential with the AccessToken
-        //  */
-        //           const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
-        //   /**
-        //  * Sign-in the user with the credential
-        //  */
-        //           await auth().signInWithCredential(facebookCredential)
-
-        //           .catch(error => {
-        // 			alert(error)
-        //               console.log('Something went wrong with facebookCredential sign up: ', error);
-        //           });
-        //         } catch(error) {
-        // 		  alert(error)
-        //           console.log({error});
-        //         }
-        //       },
-
-        fbLogin: async () => {
-          try {
-            const result = await LoginManager.logInWithPermissions(['email']);
-
-            if (result.isCancelled) {
-              throw 'User cancelled the login process';
-            }
-
-            const data = await AccessToken.getCurrentAccessToken();
-
-            if (!data) {
-              throw 'Something went wrong obtaining access token';
-            }
-
-            const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
-
-            await auth().signInWithCredential(facebookCredential)
-              .catch(error => {
-                console.log('Something went wrong with Facebook sign in: ', error);
-              });
-          } catch (error) {
-            console.log({ error });
-          }
-        },
-
-
-        //       fbSignUp: async () => {
-        //         try {
-        //   /**
-        //  * Attempt login with permissions
-        //  */
-        //           const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
-
-        //           if (result.isCancelled) {
-        //             throw 'User cancelled the login process';
-        //           }
-        //   /**
-        //  * Once signed in, get the users AccesToken
-        //  */
-        //           const data = await AccessToken.getCurrentAccessToken();
-
-        //           if (!data) {
-        //             throw 'Something went wrong obtaining access token';
-        //           }
-        //   /**
-        //  * Create a Firebase credential with the AccessToken
-        //  */
-        //           const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
-        //   /**
-        //  * Sign-in the user with the credential
-        //  */
-        //           await auth().signInWithCredential(facebookCredential)
-
-        //           .catch(error => {
-        // 			alert(error)
-        //               console.log('Something went wrong with sign up facebookCredential: ', error);
-        //           });
-        //         } catch(error) {
-        // 		  alert(error)
-        //           console.log({error});
-        //         }
-        //       },
-
-        fbSignUp: async () => {
-          try {
-            const result = await LoginManager.logInWithPermissions(['email']);
-
-            if (result.isCancelled) {
-              throw 'User cancelled the login process';
-            }
-
-            const data = await AccessToken.getCurrentAccessToken();
-
-            if (!data) {
-              throw 'Something went wrong obtaining access token';
-            }
-
-            const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
-
-            await auth().signInWithCredential(facebookCredential);
-          } catch (error) {
-            alert(error);
-            console.log({ error });
-          }
-        },
-
 
         sendPasswordResetEmail: async (email, navigation) => {
           try {

@@ -19,7 +19,6 @@ import AppContext from '../hooks/useContext';
 import CustomDrawer from '../components/CustomDrawer';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Colors from '../constants/Colors';
 
 

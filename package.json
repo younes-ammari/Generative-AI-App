@@ -32,7 +32,6 @@
     "react": "18.2.0",
     "react-native": "0.71.5",
     "react-native-date-picker": "^4.2.12",
-    "react-native-fbsdk-next": "^11.2.1",
     "react-native-gesture-handler": "^2.9.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-modal": "^13.0.1",
