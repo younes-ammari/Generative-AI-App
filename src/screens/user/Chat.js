@@ -1,10 +1,10 @@
 import { Dimensions, FlatList, Keyboard, Pressable, LogBox, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, useColorScheme, View } from 'react-native'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import ScreenWrapper from '../ScreenWrapper'
-import Message from '../../components/Message'
+import Message from '../../components/chat/Message'
 
 import { useKeyboard } from '../../hooks/useKeyboard'
-import TypeWriter from '../../components/TypeWriter'
+import TypeWriter from '../../components/chat/TypeWriter'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';

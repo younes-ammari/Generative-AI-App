@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image, useColorScheme, Pressable } from 'react-native'
 import React, {useContext} from 'react'
-import AppContext from '../hooks/useContext'
-import Colors from '../constants/theme/Colors'
+import AppContext from '../../hooks/useContext'
+import Colors from '../../constants/theme/Colors'
 
 
 export default function PaymentMethod({
@@ -22,7 +22,7 @@ export default function PaymentMethod({
   method=="paypal"
   ?
   <Image
-    source={require('../images/paypal.png')}
+    source={require('../../images/paypal.png')}
     // fadeDuration={200}
     resizeMode="contain"
     style={{
@@ -32,7 +32,7 @@ export default function PaymentMethod({
   />
   :
   <Image
-    source={require('../images/stripe.png')}
+    source={require('../../images/stripe.png')}
     // fadeDuration={200}
     resizeMode="contain"
     style={{

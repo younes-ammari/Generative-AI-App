@@ -2,9 +2,9 @@ import { Dimensions, Image, StyleSheet, Text, View, useColorScheme } from 'react
 import React from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Colors from '../constants/theme/Colors';
+import Colors from '../../constants/theme/Colors';
 import { TypingAnimation } from "react-native-typing-animation";
-import AppContext from '../hooks/useContext';
+import AppContext from '../../hooks/useContext';
 
 export default function Message({
     text = 'hello world',
