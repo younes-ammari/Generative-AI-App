@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, useColorScheme } from 'react-native'
 import React, {useContext} from 'react'
-import AppContext from '../hooks/useContext'
+import AppContext from '../../hooks/useContext'
 
 
 export default function Step({

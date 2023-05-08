@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, useColorScheme } from 'react-native'
 import React from 'react'
-import Colors from '../constants/theme/Colors';
-import AppContext from '../hooks/useContext';
+import Colors from '../../constants/theme/Colors';
+import AppContext from '../../hooks/useContext';
 
 export default function CountDownTimer({secs=60, setFinished}) {
     const [timerCount, setTimer] = React.useState(secs)

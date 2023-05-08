@@ -15,7 +15,7 @@ import config from '../../config/openAI';
 import { useToast } from 'react-native-toast-notifications'
 import AppContext from '../../hooks/useContext'
 
-import CheckBox from '../../components/CheckBox';
+import CheckBox from '../../components/checkbox/CheckBox';
 
 
 export default function Content({ route, navigation }) {

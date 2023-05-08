@@ -1,8 +1,8 @@
 import React from 'react'
 import { Pressable, StyleSheet, Text, View, useColorScheme } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import Colors from '../constants/theme/Colors'
-import AppContext from '../hooks/useContext'
+import Colors from '../../constants/theme/Colors'
+import AppContext from '../../hooks/useContext'
 
 export default function CheckBox({value, onPress, title, disabled=false}){
     const selected = value

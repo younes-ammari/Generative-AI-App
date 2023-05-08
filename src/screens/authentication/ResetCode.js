@@ -18,7 +18,7 @@ import Colors from '../../constants/theme/Colors';
 import AppContext from '../../hooks/useContext';
 import ScreenWrapper from '../ScreenWrapper';
 import OTPInput from '../../components/input/OTPInput';
-import CountDownTimer from '../../components/CountDownTimer';
+import CountDownTimer from '../../components/authentication/CountDownTimer';
 
 
 export default function ResetCode ({navigation}){

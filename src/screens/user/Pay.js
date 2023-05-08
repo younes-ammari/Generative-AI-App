@@ -6,7 +6,7 @@ import Colors from '../../constants/theme/Colors'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 
 import AppContext from '../../hooks/useContext'
-import Step from '../../components/Step'
+import Step from '../../components/payment/Step'
 import PaymentMethod from '../../components/payment/PaymentMethod'
 
 export default function Pay({navigation}) {
