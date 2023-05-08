@@ -16,7 +16,7 @@ import CustomButton from '../../components/button/CustomButton';
 import InputField from '../../components/input/InputField';
 import Colors from '../../constants/theme/Colors';
 import AppContext from '../../hooks/useContext';
-import ScreenWrapper from '../../ScreenWrapper';
+import ScreenWrapper from '../ScreenWrapper';
 
 
 export default function ForgotPassword({ navigation }) {

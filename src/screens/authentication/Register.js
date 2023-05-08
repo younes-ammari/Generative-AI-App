@@ -23,7 +23,7 @@ import GoogleImage from '../../images/google.png';
 
 import CustomButton from '../../components/button/CustomButton';
 import Colors from '../../constants/theme/Colors';
-import ScreenWrapper from '../../ScreenWrapper';
+import ScreenWrapper from '../ScreenWrapper';
 import AppContext from '../../hooks/useContext';
 import ReactNativeModal from 'react-native-modal';
 // import AuthContext

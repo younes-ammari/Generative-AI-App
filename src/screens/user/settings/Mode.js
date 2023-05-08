@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, TouchableOpacity, useColorScheme, View } from 'react-native'
 import React, { useContext, useState } from 'react'
-import ScreenWrapper from '../../../ScreenWrapper'
+import ScreenWrapper from '../../ScreenWrapper'
 import Colors from '../../../constants/theme/Colors'
 
 import Octicons from 'react-native-vector-icons/Octicons'

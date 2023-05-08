@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, useColorScheme, ScrollView, View, TouchableOpacity } from 'react-native'
 import React, { useContext } from 'react'
-import ScreenWrapper from '../../ScreenWrapper'
+import ScreenWrapper from '../ScreenWrapper'
 import Colors from '../../constants/theme/Colors'
 
 import Ionicons from 'react-native-vector-icons/Ionicons'

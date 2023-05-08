@@ -1,10 +1,10 @@
 import { Dimensions, SafeAreaView, StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native'
 import React, { useContext } from 'react'
-import Colors from './constants/theme/Colors';
+import Colors from '../constants/theme/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import AppContext from './hooks/useContext';
+import AppContext from '../hooks/useContext';
 import { ScrollView } from 'react-native-gesture-handler';
 import Modal from "react-native-modal";
 
@@ -13,7 +13,7 @@ import {
   DrawerItemList,
   useDrawerStatus,
 } from '@react-navigation/drawer';
-import CustomButton from './components/button/CustomButton';
+import CustomButton from '../components/button/CustomButton';
 
 
 export default function ScreenWrapper({

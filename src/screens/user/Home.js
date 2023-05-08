@@ -1,7 +1,6 @@
 import { StyleSheet, Text, ScrollView, useColorScheme, Pressable, ImageBackground, View } from 'react-native'
 import React, { useContext, useEffect } from 'react'
-import ScreenWrapper from '../../ScreenWrapper'
-import Card from '../../components/cards/Card'
+import ScreenWrapper from '../ScreenWrapper'
 import CardImage from '../../components/cards/CardImage'
 import CardNew from '../../components/cards/CardNew'
 import Colors from '../../constants/theme/Colors'
@@ -15,8 +14,6 @@ import Logo from '../../components/Logo'
 export default function Home({route, navigation}) {
 
     const {
-        displayMode, 
-        setMode,
         styleColors,
         appData,
     } = useContext(AppContext)
@@ -24,27 +21,12 @@ export default function Home({route, navigation}) {
     const deviceMode = useColorScheme()
 
 
-    const mode = displayMode=="auto" ? deviceMode : displayMode
 
 
-
-
-    // const styleColors = Colors[mode]
 
     console.log('appData', appData)
-    useEffect(()=>{
-        // !appData.user.name &&
-        //     navigation.navigate('Login')
-        
-    }, [])
 
 
-
-    // console.log('context > home => ', mode)
-
-    // const {appDatas, ...otherparams} = route.params
-    // console.log("appDatas", appDatas)
-    // console.log("otherparams", otherparams)
 
     const images={
         chatGPT:{uri:"https://www.primelawgroup.com/wp-content/uploads/2023/02/chatgpt-icon.png"},

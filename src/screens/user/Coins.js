@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, ScrollView, useColorScheme, View, TextInput } from 'react-native'
 import React, { useContext, useState } from 'react'
-import ScreenWrapper from '../../ScreenWrapper'
+import ScreenWrapper from '../ScreenWrapper'
 import Colors from '../../constants/theme/Colors'///theme
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'

@@ -16,7 +16,7 @@ import PasswordImage from '../../images/password.png';
 import CustomButton from '../../components/button/CustomButton';
 import Colors from '../../constants/theme/Colors';
 import AppContext from '../../hooks/useContext';
-import ScreenWrapper from '../../ScreenWrapper';
+import ScreenWrapper from '../ScreenWrapper';
 import OTPInput from '../../components/input/OTPInput';
 import CountDownTimer from '../../components/CountDownTimer';
 

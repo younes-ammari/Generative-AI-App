@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, useColorScheme, View } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
-import ScreenWrapper from '../../ScreenWrapper'
+import ScreenWrapper from '../ScreenWrapper'
 import Colors from '../../constants/theme/Colors'
 
 import storage from '../../hooks/useStorage'

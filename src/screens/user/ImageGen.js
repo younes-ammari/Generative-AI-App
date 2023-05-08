@@ -1,6 +1,6 @@
 import { Dimensions, FlatList, Keyboard, useColorScheme, ActivityIndicator, LogBox, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Pressable, Image, PermissionsAndroid } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
-import ScreenWrapper from '../../ScreenWrapper'
+import ScreenWrapper from '../ScreenWrapper'
 
 import { useKeyboard } from '../../hooks/useKeyboard'
 

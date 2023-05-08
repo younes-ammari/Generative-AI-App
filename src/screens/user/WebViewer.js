@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { StyleSheet, Text, View, Linking, TouchableOpacity, Dimensions, ScrollView } from 'react-native'
 import { WebView } from 'react-native-webview';
-import ScreenWrapper from '../../ScreenWrapper';
+import ScreenWrapper from '../ScreenWrapper';
 
 export default function WebViewer({route, navigation}) {
 
