@@ -1,32 +1,32 @@
 import { Dimensions, FlatList, Keyboard, useColorScheme, ActivityIndicator, LogBox, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Pressable, Image, PermissionsAndroid } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
-import ScreenWrapper from '../ScreenWrapper'
+import ScreenWrapper from '../../ScreenWrapper'
 
-import { useKeyboard } from '../hooks/useKeyboard'
+import { useKeyboard } from '../../hooks/useKeyboard'
 
 import Modal from "react-native-modal";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import OcticonsIcon from 'react-native-vector-icons/Octicons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
-import Colors from '../constants/theme/Colors'
+import Colors from '../../constants/theme/Colors'
 import Lottie from 'lottie-react-native';
 import { Configuration, OpenAIApi } from 'openai';
 import { TypingAnimation } from "react-native-typing-animation";
 
 
-import config from '../config/openAI';
-import voiceOverConfig from '../config/playHt';
+import config from '../../config/openAI';
+import voiceOverConfig from '../../config/playHt';
 import RNFetchBlob from 'rn-fetch-blob';
 import {useToast } from 'react-native-toast-notifications'
-import AppContext from '../hooks/useContext'
+import AppContext from '../../hooks/useContext'
 
 import Voice from '@react-native-community/voice';
 
 import {Picker} from '@react-native-picker/picker';
 
-import Sound from 'react-native-sound'
-import PlayerScreen from './PlayerScreen';
+
+import PlayerComponent from './PlayerComponent';
 
 
 export default function AIVoiceGen({navigation}) {
@@ -488,7 +488,7 @@ export default function AIVoiceGen({navigation}) {
                     // justifyContent:"center",
                     // alignItems:"center",
                     }}>
-                <PlayerScreen url={audioLink} details={generatedVoice}/>
+                <PlayerComponent url={audioLink} details={generatedVoice}/>
 
                  
                  <View style={{
@@ -561,7 +561,7 @@ export default function AIVoiceGen({navigation}) {
                         {/* <Lottie style={{
                             // height:55,
                             // width:55
-                        }} source={require('../lottie/download.json')} autoPlay loop /> */}
+                        }} source={require('../../lottie/download.json')} autoPlay loop /> */}
                             
                         {/* <Text style={{
                             color:Colors.lighter,

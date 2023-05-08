@@ -1,22 +1,22 @@
 import { Dimensions, FlatList, Keyboard, Pressable, LogBox, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, useColorScheme, View } from 'react-native'
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import ScreenWrapper from '../ScreenWrapper'
-import Message from '../components/Message'
+import ScreenWrapper from '../../ScreenWrapper'
+import Message from '../../components/Message'
 
-import { useKeyboard } from '../hooks/useKeyboard'
-import TypeWriter from '../components/TypeWriter'
+import { useKeyboard } from '../../hooks/useKeyboard'
+import TypeWriter from '../../components/TypeWriter'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Colors from '../constants/theme/Colors'
+import Colors from '../../constants/theme/Colors'
 import { TypingAnimation } from "react-native-typing-animation";
 import { Configuration, OpenAIApi } from "openai"
-import config from '../config/openAI'
-import AppContext from '../hooks/useContext'
+import config from '../../config/openAI'
+import AppContext from '../../hooks/useContext'
 
 import Voice from '@react-native-community/voice';
 import Modal from 'react-native-modal'
-import CustomButton from '../components/button/CustomButton'
+import CustomButton from '../../components/button/CustomButton'
 
 
 export default function Chat({ navigation }) {
@@ -333,7 +333,7 @@ export default function Chat({ navigation }) {
         if (message.length > 3) {
             handleChat();
 
-            setRespond('...')
+            setRespond('../...')
             setMessage('')
             Keyboard.dismiss()
 

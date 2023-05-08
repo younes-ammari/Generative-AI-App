@@ -9,11 +9,11 @@ import { GoogleSignin } from '@react-native-community/google-signin';
 
 
 // import auth screens
-import Login from '../screens/Login';
-import ResetPassword from '../screens/ResetPassword';
-import Register from '../screens/Register';
-import ForgotPassword from '../screens/ForgotPassword';
-import ResetCode from '../screens/ResetCode';
+import Login from '../screens/authentication/Login';
+import ResetPassword from '../screens/authentication/ResetPassword';
+import Register from '../screens/authentication/Register';
+import ForgotPassword from '../screens/authentication/ForgotPassword';
+import ResetCode from '../screens/authentication/ResetCode';
 
 
 

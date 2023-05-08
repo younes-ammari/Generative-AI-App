@@ -12,22 +12,22 @@ import {
 } from 'react-native';
 
 
-import InputField from '../components/input/InputField';
+import InputField from '../../components/input/InputField';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Octicons from 'react-native-vector-icons/Octicons';
 
-import RegisterImage from '../images/register.png';
-import GoogleImage from '../images/google.png';
+import RegisterImage from '../../images/register.png';
+import GoogleImage from '../../images/google.png';
 
-import CustomButton from '../components/button/CustomButton';
-import Colors from '../constants/theme/Colors';
-import ScreenWrapper from '../ScreenWrapper';
-import AppContext from '../hooks/useContext';
+import CustomButton from '../../components/button/CustomButton';
+import Colors from '../../constants/theme/Colors';
+import ScreenWrapper from '../../ScreenWrapper';
+import AppContext from '../../hooks/useContext';
 import ReactNativeModal from 'react-native-modal';
 // import AuthContext
-import { AuthContext } from '../navigation/AuthProvider';
+import { AuthContext } from '../../navigation/AuthProvider';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 

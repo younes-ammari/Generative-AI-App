@@ -1,12 +1,12 @@
 import { Pressable, StyleSheet, Text, TouchableOpacity, useColorScheme, View } from 'react-native'
 import React, { useContext, useState } from 'react'
-import ScreenWrapper from '../../ScreenWrapper'
-import Colors from '../../constants/theme/Colors'
+import ScreenWrapper from '../../../ScreenWrapper'
+import Colors from '../../../constants/theme/Colors'
 
 import Octicons from 'react-native-vector-icons/Octicons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import AppContext from '../../hooks/useContext'
+import AppContext from '../../../hooks/useContext'
 
 export default function Mode({navigation}) {
 

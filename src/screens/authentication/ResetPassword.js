@@ -1,10 +1,7 @@
 import React, { useContext } from 'react';
 import {
-  SafeAreaView,
   View,
   Text,
-  TextInput,
-  TouchableOpacity,
   Image,
   useColorScheme,
 } from 'react-native';
@@ -12,14 +9,14 @@ import {
 import Octicons from 'react-native-vector-icons/Octicons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import ResetImage from '../images/reset.png';
+import ResetImage from '../../images/reset.png';
 
 
-import CustomButton from '../components/button/CustomButton';
-import InputField from '../components/input/InputField';
-import Colors from '../constants/theme/Colors';
-import AppContext from '../hooks/useContext';
-import ScreenWrapper from '../ScreenWrapper';
+import CustomButton from '../../components/button/CustomButton';
+import InputField from '../../components/input/InputField';
+import Colors from '../../constants/theme/Colors';
+import AppContext from '../../hooks/useContext';
+import ScreenWrapper from '../../ScreenWrapper';
 
 
 export default function ResetPassword ({navigation}){
@@ -27,9 +24,7 @@ export default function ResetPassword ({navigation}){
   
   const {
     displayMode, 
-    setMode,
     styleColors,
-    appData,
     setAppData
 
 } = useContext(AppContext)

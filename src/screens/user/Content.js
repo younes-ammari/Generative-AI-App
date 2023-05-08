@@ -1,23 +1,23 @@
 import { Dimensions, FlatList, Keyboard, useColorScheme, ActivityIndicator, LogBox, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Pressable, Image, PermissionsAndroid } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
-import ScreenWrapper from '../ScreenWrapper'
+import ScreenWrapper from '../../ScreenWrapper'
 import Clipboard from '@react-native-community/clipboard'
-import { useKeyboard } from '../hooks/useKeyboard'
+import { useKeyboard } from '../../hooks/useKeyboard'
 
 import Modal from "react-native-modal";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Octicons from 'react-native-vector-icons/Octicons';
 import Feather from 'react-native-vector-icons/Feather';
-import Colors from '../constants/theme/Colors'
+import Colors from '../../constants/theme/Colors'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { Configuration, OpenAIApi } from 'openai';
 import { TypingAnimation } from "react-native-typing-animation";
 
-import config from '../config/openAI';
+import config from '../../config/openAI';
 
 import { useToast } from 'react-native-toast-notifications'
-import AppContext from '../hooks/useContext'
+import AppContext from '../../hooks/useContext'
 
 import Voice from '@react-native-community/voice';
 

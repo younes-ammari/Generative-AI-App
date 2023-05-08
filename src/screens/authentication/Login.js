@@ -15,20 +15,20 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
-import LoginImage from '../images/login.png';
-import GoogleImage from '../images/google.png';
-import FacebookImage from '../images/facebook.png';
-import TwitterImage from '../images/twitter.png';
+import LoginImage from '../../images/login.png';
+import GoogleImage from '../../images/google.png';
+import FacebookImage from '../../images/facebook.png';
+import TwitterImage from '../../images/twitter.png';
 
-import CustomButton from '../components/button/CustomButton';
-import InputField from '../components/input/InputField';
-import Colors from '../constants/theme/Colors';
-import AppContext from '../hooks/useContext';
-import ScreenWrapper from '../ScreenWrapper';
+import CustomButton from '../../components/button/CustomButton';
+import InputField from '../../components/input/InputField';
+import Colors from '../../constants/theme/Colors';
+import AppContext from '../../hooks/useContext';
+import ScreenWrapper from '../../ScreenWrapper';
 import ReactNativeModal from 'react-native-modal';
 
 // import AuthContext
-import { AuthContext } from '../navigation/AuthProvider';
+import { AuthContext } from '../../navigation/AuthProvider';
 
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';

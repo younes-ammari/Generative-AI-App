@@ -1,11 +1,11 @@
 import { Pressable, StyleSheet, Text, useColorScheme, View } from 'react-native'
 import React, { useContext } from 'react'
-import ScreenWrapper from '../ScreenWrapper'
-import Colors from '../constants/theme/Colors'
+import ScreenWrapper from '../../ScreenWrapper'
+import Colors from '../../constants/theme/Colors'
 
 import Icon  from 'react-native-vector-icons/MaterialCommunityIcons'
 import MIcon from 'react-native-vector-icons/MaterialIcons'
-import AppContext from '../hooks/useContext'
+import AppContext from '../../hooks/useContext'
 
 export default function Settings({navigation}) {
       

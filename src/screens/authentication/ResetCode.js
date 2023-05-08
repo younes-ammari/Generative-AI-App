@@ -1,11 +1,8 @@
 
 import React, { useContext, useState } from 'react';
 import {
-  SafeAreaView,
   View,
   Text,
-  TextInput,
-  TouchableOpacity,
   Image,
   StyleSheet,
   Keyboard,
@@ -14,16 +11,14 @@ import {
 } from 'react-native';
 
 
-import PasswordImage from '../images/password.png';
+import PasswordImage from '../../images/password.png';
 
-import CustomButton from '../components/button/CustomButton';
-import InputField from '../components/input/InputField';
-import Colors from '../constants/theme/Colors';
-import AppContext from '../hooks/useContext';
-import ScreenWrapper from '../ScreenWrapper';
-import { ButtonContainer, ButtonText } from '../components/styles';
-import OTPInput from '../components/input/OTPInput';
-import CountDownTimer from '../components/CountDownTimer';
+import CustomButton from '../../components/button/CustomButton';
+import Colors from '../../constants/theme/Colors';
+import AppContext from '../../hooks/useContext';
+import ScreenWrapper from '../../ScreenWrapper';
+import OTPInput from '../../components/input/OTPInput';
+import CountDownTimer from '../../components/CountDownTimer';
 
 
 export default function ResetCode ({navigation}){

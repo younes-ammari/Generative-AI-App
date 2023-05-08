@@ -1,16 +1,16 @@
 import { Dimensions, useColorScheme, ScrollView, StyleSheet, Text, TouchableOpacity, View, Pressable, Image } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
-import ScreenWrapper from '../ScreenWrapper'
+import ScreenWrapper from '../../ScreenWrapper'
 
-import { useKeyboard } from '../hooks/useKeyboard'
+import { useKeyboard } from '../../hooks/useKeyboard'
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import OcticonsIcon from 'react-native-vector-icons/Octicons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Colors from '../constants/theme/Colors'
+import Colors from '../../constants/theme/Colors'
 import {useToast } from 'react-native-toast-notifications'
-import AppContext from '../hooks/useContext'
-import CustomButton from '../components/button/CustomButton';
+import AppContext from '../../hooks/useContext'
+import CustomButton from '../../components/button/CustomButton';
 
 export default function NewInfo({route, navigation}) {
     // let dirs = RNFetchBlob.fs.dirs

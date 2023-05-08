@@ -1,16 +1,16 @@
 import { StyleSheet, Text, ScrollView, useColorScheme, Pressable, ImageBackground, View } from 'react-native'
 import React, { useContext, useEffect } from 'react'
-import ScreenWrapper from '../ScreenWrapper'
-import Card from '../components/cards/Card'
-import CardImage from '../components/cards/CardImage'
-import CardNew from '../components/cards/CardNew'
-import Colors from '../constants/theme/Colors'
-import AppContext from '../hooks/useContext'
+import ScreenWrapper from '../../ScreenWrapper'
+import Card from '../../components/cards/Card'
+import CardImage from '../../components/cards/CardImage'
+import CardNew from '../../components/cards/CardNew'
+import Colors from '../../constants/theme/Colors'
+import AppContext from '../../hooks/useContext'
 
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
-import Logo from '../components/Logo'
+import Logo from '../../components/Logo'
 
 export default function Home({route, navigation}) {
 
@@ -95,7 +95,7 @@ export default function Home({route, navigation}) {
                     overflow:'hidden',
                     opacity:.9
                 }}
-                source={require("../images/drawerBackground.jpg")}
+                source={require("../../images/drawerBackground.jpg")}
                 resizeMode='cover'
                 // resizeMethod="resize"
                 // resizeMode="contain"
@@ -135,7 +135,7 @@ export default function Home({route, navigation}) {
                 backgroundColor={Colors.primary}
                 title='ChatGPT'
                 subtitle='direct chat, anytime, lots of features '
-                imageSource={require('../images/home/chatGPT.png')}
+                imageSource={require('../../images/home/chatGPT.png')}
                 onPress={()=>navigation.navigate("Chat")}
                 />
             <CardImage 
@@ -143,7 +143,7 @@ export default function Home({route, navigation}) {
                 backgroundColor={Colors.primary}
                 title='Generate Image'
                 subtitle='Create beautiful art and images with AI in different art styles quickl'
-                imageSource={require('../images/home/imageGen.png')}
+                imageSource={require('../../images/home/imageGen.png')}
                 onPress={()=>navigation.navigate("ImageGen")}
                 />
             <CardImage 
@@ -151,7 +151,7 @@ export default function Home({route, navigation}) {
                 backgroundColor={Colors.primary}
                 title='AI Voiceover Generator'
                 subtitle='Transform your content with high-quality, AI generated voiceovers, professional voices in 100 languages'
-                imageSource={require('../images/home/voiceGen.png')}
+                imageSource={require('../../images/home/voiceGen.png')}
                 onPress={()=>navigation.navigate("AIVoiceGen")}
                 />
             <CardImage 
@@ -159,7 +159,7 @@ export default function Home({route, navigation}) {
                 backgroundColor={Colors.primary}
                 title='Content Creation'
                 subtitle='Create different types of content – both long and short-form'
-                imageSource={require('../images/home/contentGen.png')}
+                imageSource={require('../../images/home/contentGen.png')}
                 onPress={()=>navigation.navigate("Content")}
                 />
             <CardImage 
@@ -167,7 +167,7 @@ export default function Home({route, navigation}) {
                 backgroundColor={Colors.primary}
                 title='Video summarize'
                 subtitle='Get a summary of any long YouTube video, like a lecture, live event or a government meeting. Powered by ChatGPT.'
-                imageSource={require('../images/home/summarize.png')}
+                imageSource={require('../../images/home/summarize.png')}
                 onPress={()=>navigation.navigate("Video")}
                 />
             <CardImage 
@@ -176,7 +176,7 @@ export default function Home({route, navigation}) {
                 title='Generate Video'
                 subtitle='Create AI-generated videos quickly using simple text'
                 soon
-                imageSource={require('../images/home/videoGen.png')}
+                imageSource={require('../../images/home/videoGen.png')}
                 // onPress={()=>navigation.navigate("")}
                 />
 
@@ -195,12 +195,12 @@ export default function Home({route, navigation}) {
                 backgroundColor={Colors.primary}
                 title='Video summarize'
                 subtitle='Get a summary of any long YouTube video, like a lecture, live event or a government meeting. Powered by ChatGPT.'
-                imageSource={require('../images/home/summarize.png')}
+                imageSource={require('../../images/home/summarize.png')}
                 onPress={()=>navigation.navigate("NewInfo", {
                     info:{
                         screen:"Home",
                         title:'Video summarize',
-                        imageSource:require('../images/home/summarize.png'),
+                        imageSource:require('../../images/home/summarize.png'),
                         subtitle:'Get a summary of any long YouTube video, like a lecture, live event or a government meeting. Powered by ChatGPT.',
 
                 
@@ -211,13 +211,13 @@ export default function Home({route, navigation}) {
                 backgroundColor={Colors.primary}
                 title='AI Voiceover Generator'
                 subtitle='Transform your content with high-quality, AI generated voiceovers, professional voices in 100 languages'
-                imageSource={require('../images/home/voiceGen.png')}
+                imageSource={require('../../images/home/voiceGen.png')}
                 onPress={()=>navigation.navigate("NewInfo", {
                     info:{
                         screen:"AIVoiceGen",
                         title:'AI Voiceover Generator',
                         subtitle:'Transform your content with high-quality, AI generated voiceovers, professional voices in 100 languages',
-                        imageSource:require('../images/home/voiceGen.png'),
+                        imageSource:require('../../images/home/voiceGen.png'),
 
                 
                     }})}
@@ -227,13 +227,13 @@ export default function Home({route, navigation}) {
                 backgroundColor={Colors.primary}
                 title='Generate Image'
                 subtitle='Create beautiful art and images with AI in different art styles quickl'
-                imageSource={require('../images/home/imageGen.png')}
+                imageSource={require('../../images/home/imageGen.png')}
                 onPress={()=>navigation.navigate("NewInfo", {
                     info:{
                         screen:"ImageGen",
                         title:'Generate Image',
                         subtitle:'Create beautiful art and images with AI in different art styles quickl',
-                        imageSource:require('../images/home/imageGen.png'),
+                        imageSource:require('../../images/home/imageGen.png'),
 
                 
                     }})}

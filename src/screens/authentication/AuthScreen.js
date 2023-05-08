@@ -1,11 +1,10 @@
 import { Pressable, StyleSheet, Text, useColorScheme, View } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
-import ScreenWrapper from '../ScreenWrapper'
-import Colors from '../constants/theme/Colors'
+import ScreenWrapper from '../../ScreenWrapper'
+import Colors from '../../constants/theme/Colors'
 
-import storage from '../hooks/useStorage'
-import { ActivityIndicator } from 'react-native'
-import AppContext from '../hooks/useContext'
+import storage from '../../hooks/useStorage'
+import AppContext from '../../hooks/useContext'
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 
 

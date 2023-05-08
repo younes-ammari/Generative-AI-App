@@ -1,40 +1,40 @@
-export {default as AuthScreen } from './AuthScreen'
+export {default as AuthScreen } from './authentication/AuthScreen'
 
-export {default as Login } from './Login'
-export {default as ForgotPassword } from './ForgotPassword'
-export {default as ResetCode } from './ResetCode'
-export {default as ResetPassword } from './ResetPassword'
-export {default as Register } from './Register'
+export {default as Login } from './authentication/Login'
+export {default as ForgotPassword } from './authentication/ForgotPassword'
+export {default as ResetCode } from './authentication/ResetCode'
+export {default as ResetPassword } from './authentication/ResetPassword'
+export {default as Register } from './authentication/Register'
 
-export {default as Home } from './Home'
-export {default as Settings } from './Settings'
+export {default as Home } from './user/Home'
+export {default as Settings } from './user/Settings'
 
-export {default as Chat } from './Chat'
-export {default as ImageGen } from './ImageGen'
-export {default as AIVoiceGen } from "./AIVoiceGen"
-export {default as PlayerScreen } from "./PlayerScreen"
-export {default as Content } from './Content'
-export {default as Video } from './Video'
-
-
-export {default as Pay } from './Pay'
-export {default as Account } from './Account'
+export {default as Chat } from './user/Chat'
+export {default as ImageGen } from './user/ImageGen'
+export {default as AIVoiceGen } from "./user/AIVoiceGen"
+export {default as PlayerScreen } from "./user/PlayerComponent"
+export {default as Content } from './user/Content'
+export {default as Video } from './user/Video'
 
 
+export {default as Pay } from './user/Pay'
+export {default as Account } from './user/Account'
 
 
-export {default as NewInfo } from "./NewInfo"
+
+
+export {default as NewInfo } from "./user/NewInfo"
 
 
 
 // coins screen
-export {default as Coins } from "./Coins"
+export {default as Coins } from "./user/Coins"
 
 
 
-export {default as WebViewer } from "./WebViewer"
+export {default as WebViewer } from "./user/WebViewer"
 
 
 // Settings Screens
-export {default as Mode } from "./settings/Mode"
-export {default as About } from "./settings/About"
+export {default as Mode } from "./user/settings/Mode"
+export {default as About } from "./user/settings/About"

@@ -1,13 +1,13 @@
 import { Pressable, StyleSheet, Text, ScrollView, useColorScheme, View, TextInput } from 'react-native'
 import React, { useContext, useState } from 'react'
-import ScreenWrapper from '../ScreenWrapper'
-import Colors from '../constants/theme/Colors'
+import ScreenWrapper from '../../ScreenWrapper'
+import Colors from '../../constants/theme/Colors'
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 
-import AppContext from '../hooks/useContext'
-import Step from '../components/Step'
-import PaymentMethod from '../components/PaymentMethod'
+import AppContext from '../../hooks/useContext'
+import Step from '../../components/Step'
+import PaymentMethod from '../../components/PaymentMethod'
 
 export default function Pay({navigation}) {
 

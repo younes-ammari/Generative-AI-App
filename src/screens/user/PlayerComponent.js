@@ -5,16 +5,16 @@ import { View, Image, Text,
 import Slider from '@react-native-community/slider';
 import Sound from 'react-native-sound';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import Colors from '../constants/theme/Colors';
-import AppContext from '../hooks/useContext';
-import formatBytes from '../functions/formatBytes';
-const img_speaker = require('./resources/ui_speaker.png');
-const img_pause = require('./resources/ui_pause.png');
-const img_play = require('./resources/ui_play.png');
-const img_playjumpleft = require('./resources/ui_playjumpleft.png');
-const img_playjumpright = require('./resources/ui_playjumpright.png');
+import Colors from '../../constants/theme/Colors';
+import AppContext from '../../hooks/useContext';
+import formatBytes from '../../functions/formatBytes';
+const img_speaker = require('../resources/ui_speaker.png');
+const img_pause = require('../resources/ui_pause.png');
+const img_play = require('../resources/ui_play.png');
+const img_playjumpleft = require('../resources/ui_playjumpleft.png');
+const img_playjumpright = require('../resources/ui_playjumpright.png');
 
-export default class PlayerScreen extends React.Component{
+export default class PlayerComponent extends React.Component{
     
 
     // static navigationOptions = props => ({
