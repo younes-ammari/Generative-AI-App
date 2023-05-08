@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Octicons from 'react-native-vector-icons/Octicons';
 import Feather from 'react-native-vector-icons/Feather';
-import Colors from '../constants/Colors'
+import Colors from '../constants/theme/Colors'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { Configuration, OpenAIApi } from 'openai';
 import { TypingAnimation } from "react-native-typing-animation";

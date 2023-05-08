@@ -21,18 +21,20 @@ export {default as Pay } from './Pay'
 export {default as Account } from './Account'
 
 
-// Settings Screens
-export {default as Mode } from "./settingsScreens/Mode"
-export {default as About } from "./settingsScreens/About"
-export {default as Voice } from "./Voice"
+
+
 export {default as NewInfo } from "./NewInfo"
 
 
 
-
+// coins screen
 export {default as Coins } from "./Coins"
 
-export {default as Rec } from "./Rec"
 
 
 export {default as WebViewer } from "./WebViewer"
+
+
+// Settings Screens
+export {default as Mode } from "./settings/Mode"
+export {default as About } from "./settings/About"

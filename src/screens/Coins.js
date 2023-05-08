@@ -1,15 +1,14 @@
 import { Pressable, StyleSheet, Text, ScrollView, useColorScheme, View, TextInput } from 'react-native'
 import React, { useContext, useState } from 'react'
 import ScreenWrapper from '../ScreenWrapper'
-import Colors from '../constants/Colors'
+import Colors from '../constants/theme/Colors'///theme
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 
 import AppContext from '../hooks/useContext'
 import Step from '../components/Step'
 import PaymentMethod from '../components/PaymentMethod'
-import Activity from '../components/Activity'
-import CustomButton from '../components/CustomButton'
+import CustomButton from '../components/button/CustomButton'
 
 export default function Coins({navigation}) {
 
@@ -60,38 +59,8 @@ export default function Coins({navigation}) {
             </Pressable>
           </View>
 
-          <Activity 
-            type='chatgpt'
-            title="Chat with ChatGPT"
-            details="14 message"
-            amont={15}
-            />
-          <Activity 
-            type='imagegen'
-            title="Image generator"
-            details="4 images"
-            amont={12}
-            />
-          <Activity 
-            type='voicegen'
-            title="AI Voiceover "
-            details="26 sec"
-            amont={5}
-            />
-          <Activity 
-            type='payment'
-            title="Payment"
-            details="+20 coins"
-            plus
-            amont={20}
-            />
-          <Activity 
-            type='payment'
-            title="Trial coins"
-            details="+16 coins"
-            plus
-            amont={16}
-          />
+          
+          
       </View>
 
       <View style={styles.buttonContainer}>

@@ -1,8 +1,7 @@
-import { Text, View, TouchableOpacity, StyleProp, ViewProps, Dimensions, ViewStyle, useColorScheme } from 'react-native';
-import PropTypes from 'prop-types';
+import { Text, TouchableOpacity, Dimensions, ViewStyle, useColorScheme } from 'react-native';
 import React from 'react';
-import Colors from '../constants/Colors';
-import AppContext from '../hooks/useContext';
+import Colors from '../../constants/theme/Colors';
+import AppContext from '../../hooks/useContext';
 
 // Button Props
 type Props = {

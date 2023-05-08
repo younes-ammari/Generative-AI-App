@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, useColorScheme, Dimensions } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
-import AppContext from '../hooks/useContext'
+import AppContext from '../../hooks/useContext'
 
 export default function AudioWaves({waves=[]}){
         

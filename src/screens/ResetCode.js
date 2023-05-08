@@ -16,13 +16,13 @@ import {
 
 import PasswordImage from '../images/password.png';
 
-import CustomButton from '../components/CustomButton';
-import InputField from '../components/InputField';
-import Colors from '../constants/Colors';
+import CustomButton from '../components/button/CustomButton';
+import InputField from '../components/input/InputField';
+import Colors from '../constants/theme/Colors';
 import AppContext from '../hooks/useContext';
 import ScreenWrapper from '../ScreenWrapper';
 import { ButtonContainer, ButtonText } from '../components/styles';
-import OTPInput from '../components/OTPInput';
+import OTPInput from '../components/input/OTPInput';
 import CountDownTimer from '../components/CountDownTimer';
 
 

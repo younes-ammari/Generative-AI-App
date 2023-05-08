@@ -1,14 +1,14 @@
-import { StyleSheet, Text, ScrollView, useColorScheme, Pressable, Image, ImageBackground, View } from 'react-native'
+import { StyleSheet, Text, ScrollView, useColorScheme, Pressable, ImageBackground, View } from 'react-native'
 import React, { useContext, useEffect } from 'react'
 import ScreenWrapper from '../ScreenWrapper'
-import Card from '../components/Card'
-import CardImage from '../components/CardImage'
-import CardNew from '../components/CardNew'
-import Colors from '../constants/Colors'
+import Card from '../components/cards/Card'
+import CardImage from '../components/cards/CardImage'
+import CardNew from '../components/cards/CardNew'
+import Colors from '../constants/theme/Colors'
 import AppContext from '../hooks/useContext'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import Octicons from 'react-native-vector-icons/Octicons'
+
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import Logo from '../components/Logo'
 

@@ -7,10 +7,10 @@ import { useKeyboard } from '../hooks/useKeyboard'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import OcticonsIcon from 'react-native-vector-icons/Octicons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Colors from '../constants/Colors'
+import Colors from '../constants/theme/Colors'
 import {useToast } from 'react-native-toast-notifications'
 import AppContext from '../hooks/useContext'
-import CustomButton from '../components/CustomButton';
+import CustomButton from '../components/button/CustomButton';
 
 export default function NewInfo({route, navigation}) {
     // let dirs = RNFetchBlob.fs.dirs

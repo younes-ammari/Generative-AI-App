@@ -1,10 +1,10 @@
 import { Pressable, StyleSheet, Text, useColorScheme, View } from 'react-native'
 import React, { useContext } from 'react'
-import {About, Account, AIVoiceGen, AuthScreen, Chat, History, Home, ImageGen, Login, Mode, NewInfo, Pay, PlayerScreen, Rec, Register, Coins, Settings, Voice, ForgotPassword, ResetCode, ResetPassword, Content, Video} from './screens/Index'
+import {About, Account, AIVoiceGen, AuthScreen, Chat, History, Home, ImageGen, Login, Mode, NewInfo, Pay, PlayerScreen, Rec, Register, Coins, Settings, ForgotPassword, ResetCode, ResetPassword, Content, Video} from './screens/Index'
 import { NavigationContainer } from '@react-navigation/native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Entypo from 'react-native-vector-icons/Entypo';
-import Colors from './constants/Colors';
+import Colors from './constants/theme/Colors';
 import { Easing } from 'react-native-reanimated';
 import AppContext from './hooks/useContext';
 import Player from './screens/Player';
@@ -12,7 +12,7 @@ import { createDrawerNavigator, DrawerItemList, DrawerContentScrollView } from '
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import CustomDrawer from './components/CustomDrawer';
+import CustomDrawer from './components/navigation/CustomDrawer';
 
 
 
@@ -167,119 +167,7 @@ const DrawerNav=({route, navigation})=>{
   )
 }
 
-const TabNav=({route, navigation})=>{
-  
-  const {
-    displayMode, 
-    setMode,
-    styleColors,
-    appData,
-  } = useContext(AppContext)
 
-  const deviceMode = useColorScheme()
-    
-  // const styleColors = Colors[displayMode=="auto" ? deviceMode : displayMode]
-  
-  
-
-  
-  // const {appDatas, ...otherparams} = route.params
-  // console.log(appDatas)
-
-  return(
-    <Tab.Navigator
-        screenOptions={({ route }) => ({
-          headerStyle: {
-            // backgroundColor: Colors.primary,
-          },
-          // tabBarBackground:'red',
-          // statusBarHidden:true,
-          tabBarStyle:{
-            backgroundColor:styleColors.tabBar.backgroundColor,
-            backgroundColor:styleColors.primary,
-            // paddingTop:11,
-            height:55,
-            paddingBottom:1,
-            // elevation:11,
-            // position:"absolute",
-            // marginHorizontal:15,
-            // marginBottom:15,
-            // borderRadius:16,
-            paddingVertical:2,
-            paddingBottom:9,
-            // height:55,
-          },
-          headerShown:false,
-  
-          // headerTintColor: '#fff',
-          // headerTitleStyle: {
-          //   // fontWeight: 'bold',
-          // },
-        
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
-
-            if (route.name === 'Home') {
-              iconName = focused
-              // route.name= 'll'
-                ? 'home'
-                : 'home-outline';
-            } 
-            if (route.name === 'Settings') {
-              iconName = focused ? 'settings' : 'settings-outline';
-            }
-            if (route.name === 'Pay') {
-              iconName = focused ? 'wallet' : 'wallet-outline';
-            }
-
-            // You can return any component that you like here!
-            return route.name !== "Coins" ?
-            <Ionicons name={iconName} size={focused ? 24 : 20} color={!focused ? "rgba(200, 200, 200, .7)" : '#FFF'} />
-            :
-            <Entypo name={"credit"} size={focused ? 24 : 20} color={!focused ? "rgba(200, 200, 200, .7)" : '#FFF'} />;
-            
-          },
-          tabBarActiveTintColor: styleColors.tabBar.ActiveTintColor,
-          tabBarActiveTintColor: styleColors.lighter,
-          // tabBarInactiveTintColor: 'gray',
-        })}
-      >
-        <Tab.Screen name="Home" component={Home}
-        initialParams={appData} 
-        options={{
-          headerShown:false,
-          
-        }}
-        />
-        <Tab.Screen name="Coins" component={Coins} />
-        <Tab.Screen name="Settings" component={Settings} />
-      </Tab.Navigator>
-  )
-}
-
-
-const config = {
-  animation: 'spring',
-  config: {
-    stiffness: 1000,
-    damping: 500,
-    mass: 3,
-    overshootClamping: true,
-    restDisplacementThreshold: 0.01,
-    restSpeedThreshold: 0.01,
-  },
-};
-const configClose = {
-  animation: 'spring',
-  config: {
-    stiffness: 1000,
-    damping: 500,
-    mass: 3,
-    overshootClamping: true,
-    restDisplacementThreshold: 0.01,
-    restSpeedThreshold: 0.01,
-  },
-};
 
 export default function Navigator() {
   return (
@@ -332,13 +220,12 @@ export default function Navigator() {
       <Stack.Screen name="Register" component={Register} />
       
       <Stack.Screen name="Pay" component={Pay} />
-      <Stack.Screen name="TabNav" component={DrawerNav} />
+      <Stack.Screen name="DrawerNav" component={DrawerNav} />
 
 
       <Stack.Screen name="Video" component={Video} />
       <Stack.Screen name="Content" component={Content} />
       <Stack.Screen name="Mode" component={Mode} />
-      <Stack.Screen name="Voice" component={Voice} />
 
       <Stack.Screen name="History" component={History} />
       <Stack.Screen name="NewInfo" component={NewInfo} />
@@ -348,23 +235,11 @@ export default function Navigator() {
 
 
       <Stack.Screen name="Rec" component={Rec} />
-      {/* <Stack.Screen name="TabNav" component={TabNav} /> */}
+      {/* <Stack.Screen name="DrawerNav" component={DrawerNav} /> */}
       <Stack.Screen name="About" component={About} />
 
-      <Stack.Screen name="Chat" component={Chat} options={{
-          transitionSpec: {
-            open: config,
-            close: configClose,
-          },
-          
-        }}/>
-        <Stack.Screen name="ImageGen" component={ImageGen} options={{
-          transitionSpec: {
-            open: config,
-            close: configClose,
-          },
-          
-        }}/>
+      <Stack.Screen name="Chat" component={Chat}/>
+        <Stack.Screen name="ImageGen" component={ImageGen}/>
     </Stack.Navigator>
       
     </>

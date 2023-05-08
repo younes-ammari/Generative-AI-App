@@ -1,9 +1,9 @@
-import { Dimensions, Image, StyleSheet, Text, View, useColorScheme } from 'react-native'
+import { Dimensions, StyleSheet, Text, View, useColorScheme } from 'react-native'
 import React, { useContext } from 'react'
-import Colors from '../constants/Colors'
 import { Pressable } from 'react-native'
-import AppContext from '../hooks/useContext'
+import AppContext from '../../hooks/useContext'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import Colors from '../../constants/theme/Colors'
 
 export default function Card({
     title,

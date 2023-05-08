@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import Voice from '@react-native-community/voice';
 import ScreenWrapper from '../ScreenWrapper';
-import Colors from '../constants/Colors';
+import Colors from '../constants/theme/Colors';
 import AppContext from '../hooks/useContext';
 import PlayerScreen from './PlayerScreen';
 

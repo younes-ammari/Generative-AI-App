@@ -15,9 +15,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import ResetImage from '../images/reset.png';
 
 
-import CustomButton from '../components/CustomButton';
-import InputField from '../components/InputField';
-import Colors from '../constants/Colors';
+import CustomButton from '../components/button/CustomButton';
+import InputField from '../components/input/InputField';
+import Colors from '../constants/theme/Colors';
 import AppContext from '../hooks/useContext';
 import ScreenWrapper from '../ScreenWrapper';
 
@@ -48,7 +48,7 @@ const handleSave=()=>{
         coins:135
     }})
 
-  navigation.navigate("TabNav")
+  navigation.navigate("DrawerNav")
   setTimeout(() => {
     
     navigation.navigate('Home')

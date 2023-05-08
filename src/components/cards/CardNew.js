@@ -1,16 +1,15 @@
 import { Dimensions, Image, StyleSheet, Text, View, useColorScheme } from 'react-native'
 import React, { useContext } from 'react'
-import Colors from '../constants/Colors'
+import Colors from '../../constants/theme/Colors'
 import { Pressable } from 'react-native'
-import AppContext from '../hooks/useContext'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import AppContext from '../../hooks/useContext'
 
 export default function CardNew({
     title,
     subtitle,
     color=Colors.lighter,
     backgroundColor=Colors.primary,
-    imageSource=require('../images/home/chatGPT.png'),
+    imageSource=require('../../images/home/chatGPT.png'),
     ...props
 }) {
 

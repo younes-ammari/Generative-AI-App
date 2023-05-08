@@ -1,9 +1,8 @@
 import { Dimensions, Image, StyleSheet, Text, View, useColorScheme } from 'react-native'
 import React, { useContext } from 'react'
-import Colors from '../constants/Colors'
+import Colors from '../../constants/theme/Colors'
 import { Pressable } from 'react-native'
-import AppContext from '../hooks/useContext'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import AppContext from '../../hooks/useContext'
 
 export default function CardImage({
     title,
@@ -12,7 +11,7 @@ export default function CardImage({
     color=Colors.lighter,
     backgroundColor=Colors.primary,
     // imageSource={uri:"https://www.primelawgroup.com/wp-content/uploads/2023/02/chatgpt-icon.png"},
-    imageSource=require('../images/home/chatGPT.png'),
+    imageSource=require('../../images/home/chatGPT.png'),
     ...props
 }) {
 

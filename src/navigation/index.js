@@ -4,6 +4,9 @@ import React from 'react';
 import { AuthProvider } from './AuthProvider';
 import Routes from './Routes';
 import {NavigationContainer} from '@react-navigation/native';
+
+
+// import ToastProvider for toasting messages
 import { ToastProvider } from 'react-native-toast-notifications';
 import { AppContextProvider } from '../hooks/useContext';
 

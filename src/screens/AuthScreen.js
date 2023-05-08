@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text, useColorScheme, View } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import ScreenWrapper from '../ScreenWrapper'
-import Colors from '../constants/Colors'
+import Colors from '../constants/theme/Colors'
 
 import storage from '../hooks/useStorage'
 import { ActivityIndicator } from 'react-native'
@@ -52,7 +52,7 @@ export default function AuthScreen({navigation}) {
               
               if (ret.user.name.length>2){
                 setAppData(ret)
-                navigation.navigate('TabNav', {appData: appData})
+                navigation.navigate('DrawerNav', {appData: appData})
                 
               } else {
                 navigation.navigate('Login')
@@ -88,7 +88,7 @@ export default function AuthScreen({navigation}) {
             //   asyncData.mode && setMode(asyncData.mode)
             //   if (asyncData.user.name.length>2){
             //     setAppData(asyncData)
-            //     navigation.navigate('TabNav', {appData: appData})
+            //     navigation.navigate('DrawerNav', {appData: appData})
 
             //   } else {
             //     navigation.navigate('Login')

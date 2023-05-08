@@ -6,7 +6,7 @@ import {
   SplitBoxes,
   SplitBoxText,
   SplitBoxesFocused,
-} from "./styles";
+} from "../styles";
 
 const OTPInput = ({ code, setCode, maximumLength, setIsPinReady }) => {
   const boxArray = new Array(maximumLength).fill(0);

@@ -8,7 +8,7 @@ import Modal from "react-native-modal";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import OcticonsIcon from 'react-native-vector-icons/Octicons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Colors from '../constants/Colors'
+import Colors from '../constants/theme/Colors'
 import Lottie from 'lottie-react-native';
 import { Configuration, OpenAIApi } from 'openai';
 import { TypingAnimation } from "react-native-typing-animation";

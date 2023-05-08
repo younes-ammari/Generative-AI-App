@@ -6,6 +6,8 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { GoogleSignin } from '@react-native-community/google-signin';
 
+
+
 import { useNavigation } from '@react-navigation/native';
 import AppContext from '../hooks/useContext';
 
@@ -38,7 +40,7 @@ export const AuthProvider = ({ children }) => {
             await auth().signInWithEmailAndPassword(email, password)
               .then(res => {
                 console.info(res);
-                navigation.navigate("TabNav")
+                navigation.navigate("DrawerNav")
               })
 
               .catch(error => {
@@ -123,7 +125,7 @@ export const AuthProvider = ({ children }) => {
                         uid: user.id,
                       }
                     })
-                    navigation.navigate("TabNav")
+                    navigation.navigate("DrawerNav")
                     setTimeout(() => {
                       navigation.navigate('Home')
                     }, 10)
@@ -188,7 +190,7 @@ export const AuthProvider = ({ children }) => {
                     userImg: null,
                   })
 
-                navigation.navigate("TabNav")
+                navigation.navigate("DrawerNav")
 
 
 

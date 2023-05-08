@@ -16,6 +16,7 @@ const Routes = () => {
 
   const onAuthStateChanged = (user) => {
     setUser(user);
+    console.log("user", user)
     if (initializing) setInitializing(false);
   };
 
@@ -26,16 +27,7 @@ const Routes = () => {
 
   if (initializing) return null;
 
-  return (
-    // <NavigationContainer>
-      // {/* {user ? <AppStack /> : <AuthStack />} */}
-
-      <AppStack /> 
-
-
-      // {/* <AppStack /> */}
-    // </NavigationContainer>
-  );
+  return user ? <AppStack /> : <AuthStack />
 };
 
 export default Routes;

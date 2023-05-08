@@ -1,11 +1,8 @@
 import React, { useContext, useState } from 'react';
 import {
-  SafeAreaView,
-  Pressable,
   ScrollView,
   View,
   Text,
-  TextInput,
   TouchableOpacity,
   useColorScheme,
   StyleSheet,
@@ -14,9 +11,8 @@ import {
   ActivityIndicator
 } from 'react-native';
 
-import DatePicker from 'react-native-date-picker';
 
-import InputField from '../components/InputField';
+import InputField from '../components/input/InputField';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -24,10 +20,9 @@ import Octicons from 'react-native-vector-icons/Octicons';
 
 import RegisterImage from '../images/register.png';
 import GoogleImage from '../images/google.png';
-import FacebookImage from '../images/facebook.png';
 
-import CustomButton from '../components/CustomButton';
-import Colors from '../constants/Colors';
+import CustomButton from '../components/button/CustomButton';
+import Colors from '../constants/theme/Colors';
 import ScreenWrapper from '../ScreenWrapper';
 import AppContext from '../hooks/useContext';
 import ReactNativeModal from 'react-native-modal';
@@ -199,7 +194,7 @@ export default function Register({ navigation }) {
                           uid: uid,
                         }
                       })
-                      navigation.navigate("TabNav")
+                      navigation.navigate("DrawerNav")
                       setTimeout(() => {
                         navigation.navigate('Home')
                       }, 10)
@@ -288,7 +283,7 @@ export default function Register({ navigation }) {
     setTimeout(() => {
       // setVisibleRegistration(false)
 
-      // navigation.navigate("TabNav")
+      // navigation.navigate("DrawerNav")
       // setTimeout(() => {
 
       //     navigation.navigate('Home')

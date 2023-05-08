@@ -2,21 +2,21 @@ import { Dimensions, FlatList, Keyboard, Pressable, LogBox, Image, ScrollView, S
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import ScreenWrapper from '../ScreenWrapper'
 import Message from '../components/Message'
-// import { Colors } from 'react-native/Libraries/NewAppScreen'
+
 import { useKeyboard } from '../hooks/useKeyboard'
 import TypeWriter from '../components/TypeWriter'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Colors from '../constants/Colors'
+import Colors from '../constants/theme/Colors'
 import { TypingAnimation } from "react-native-typing-animation";
 import { Configuration, OpenAIApi } from "openai"
 import config from '../config/openAI'
 import AppContext from '../hooks/useContext'
-// import AnimatedRing from '../components/RecordingEffect'
+
 import Voice from '@react-native-community/voice';
 import Modal from 'react-native-modal'
-import CustomButton from '../components/CustomButton'
+import CustomButton from '../components/button/CustomButton'
 
 
 export default function Chat({ navigation }) {

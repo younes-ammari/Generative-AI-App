@@ -5,7 +5,7 @@ import { View, Image, Text,
 import Slider from '@react-native-community/slider';
 import Sound from 'react-native-sound';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import Colors from '../constants/Colors';
+import Colors from '../constants/theme/Colors';
 import AppContext from '../hooks/useContext';
 import formatBytes from '../functions/formatBytes';
 const img_speaker = require('./resources/ui_speaker.png');

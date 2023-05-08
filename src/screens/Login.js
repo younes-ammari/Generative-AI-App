@@ -20,9 +20,9 @@ import GoogleImage from '../images/google.png';
 import FacebookImage from '../images/facebook.png';
 import TwitterImage from '../images/twitter.png';
 
-import CustomButton from '../components/CustomButton';
-import InputField from '../components/InputField';
-import Colors from '../constants/Colors';
+import CustomButton from '../components/button/CustomButton';
+import InputField from '../components/input/InputField';
+import Colors from '../constants/theme/Colors';
 import AppContext from '../hooks/useContext';
 import ScreenWrapper from '../ScreenWrapper';
 import ReactNativeModal from 'react-native-modal';
@@ -216,7 +216,7 @@ export default function Login({ navigation }) {
                     uid: uid,
                   }
                 })
-                navigation.navigate("TabNav")
+                navigation.navigate("DrawerNav")
                 setTimeout(() => {
                   navigation.navigate('Home')
                 }, 10)
@@ -276,7 +276,7 @@ export default function Login({ navigation }) {
     //   setVisibleLogin(false)
 
 
-    //   navigation.navigate("TabNav")
+    //   navigation.navigate("DrawerNav")
     //   setTimeout(() => {
     //       navigation.navigate('Home')
     //     }, 20);
@@ -359,7 +359,7 @@ export default function Login({ navigation }) {
                 uid: userdata.uid,
               }
             })
-            navigation.navigate("TabNav")
+            navigation.navigate("DrawerNav")
             setTimeout(() => {
               navigation.navigate('Home')
             }, 10)

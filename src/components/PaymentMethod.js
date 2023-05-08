@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image, useColorScheme, Pressable } from 'react-native'
 import React, {useContext} from 'react'
 import AppContext from '../hooks/useContext'
-import Colors from '../constants/Colors'
+import Colors from '../constants/theme/Colors'
 
 
 export default function PaymentMethod({

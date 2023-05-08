@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text, TouchableOpacity, useColorScheme, View } from 'react-native'
 import React, { useContext, useState } from 'react'
 import ScreenWrapper from '../../ScreenWrapper'
-import Colors from '../../constants/Colors'
+import Colors from '../../constants/theme/Colors'
 
 import AppContext from '../../hooks/useContext'
 import { ScrollView } from 'react-native-gesture-handler'

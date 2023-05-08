@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState } from 'react';
 // import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
 import storage from './useStorage';
 import { useColorScheme } from 'react-native';
-import Colors from '../constants/Colors'
+import Colors from '../constants/theme/Colors'
 
 const AppContext = createContext();
 
