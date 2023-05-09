@@ -27,7 +27,8 @@ const Routes = () => {
 
   if (initializing) return null;
 
-  return user ? <AppStack /> : <AuthStack />
+  // return user ? <AppStack /> : <AuthStack />
+  return user ? <AppStack /> : <AppStack />
 };
 
 export default Routes;

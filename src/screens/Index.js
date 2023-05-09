@@ -11,8 +11,8 @@ export {default as Settings } from './user/Settings'
 
 export {default as Chat } from './user/Chat'
 export {default as ImageGen } from './user/ImageGen'
-export {default as AIVoiceGen } from "./user/AIVoiceGen"
-export {default as PlayerScreen } from "./user/PlayerComponent"
+export {default as VoiceGen } from "./user/VoiceGen"
+export {default as PlayerScreen } from "../components/sound/PlayerComponent"
 export {default as Content } from './user/Content'
 export {default as Video } from './user/Video'
 

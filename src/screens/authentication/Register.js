@@ -12,24 +12,28 @@ import {
 } from 'react-native';
 
 
-import InputField from '../../components/input/InputField';
+import ReactNativeModal from 'react-native-modal';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Octicons from 'react-native-vector-icons/Octicons';
 
+
+// import AuthContext
+import { AuthContext } from '../../navigation/AuthProvider';
+
+// import firebase depenencies
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+
+
 import RegisterImage from '../../images/register.png';
 import GoogleImage from '../../images/google.png';
 
-import CustomButton from '../../components/button/CustomButton';
+import { CustomButton, InputField } from '../../components/Index';
 import Colors from '../../constants/theme/Colors';
 import ScreenWrapper from '../ScreenWrapper';
 import AppContext from '../../hooks/useContext';
-import ReactNativeModal from 'react-native-modal';
-// import AuthContext
-import { AuthContext } from '../../navigation/AuthProvider';
-import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
 
 
 export default function Register({ navigation }) {

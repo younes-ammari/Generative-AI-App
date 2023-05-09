@@ -8,6 +8,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Colors from '../../constants/theme/Colors';
 import AppContext from '../../hooks/useContext';
 import formatBytes from '../../functions/formatBytes';
+
+
 const img_speaker = require('../resources/ui_speaker.png');
 const img_pause = require('../resources/ui_pause.png');
 const img_play = require('../resources/ui_play.png');

@@ -1,16 +1,9 @@
 import React, { useContext } from 'react';
 
-
-import Octicons from 'react-native-vector-icons/Octicons';
-
 import { useColorScheme, Pressable } from 'react-native'
 
-
-// import auth screens
-import AuthStack from './AuthStack'
-
 // import screens
-import { Home, Chat, ImageGen, AIVoiceGen, Pay, About, Content, History, Mode, NewInfo, Video, Account, Coins, WebViewer } from '../screens/Index';
+import { Home, Chat, ImageGen, Pay, About, Content, Mode, NewInfo, Video, Account, Coins, WebViewer, VoiceGen } from '../screens/Index';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -95,14 +88,6 @@ const DrawerNav = ({ route, navigation }) => {
         options={{
           drawerIcon: ({ focused, size, color }) =>
             <Ionicons name={"home"} size={20} color={color} />
-        }}
-      />
-
-      <Drawer.Screen name="History" component={History}
-        initialParams={appData}
-        options={{
-          drawerIcon: ({ focused, size, color }) =>
-            <Octicons name={"history"} size={20} color={color} />
         }}
       />
 
@@ -196,7 +181,7 @@ export default function AppStack() {
         }),
       }}
     >
-      {/* <Stack.Screen name="AuthStack" component={AuthStack} /> */}
+      
 
       <Stack.Screen name="DrawerNav" component={DrawerNav} />
       <Stack.Screen name="Pay" component={Pay} />
@@ -211,7 +196,7 @@ export default function AppStack() {
 
       <Stack.Screen name="NewInfo" component={NewInfo} />
 
-      <Stack.Screen name="AIVoiceGen" component={AIVoiceGen} />
+      <Stack.Screen name="VoiceGen" component={VoiceGen} />
 
 
       <Stack.Screen name="About" component={About} />

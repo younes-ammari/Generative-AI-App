@@ -12,8 +12,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import ResetImage from '../../images/reset.png';
 
 
-import CustomButton from '../../components/button/CustomButton';
-import InputField from '../../components/input/InputField';
+import { CustomButton, InputField } from '../../components/Index';
+
 import Colors from '../../constants/theme/Colors';
 import AppContext from '../../hooks/useContext';
 import ScreenWrapper from '../ScreenWrapper';

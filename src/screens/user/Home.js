@@ -134,7 +134,7 @@ export default function Home({route, navigation}) {
                 title='AI Voiceover Generator'
                 subtitle='Transform your content with high-quality, AI generated voiceovers, professional voices in 100 languages'
                 imageSource={require('../../images/home/voiceGen.png')}
-                onPress={()=>navigation.navigate("AIVoiceGen")}
+                onPress={()=>navigation.navigate("VoiceGen")}
                 />
             <CardImage 
                 color={styleColors.color}

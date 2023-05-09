@@ -12,7 +12,7 @@ import Voice from '@react-native-community/voice';
 import ScreenWrapper from '../ScreenWrapper';
 import Colors from '../../constants/theme/Colors';
 import AppContext from '../../hooks/useContext';
-import PlayerScreen from './PlayerComponent';
+import PlayerScreen from '../../components/sound/PlayerComponent';
 
 export default function Player ({route, navigation}){
     

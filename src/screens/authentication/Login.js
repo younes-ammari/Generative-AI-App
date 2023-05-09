@@ -11,6 +11,7 @@ import {
   ScrollView,
 } from 'react-native';
 
+import ReactNativeModal from 'react-native-modal';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -20,16 +21,15 @@ import GoogleImage from '../../images/google.png';
 import FacebookImage from '../../images/facebook.png';
 import TwitterImage from '../../images/twitter.png';
 
-import CustomButton from '../../components/button/CustomButton';
-import InputField from '../../components/input/InputField';
+import { CustomButton, InputField } from '../../components/Index';
 import Colors from '../../constants/theme/Colors';
 import AppContext from '../../hooks/useContext';
 import ScreenWrapper from '../ScreenWrapper';
-import ReactNativeModal from 'react-native-modal';
 
 // import AuthContext
 import { AuthContext } from '../../navigation/AuthProvider';
 
+// import firebase depenencies
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { GoogleSignin } from '@react-native-community/google-signin';

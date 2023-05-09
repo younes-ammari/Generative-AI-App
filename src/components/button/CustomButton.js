@@ -2,6 +2,7 @@ import { Text, TouchableOpacity, Dimensions, ViewStyle, useColorScheme } from 'r
 import React from 'react';
 import Colors from '../../constants/theme/Colors';
 import AppContext from '../../hooks/useContext';
+import { ActivityIndicator } from 'react-native';
 
 // Button Props
 type Props = {
@@ -25,7 +26,7 @@ type Props = {
   /**
    * Text color
    */
-  labelColor:string,
+  labelColor: string,
 
   /**
    * Button background color
@@ -36,7 +37,13 @@ type Props = {
   /**
    * No Fill
    */
-  noFill:boolean
+  noFill: boolean,
+
+
+  /**
+   * is loading 
+   */
+  isLoading: boolean
 };
 
 
@@ -48,15 +55,12 @@ export default function CustomButton({
   style,
   labelColor,
   disabled,
-  noFill
+  noFill,
+  isLoading
 }: Props) {
 
   const {
     displayMode,
-    setMode,
-    styleColors,
-    appData,
-    setAppDataHandler,
 
   } = React.useContext(AppContext)
 
@@ -64,7 +68,7 @@ export default function CustomButton({
   const deviceMode = useColorScheme()
   const mode = displayMode == "auto" ? deviceMode : displayMode
 
-  const windowDimension = {height:Dimensions.get("window").height, width:Dimensions.get("window").width}
+  const windowDimension = { height: Dimensions.get("window").height, width: Dimensions.get("window").width }
 
 
   return (
@@ -79,20 +83,29 @@ export default function CustomButton({
         backgroundColor: outlined | noFill ? undefined : color ? color : Colors.primary,
         paddingVertical: outlined ? 15 : 18,
         borderRadius: 10,
+        flexDirection: 'row',
         marginBottom: 15,
-        alignSelf:"center",
-        width:windowDimension.width*.85,
+        alignSelf: "center",
+        width: windowDimension.width * .85,
         borderWidth: noFill ? 0 : 1.5,
-        borderColor: mode == "dark" ? Colors.lighter : color ? color : Colors.primary 
+        borderColor: mode == "dark" ? Colors.lighter : color ? color : Colors.primary
         // elevation:11,
       }, style && style]}
     // {...props}
     >
+      {
+        isLoading
+        &&
+        <ActivityIndicator
+          color={Colors.lighter}
+        />
+      }
       <Text
         style={{
           textAlign: 'center',
           fontWeight: '600',
           fontSize: 18,
+          marginStart:isLoading ? 9 : 0,
           color: labelColor ? labelColor : outlined ? mode == "dark" ? Colors.lighter : color ? color : Colors.primary : '#fff',
         }}>
         {label}
@@ -100,14 +113,3 @@ export default function CustomButton({
     </TouchableOpacity>
   );
 }
-
-// export default CustomButton
-// CustomButton.propTypes = {
-//   label: PropTypes.string.isRequired,
-//   onPress: PropTypes.func,
-//   outlined: PropTypes.bool,
-//   color: PropTypes.string
-//   // style: PropTypes.shape({
-//   //   ...TouchableOpacity.prototype.props.style, // add all the ViewStyle properties
-//   // })
-// }

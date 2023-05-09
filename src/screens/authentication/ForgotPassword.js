@@ -12,11 +12,11 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import auth from '@react-native-firebase/auth';
 
 import PasswordImage from '../../images/password.png';
-import CustomButton from '../../components/button/CustomButton';
-import InputField from '../../components/input/InputField';
+
 import Colors from '../../constants/theme/Colors';
 import AppContext from '../../hooks/useContext';
 import ScreenWrapper from '../ScreenWrapper';
+import { CustomButton, InputField } from '../../components/Index';
 
 
 export default function ForgotPassword({ navigation }) {

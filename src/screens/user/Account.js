@@ -1,18 +1,18 @@
 import { Pressable, StyleSheet, Text, useColorScheme, ScrollView, View, TouchableOpacity } from 'react-native'
 import React, { useContext } from 'react'
-import ScreenWrapper from '../ScreenWrapper'
-import Colors from '../../constants/theme/Colors'
+import Modal from "react-native-modal";
+import { Picker } from '@react-native-picker/picker'
 
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import AppContext from '../../hooks/useContext'
-import InputField from '../../components/input/InputField'
-import CustomButton from '../../components/button/CustomButton'
-import { Picker } from '@react-native-picker/picker'
-import { useKeyboard } from '../../hooks/useKeyboard'
-import Modal from "react-native-modal";
 
+import ScreenWrapper from '../ScreenWrapper'
+import Colors from '../../constants/theme/Colors'
+import AppContext from '../../hooks/useContext'
+import { useKeyboard } from '../../hooks/useKeyboard'
+
+import { CustomButton, InputField } from '../../components/Index';
 
 export default function Settings({ navigation }) {
 
