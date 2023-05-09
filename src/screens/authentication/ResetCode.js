@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 
 
-import PasswordImage from '../../images/password.png';
+import PasswordImage from '../../assets/images/password.png';
 
 
 import { CustomButton, OTPInput, CountDownTimer } from '../../components/Index';

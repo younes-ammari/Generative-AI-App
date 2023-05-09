@@ -9,7 +9,8 @@ import AppContext from '../../hooks/useContext'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
-import Logo from '../../components/Logo'
+import Logo from '../../components/logo/Logo'
+import Images from '../../assets/Index'
 
 export default function Home({route, navigation}) {
 
@@ -77,10 +78,8 @@ export default function Home({route, navigation}) {
                     overflow:'hidden',
                     opacity:.9
                 }}
-                source={require("../../images/drawerBackground.jpg")}
+                source={Images.welcomeBackground}
                 resizeMode='cover'
-                // resizeMethod="resize"
-                // resizeMode="contain"
                 >
                     
                     
@@ -117,7 +116,7 @@ export default function Home({route, navigation}) {
                 backgroundColor={Colors.primary}
                 title='ChatGPT'
                 subtitle='direct chat, anytime, lots of features '
-                imageSource={require('../../images/home/chatGPT.png')}
+                imageSource={Images.chatGPT}
                 onPress={()=>navigation.navigate("Chat")}
                 />
             <CardImage 
@@ -125,7 +124,7 @@ export default function Home({route, navigation}) {
                 backgroundColor={Colors.primary}
                 title='Generate Image'
                 subtitle='Create beautiful art and images with AI in different art styles quickl'
-                imageSource={require('../../images/home/imageGen.png')}
+                imageSource={Images.imageGen}
                 onPress={()=>navigation.navigate("ImageGen")}
                 />
             <CardImage 
@@ -133,7 +132,7 @@ export default function Home({route, navigation}) {
                 backgroundColor={Colors.primary}
                 title='AI Voiceover Generator'
                 subtitle='Transform your content with high-quality, AI generated voiceovers, professional voices in 100 languages'
-                imageSource={require('../../images/home/voiceGen.png')}
+                imageSource={Images.voiceGen}
                 onPress={()=>navigation.navigate("VoiceGen")}
                 />
             <CardImage 
@@ -141,7 +140,7 @@ export default function Home({route, navigation}) {
                 backgroundColor={Colors.primary}
                 title='Content Creation'
                 subtitle='Create different types of content – both long and short-form'
-                imageSource={require('../../images/home/contentGen.png')}
+                imageSource={Images.contentGen}
                 onPress={()=>navigation.navigate("Content")}
                 />
             <CardImage 
@@ -149,7 +148,7 @@ export default function Home({route, navigation}) {
                 backgroundColor={Colors.primary}
                 title='Video summarize'
                 subtitle='Get a summary of any long YouTube video, like a lecture, live event or a government meeting. Powered by ChatGPT.'
-                imageSource={require('../../images/home/summarize.png')}
+                imageSource={Images.summarize}
                 onPress={()=>navigation.navigate("Video")}
                 />
             <CardImage 
@@ -158,8 +157,7 @@ export default function Home({route, navigation}) {
                 title='Generate Video'
                 subtitle='Create AI-generated videos quickly using simple text'
                 soon
-                imageSource={require('../../images/home/videoGen.png')}
-                // onPress={()=>navigation.navigate("")}
+                imageSource={Images.videoGen}
                 />
 
             <Text style={{
@@ -177,12 +175,12 @@ export default function Home({route, navigation}) {
                 backgroundColor={Colors.primary}
                 title='Video summarize'
                 subtitle='Get a summary of any long YouTube video, like a lecture, live event or a government meeting. Powered by ChatGPT.'
-                imageSource={require('../../images/home/summarize.png')}
+                imageSource={Images.summarize}
                 onPress={()=>navigation.navigate("NewInfo", {
                     info:{
                         screen:"Home",
                         title:'Video summarize',
-                        imageSource:require('../../images/home/summarize.png'),
+                        imageSource:Images.summarize,
                         subtitle:'Get a summary of any long YouTube video, like a lecture, live event or a government meeting. Powered by ChatGPT.',
 
                 
@@ -193,13 +191,13 @@ export default function Home({route, navigation}) {
                 backgroundColor={Colors.primary}
                 title='AI Voiceover Generator'
                 subtitle='Transform your content with high-quality, AI generated voiceovers, professional voices in 100 languages'
-                imageSource={require('../../images/home/voiceGen.png')}
+                imageSource={Images.voiceGen}
                 onPress={()=>navigation.navigate("NewInfo", {
                     info:{
                         screen:"AIVoiceGen",
                         title:'AI Voiceover Generator',
                         subtitle:'Transform your content with high-quality, AI generated voiceovers, professional voices in 100 languages',
-                        imageSource:require('../../images/home/voiceGen.png'),
+                        imageSource:Images.voiceGen,
 
                 
                     }})}
@@ -209,13 +207,13 @@ export default function Home({route, navigation}) {
                 backgroundColor={Colors.primary}
                 title='Generate Image'
                 subtitle='Create beautiful art and images with AI in different art styles quickl'
-                imageSource={require('../../images/home/imageGen.png')}
+                imageSource={Images.imageGen}
                 onPress={()=>navigation.navigate("NewInfo", {
                     info:{
                         screen:"ImageGen",
                         title:'Generate Image',
                         subtitle:'Create beautiful art and images with AI in different art styles quickl',
-                        imageSource:require('../../images/home/imageGen.png'),
+                        imageSource:Images.imageGen,
 
                 
                     }})}

@@ -3,15 +3,60 @@ import React, { useContext } from 'react'
 import Colors from '../../constants/theme/Colors'
 import { Pressable } from 'react-native'
 import AppContext from '../../hooks/useContext'
+import Images from '../../assets/Index'
+
+type Props = {
+    /**
+     * Card title
+     */
+    title?:string | "card title",
+    
+    /**
+     * Card subtitle
+     */
+    subtitle?:string | "card subtitle",
+    
+    /**
+     * Card color
+     */
+    color?: ColorValue | number | undefined;
+    
+    
+    /**
+     * Card backgroundColor
+     */
+    backgroundColor?: ColorValue | number | undefined;
+    
+    
+    /**
+     * The image source (either a remote URL or a local file resource).
+     *
+     * This prop can also contain several remote URLs, specified together with their width and height and potentially with scale/other URI arguments.
+     * The native side will then choose the best uri to display based on the measured size of the image container.
+     * A cache property can be added to control how networked request interacts with the local cache.
+     *
+     * The currently supported formats are png, jpg, jpeg, bmp, gif, webp (Android only), psd (iOS only).
+     */
+    imageSource?:ImageSourcePropType,
+
+    /**
+     * Called when a single tap gesture is detected.
+     */
+    onPress?: () => void | undefined,
+  
+  
+  };
+
 
 export default function CardNew({
     title,
     subtitle,
     color=Colors.lighter,
     backgroundColor=Colors.primary,
-    imageSource=require('../../images/home/chatGPT.png'),
+    imageSource=Images.chatGPT,
+    onPress,
     ...props
-}) {
+}:Props) {
 
     const deviceMode = useColorScheme()
 
@@ -30,11 +75,11 @@ export default function CardNew({
     
     style={[styles.container,  {
         backgroundColor:styleColors.placeholder,
-        // borderColor:'rgba(100, 100, 100, .4)'
         borderColor:styleColors.placeholderTextColor
     }]}
         
       android_ripple={{ color: mode=="dark"  ? 'rgba(100, 100, 100, .21)' : 'rgba(20, 20, 20, .1)' }}
+      onPress={onPress}
       {...props}
     
       >

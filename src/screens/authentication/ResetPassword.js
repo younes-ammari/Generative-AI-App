@@ -9,7 +9,7 @@ import {
 import Octicons from 'react-native-vector-icons/Octicons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import ResetImage from '../../images/reset.png';
+import ResetImage from '../../assets/images/reset.png';
 
 
 import { CustomButton, InputField } from '../../components/Index';

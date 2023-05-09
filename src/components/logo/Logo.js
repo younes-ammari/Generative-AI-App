@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import AppContext from '../hooks/useContext'
+import AppContext from '../../hooks/useContext'
 
 export default function Logo() {
 

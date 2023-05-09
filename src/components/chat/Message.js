@@ -6,20 +6,38 @@ import Colors from '../../constants/theme/Colors';
 import { TypingAnimation } from "react-native-typing-animation";
 import AppContext from '../../hooks/useContext';
 
+type Props = {
+    /**
+     * Message text
+     */
+    text?:string | "message text",
+    
+    
+    /**
+     * Respond state 
+     */
+    respond?:boolean,
+    
+    /**
+     * Loading state used for the typing ... effect
+     */
+    isLoading?:boolean,
+
+  
+  };
+
+
 export default function Message({
     text = 'hello world',
     respond = false,
     isLoading = false,
 
-}) {
+}:Props) {
 
 
     const {
         displayMode,
-        setMode,
         styleColors,
-        appData,
-        setAppDataHandler,
 
     } = React.useContext(AppContext)
 
@@ -27,15 +45,6 @@ export default function Message({
     const deviceMode = useColorScheme()
 
     const mode = displayMode == "auto" ? deviceMode : displayMode
-
-
-
-
-    const images = {
-        chatGPT: { uri: "https://www.primelawgroup.com/wp-content/uploads/2023/02/chatgpt-icon.png" },
-        // person:{uri:"https://icons.veryicon.com/png/o/internet--web/55-common-web-icons/person-4.png"}
-        person: { uri: "https://www.pngitem.com/pimgs/m/391-3918613_personal-service-platform-person-icon-circle-png-transparent.png" }
-    }
 
 
 
@@ -55,8 +64,6 @@ export default function Message({
 
 
             <View style={[styles.message, {
-                // flexWrap:"wrap",
-                // flex:1,
                 borderRadius: 0,
                 borderTopLeftRadius: respond ? 0 : 12,
                 borderTopRightRadius: !respond ? 0 : 12,

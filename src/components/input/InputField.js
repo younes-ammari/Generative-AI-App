@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
-import { View, Text, TouchableOpacity, TextInput, useColorScheme, StyleSheet, KeyboardTypeOptions } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, KeyboardTypeOptions } from 'react-native';
 import Colors from '../../constants/theme/Colors';
 import AppContext from '../../hooks/useContext';
 import Ionicons from "react-native-vector-icons/Ionicons"
 
 
-// Button Props
 type Props = {
   /**
    * Text to display inside the input => placeholder
@@ -22,11 +21,6 @@ type Props = {
    */
   icon: JSX.Element,
 
-  /**
-   * set if the input is a password 
-   */
-
-  inputType?: "password" | undefined,// "password" or not
 
   /**
    * show the error message of the input component
@@ -100,10 +94,14 @@ export default function InputField({
   return (
     <View style={styles.container}>
       <View
-        style={styles.innorContainer}>
+        style={[styles.innorContainer, {
+
+          borderColor: error ? Colors.red : Colors.primary,
+        }]}>
         {icon}
         {inputType == 'password' ? (
           <TextInput
+            editable={!disabled}
             value={value}
             placeholder={label}
             keyboardType={keyboardType}
@@ -116,6 +114,7 @@ export default function InputField({
           />
         ) : (
           <TextInput
+            editable={!disabled}
             value={value}
             placeholder={label}
             keyboardType={keyboardType}
@@ -155,15 +154,18 @@ const styles = StyleSheet.create({
 
   },
   container: {
-    marginBottom: 25,
+    marginVertical: 5,
+    marginBottom: 9,
+    width: "100%",
 
   },
   innorContainer: {
+    paddingVertical: 7,
+    paddingHorizontal: 9,
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 5,
     flexDirection: 'row',
-    borderBottomColor: '#ccc',
     alignItems: "center",
-    borderBottomWidth: 1,
-    paddingBottom: 8,
-    marginBottom: 7,
   }
 })

@@ -11,7 +11,7 @@ import {
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import auth from '@react-native-firebase/auth';
 
-import PasswordImage from '../../images/password.png';
+import PasswordImage from '../../assets/images/password.png';
 
 import Colors from '../../constants/theme/Colors';
 import AppContext from '../../hooks/useContext';

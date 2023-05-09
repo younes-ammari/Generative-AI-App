@@ -2,11 +2,23 @@ import { StyleSheet, Text, View, useColorScheme } from 'react-native'
 import React, {useContext} from 'react'
 import AppContext from '../../hooks/useContext'
 
+type Props = {
+
+  /**
+   * Step number
+   */
+  number:?number,
+
+  /**
+   * Step title
+   */
+  title:?string,
+}
 
 export default function Step({
   number,
   title
-}){
+}:Props){
 
     
       
@@ -22,7 +34,6 @@ export default function Step({
     <View style={[styles.flex, styles.aCenter, {
       marginVertical:5,
       marginBottom:18,
-      // paddingHorizontal:11,
     }]}>
       <View style={[styles.jCenter, styles.aCenter, {
         backgroundColor:Colors.primary,

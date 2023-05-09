@@ -21,10 +21,8 @@ export default function Settings({ navigation }) {
 
   const {
     displayMode,
-    setMode,
     styleColors,
     appData,
-    setAppDataHandler,
 
   } = useContext(AppContext)
 
@@ -38,8 +36,6 @@ export default function Settings({ navigation }) {
     password: "123456789"
   }
 
-  // const styleColors = Colors[displayMode=="auto" ? deviceMode : displayMode]
-
   const [userData, setUserData] = React.useState({
     displayName: appData.user.displayName,
     email: appData.user.email,
@@ -47,16 +43,6 @@ export default function Settings({ navigation }) {
   })
 
 
-  const logoutHandler = () => {
-    setAppDataHandler({
-      user: {
-        name: ''
-      },
-      mode: displayMode
-    })
-    navigation.navigate('Login')
-
-  }
   const [buttonAction, setButtonAction] = React.useState('')
   const [show, setShow] = React.useState(false)
   const [visible, setVisible] = React.useState(false)
@@ -115,7 +101,6 @@ export default function Settings({ navigation }) {
         <View style={{
           backgroundColor: styleColors.placeholder,
           padding: 22,
-          // paddingVertical:18,
           paddingBottom: 15,
           borderRadius: 9
         }}>
@@ -125,15 +110,12 @@ export default function Settings({ navigation }) {
 
           <View style={{
             flexDirection: 'row',
-            // backgroundColor:'red',
             marginTop: 22,
             justifyContent: "space-evenly"
           }}>
             <CustomButton
-              // color={Colors.red}
               outline label={'Yes sure'} style={{ flex: 1, marginHorizontal: 5, paddingVertical: 11 }} />
             <CustomButton
-              // color={Colors.red}
               onPress={() => { setVisible(false); console.log('pressed') }}
               label={'No'} style={{ flex: 1, marginHorizontal: 5, paddingVertical: 11 }} />
           </View>
@@ -151,18 +133,12 @@ export default function Settings({ navigation }) {
 
           <TouchableOpacity
             style={{
-              // position:'absolute',
-              // right:15,
-              // top:15,
               zIndex: 66,
               alignItems: "center",
-              // alignSelf:"center",
               justifyContent: "center",
               padding: 4,
               paddingHorizontal: 8,
-              // backgroundColor:'red'
             }}
-            // android_ripple={{color:styleColors.android_ripple}}
             onPress={() => { handleShow() }}
           >
             <MaterialCommunityIcons name={"dots-vertical"} size={22} color={mode == "dark" ? Colors.lighter : Colors.primary}
@@ -177,18 +153,14 @@ export default function Settings({ navigation }) {
               right: 10,
               zIndex: 33,
               backgroundColor: 'red',
-              // paddingHorizontal:11,
               minWidth: 120,
               width: 'auto',
               borderRadius: 4,
-              // backgroundColor:styleColors.placeholderTextColor,
               backgroundColor: mode == "dark" ? styleColors.placeholderTextColor : styleColors.backgroundColor,
               elevation: 2,
 
             }}>
               <ActionElement label={"Feedback"} onPress={() => {
-                // setShow(false)
-                // setVisible(true)
 
               }} />
               {/* <ActionElement label={""}/> */}
@@ -221,29 +193,20 @@ export default function Settings({ navigation }) {
             style={{
               padding: 22,
               width: "auto",
-              // marginEnd:9,
               borderRadius: 9,
               backgroundColor: styleColors.placeholder,
-              // borderWidth:1,
-              // borderColor:Colors.lighter,
               alignItems: "center",
               justifyContent: "center",
-              // bottom:-5,
             }}
           >
             <View
               style={{
                 padding: 22,
                 width: "auto",
-                // marginEnd:9,
                 borderRadius: 55,
-                // backgroundColor:styleColors.placeholderTextColor,
                 backgroundColor: `rgba(${Colors.rgb.primary}, .2)`,
-                // borderWidth:1,
-                // borderColor:Colors.lighter,
                 alignItems: "center",
                 justifyContent: "center",
-                // bottom:-5,
               }}
             >
               <Ionicons name={"person"} size={55} color={mode == "dark" ? Colors.lighter : Colors.primary} />
@@ -264,6 +227,7 @@ export default function Settings({ navigation }) {
             }}>Full name</Text>
 
             <InputField
+              disabled={true}
               value={userData.displayName}
               onChangeText={(text) => setUserData({ ...userData, displayName: text })}
               label={'Full Name'}
@@ -285,6 +249,7 @@ export default function Settings({ navigation }) {
             }}>Email</Text>
 
             <InputField
+              disabled={true}
               value={userData.email}
               onChangeText={(text) => setUserData({ ...userData, email: text })}
               label={'Email ID'}
@@ -329,8 +294,6 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "400",
     color: Colors.darker,
-    // marginVertical:15,
-    // marginTop:22,
     marginBottom: 15,
     textAlign: "center"
 

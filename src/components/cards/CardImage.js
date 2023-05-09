@@ -1,8 +1,55 @@
-import { Dimensions, Image, StyleSheet, Text, View, useColorScheme } from 'react-native'
+import { ImageSourcePropType, Image, StyleSheet, Text, View, useColorScheme } from 'react-native'
 import React, { useContext } from 'react'
 import Colors from '../../constants/theme/Colors'
 import { Pressable } from 'react-native'
 import AppContext from '../../hooks/useContext'
+import Images from '../../assets/Index'
+
+type Props = {
+    /**
+     * Card title
+     */
+    title?:string | "card title",
+    
+    /**
+     * Card subtitle
+     */
+    subtitle?:string | "card subtitle",
+    
+    /**
+     * Card color
+     */
+    color?: ColorValue | number | undefined;
+    
+    
+    /**
+     * Card backgroundColor
+     */
+    backgroundColor?: ColorValue | number | undefined;
+    
+    /**
+     * Soon state 
+     */
+    soon?:boolean,
+    
+    /**
+     * The image source (either a remote URL or a local file resource).
+     *
+     * This prop can also contain several remote URLs, specified together with their width and height and potentially with scale/other URI arguments.
+     * The native side will then choose the best uri to display based on the measured size of the image container.
+     * A cache property can be added to control how networked request interacts with the local cache.
+     *
+     * The currently supported formats are png, jpg, jpeg, bmp, gif, webp (Android only), psd (iOS only).
+     */
+    imageSource?:ImageSourcePropType,
+
+    /**
+     * Called when a single tap gesture is detected.
+     */
+    onPress?: () => void | undefined,
+  
+  
+  };
 
 export default function CardImage({
     title,
@@ -10,10 +57,9 @@ export default function CardImage({
     soon=false,
     color=Colors.lighter,
     backgroundColor=Colors.primary,
-    // imageSource={uri:"https://www.primelawgroup.com/wp-content/uploads/2023/02/chatgpt-icon.png"},
-    imageSource=require('../../images/home/chatGPT.png'),
+    imageSource=Images.chatGPT,
     ...props
-}) {
+}:Props) {
 
     const deviceMode = useColorScheme()
 
@@ -36,10 +82,8 @@ export default function CardImage({
             backgroundColor:styleColors.placeholder,
             
             borderWidth:1.4,
-            // borderColor:'rgba(100, 100, 100, .4)'
             borderColor:styleColors.placeholderTextColor
 
-        //   backgroundColor: pressed ? '#ff7043' : '#ff8a65',
         },
       ]}
       android_ripple={{ color: mode=="dark"  ? 'rgba(100, 100, 100, .21)' : 'rgba(20, 20, 20, .1)' }}
@@ -92,7 +136,6 @@ export default function CardImage({
             }}/>
             <View style={{
                 flex:1,
-                // alignItems:"center",
                 justifyContent:"space-around"
             }}>
                 <Text style={[styles.title, {color:mode=="dark"  ? Colors.lighter : color}]}>{title}</Text>
@@ -100,10 +143,6 @@ export default function CardImage({
                         
             </View>
             <View style={{
-                // maxWidth:"15%",
-                // height:58,
-                // width:60,
-                // backgroundColor:color,
                 alignItems:"center",
                 justifyContent:"center",
                 overflow:"hidden",
@@ -112,7 +151,6 @@ export default function CardImage({
                 
                 borderColor:styleColors.placeholderTextColor,
                 borderColor:'rgba(100, 100, 100, .4)',
-                // borderColor:styleColors.placeholder
             }}>
                 <Image 
                 source={imageSource}
@@ -133,11 +171,9 @@ const styles = StyleSheet.create({
     subtitle:{
         fontWeight:"300",
         fontSize:16,
-        // letterSpacing:.81,
         color:Colors.lighter,
         maxWidth:"95%",
         opacity:.5,
-        // backgroundColor:'red'
         
     },
     title:{

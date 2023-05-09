@@ -482,7 +482,7 @@ export default function Chat({ navigation }) {
                     >
                         <View style={styles.modelContainer}>
                             <Image
-                                source={{uri:images.gpt3_5}}
+                                source={{uri:Images.gpt3_5}}
                                 style={styles.modelImage}
                             />
                             <Text style={[styles.modelTitle, { color: styleColors.color }]}>GPT3.5</Text>

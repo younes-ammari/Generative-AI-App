@@ -27,8 +27,10 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
 
-import RegisterImage from '../../images/register.png';
-import GoogleImage from '../../images/google.png';
+import RegisterImage from '../../assets/images/register.png';
+
+import GoogleImage from '../../assets/images/google.png';
+import TwitterImage from '../../assets/images/twitter.png';
 
 import { CustomButton, InputField } from '../../components/Index';
 import Colors from '../../constants/theme/Colors';

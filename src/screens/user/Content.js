@@ -20,16 +20,32 @@ import { useToast } from 'react-native-toast-notifications'
 import AppContext from '../../hooks/useContext'
 
 import Voice from '@react-native-community/voice';
+import { CustomButton } from '../../components/Index'
 
 
 export default function Content({ route, navigation }) {
-    // let dirs = RNFetchBlob.fs.dirs
-    const [edition, setEdition] = useState(true);
 
-    const { data, date, ...otherParams } = route.params
+
+    var date
+    var data
+
+    try {
+
+        var { data, date, ...otherParams } = route.params
+        if (data) {
+            data = data
+
+        }
+        if (date) {
+            date = date
+
+        }
+    }
+    catch { }
     console.info("route.param", data)
 
 
+    const [edition, setEdition] = useState(true);
 
     const toast = useToast();
 
@@ -61,6 +77,8 @@ export default function Content({ route, navigation }) {
     const [draftNumber, setDraftNumber] = useState(1)
 
     useEffect(() => {
+
+
         if (data) {
             setEdition(false);
             console.log('history')
@@ -270,7 +288,7 @@ export default function Content({ route, navigation }) {
             Clipboard.setString(text)
             toast.show("Copied to clipbaord...", {
                 type: "success",
-                style:{backgroundColor:Colors.green},
+                style: { backgroundColor: Colors.green },
                 placement: "top",
                 duration: 1000,
                 offset: 30,
@@ -293,7 +311,7 @@ export default function Content({ route, navigation }) {
                 <View style={styles.actionContainer}>
                     <View style={{ flex: 1 }} />
 
-                    <Pressable style={styles.copyButton} onPress={()=>handleCopying(selectedResult)}>
+                    <Pressable style={styles.copyButton} onPress={() => handleCopying(selectedResult)}>
                         <Text style={[styles.actionTitle, { color: 'rgba(0, 214, 0, 1)' }]}>{copied ? "Copied" : "Copy"}</Text>
                         <Octicons name='copy' size={13} color={'rgba(0, 214, 0, 1)'} />
                     </Pressable>
@@ -395,7 +413,7 @@ export default function Content({ route, navigation }) {
             Clipboard.setString(text)
             toast.show("Copied to clipbaord...", {
                 type: "success",
-                style:{backgroundColor:Colors.green},
+                style: { backgroundColor: Colors.green },
                 placement: "top",
                 duration: 1000,
                 offset: 30,
@@ -436,7 +454,7 @@ export default function Content({ route, navigation }) {
                             <Text style={[styles.actionTitle, { color: styleColors.color }]}>back</Text>
                         </Pressable>
 
-                        <Pressable style={styles.copyButton} onPress={()=>handleCopying(selectedResult)}>
+                        <Pressable style={styles.copyButton} onPress={() => handleCopying(selectedResult)}>
                             <Text style={[styles.actionTitle, { color: 'rgba(0, 214, 0, 1)' }]}>{copied ? "Copied" : "Copy"}</Text>
                             <Octicons name='copy' size={13} color={'rgba(0, 214, 0, 1)'} />
                         </Pressable>
@@ -449,7 +467,7 @@ export default function Content({ route, navigation }) {
 
     return (
         <ScreenWrapper fill back title='Content Generator'
-            button={date &&<View style={[styles.dateContainer, { backgroundColor: styleColors.softFill, }]}>
+            button={date && <View style={[styles.dateContainer, { backgroundColor: styleColors.softFill, }]}>
                 <MaterialIcons name="date-range" color={styleColors.color} size={12} />
                 <Text style={[styles.dateText, {
                     color: styleColors.color,
@@ -632,61 +650,19 @@ export default function Content({ route, navigation }) {
             {
                 edition
                 && <View style={{
-
-                    position: "absolute",
-                    bottom: kb.isVisible ? kb.height * 1 + 20 : 20,
-                    left: 0,
-                    right: 0,
-                    paddingHorizontal: 14,
-                    zIndex: 11,
-                    paddingVertical: 5,
-                    paddingBottom: 19,
-                    backgroundColor: styleColors.backgroundColor,
                     justifyContent: 'center',
                     alignSelf: 'center',
                     width: Dimensions.get('window').width,
                 }}>
 
-
-                    <Pressable
+                    <CustomButton
                         disabled={!prompt.length > 5}
-
-                        android_ripple={{ color: 'rgba(40, 40, 40, .3)' }}
-                        style={{
-                            paddingHorizontal: 9,
-                            opacity: prompt.length > 4 ? 1 : .2,
-                            paddingVertical: 14,
-                            alignItems: "center",
-                            flexDirection: 'row',
-                            justifyContent: "center",
-                            borderWidth: 1,
-                            borderColor: mode == "dark" ? styleColors.color : undefined,
-                            backgroundColor: mode == "light" ? styleColors.primary : undefined,
-                            borderRadius: 9,
-                        }}
+                        style={{ opacity: prompt.length > 4 ? 1 : .2, }}
                         onPress={handleGenerating}
-                    >
-                        {
-                            isLoading
-                            &&
-                            <ActivityIndicator
-                                // color={mode=="dark" ? styleColors.color : styleColors.backgroundColor}
-                                color={styleColors.lighter}
-                            />
-                        }
-
-                        <Text style={{
-                            color: mode == "light" ? styleColors.backgroundColor : styleColors.color,
-                            // color: styleColors.backgroundColor,
-                            fontSize: 16,
-                            zIndex: 55,
-                            marginStart: 7,
-                            // opacity:prompt.length>5 ? 1: .4,
-                            fontWeight: "500"
-                        }}>{isLoading ? "Generating ..." : "Generate"}</Text>
-
-
-                    </Pressable>
+                        label={isLoading ? "Generating ..." : "Generate"}
+                        isLoading={isLoading}
+                    />
+                    
 
                 </View>}
 

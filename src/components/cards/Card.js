@@ -1,9 +1,45 @@
-import { Dimensions, StyleSheet, Text, View, useColorScheme } from 'react-native'
+import { Dimensions, StyleSheet, Text, View, useColorScheme, ColorValue } from 'react-native'
 import React, { useContext } from 'react'
 import { Pressable } from 'react-native'
 import AppContext from '../../hooks/useContext'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Colors from '../../constants/theme/Colors'
+
+
+type Props = {
+    /**
+     * Card title
+     */
+    title?:string | "card title",
+    
+    /**
+     * Card subtitle
+     */
+    subtitle?:string | "card subtitle",
+    
+    /**
+     * Card color
+     */
+    color?: ColorValue | number | undefined;
+    
+    
+    /**
+     * Card backgroundColor
+     */
+    backgroundColor?: ColorValue | number | undefined;
+    
+    /**
+     * Card flag
+     */
+    flag?:JSX.Element,
+    
+    /**
+     * Called when a single tap gesture is detected.
+     */
+    onPress?: () => void | undefined,
+  
+  
+  };
 
 export default function Card({
     title,
@@ -12,9 +48,9 @@ export default function Card({
     backgroundColor=Colors.primary,
     icon=<MaterialCommunityIcons name='robot' color={Colors.light} size={55} />,
     flag,
-    imageSource={uri:"https://www.primelawgroup.com/wp-content/uploads/2023/02/chatgpt-icon.png"},
+    onPress,
     ...props
-}) {
+}:Props) {
 
     const deviceMode = useColorScheme()
 
@@ -34,16 +70,15 @@ export default function Card({
     style={({ pressed }) => [
         styles.container,
         {
-            // backgroundColor:backgroundColor,
             overflow:'hidden',
             borderWidth:1.4,
             borderRadius:12,
             borderColor:'rgba(100, 100, 100, .4)'
 
-        //   backgroundColor: pressed ? '#ff7043' : '#ff8a65',
         },
       ]}
       android_ripple={{ color: mode=="dark"  ? 'rgba(100, 100, 100, .21)' : 'rgba(20, 20, 20, .1)' }}
+      onPress={onPress}
       {...props}
     
       >
@@ -74,7 +109,6 @@ export default function Card({
         }}/>
         <View style={{
             flex:1,
-            // alignItems:"center",
             justifyContent:"space-around"
         }}>
             <Text style={[styles.title, {color:mode=="dark"  ? Colors.lighter : color}]}>{title}</Text>
@@ -82,10 +116,8 @@ export default function Card({
                     
         </View>
         <View style={{
-            // maxWidth:"15%",
             height:58,
             width:60,
-            // backgroundColor:color,
             alignItems:"center",
             justifyContent:"center",
             overflow:"hidden",
@@ -101,14 +133,7 @@ export default function Card({
                 {flag}
             </View>
             }
-            {/* <Image 
-            source={imageSource}
-            style={{
-                height:56,
-                width:56,
-            }}
-            /> */}
-
+           
         </View>
     </Pressable>
   )
@@ -121,7 +146,6 @@ const styles = StyleSheet.create({
         letterSpacing:.81,
         color:Colors.lighter,
         maxWidth:"85%",
-        // backgroundColor:'red'
         
     },
     title:{
@@ -137,11 +161,9 @@ const styles = StyleSheet.create({
         borderRadius:8,
         paddingVertical:11,
         paddingHorizontal:12,
-        // backgroundColor:Colors.primary,
         flexDirection:'row',
         alignItems:"center",
         justifyContent:"space-between",
-        // minWidth:Dimensions.get('window').width*.8
         width:Dimensions.get('window').width*.95,
         alignSelf:"center",
         marginBottom:12,

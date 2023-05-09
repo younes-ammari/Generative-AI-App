@@ -3,67 +3,72 @@ import React from 'react'
 import Colors from '../../constants/theme/Colors';
 import AppContext from '../../hooks/useContext';
 
-export default function CountDownTimer({secs=60, setFinished}) {
-    const [timerCount, setTimer] = React.useState(secs)
-    // const [finished, setFinished] = React.useState(secs)
+type Props = {
+  /**
+   * returns true when countdown is completed
+   */
+  setFinished?: ((finished:boolean) => void) | undefined,
 
 
-    React.useEffect(() => {
-        let interval = setInterval(() => {
-            setTimer(lastTimerCount => {
-                if (lastTimerCount < 1) {
-                    // console.log('finished', true)
-                    // setFinished(true)
-                    
-                    return 0
-                    //your redirection to Quit screen
-                } else {
-                    console.log('finished component', lastTimerCount);
-                    setFinished(false)
-                    lastTimerCount==1 && setFinished(true)
-                    lastTimerCount <= 1 && clearInterval(interval)
-                    return lastTimerCount - 1
-                }
-            })
+  /**
+   * countdown time in seconds
+   */
+  secs: number
+};
 
-                
-        
-        }, 1000) //each count lasts for a second
-        //cleanup the interval on complete
-        
-        return () => clearInterval(interval)
-                        
-    }, []);
+export default function CountDownTimer({ secs = 60, setFinished }:Props) {
+  const [timerCount, setTimer] = React.useState(secs)
 
-    
+
+  React.useEffect(() => {
+    let interval = setInterval(() => {
+      setTimer(lastTimerCount => {
+        if (lastTimerCount < 1) {
+          return 0
+          //your redirection to Quit screen
+        } else {
+          console.log('finished component', lastTimerCount);
+          setFinished(false)
+          lastTimerCount == 1 && setFinished(true)
+          lastTimerCount <= 1 && clearInterval(interval)
+          return lastTimerCount - 1
+        }
+      })
+
+
+
+      //each count lasts for a second
+    }, 1000)
+    //cleanup the interval on complete
+
+    return () => clearInterval(interval)
+
+  }, []);
+
+
   const {
-    displayMode, 
-    setMode,
-    styleColors,
-    appData,
-    setAppData
+    displayMode,
+  } = React.useContext(AppContext)
 
-    } = React.useContext(AppContext)
-
-    const deviceMode = useColorScheme()
+  const deviceMode = useColorScheme()
 
 
-    const mode = displayMode=="auto" ? deviceMode : displayMode
+  const mode = displayMode == "auto" ? deviceMode : displayMode
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.title, {color:mode=="dark" ? Colors.lighter : Colors.red}]}>{timerCount}</Text>
+      <Text style={[styles.title, { color: mode == "dark" ? Colors.lighter : Colors.red }]}>{timerCount}</Text>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-    container:{
-        
-    },
-    title:{
-        fontSize:15,
-        fontWeight:"500",
-        
-    }
+  container: {
+
+  },
+  title: {
+    fontSize: 15,
+    fontWeight: "500",
+
+  }
 })

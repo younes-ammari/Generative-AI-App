@@ -16,11 +16,13 @@ import {
 
 import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AppContext from '../../hooks/useContext';
 import Colors from '../../constants/theme/Colors';
+
+
 
 const CustomDrawer = props => {
 
@@ -29,7 +31,6 @@ const CustomDrawer = props => {
   
   const {
     displayMode, 
-    setMode,
     styleColors,
     appData,
     setVisibleLogout,

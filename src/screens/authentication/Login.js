@@ -16,10 +16,10 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
-import LoginImage from '../../images/login.png';
-import GoogleImage from '../../images/google.png';
-import FacebookImage from '../../images/facebook.png';
-import TwitterImage from '../../images/twitter.png';
+import LoginImage from '../../assets/images/login.png';
+import GoogleImage from '../../assets/images/google.png';
+import FacebookImage from '../../assets/images/facebook.png';
+import TwitterImage from '../../assets/images/twitter.png';
 
 import { CustomButton, InputField } from '../../components/Index';
 import Colors from '../../constants/theme/Colors';

@@ -8,7 +8,36 @@ import {
   SplitBoxesFocused,
 } from "./styles";
 
-const OTPInput = ({ code, setCode, maximumLength, setIsPinReady }) => {
+
+
+
+type Props = {
+  /**
+   * OTP code value
+   */
+  code: string,
+  
+  /**
+   * set the maximumLength of the OTP code 
+   * @default 6
+   */
+  maximumLength?: number,
+
+  /**
+   * Callback that is called when the maximumLength exceded
+   */
+  setIsPinReady?: ((ready: boolean) => void) | undefined;
+
+  /**
+   * Callback that is called when the otp code input's text changes.
+   * code text is passed as an argument to the callback handler.*
+   */
+  setCode?: ((code: string) => void) | undefined;
+
+};
+
+
+const OTPInput = ({ code, maximumLength=6, setCode, setIsPinReady }:Props) => {
   const boxArray = new Array(maximumLength).fill(0);
   const inputRef = useRef();
 

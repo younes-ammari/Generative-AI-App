@@ -4,12 +4,11 @@ import Colors from '../../constants/theme/Colors';
 import AppContext from '../../hooks/useContext';
 import { ActivityIndicator } from 'react-native';
 
-// Button Props
 type Props = {
   /**
    * Handler to be called when the user taps the button
    */
-  onPress: () => void,
+  onPress: (() => void) | undefined,
 
   /**
    * If true, disable all interactions for this component.
@@ -77,7 +76,6 @@ export default function CustomButton({
       activeOpacity={.5}
       onPress={onPress}
       style={[{
-        // height:55,
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: outlined | noFill ? undefined : color ? color : Colors.primary,
@@ -89,9 +87,7 @@ export default function CustomButton({
         width: windowDimension.width * .85,
         borderWidth: noFill ? 0 : 1.5,
         borderColor: mode == "dark" ? Colors.lighter : color ? color : Colors.primary
-        // elevation:11,
       }, style && style]}
-    // {...props}
     >
       {
         isLoading

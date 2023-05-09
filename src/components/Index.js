@@ -1,5 +1,5 @@
 // logo
-export {default as Logo } from './Logo'
+export {default as Logo } from './logo/Logo'
 
 
 // authentication
@@ -41,8 +41,6 @@ export {default as Step } from './payment/Step'
 
 
 // sound
-export {default as AudioWaves } from './sound/AudioWaves'
-export {default as RecordingEffect } from './sound/RecordingEffect'
 export {default as PlayerComponent } from './sound/PlayerComponent'
 
 

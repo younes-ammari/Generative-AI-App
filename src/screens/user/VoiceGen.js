@@ -60,14 +60,14 @@ export default function VoiceGen({ navigation }) {
 
     const demoResult = [
         {
-            url: 'https://images.nightcafe.studio/jobs/rY2TxlazqPUzLomNPmnM/rY2TxlazqPUzLomNPmnM--1--gs4f2.jpg?tr=w-640,c-at_max'
+            url: 'https://Images.nightcafe.studio/jobs/rY2TxlazqPUzLomNPmnM/rY2TxlazqPUzLomNPmnM--1--gs4f2.jpg?tr=w-640,c-at_max'
         }
     ]
     const [respond, setRespond] = useState(demoResult)
     const [prompt, setPrompt] = useState('')
     const [number, setNumber] = useState(1)
     const [isPremium, setIsPremium] = useState(false)
-    const [selectedImage, setSelectedImage] = useState({ url: "https://images.nightcafe.studio/jobs/rY2TxlazqPUzLomNPmnM/rY2TxlazqPUzLomNPmnM--1--gs4f2.jpg?tr=w-640,c-at_max" })
+    const [selectedImage, setSelectedImage] = useState({ url: "https://Images.nightcafe.studio/jobs/rY2TxlazqPUzLomNPmnM/rY2TxlazqPUzLomNPmnM--1--gs4f2.jpg?tr=w-640,c-at_max" })
 
     const WH = Dimensions.get('window').height
     const WW = Dimensions.get('window').width

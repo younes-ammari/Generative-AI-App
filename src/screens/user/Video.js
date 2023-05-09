@@ -16,15 +16,31 @@ import { useToast } from 'react-native-toast-notifications'
 import AppContext from '../../hooks/useContext'
 
 import CheckBox from '../../components/checkbox/CheckBox';
+import { CustomButton, InputField } from '../../components/Index'
 
 
 export default function Content({ route, navigation }) {
-    // let dirs = RNFetchBlob.fs.dirs
+
+    var date
+    var data
+
+    try {
+
+        var { data, date, ...otherParams } = route.params
+        if (data) {
+            data = data
+
+        }
+        if (date) {
+            date = date
+
+        }
+    }
+    catch { }
+
+
+
     const [edition, setEdition] = useState(true);
-
-    const { data, date, ...otherParams } = route.params
-    console.info("route.param", data)
-
     const toast = useToast();
 
     const { displayMode, styleColors } = React.useContext(AppContext)
@@ -75,11 +91,10 @@ export default function Content({ route, navigation }) {
 
         toast.show("Copied to clipbaord...", {
             type: "success",
-            style:{backgroundColor:Colors.green},
+            style: { backgroundColor: Colors.green },
             placement: "top",
             duration: 1000,
             offset: 30,
-            // "zoom-in | slide-in",
             animationType: "slide-in",
         });
     };
@@ -135,7 +150,6 @@ export default function Content({ route, navigation }) {
             placement: "top",
             duration: 1400,
             offset: 30,
-            // "zoom-in | slide-in",
             animationType: "slide-in",
         });
 
@@ -239,11 +253,10 @@ export default function Content({ route, navigation }) {
             Clipboard.setString(text)
             toast.show("Copied to clipbaord...", {
                 type: "success",
-                style:{backgroundColor:Colors.green},
+                style: { backgroundColor: Colors.green },
                 placement: "top",
                 duration: 1000,
                 offset: 30,
-                // "zoom-in | slide-in",
                 animationType: "slide-in",
             });
             setTimeout(() => {
@@ -262,7 +275,7 @@ export default function Content({ route, navigation }) {
                 <View style={styles.actionContainer}>
                     <View style={{ flex: 1 }} />
 
-                    <Pressable style={styles.copyButton} onPress={()=>handleCopying(selectedResult.text)}>
+                    <Pressable style={styles.copyButton} onPress={() => handleCopying(selectedResult.text)}>
                         <Text style={[styles.actionTitle, { color: Colors.green }]}>{copied ? "Copied" : "Copy"}</Text>
                         <Octicons name='copy' size={13} color={Colors.green} />
                     </Pressable>
@@ -363,11 +376,10 @@ export default function Content({ route, navigation }) {
             Clipboard.setString(text)
             toast.show("Copied to clipbaord...", {
                 type: "success",
-                style:{backgroundColor:Colors.green},
+                style: { backgroundColor: Colors.green },
                 placement: "top",
                 duration: 1000,
                 offset: 30,
-                // "zoom-in | slide-in",
                 animationType: "slide-in",
             });
             setTimeout(() => {
@@ -403,7 +415,7 @@ export default function Content({ route, navigation }) {
                             <Text style={[styles.actionTitle, { color: styleColors.color }]}>back</Text>
                         </Pressable>
 
-                        <Pressable style={styles.copyButton} onPress={()=>handleCopying(selectedResult.text)}>
+                        <Pressable style={styles.copyButton} onPress={() => handleCopying(selectedResult.text)}>
                             <Text style={[styles.actionTitle, { color: Colors.green }]}>{copied ? "Copied" : "Copy"}</Text>
                             <Octicons name='copy' size={13} color={Colors.green} />
                         </Pressable>
@@ -442,29 +454,34 @@ export default function Content({ route, navigation }) {
 
                 <View style={styles.urlContainer}>
 
-
-                    <TextInput
+                    <InputField
                         value={videoLink}
                         editable={edition}
                         onChangeText={(value) => setVideoLink(value)}
-                        multiline={true} // ios fix for centering it at the top-left corner 
                         numberOfLines={1}
-                        placeholder={kb.isVisible ? 'past your video link here ...' : 'https:// ...'}
+                        error={error}
+                    />
+                    {/* <TextInput
+                        value={videoLink}
+                        editable={edition}
+                        onChangeText={(value) => setVideoLink(value)}
+                        numberOfLines={1}
                         placeholderTextColor={styleColors.placeholderTextColor}
                         style={[styles.urlInput, {
                             backgroundColor: styleColors.placeholder,
                             color: styleColors.placeholderText,
                             borderColor: error ? Colors.red : styleColors.primary,
                         }]}
-                    />
+                        error={error}
+                    /> */}
                     {!edition
                         &&
-                        <Pressable style={styles.copyButton} onPress={()=>handleCopying(selectedResult)}>
+                        <Pressable style={styles.copyButton} onPress={() => handleCopying(selectedResult)}>
                             <Octicons name='copy' size={13} color={Colors.green} />
                         </Pressable>
                     }
 
-                    <Text style={{ color: Colors.red }}>{error}</Text>
+                    {/* <Text style={{ color: Colors.red }}>{error}</Text> */}
                 </View>
 
 
@@ -516,38 +533,15 @@ export default function Content({ route, navigation }) {
 
             {edition
                 &&
-                <View style={[styles.generateButtonContainer, {
-                    bottom: kb.isVisible ? kb.height * 1 + 20 : 0,
-                    backgroundColor: styleColors.backgroundColor,
-                    width: Dimensions.get('window').width,
-                }]}>
+                <View >
 
-
-                    <Pressable
+                    <CustomButton
                         disabled={!videoLink.length > 5}
-
-                        android_ripple={{ color: 'rgba(40, 40, 40, .3)' }}
-                        style={[styles.button, {
-                            opacity: videoLink.length > 4 ? 1 : .2,
-                            borderColor: mode == "dark" ? styleColors.color : undefined,
-                            backgroundColor: mode == "light" ? styleColors.primary : undefined,
-                        }]}
+                        style={{ opacity: videoLink.length > 4 ? 1 : .2, }}
                         onPress={handleGenerating}
-                    >
-                        {/* {
-                    isLoading
-                    &&
-                    <ActivityIndicator
-                        color={styleColors.lighter}
+                        label={isLoading ? "Generating ..." : "Generate"}
+                        isLoading={isLoading}
                     />
-                } */}
-
-                        <Text style={[styles.buttonTitle, {
-                            color: mode == "light" ? styleColors.backgroundColor : styleColors.color,
-                        }]}>{isLoading ? "Generating ..." : "Generate"}</Text>
-
-
-                    </Pressable>
 
                 </View>}
 
@@ -579,7 +573,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         paddingHorizontal: 15,
-        // flex:1,
         borderRadius: 4,
         paddingVertical: 9,
         marginStart: 7,
@@ -598,7 +591,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     buttonTitle: {
-        // color: styleColors.backgroundColor,
         fontSize: 16,
         zIndex: 55,
         marginStart: 7,
@@ -671,13 +663,10 @@ const styles = StyleSheet.create({
     urlContainer: {
         flex: 1,
         marginBottom: 11,
-        flexDirection: 'row',
         justifyContent: "space-between",
         alignItems: "center",
     },
     urlInput: {
-        // backgroundColor:'rgba(100, 100, 100, .041)',
-        padding: 10,
         flex: 1,
         fontSize: 14,
         justifyContent: "flex-start",
@@ -685,6 +674,7 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         textAlignVertical: 'top',
         verticalAlign: "top",
+        padding: 10,
         borderWidth: 1,
         borderRadius: 8,
         marginVertical: 5,
@@ -696,9 +686,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: "flex-end",
         paddingVertical: 8,
-        // width:'100%',
         height: 'auto',
-        // height:55,
         alignSelf: "center",
         borderRadius: 16,
         paddingHorizontal: 9,
@@ -708,7 +696,6 @@ const styles = StyleSheet.create({
     },
     mainContainer: {
 
-        // flex:1,
         paddingHorizontal: 14,
         paddingTop: 7,
         paddingBottom: 20,
@@ -720,11 +707,9 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         marginBottom: 9,
         paddingBottom: 13,
-        // backgroundColor:Colors.primary,
     },
     title: {
         fontSize: 18,
-        // color:"#FFF",
         color: Colors.primary,
         fontWeight: "500",
         marginEnd: 11,

@@ -62,7 +62,7 @@ export default function ImageGen({ navigation }) {
 
     const demoResult = [
         // {
-        //     url:'https://images.nightcafe.studio/jobs/rY2TxlazqPUzLomNPmnM/rY2TxlazqPUzLomNPmnM--1--gs4f2.jpg?tr=w-640,c-at_max'
+        //     url:'https://Images.nightcafe.studio/jobs/rY2TxlazqPUzLomNPmnM/rY2TxlazqPUzLomNPmnM--1--gs4f2.jpg?tr=w-640,c-at_max'
         // }
     ]
     const [respond, setRespond] = useState(demoResult)
@@ -70,7 +70,7 @@ export default function ImageGen({ navigation }) {
     const [number, setNumber] = useState(1)
     const [size, setSize] = useState("1024x1024")
     const [isPremium, setIsPremium] = useState(false)
-    const [selectedImage, setSelectedImage] = useState({ url: "https://images.nightcafe.studio/jobs/rY2TxlazqPUzLomNPmnM/rY2TxlazqPUzLomNPmnM--1--gs4f2.jpg?tr=w-640,c-at_max" })
+    const [selectedImage, setSelectedImage] = useState({ url: "https://Images.nightcafe.studio/jobs/rY2TxlazqPUzLomNPmnM/rY2TxlazqPUzLomNPmnM--1--gs4f2.jpg?tr=w-640,c-at_max" })
 
     const WH = Dimensions.get('window').height
     const WW = Dimensions.get('window').width
@@ -232,7 +232,7 @@ export default function ImageGen({ navigation }) {
     ]
 
     const GeneratedImageComponent = ({ info }) => {
-        var url = "https://user-images.githubusercontent.com/3059371/49334754-3c9dfe00-f5ab-11e8-8885-0192552d12a1.gif"
+        var url = "https://user-Images.githubusercontent.com/3059371/49334754-3c9dfe00-f5ab-11e8-8885-0192552d12a1.gif"
 
         return (
             <Pressable

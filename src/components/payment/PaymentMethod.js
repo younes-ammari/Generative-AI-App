@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Image, useColorScheme, Pressable } from 'react-
 import React, {useContext} from 'react'
 import AppContext from '../../hooks/useContext'
 import Colors from '../../constants/theme/Colors'
+import Images from '../../assets/Index'
 
 
 export default function PaymentMethod({
@@ -22,8 +23,7 @@ export default function PaymentMethod({
   method=="paypal"
   ?
   <Image
-    source={require('../../images/paypal.png')}
-    // fadeDuration={200}
+    source={Images.paypal}
     resizeMode="contain"
     style={{
         width:"80%",
@@ -32,8 +32,7 @@ export default function PaymentMethod({
   />
   :
   <Image
-    source={require('../../images/stripe.png')}
-    // fadeDuration={200}
+    source={Images.stripe}
     resizeMode="contain"
     style={{
         width:"100%",
@@ -59,19 +58,14 @@ export default function PaymentMethod({
 
 const styles = StyleSheet.create({
     container:{
-        // paddingVertical:10,
         height:66,
-        // paddingHorizontal:11,
         width:"100%",
         marginVertical:9,
         alignSelf:"center",
-        // backgroundColor:'red',
-        // marginHorizontal:8,
         borderRadius:9,
         borderWidth:1,
         justifyContent:"center",
         alignItems:"center",
-        // borderColor:Colors.primary,
         borderColor:`rgba(${Colors.rgb.primary}, .6)`,
     }
     
