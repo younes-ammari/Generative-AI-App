@@ -4,6 +4,7 @@ import { Pressable } from 'react-native'
 import AppContext from '../../hooks/useContext'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Colors from '../../constants/theme/Colors'
+import Layout from '../../constants/theme/Layout'
 
 
 type Props = {
@@ -83,30 +84,7 @@ export default function Card({
     
       >
 
-        <View style={{
-            height:255,
-            width:255,
-            borderRadius:111,
-            backgroundColor:Colors.lighter,
-            opacity:.1,
-            position:'absolute',
-            zIndex:-1,
-            top:-22,
-            right:-55,
-            opacity:mode=="dark" ? .02 : .1
-        }}/>
-        <View style={{
-            height:177,
-            width:177,
-            borderRadius:111,
-            backgroundColor:Colors.lighter,
-            opacity:.1,
-            position:'absolute',
-            zIndex:-1,
-            top:-92,
-            right:-2,
-            opacity:mode=="dark" ? .02 : .1
-        }}/>
+        
         <View style={{
             flex:1,
             justifyContent:"space-around"
@@ -158,9 +136,9 @@ const styles = StyleSheet.create({
     container:{
         width:'40%',
         minHeight:88,
-        borderRadius:8,
+        borderRadius:Layout.radius.small,
+        paddingHorizontal:Layout.padding.medium,
         paddingVertical:11,
-        paddingHorizontal:12,
         flexDirection:'row',
         alignItems:"center",
         justifyContent:"space-between",

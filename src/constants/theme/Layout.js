@@ -13,28 +13,54 @@ let SCREEN_WIDTH = screen.width;
 SCREEN_WIDTH = SCREEN_WIDTH < SCREEN_HEIGHT ? SCREEN_WIDTH : SCREEN_HEIGHT;
 SCREEN_HEIGHT = SCREEN_HEIGHT > SCREEN_WIDTH ? SCREEN_HEIGHT : SCREEN_WIDTH;
 
+
 const SMALL_MARGIN = 8;
-const SMALL_PADDING = 8;
 const MEDIUM_MARGIN = 16;
-const MEDIUM_PADDING = 16;
 const LARGE_MARGIN = 18;
-const LARGE_RADIUS = 4;
+
+const SMALL_PADDING = 8;
+const MEDIUM_PADDING = 16;
+const LARGE_PADDING = 18;
+
+const LARGE_RADIUS = 16;
 const MEDIUM_RADIUS = 8;
-const SMALL_RADIUS = 16;
+const SMALL_RADIUS = 4;
 
-
-const layout = {
-  SCREEN_WIDTH,
-  SCREEN_HEIGHT,
-  SMALL_MARGIN,
-  SMALL_PADDING,
-  MEDIUM_MARGIN,
-  MEDIUM_PADDING,
-  LARGE_MARGIN,
-  LARGE_PADDING,
-  LARGE_RADIUS,
-  MEDIUM_RADIUS,
-  SMALL_RADIUS
+const Layout = {
+  dimension: {
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT
+  },
+  /**
+   * small = 8 
+   * medium = 16
+   * large = 18
+   */
+  margin: {
+    small: SMALL_MARGIN,
+    medium: MEDIUM_MARGIN,
+    large: LARGE_MARGIN
+  },
+  /**
+   * small = 8 
+   * medium = 16
+   * large = 18
+   */
+  padding: {
+    small: SMALL_PADDING,
+    medium: MEDIUM_PADDING,
+    large: LARGE_PADDING
+  },
+  /**
+   * small = 4 
+   * medium = 8
+   * large = 16
+   */
+  radius: {
+    small: SMALL_RADIUS,
+    medium: MEDIUM_RADIUS,
+    large: LARGE_RADIUS
+  }
 };
 
-export default layout;
+export default Layout;
