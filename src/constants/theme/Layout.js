@@ -21,6 +21,7 @@ const LARGE_MARGIN = 18;
 const SMALL_PADDING = 8;
 const MEDIUM_PADDING = 16;
 const LARGE_PADDING = 18;
+const XLARGE_PADDING = 33;
 
 const LARGE_RADIUS = 16;
 const MEDIUM_RADIUS = 8;
@@ -49,7 +50,8 @@ const Layout = {
   padding: {
     small: SMALL_PADDING,
     medium: MEDIUM_PADDING,
-    large: LARGE_PADDING
+    large: LARGE_PADDING,
+    xlarge: XLARGE_PADDING,
   },
   /**
    * small = 4 

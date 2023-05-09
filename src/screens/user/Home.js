@@ -25,15 +25,10 @@ export default function Home({ route, navigation }) {
 
     return (
         <ScreenWrapper>
-
-
-
             <ScrollView contentContainerStyle={styles.scrollContainer}>
                 <View style={styles.container}>
 
                     <View style={styles.upperContainer}>
-
-
                         <Pressable style={styles.drawerButton}
                             android_ripple={{ color: styleColors.androideRippleColor }}
                             onPress={() => navigation.toggleDrawer()}
@@ -67,24 +62,10 @@ export default function Home({ route, navigation }) {
                             <View style={{
                                 flexDirection: 'row'
                             }}>
-
-
-                                <Text style={{
-                                    fontSize: 18,
-                                    color: Colors.lighter,
-                                    fontWeight: "400"
-                                }}>Welcome </Text>
-                                <Text style={{
-                                    fontSize: 18,
-                                    color: Colors.lighter,
-                                    fontWeight: "600"
-                                }}>{appData.user.displayName}! </Text>
+                                <Text style={styles.mediumTitle}>Welcome </Text>
+                                <Text style={styles.mediumBoldTitle}>{appData.user.displayName}! </Text>
                             </View>
-                            <Text style={{
-                                fontSize: 22,
-                                color: Colors.lighter,
-                                fontWeight: "500"
-                            }}>Great to see you again </Text>
+                            <Text style={styles.largTitle}>Great to see you again </Text>
                         </View>
                     </ImageBackground>
 
@@ -137,12 +118,10 @@ export default function Home({ route, navigation }) {
                         imageSource={Images.videoGen}
                     />
 
-                    <Text style={{
-                        fontSize: 22,
+                    <Text style={[styles.largTitle, {
                         color: styleColors.color,
-                        fontWeight: "500",
-                        marginTop: 9,
-                    }}>Added New </Text>
+                        marginTop: Layout.margin.small,
+                    }]}>Added New </Text>
 
                 </View>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollNewContainer}>
@@ -208,6 +187,22 @@ export default function Home({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
+    largTitle: {
+        fontSize: 22,
+        color: Colors.lighter,
+        fontWeight: "600"
+
+    },
+    mediumTitle: {
+        fontSize: 18,
+        color: Colors.lighter,
+        fontWeight: "400"
+    },
+    mediumBoldTitle: {
+        fontSize: 18,
+        color: Colors.lighter,
+        fontWeight: "600"
+    },
     welcomeContainer: {
         alignItems: "center",
         marginTop: Layout.margin.large,

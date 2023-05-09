@@ -8,6 +8,7 @@ export {default as CountDownTimer } from './authentication/CountDownTimer'
 
 // button
 export {default as CustomButton } from './button/CustomButton'
+export {default as RecordButton } from './button/RecordButton'
 
 
 // cards
