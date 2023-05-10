@@ -38,7 +38,6 @@ export default function Chat({ navigation }) {
     const scrollViewRef = useRef();
     const inputRef = useRef();
     const scrollViewChatRef = useRef();
-    const [isFocused, setIsFocused] = useState(false)
 
     const [isWriting, setIsWriting] = useState(false)
     const delay = 50
@@ -130,7 +129,8 @@ export default function Chat({ navigation }) {
     const [data, setData] = useState([{
         id: 0,
         isRespond: true,
-        content: `Hey ${appData.user.displayName}, how can i assist you !`
+        content: `Hey ${appData.user.displayName}, how can i assist you !`,
+        role: "assistant"
     }])
 
     const messages = [];
@@ -168,7 +168,7 @@ export default function Chat({ navigation }) {
                 if (!el.role) { el.role = 'user' }
                 return { role: el.role, content: el.content }
             })
-            console.log('mes', mes)
+            // console.log('mes', mes)
             const completion = await openai.createChatCompletion({
                 model: "gpt-3.5-turbo",
                 messages: mes,
@@ -211,9 +211,9 @@ export default function Chat({ navigation }) {
 
     const handleSendEvent = () => {
         var maxID = data.length > 0 ? Math.max(...data.map(el => el.id)) : 1
-        console.log(maxID)
+        // console.log(maxID)
         var oldData = data
-        console.log(oldData)
+
         if (message.length > 3) {
             handleChat();
 
@@ -221,6 +221,7 @@ export default function Chat({ navigation }) {
             setMessage('')
             Keyboard.dismiss()
         }
+        console.log("model", model, oldData)
     }
 
 
@@ -243,7 +244,7 @@ export default function Chat({ navigation }) {
     }
 
     const [show, setShow] = React.useState(false)
-    const [visible, setVisible] = React.useState(false)
+
 
 
     const handleShow = () => {
@@ -262,43 +263,6 @@ export default function Chat({ navigation }) {
 
         }
     }
-
-
-    const ModalView = () => {
-
-        return (
-            <Modal
-                animationOut={"pulse"}
-                animationIn={"pulse"}
-                animationOutTiming={10}
-                isVisible={visible}
-                onDismiss={() => setVisible(false)}
-            >
-                <View style={{
-                    backgroundColor: styleColors.placeholder,
-                    padding: 22,
-                    paddingBottom: 15,
-                    borderRadius: 9
-                }}>
-                    <Text style={[styles.title, { color: styleColors.color, fontSize: 15, }]}>
-                        Are you sure that you wanna delete your account?
-                    </Text>
-
-                    <View style={{
-                        flexDirection: 'row',
-                        marginTop: 22,
-                        justifyContent: "space-evenly"
-                    }}>
-                        <CustomButton
-                            outlined label={'Yes sure'} style={{ flex: 1, marginHorizontal: 5, paddingVertical: 11 }} />
-                        <CustomButton
-                            onPress={() => { setVisible(false); console.log('pressed') }}
-                            label={'No'} style={{ flex: 1, marginHorizontal: 5, paddingVertical: 11 }} />
-                    </View>
-                </View>
-            </Modal>
-        )
-    };
 
 
     const models = [
@@ -335,9 +299,11 @@ export default function Chat({ navigation }) {
                 }]}>
 
                     <TouchableOpacity
-                        style={[styles.gptModelButton, show && {
+                        disabled={data.length > 1}
+                        style={[styles.gptModelButton, { opacity: data.length > 1 ? .4 : 1 }, show && {
                             borderBottomLeftRadius: 0,
-                            borderBottomRightRadius: 0
+                            borderBottomRightRadius: 0,
+
                         }]}
                         onPress={() => { handleShow() }}
                     >
@@ -367,8 +333,6 @@ export default function Chat({ navigation }) {
                 </View>
             }
         >
-            {ModalView()}
-
 
 
             <ScrollView
@@ -434,8 +398,8 @@ export default function Chat({ navigation }) {
             <View style={[styles.typingContainer, {
                 backgroundColor: styleColors.placeholder,
                 position: kb.isVisible ? "relative" : "absolute",
-                bottom: kb.isVisible ? kb.height * 1 + 9 : 0,
-                paddingBottom: kb.isVisible ? 25 : 33,
+                bottom: kb.isVisible ? kb.height * 1 : 0,
+                paddingBottom: kb.isVisible ? 20 : 33,
             }]}>
                 <TextInput
                     multiline
@@ -486,12 +450,7 @@ export default function Chat({ navigation }) {
 
 const styles = StyleSheet.create({
     gptModeldropdown: {
-        // position: "absolute",
-        // top: 41,
-        // right: 10,
-        // zIndex: 33,
         minWidth: 120,
-        // width: 'auto',
         width: "100%",
         borderRadius: Layout.radius.medium,
     },
@@ -520,9 +479,8 @@ const styles = StyleSheet.create({
     },
     clearButton: {
         position: "absolute",
-        right: 127,
-        top: 17,
-        bottom: 10,
+        right: 133,
+        top: 28,
         opacity: .7,
         zIndex: 11,
         justifyContent: "center",
@@ -554,7 +512,7 @@ const styles = StyleSheet.create({
 
     },
     modelTitle: {
-        fontSize: 15,
+        fontSize: Layout.font.h2,
         color: Colors.primary,
         fontWeight: "700",
         marginStart: Layout.margin.small,
@@ -578,7 +536,6 @@ const styles = StyleSheet.create({
         alignItems: "flex-end",
         paddingVertical: Layout.padding.medium,
         alignSelf: "center",
-        marginHorizontal: Layout.margin.medium,
         paddingHorizontal: Layout.padding.medium
 
     },

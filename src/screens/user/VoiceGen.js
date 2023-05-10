@@ -219,7 +219,7 @@ export default function VoiceGen({ navigation }) {
             >
                 <Fontisto name={iconName} size={17} color={selected ? Colors.lighter : styleColors.color} />
                 <Text style={{
-                    fontSize: 15,
+                    fontSize: Layout.font.h2,
                     fontWeight: "500",
                     textAlign: "center",
                     marginStart: 5,
@@ -965,7 +965,7 @@ export default function VoiceGen({ navigation }) {
                                     color: styleColors.placeholderText,
                                     padding: 10,
                                     flex: 1,
-                                    fontSize: 15,
+                                    fontSize: Layout.font.h2,
                                     justifyContent: "flex-start",
                                     alignContent: 'flex-start',
                                     alignItems: 'flex-start',

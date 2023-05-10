@@ -32,7 +32,7 @@ export default function Element({ label, labelColor, image, selected, ...props }
 
                 <Text style={{
                     color: labelColor ? labelColor : styleColors.color,
-                    fontSize: 15,
+                    fontSize: Layout.font.h2,
                     fontWeight: selected ? "700" : "400"
                 }}>{label}</Text>
             </View>

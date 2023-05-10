@@ -28,6 +28,7 @@ import { useToast } from 'react-native-toast-notifications'
 
 import AppContext from '../../hooks/useContext'
 import { CustomButton } from '../../components/Index';
+import Layout from '../../constants/theme/Layout';
 
 
 
@@ -466,8 +467,9 @@ export default function ImageGen({ navigation }) {
         // To add the time suffix in filename
         let date = new Date();
         // Image URL which we want to download
-        // let image_URL = REMOTE_IMAGE_PATH;    
+
         let image_URL = url;
+
         // Getting the extention of the file
         let ext = getExtention(image_URL);
         ext = '.' + ext[0];
@@ -586,67 +588,36 @@ export default function ImageGen({ navigation }) {
         <ScreenWrapper fill back title='Image Generator'>
 
 
+            {/* Details modal for the image you clicked */}
+
             {modall()}
 
             <ScrollView
                 keyboardShouldPersistTaps='handled'
                 ref={scrollViewRef}
-                contentContainerStyle={{
-                    paddingBottom: 55,
-                }}
             >
 
-                <View style={[styles.chatContainer, {
-                    flex: 1,
-                    paddingHorizontal: 14,
-                }]}>
+                <View style={styles.chatContainer}>
 
-                    {isRecording
+
+                    {/* Recording container  */}
+
+                    {
+                        isRecording
                         &&
-                        <View style={{
-                            width: "100%",
-                            backgroundColor: 'red',
-                            paddingVertical: 9,
-                            paddingBottom: 29,
-                            opacity: .8,
-                            borderRadius: 4,
-                            // flexDirection:'row',
-                            // position:"absolute",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            // top:"50%",
-                            // bottom:"50%",
-                            // right:"50%",
-                            // left:"50%",
-                            // bottom:"50%",
-                            zIndex: 5,
-                            // paddingBottom:33,
-                            marginBottom: 5,
-                        }}>
-
-                            {/* <Text style={{
-                        color:Colors.lighter,
-                        // zIndex:21,
-                        // fontSize:18,
-                        // marginEnd:5,
-                        // verticalAlign:"bottom",
-                        textAlign:"center",
-                    }}>recording ...</Text> */}
-                            {/* dotAmplitude, dotSpeed, dotY */}
-
+                        <View style={styles.recordingContainer}>
                             <TypingAnimation
                                 dotMargin={9}
                                 dotColor={Colors.lighter}
 
                             />
-                        </View>}
+                        </View>
+                    }
 
 
-                    <View style={{
-                        flexDirection: 'row',
-                        // alignItems:"center",
-                        justifyContent: "space-between"
-                    }}>
+                    {/* Prompt */}
+
+                    <View style={styles.promptContainer}>
 
                         <TextInput
                             value={prompt}
@@ -655,124 +626,57 @@ export default function ImageGen({ navigation }) {
                             numberOfLines={7}
                             placeholder={isRecording ? "start talking ..." : kb.isVisible ? 'Write a prompt here ...' : 'click here to start a conversation ...'}
                             placeholderTextColor={styleColors.placeholderTextColor}
-                            style={{
-                                // backgroundColor:'rgba(100, 100, 100, .041)',
+                            style={[styles.prompt, {
                                 backgroundColor: styleColors.placeholder,
                                 color: styleColors.placeholderText,
-                                padding: 10,
-                                flex: 1,
-                                fontSize: 15,
-                                justifyContent: "flex-start",
-                                alignContent: 'flex-start',
-                                alignItems: 'flex-start',
-                                textAlignVertical: 'top',
-                                verticalAlign: "top",
-                                borderWidth: 1,
                                 borderColor: styleColors.primary,
-                                borderRadius: 8,
-                                marginVertical: 5,
-                                marginBottom: 11,
 
-                            }}
+                            }]}
                         />
 
-                        <TouchableOpacity style={{
-                            opacity: .5,
-                            paddingHorizontal: 13,
-                            borderRadius: 8,
-                            height: 44,
-                            zIndex: 2,
-                            marginTop: 5,
-                            // display:!kb.isVisible ? "none" : "flex",
-                            // position:"absolute",
-                            // right:8,
-                            // bottom:8,
-                            borderRadius: 44,
-                            paddingVertical: 5,
-                            marginStart: 9,
-                            alignItems: "center",
-                            justifyContent: "center",
+                        <TouchableOpacity style={[styles.recordingButton, {
                             backgroundColor: isRecording ? 'rgba(250, 100, 100, .2)' : 'rgba(100, 100, 100, .2)',
-                            flexDirection: 'row',
-                        }}
-                            // disabled={message.length<4}
+                        }]}
                             onPress={handleRecordEvent}
                         >
 
                             <Ionicons name="mic" size={17} color={isRecording ? 'red' : styleColors.color} />
-                            {/* <Text style={{fontSize:16, color:"white", marginLeft:9}}>Send</Text> */}
                         </TouchableOpacity>
                     </View>
+
+                    {/* Premium Message 
+                        >> displayed when the images number exceed certain number (you('ve choosen it)
+                    */}
                     {
                         number > 1
                         &&
-                        <Text style={{
-                            color: Colors.red,
-                            fontSize: 14,
-                            textAlign: "center",
-                            fontWeight: "600",
-                            marginRight: 10,
-                        }}>require premium subscription</Text>
+                        <Text style={styles.premiumMessageTitle}>require premium subscription</Text>
                     }
 
-                    <View style={{
-                        flexDirection: 'row',
-                        alignItems: "center",
-                        justifyContent: 'flex-start',
 
-                    }}>
 
-                        <Text style={{
+                    {/* Images Number */}
+
+                    <View style={styles.imagesNumberContainer}>
+
+                        <Text style={[styles.title, {
                             color: styleColors.color,
-                            fontSize: 18,
-                            fontWeight: "400",
-                            marginRight: 10,
-                        }}>Image Number:</Text>
+                        }]}>Image Number:</Text>
 
-                        <Pressable style={{
-                            padding: 8,
-                            backgroundColor: 'rgba(100, 100, 100, .15)',
-                            marginHorizontal: 3,
-                            borderRadius: 22,
-                            height: 44,
-                            width: 44,
-                            alignItems: "center",
-                            justifyContent: "center",
-                        }}
+                        <Pressable style={styles.imagesNumberButton}
                             onPress={() => setNumber(number + 1)}
                         >
                             <Icon name='plus' size={17} color={styleColors.color} />
                         </Pressable>
 
 
-                        <Text style={{
-                            marginHorizontal: 5,
-                            // backgroundColor:'rgba(100, 100, 100, .041)',
-                            padding: 10,
-                            fontSize: 22,
+                        <Text style={[styles.number, {
                             color: styleColors.color,
-                            textAlign: "center",
-                            fontWeight: "500",
-                            textAlignVertical: "center",
-                            verticalAlign: "middle",
-                            borderColor: Colors.primary,
-                            borderRadius: 8,
-                            marginVertical: 5,
-                            marginBottom: 11,
 
-                        }}>{number}</Text>
+                        }]}>{number}</Text>
 
 
-                        <Pressable style={{
-                            padding: 8,
-                            backgroundColor: 'rgba(100, 100, 100, .15)',
-                            marginHorizontal: 3,
-                            borderRadius: 22,
-                            height: 44,
-                            width: 44,
-                            alignItems: "center",
-                            justifyContent: "center",
-                        }}
+                        <Pressable style={styles.imagesNumberButton}
                             onPress={() => setNumber(number > 1 ? number - 1 : 1)}
                         >
                             <Icon name='minus' size={17} color={styleColors.color} />
@@ -783,12 +687,10 @@ export default function ImageGen({ navigation }) {
                     </View>
 
 
-                    <View style={{
-                        flexDirection: 'row',
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        marginBottom: 5,
-                    }}>
+
+                    {/* Images Sizes Dimension */}
+
+                    <View style={styles.sizesContainer}>
 
 
 
@@ -798,15 +700,10 @@ export default function ImageGen({ navigation }) {
 
                 </View>
 
-                <View style={{
 
-                    flexDirection: 'row',
-                    alignItems: "center",
-                    marginHorizontal: 14,
-                    flexWrap: 'wrap',
-                    justifyContent: "space-between",
-                    paddingBottom: 11,
-                }}>
+                {/* Generating Section */}
+
+                <View style={styles.generatingContainer}>
 
 
 
@@ -814,29 +711,16 @@ export default function ImageGen({ navigation }) {
                     {
                         isLoading
                             ?
-                            <View style={{
-                                alignItems: "center",
-                                width: "100%",
-                                paddingVertical: 55,
-                                justifyContent: "center",
-                            }}>
+                            <View style={styles.loadingContainer}>
 
                                 <ActivityIndicator size={55} color={Colors.primary} />
-                                <Text style={{
-                                    marginTop: 18,
-                                    fontSize: 16,
-                                }}>generating ...</Text>
+                                <Text style={styles.generatingText}>generating ...</Text>
                             </View>
                             :
                             respond.length < 1
                                 ?
 
-                                <Text style={{
-                                    flex: 1,
-                                    verticalAlign: "middle",
-                                    textAlign: "center",
-                                    padding: 66,
-                                }}>no result</Text>
+                                <Text style={styles.resultText}>no result</Text>
                                 :
                                 respond.map((el, i) => <GeneratedImageComponent key={i} info={el} />)
                     }
@@ -846,8 +730,7 @@ export default function ImageGen({ navigation }) {
 
 
 
-
-
+                {/* used to replace the keyboard height in order to see al the <ScrollView> component content  */}
                 <View style={{
                     height: kb.isVisible ? kb.height * 0.8 : 90,
                 }} />
@@ -857,21 +740,15 @@ export default function ImageGen({ navigation }) {
 
 
 
-            <View style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}>
+            {/* Generate Button */}
+            <CustomButton
+                disabled={!prompt.length > 5}
+                style={{ opacity: prompt.length > 4 ? 1 : .2, }}
+                onPress={handleGenerating}
+                label={isLoading ? "Generating ..." : "Generate"}
+                isLoading={isLoading}
+            />
 
-                <CustomButton
-                    disabled={!prompt.length > 5}
-                    style={{ opacity: prompt.length > 4 ? 1 : .2, }}
-                    onPress={handleGenerating}
-                    label={isLoading ? "Generating ..." : "Generate"}
-                    isLoading={isLoading}
-                />
-
-
-            </View>
 
 
 
@@ -880,40 +757,141 @@ export default function ImageGen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+    recordingButton: {
+        opacity: .5,
+        borderRadius: Layout.radius.xlarge,
+        height: 44, // fix the height
+        width: 44, // fix the width
+        alignItems:"center",
+        justifyContent:"center",
+        marginTop: Layout.margin.medium,
+        marginStart: Layout.margin.medium,
+    },
+    prompt: {
+        padding: Layout.padding.medium,
+        flex: 1, // fit the available size
+        fontSize: Layout.font.h2,
+        justifyContent: "flex-start",
+        alignContent: 'flex-start',
+        alignItems: 'flex-start',
+        textAlignVertical: 'top',
+        verticalAlign: "top",
+        borderWidth: 1,
+        borderRadius: Layout.radius.small,
+        marginVertical: Layout.margin.medium,
+        marginBottom: Layout.margin.medium
+    },
+    promptContainer: {
+        flexDirection: 'row',
+        justifyContent: "space-between"
+    },
+    premiumMessageTitle: {
+        color: Colors.red,
+        fontSize: Layout.font.h3,
+        textAlign: "center",
+        fontWeight: "600",
+        marginRight: Layout.margin.medium,
+    },
+    imagesNumberContainer: {
+        flexDirection: 'row',
+        alignItems: "center",
+        justifyContent: 'flex-start',
+
+    },
+    imagesNumberButton: {
+        backgroundColor: 'rgba(100, 100, 100, .15)',
+        marginHorizontal: Layout.margin.small,
+        borderRadius: Layout.radius.xlarge,
+        height: 44,
+        width: 44,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    sizesContainer: {
+        flexDirection: 'row',
+        alignItems: "center",
+        justifyContent: "space-between",
+        marginBottom: Layout.margin.small,
+    },
+    generatingContainer: {
+        flexDirection: 'row',
+        alignItems: "center",
+        flexWrap: 'wrap',
+        justifyContent: "space-between",
+        marginHorizontal: Layout.margin.medium,
+        paddingBottom: Layout.margin.medium,
+    },
+    resultText: {
+        flex: 1,
+        verticalAlign: "middle",
+        textAlign: "center",
+        padding: Layout.padding.xlarge,
+    },
+    generatingText: {
+        marginTop: Layout.margin.large,
+        fontSize: Layout.font.h2,
+    },
+    loadingContainer: {
+        alignItems: "center",
+        width: "100%",
+        paddingVertical: Layout.padding.xlarge,
+        justifyContent: "center",
+    },
+    number: {
+        marginHorizontal: Layout.margin.small,
+        padding: Layout.padding.small,
+        fontSize: Layout.font.h0,
+        textAlign: "center",
+        fontWeight: "500",
+        textAlignVertical: "center",
+        verticalAlign: "middle",
+        marginVertical: Layout.margin.small,
+        marginBottom: Layout.margin.medium
+    },
+    recordingContainer: {
+        opacity: .8,
+        zIndex: 5,
+        width: "100%",
+        backgroundColor: 'red',
+        paddingVertical: Layout.padding.small,
+        paddingBottom: Layout.padding.xlarge,
+        borderRadius: Layout.radius.small,
+        justifyContent: "center",
+        alignItems: "center",
+        marginBottom: Layout.margin.small,
+    },
     typingContainer: {
         zIndex: 11,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: "flex-end",
-        paddingVertical: 8,
-        // width:'100%',
+        paddingVertical: Layout.padding.small,
         height: 'auto',
-        // height:55,
         alignSelf: "center",
-        borderRadius: 16,
-        paddingHorizontal: 9,
+        borderRadius: Layout.radius.large,
+        paddingHorizontal: Layout.padding.small,
         position: 'absolute',
-        bottom: 40,
+        bottom: Layout.margin.xlarge,
 
     },
     chatContainer: {
         flex: 1,
-        // height:Dimensions.get("window").height*.8,
+        paddingHorizontal: Layout.padding.medium
     },
     titleContainer: {
         width: '100%',
         alignItems: "center",
         justifyContent: 'center',
-        paddingVertical: 15,
-        marginBottom: 9,
-        paddingBottom: 13,
-        // backgroundColor:Colors.primary,
+        paddingVertical: Layout.padding.medium,
+        marginBottom: Layout.margin.small,
+        paddingBottom: Layout.padding.medium,
     },
     title: {
-        fontSize: 18,
-        // color:"#FFF",
+        fontSize: Layout.font.h1,
         color: Colors.primary,
-        fontWeight: "500"
-
+        fontWeight: "500",
+        marginRight: Layout.margin.medium
     }
+
+
 })

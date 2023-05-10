@@ -98,7 +98,7 @@ export default function Login({ navigation }) {
         marginBottom: 7
       },
       subTitle: {
-        fontSize: 15,
+        fontSize: Layout.font.h2,
         fontWeight: "400",
         textAlign: "center",
       },

@@ -21,6 +21,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AppContext from '../../hooks/useContext';
 import Colors from '../../constants/theme/Colors';
+import Layout from '../../constants/theme/Layout';
 
 
 
@@ -203,7 +204,7 @@ const styles = StyleSheet.create({
   
   userCoins:{
     color: '#fff',
-    fontSize: 15,
+    fontSize: Layout.font.h2,
     marginEnd:9,
     marginBottom: 1
   },
@@ -215,7 +216,7 @@ const styles = StyleSheet.create({
   // Share Tell a friend
   shareConatiner:{flexDirection: 'row', alignItems: 'center'},
   shareTitle:{
-    fontSize: 15,
+    fontSize: Layout.font.h2,
     fontFamily: 'Roboto-Medium',
     marginLeft: 9,
     fontWeight:"600",
@@ -225,7 +226,7 @@ const styles = StyleSheet.create({
   // Sign out
   signoutContainer:{flexDirection: 'row', alignItems: 'center'},
   signoutTitle:{
-    fontSize: 15,
+    fontSize: Layout.font.h2,
     fontFamily: 'Roboto-Medium',
     marginLeft: 9,
     fontWeight:"600",

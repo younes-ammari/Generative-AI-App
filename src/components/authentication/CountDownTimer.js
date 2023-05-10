@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, useColorScheme } from 'react-native'
 import React from 'react'
 import Colors from '../../constants/theme/Colors';
 import AppContext from '../../hooks/useContext';
+import Layout from '../../constants/theme/Layout';
 
 type Props = {
   /**
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
 
   },
   title: {
-    fontSize: 15,
+    fontSize: Layout.font.h2,
     fontWeight: "500",
 
   }

@@ -21,6 +21,7 @@ import AppContext from '../../hooks/useContext'
 
 import Voice from '@react-native-community/voice';
 import { CustomButton } from '../../components/Index'
+import Layout from '../../constants/theme/Layout'
 
 
 export default function Content({ route, navigation }) {
@@ -187,7 +188,7 @@ export default function Content({ route, navigation }) {
 
             },
             title: {
-                fontSize: 15,
+                fontSize: Layout.font.h2,
                 fontWeight: "500",
                 textAlign: "center",
                 opacity: title == selected ? 1 : .9,
@@ -759,7 +760,7 @@ const styles = StyleSheet.create({
         // backgroundColor:'rgba(100, 100, 100, .041)',
         padding: 10,
         flex: 1,
-        fontSize: 15,
+        fontSize: Layout.font.h2,
         justifyContent: "flex-start",
         alignContent: 'flex-start',
         alignItems: 'flex-start',

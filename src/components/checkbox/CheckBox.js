@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Colors from '../../constants/theme/Colors'
 import AppContext from '../../hooks/useContext'
+import Layout from '../../constants/theme/Layout'
 
 type Props = {
     /**
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     title: {
-        fontSize: 15,
+        fontSize: Layout.font.h2,
         fontWeight: "400"
     },
     checkBackground: {

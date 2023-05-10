@@ -82,7 +82,7 @@ export default function Settings({ navigation }) {
       >
         <Text style={{
           color: labelColor ? labelColor : styleColors.color,
-          fontSize: 15,
+          fontSize: Layout.font.h2,
         }}>{label}</Text>
       </Pressable>
     )
@@ -104,7 +104,7 @@ export default function Settings({ navigation }) {
           paddingBottom: 15,
           borderRadius: 9
         }}>
-          <Text style={[styles.title, { color: styleColors.color, fontSize: 15, }]}>
+          <Text style={[styles.title, { color: styleColors.color, fontSize: Layout.font.h2, }]}>
             Are you sure that you wanna delete your account?
           </Text>
 
