@@ -1,5 +1,5 @@
-import { Dimensions, FlatList, Keyboard, useColorScheme, ActivityIndicator, LogBox, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Pressable, Image, PermissionsAndroid } from 'react-native'
-import React, { useEffect, useRef, useState } from 'react'
+import { Dimensions, Keyboard, ActivityIndicator, LogBox, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Pressable, Image, PermissionsAndroid } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import ScreenWrapper from '../ScreenWrapper'
 
 import { useKeyboard } from '../../hooks/useKeyboard'
@@ -29,20 +29,14 @@ import { useToast } from 'react-native-toast-notifications'
 import AppContext from '../../hooks/useContext'
 import { CustomButton, Size } from '../../components/Index';
 import Layout from '../../constants/theme/Layout';
+import { getExtention } from '../../functions/Index';
 
 
 
 export default function ImageGen({ navigation }) {
-    // let dirs = RNFetchBlob.fs.dirs
-
     const toast = useToast();
 
-    const { displayMode, styleColors } = React.useContext(AppContext)
-
-    const deviceMode = useColorScheme()
-
-    const mode = displayMode == "auto" ? deviceMode : displayMode
-
+    const { styleColors } = React.useContext(AppContext)
 
 
     const configuration = new Configuration({
@@ -52,29 +46,21 @@ export default function ImageGen({ navigation }) {
     });
     const openai = new OpenAIApi(configuration);
 
+
+
     const kb = useKeyboard();
-    const scrollViewRef = useRef();
-    const scrollViewChatRef = useRef();
     const [visible, setIsVisible] = useState(false)
 
     const [isLoading, setIsLoading] = useState(false)
     const [isDownloading, setIsDownloading] = useState(false)
 
 
-    const demoResult = [
-        // {
-        //     url:'https://Images.nightcafe.studio/jobs/rY2TxlazqPUzLomNPmnM/rY2TxlazqPUzLomNPmnM--1--gs4f2.jpg?tr=w-640,c-at_max'
-        // }
-    ]
-    const [respond, setRespond] = useState(demoResult)
+    const [respond, setRespond] = useState([])
     const [prompt, setPrompt] = useState('')
     const [number, setNumber] = useState(1)
     const [size, setSize] = useState("1024x1024")
     const [isPremium, setIsPremium] = useState(false)
     const [selectedImage, setSelectedImage] = useState({ url: "https://Images.nightcafe.studio/jobs/rY2TxlazqPUzLomNPmnM/rY2TxlazqPUzLomNPmnM--1--gs4f2.jpg?tr=w-640,c-at_max" })
-
-    const WH = Dimensions.get('window').height
-    const WW = Dimensions.get('window').width
 
     const [recording, setRecording] = useState(false);
 
@@ -92,13 +78,11 @@ export default function ImageGen({ navigation }) {
         setRecording(false);
         console.log('stop handler', e);
     };
-
     const speechResultsHandler = e => {
         const text = e.value[0];
         setPrompt(prompt + " " + text + " ")
         console.log('result', text)
     };
-
     const startRecording = async () => {
         try {
             setRecording(true);
@@ -108,7 +92,6 @@ export default function ImageGen({ navigation }) {
             console.log('error', error);
         }
     };
-
     const stopRecording = async () => {
         try {
             await Voice.stop();
@@ -118,6 +101,7 @@ export default function ImageGen({ navigation }) {
         }
     };
 
+    
     const clear = () => {
         setPrompt('')
     };
@@ -139,17 +123,8 @@ export default function ImageGen({ navigation }) {
     const handleGenerating = async () => {
         Keyboard.dismiss()
 
-        // setPrompt('')
         setIsLoading(true)
         try {
-
-            const configuration = new Configuration({
-                organization: config.organization,
-                apiKey: config.OPENAI_API_KEY,
-
-            });
-            const openai = new OpenAIApi(configuration);
-
             const response = await openai.createImage({
                 prompt: prompt,
                 n: number,
@@ -412,12 +387,6 @@ export default function ImageGen({ navigation }) {
             });
     };
 
-    const getExtention = filename => {
-        // To get the file extension
-        return /[.]/.exec(filename) ?
-            /[^.]+$/.exec(filename) : undefined;
-    };
-
 
 
     const handleDownload = () => {
@@ -492,10 +461,7 @@ export default function ImageGen({ navigation }) {
 
             {modall()}
 
-            <ScrollView
-                keyboardShouldPersistTaps='handled'
-                ref={scrollViewRef}
-            >
+            <ScrollView>
 
                 <View style={styles.chatContainer}>
 
@@ -533,15 +499,27 @@ export default function ImageGen({ navigation }) {
 
                             }]}
                         />
+                        <View>
 
-                        <TouchableOpacity style={[styles.recordingButton, {
-                            backgroundColor: isRecording ? 'rgba(250, 100, 100, .2)' : 'rgba(100, 100, 100, .2)',
-                        }]}
-                            onPress={handleRecordEvent}
-                        >
 
-                            <Ionicons name="mic" size={17} color={isRecording ? 'red' : styleColors.color} />
-                        </TouchableOpacity>
+                            <TouchableOpacity style={[styles.recordingButton, {
+                                backgroundColor: isRecording ? 'rgba(250, 100, 100, .2)' : 'rgba(100, 100, 100, .2)',
+                            }]}
+                                onPress={handleRecordEvent}
+                            >
+
+                                <Ionicons name="mic" size={17} color={isRecording ? 'red' : styleColors.color} />
+                            </TouchableOpacity>
+                            {prompt.length > 2
+                                &&
+                                <TouchableOpacity style={styles.clearButton}
+                                    onPress={clear}
+                                >
+
+                                    <Ionicons name="close" size={17} color={styleColors.color} />
+                                </TouchableOpacity>
+                            }
+                        </View>
                     </View>
 
                     {/* Premium Message 
@@ -657,6 +635,17 @@ export default function ImageGen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+    clearButton: {
+        opacity: .5,
+        borderRadius: Layout.radius.xlarge,
+        height: 44, // fix the height
+        width: 44, // fix the width
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: Layout.margin.medium,
+        marginStart: Layout.margin.medium,
+        backgroundColor: 'rgba(100, 100, 100, .2)',
+    },
     recordingButton: {
         opacity: .5,
         borderRadius: Layout.radius.xlarge,
