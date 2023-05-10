@@ -27,7 +27,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 import { useToast } from 'react-native-toast-notifications'
 
 import AppContext from '../../hooks/useContext'
-import { CustomButton } from '../../components/Index';
+import { CustomButton, Size } from '../../components/Index';
 import Layout from '../../constants/theme/Layout';
 
 
@@ -76,10 +76,6 @@ export default function ImageGen({ navigation }) {
     const WH = Dimensions.get('window').height
     const WW = Dimensions.get('window').width
 
-
-
-    const [result, setResult] = useState('');
-    const [loading, setLoading] = useState(false);
     const [recording, setRecording] = useState(false);
 
 
@@ -99,35 +95,30 @@ export default function ImageGen({ navigation }) {
 
     const speechResultsHandler = e => {
         const text = e.value[0];
-        setResult(text);
         setPrompt(prompt + " " + text + " ")
         console.log('result', text)
     };
 
     const startRecording = async () => {
-        // setLoading(true);
         try {
             setRecording(true);
             await Voice.start('en-Us');
         } catch (error) {
-            console.log('error', error);
             setRecording(false);
+            console.log('error', error);
         }
     };
 
     const stopRecording = async () => {
-        // setRecording(false);
         try {
             await Voice.stop();
             setRecording(false);
         } catch (error) {
-            setRecording(false);
             console.log('error', error);
         }
     };
 
     const clear = () => {
-        setResult('');
         setPrompt('')
     };
 
@@ -143,52 +134,6 @@ export default function ImageGen({ navigation }) {
             Voice.destroy().then(Voice.removeAllListeners);
         };
     }, []);
-
-    const SizeComponent = ({ title = "1024x1024", end = false }) => {
-
-        return (
-            <Pressable style={{
-                flex: 1,
-                paddingHorizontal: 11,
-                paddingVertical: 11,
-                // marginHorizontal:8,
-                marginRight: !end ? 7 : 0,
-                borderRadius: 9,
-                backgroundColor: title == size ? Colors.primary : null,
-                marginVertical: 8,
-                borderWidth: 2,
-                borderColor: 'rgba(100, 100, 100, .8)'
-
-            }}
-                onPress={() => setSize(title)}
-            >
-                <Text style={{
-                    fontSize: 13,
-                    fontWeight: "500",
-                    textAlign: "center",
-                    opacity: title == size ? 1 : .9,
-                    color: title == size ? Colors.lighter : styleColors.color,
-                }}>{title}</Text>
-
-            </Pressable>
-        )
-    }
-
-
-
-    if (kb.isVisible) {
-        scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
-    }
-
-    const demos = [
-        {
-            id: 1,
-            isRespond: true,
-            content: 'welcome in ChatGPT'
-        },
-    ]
-
-    const [data, setData] = useState(demos)
 
 
     const handleGenerating = async () => {
@@ -219,10 +164,7 @@ export default function ImageGen({ navigation }) {
             console.error("error", error)
         }
         setIsLoading(false)
-        // setTimeout(() => {
-        // }, 800);
     }
-    // console.log('kb', kb)
 
 
 
@@ -254,20 +196,15 @@ export default function ImageGen({ navigation }) {
             >
                 <Image
                     source={{ uri: info.url }}
-                    //  source={{uri:url}}
-                    //  resizeMode="cover"
-                    //  resizeMode="contain"
                     resizeMode="center"
                     style={{
                         zIndex: 1,
                         width: "100%",
-                        // width:(Dimensions.get('window').width /2) -25 ,
                         height: 150,
                         backgroundColor: `rgba(${Colors.rgb.primary}, .05)`,
                         borderRadius: 9,
                         borderWidth: 1.1,
                         borderColor: `rgba(${Colors.rgb.primary}, .8)`,
-                        // marginHorizontal:14
                     }}
                 />
                 <ActivityIndicator
@@ -292,40 +229,29 @@ export default function ImageGen({ navigation }) {
                 coverScreen={true}
                 onBackButtonPress={() => setIsVisible(false)}
                 onDismiss={() => setIsVisible(false)}
-                // style={{top:-55}}
                 deviceHeight={Dimensions.get('window').height * 1.5}
                 animationIn="fadeInUp"
             >
                 <View style={{
-                    // flex: 1 , 
                     zIndex: 11,
                     width: Dimensions.get('window').width * .8,
                     alignSelf: "center",
                     backgroundColor: Colors.lighter,
-                    // marginVertical:33,
-                    // marginHorizontal:22,
                     borderRadius: 9,
                     paddingHorizontal: 11,
                     paddingVertical: 11,
-                    // justifyContent:"center",
                     alignItems: "center",
                 }}>
                     <Image
                         source={{ uri: selectedImage.url }}
-                        //  source={{uri:url}}
                         resizeMode="cover"
-                        //  resizeMode="contain"
-                        //  resizeMode="center"
                         style={{
                             width: Dimensions.get('window').width * .74,
                             height: Dimensions.get('window').width * .74,
-                            // width:(Dimensions.get('window').width /2) -25 ,
-                            // height:150,
                             backgroundColor: `rgba(${Colors.rgb.primary}, .05)`,
                             borderRadius: 9,
                             borderWidth: 1.1,
                             borderColor: `rgba(${Colors.rgb.primary}, .8)`,
-                            // marginHorizontal:14
                         }}
                     />
 
@@ -348,7 +274,6 @@ export default function ImageGen({ navigation }) {
                         width: '100%',
                     }}>
                         <Pressable
-                            // disabled={!prompt.length>5}
 
                             android_ripple={{ color: 'rgba(40, 40, 40, .3)' }}
                             style={{
@@ -360,11 +285,6 @@ export default function ImageGen({ navigation }) {
                                 borderRadius: 9,
                                 marginTop: 55,
                                 width: "75%",
-                                // position:'absolute',
-                                // bottom:10,
-                                // left:0,
-                                // right:0,
-                                // marginHorizontal:15,
                             }}
                             onPress={() => setIsVisible(false)}
                         >
@@ -378,7 +298,6 @@ export default function ImageGen({ navigation }) {
 
                         </Pressable>
                         <Pressable
-                            // disabled={!prompt.length>5}
 
                             android_ripple={{ color: 'rgba(40, 40, 40, .3)' }}
                             style={{
@@ -390,13 +309,6 @@ export default function ImageGen({ navigation }) {
                                 borderRadius: 9,
                                 marginTop: 55,
                                 width: "20%",
-                                // flexDirection:"row",
-                                // justifyContent:"space-between",
-                                // position:'absolute',
-                                // bottom:10,
-                                // left:0,
-                                // right:0,
-                                // marginHorizontal:15,
                             }}
                             onPress={() => handleDownload()}
                         >
@@ -407,17 +319,6 @@ export default function ImageGen({ navigation }) {
                                     :
                                     <OcticonsIcon name='download' size={22} color={Colors.lighter} />
                             }
-                            {/* <Lottie style={{
-                            // height:55,
-                            // width:55
-                        }} source={require('../../lottie/download.json')} autoPlay loop /> */}
-
-                            {/* <Text style={{
-                            color:Colors.lighter,
-                            fontSize:16,
-                            display:"none",
-                            fontWeight:"500"
-                        }}>Dowload</Text> */}
 
 
                         </Pressable>
@@ -532,7 +433,6 @@ export default function ImageGen({ navigation }) {
             placement: "bottom",
             duration: 2000,
             offset: 30,
-            // "zoom-in | slide-in",
             animationType: "slide-in",
         });
 
@@ -694,7 +594,7 @@ export default function ImageGen({ navigation }) {
 
 
 
-                        {sizes.map((el, i) => <SizeComponent key={i} title={el} end={i == (sizes.length - 1)} />)}
+                        {sizes.map((el, i) => <Size selected={size} selectionFunction={setSize} key={i} title={el} end={i == (sizes.length - 1)} />)}
                     </View>
 
 
@@ -762,8 +662,8 @@ const styles = StyleSheet.create({
         borderRadius: Layout.radius.xlarge,
         height: 44, // fix the height
         width: 44, // fix the width
-        alignItems:"center",
-        justifyContent:"center",
+        alignItems: "center",
+        justifyContent: "center",
         marginTop: Layout.margin.medium,
         marginStart: Layout.margin.medium,
     },

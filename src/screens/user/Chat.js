@@ -1,4 +1,4 @@
-import { Dimensions, FlatList, Keyboard, Pressable, LogBox, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, useColorScheme, View } from 'react-native'
+import { FlatList, Keyboard, LogBox, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, useColorScheme, View } from 'react-native'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import ScreenWrapper from '../ScreenWrapper'
 import Message from '../../components/chat/Message'
@@ -15,8 +15,6 @@ import config from '../../config/openAI'
 import AppContext from '../../hooks/useContext'
 
 import Voice from '@react-native-community/voice';
-import Modal from 'react-native-modal'
-import CustomButton from '../../components/button/CustomButton'
 import images from '../../assets/Index'
 import Layout from '../../constants/theme/Layout'
 import { RecordButton } from '../../components/Index'
@@ -45,7 +43,6 @@ export default function Chat({ navigation }) {
     const [message, setMessage] = useState('')
     const [isRecording, setIsRecording] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
-    const [respond, setRespond] = useState('')
 
 
 
@@ -56,24 +53,18 @@ export default function Chat({ navigation }) {
     const mode = displayMode == "auto" ? deviceMode : displayMode
 
 
-    const [result, setResult] = useState('');
-    const [loading, setLoading] = useState(false);
-    const [recording, setRecording] = useState(false);
-
 
     const speechStartHandler = e => {
 
         console.log('speechStart successful', e);
     };
     const speechEndHandler = e => {
-        setLoading(false);
         setIsRecording(false)
         console.log('stop handler', e);
     };
 
     const speechResultsHandler = e => {
         const text = e.value[0];
-        setResult(text);
         let newMessage = message + " " + text + " "
         setMessage(newMessage)
         console.log('result', text)
@@ -81,28 +72,24 @@ export default function Chat({ navigation }) {
     };
 
     const startRecording = async () => {
-        setLoading(true);
-        setRecording(true);
+        setIsRecording(true);
         try {
             await Voice.start('en-Us');
         } catch (error) {
             console.log('error', error);
-            setLoading(false);
         }
     };
 
     const stopRecording = async () => {
-        setRecording(false);
         try {
             await Voice.stop();
-            setLoading(false);
+            setIsRecording(false);
         } catch (error) {
             console.log('error', error);
         }
     };
 
     const clear = () => {
-        setResult('');
         setMessage('')
     };
 
@@ -120,7 +107,8 @@ export default function Chat({ navigation }) {
     }, []);
 
 
-
+    // Scroll to the bottom when the keyboard is displayed
+    // Important to let the user always seeing his last message
     if (kb.isVisible) {
         scrollViewRef.current.scrollToEnd({ animated: true })
     }
@@ -168,14 +156,12 @@ export default function Chat({ navigation }) {
                 if (!el.role) { el.role = 'user' }
                 return { role: el.role, content: el.content }
             })
-            // console.log('mes', mes)
             const completion = await openai.createChatCompletion({
                 model: "gpt-3.5-turbo",
                 messages: mes,
             });
 
             const completion_text = completion.data.choices[0].message.content;
-            console.log(completion_text);
 
             history.push([user_input, completion_text]);
 
@@ -184,7 +170,6 @@ export default function Chat({ navigation }) {
                 isRespond: true,
                 content: completion_text
             }
-            console.log('last', newData[newData.length - 1])
             setData(newData)
 
         } catch (error) {
@@ -217,7 +202,6 @@ export default function Chat({ navigation }) {
         if (message.length > 3) {
             handleChat();
 
-            setRespond('../...')
             setMessage('')
             Keyboard.dismiss()
         }
@@ -551,7 +535,7 @@ const styles = StyleSheet.create({
         paddingBottom: Layout.padding.medium,
     },
     title: {
-        fontSize: 18,
+        fontSize: Layout.font.h1,
         color: Colors.primary,
         fontWeight: "500"
 
