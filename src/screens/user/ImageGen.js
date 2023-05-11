@@ -1,4 +1,4 @@
-import { Dimensions, Keyboard, ActivityIndicator, LogBox, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Pressable, Image, PermissionsAndroid } from 'react-native'
+import { Dimensions, Keyboard, ActivityIndicator, LogBox, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Pressable, Image, PermissionsAndroid, Alert } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import ScreenWrapper from '../ScreenWrapper'
 
@@ -101,7 +101,7 @@ export default function ImageGen({ navigation }) {
         }
     };
 
-    
+
     const clear = () => {
         setPrompt('')
     };
@@ -156,7 +156,6 @@ export default function ImageGen({ navigation }) {
             <Pressable
                 android_ripple={{ color: 'rgba(100, 100, 100, .7)', }}
                 style={{
-                    // flex:1,
                     maxWidth: (Dimensions.get('window').width / 2) - 21,
                     width: (Dimensions.get('window').width / 2) - 21,
                     backgroundColor: `rgba(220, 220, 220, 1)`,
@@ -352,16 +351,11 @@ export default function ImageGen({ navigation }) {
         // Get config and fs from RNFetchBlob
         // config: To pass the downloading related options
         // fs: Directory path where we want our image to download
-        // let  fileName = 'image_'+ Math.floor(date.getTime() + date.getSeconds() / 2) + ".jpg"
-        let fileName = 'generatedImage_' + Math.floor(date.getTime() + date.getSeconds() / 2) + ext
-        // let PictureDir = fs.dirs.PictureDir;
+        let fileName = 'GenBotImage_' + Math.floor(date.getTime() + date.getSeconds() / 2) + ext
 
         const { config, fs } = RNFetchBlob;
-        // console.log('fs.dirs')
         console.log('fileName', fileName)
-        // const destPath = RNFetchBlob.fs.dirs.DownloadDir + '/ChatGPT App/' + fileName;
-        const destPath = fs.dirs.DownloadDir + '/ChatGPT App/Images/' + fileName;
-        // console.log('fs.dirs.PictureDir', fs.dirs.DCIMDir , "\n", destPath)
+        const destPath = fs.dirs.DownloadDir + '/GenBot/Images/' + fileName;
 
         let options = {
             fileCache: true,
@@ -377,12 +371,17 @@ export default function ImageGen({ navigation }) {
             .fetch('GET', image_URL)
             .then(res => {
                 // Showing alert after successful downloading
-                console.log('res -> ', JSON.stringify(res));
                 setIsDownloading(false)
-                // alert('Image Downloaded Successfully.');
             })
             .catch(error => {
-                console.log('error fetch', error)
+                Alert.alert(
+                    'Error',
+                    error,
+                    [
+                      {text: 'Cancel', style: 'cancel'},
+                      {text: 'OK'},
+                    ]
+                  )
                 setIsDownloading(false)
             });
     };
@@ -412,7 +411,7 @@ export default function ImageGen({ navigation }) {
                 checkPermission(selectedImage.url)
 
                 // "normal | success | warning | danger | custom",
-                toast.update(id, "Successfully downloaded \n To : ChatGPT App", {
+                toast.update(id, "Successfully downloaded \n To : GenBot", {
                     type: "success",
                 });
             } catch (error) {

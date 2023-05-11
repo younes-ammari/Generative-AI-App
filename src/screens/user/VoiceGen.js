@@ -1,4 +1,4 @@
-import { Dimensions, FlatList, Keyboard, useColorScheme, ActivityIndicator, LogBox, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Pressable, Image, PermissionsAndroid } from 'react-native'
+import { Dimensions, Alert, Keyboard, useColorScheme, ActivityIndicator, LogBox, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Pressable, Image, PermissionsAndroid } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 
 
@@ -32,11 +32,11 @@ import ScreenWrapper from '../ScreenWrapper'
 
 
 import { CustomButton, PlayerComponent } from '../../components/Index';
+import Layout from '../../constants/theme/Layout';
 
 
 
 export default function VoiceGen({ navigation }) {
-    // let dirs = RNFetchBlob.fs.dirs
 
     const API_URL = "https://play.ht/api/v2"
 
@@ -58,24 +58,14 @@ export default function VoiceGen({ navigation }) {
     const [isDownloading, setIsDownloading] = useState(false)
 
 
-    const demoResult = [
-        {
-            url: 'https://Images.nightcafe.studio/jobs/rY2TxlazqPUzLomNPmnM/rY2TxlazqPUzLomNPmnM--1--gs4f2.jpg?tr=w-640,c-at_max'
-        }
-    ]
-    const [respond, setRespond] = useState(demoResult)
-    const [prompt, setPrompt] = useState('')
-    const [number, setNumber] = useState(1)
-    const [isPremium, setIsPremium] = useState(false)
-    const [selectedImage, setSelectedImage] = useState({ url: "https://Images.nightcafe.studio/jobs/rY2TxlazqPUzLomNPmnM/rY2TxlazqPUzLomNPmnM--1--gs4f2.jpg?tr=w-640,c-at_max" })
 
-    const WH = Dimensions.get('window').height
-    const WW = Dimensions.get('window').width
+    const [respond, setRespond] = useState([])
+    const [prompt, setPrompt] = useState('')
+    const [isPremium, setIsPremium] = useState(false)
 
 
 
     const [result, setResult] = useState('');
-    const [loading, setLoading] = useState(false);
     const [fetchingData, setFetchingData] = useState(false);
     const [recording, setRecording] = useState(false);
 
@@ -103,23 +93,36 @@ export default function VoiceGen({ navigation }) {
     };
 
     const startRecording = async () => {
-        // setLoading(true);
         try {
             setRecording(true);
             await Voice.start('en-Us');
         } catch (error) {
-            console.log('error', error);
+            Alert.alert(
+                'Start Recording error',
+                error,
+                [
+                    { text: 'Cancel', style: 'cancel' },
+                    { text: 'OK' },
+                ]
+            )
             setRecording(false);
         }
     };
 
     const stopRecording = async () => {
-        // setRecording(false);
         try {
             await Voice.stop();
             setRecording(false);
         } catch (error) {
             setRecording(false);
+            Alert.alert(
+                'Stop Recording error',
+                error,
+                [
+                    { text: 'Cancel', style: 'cancel' },
+                    { text: 'OK' },
+                ]
+            )
             console.log('error', error);
         }
     };
@@ -150,21 +153,18 @@ export default function VoiceGen({ navigation }) {
     };
 
 
-    // const sound = useRef(Sound('', null))
-
 
     useEffect(() => {
 
-        // fetchData()
+        fetchData()
         // LoadAudio();
 
-        LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+
         Voice.onSpeechStart = speechStartHandler;
         Voice.onSpeechEnd = speechEndHandler;
         Voice.onSpeechResults = speechResultsHandler;
 
         return () => {
-            // sound.current.unloadAsync()
             Voice.destroy().then(Voice.removeAllListeners);
         };
     }, []);
@@ -180,12 +180,10 @@ export default function VoiceGen({ navigation }) {
         return (
             <Pressable style={{
                 flex: 1,
-                // paddingHorizontal:11,
                 paddingVertical: 11,
                 flexDirection: 'row',
                 justifyContent: "center",
                 alignItems: "center",
-                // marginHorizontal:8,
                 marginRight: !end ? 7 : 0,
                 borderRadius: 9,
                 backgroundColor: selected ? Colors.primary : null,
@@ -198,7 +196,6 @@ export default function VoiceGen({ navigation }) {
                 onPress={() => {
                     let initOptions = data.filter(el => el.gender == title)[0]
                     setGender(title);
-                    // console.log(initOptions)
 
 
                     setLanguages(getUniques(data.map(el => el.language)))
@@ -234,11 +231,9 @@ export default function VoiceGen({ navigation }) {
 
 
     if (kb.isVisible) {
-        // scrollViewRef.current.scrollToEnd({ animated: true })
         scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
     }
 
-    // console.log('kb', kb)
 
     const dataDemo = [
         {
@@ -401,14 +396,12 @@ export default function VoiceGen({ navigation }) {
 
     const [languages, setLanguages] = useState(languagesDemo)
     const [language, setLanguage] = useState(languagesDemo[0])
-    // const [language, setLanguage] = useState(data[0].language)
 
 
 
     const agesDemo = getUniques(data.filter(el => el.language == language).map(el => el.age))
 
     const [ages, setAges] = useState(agesDemo)
-    // const [age, setAge] = useState(agesDemo[0])
     const [age, setAge] = useState(data[0].age)
 
 
@@ -417,7 +410,6 @@ export default function VoiceGen({ navigation }) {
 
     const [voices, setVoices] = useState(voicesDemo)
     const [voice, setVoice] = useState(voicesDemo[0])
-    // const [voice ,setVoice] = useState('null')
 
 
 
@@ -457,9 +449,6 @@ export default function VoiceGen({ navigation }) {
         "sample_rate": 24000
     })
 
-    // console.log(requestOptions)
-    console.log(generatedVoice)
-
 
     const modall = () => {
         return (
@@ -468,23 +457,17 @@ export default function VoiceGen({ navigation }) {
                 coverScreen={true}
                 onBackButtonPress={() => setVisible(false)}
                 onDismiss={() => setVisible(false)}
-                // style={{top:-55}}
                 deviceHeight={Dimensions.get('window').height * 1.1}
                 animationIn="fadeInUp"
             >
                 <View style={{
-                    // flex: 1 , 
                     zIndex: 11,
                     width: Dimensions.get('window').width * .8,
                     alignSelf: "center",
                     backgroundColor: styleColors.placeholder,
-                    // marginVertical:33,
-                    // marginHorizontal:22,
                     borderRadius: 9,
                     paddingHorizontal: 11,
                     paddingVertical: 11,
-                    // justifyContent:"center",
-                    // alignItems:"center",
                 }}>
                     <PlayerComponent url={audioLink} details={generatedVoice} />
 
@@ -507,13 +490,7 @@ export default function VoiceGen({ navigation }) {
                                 justifyContent: "center",
                                 backgroundColor: Colors.red,
                                 borderRadius: 9,
-                                // marginTop:55,
                                 width: "75%",
-                                // position:'absolute',
-                                // bottom:10,
-                                // left:0,
-                                // right:0,
-                                // marginHorizontal:15,
                             }}
                             onPress={() => setVisible(false)}
                         >
@@ -537,15 +514,7 @@ export default function VoiceGen({ navigation }) {
                                 justifyContent: "center",
                                 backgroundColor: 'rgba(30, 200, 30, .9)',
                                 borderRadius: 9,
-                                // marginTop:55,
                                 width: "20%",
-                                // flexDirection:"row",
-                                // justifyContent:"space-between",
-                                // position:'absolute',
-                                // bottom:10,
-                                // left:0,
-                                // right:0,
-                                // marginHorizontal:15,
                             }}
                             onPress={() => handleDownload()}
                         >
@@ -556,17 +525,7 @@ export default function VoiceGen({ navigation }) {
                                     :
                                     <OcticonsIcon name='download' size={22} color={Colors.lighter} />
                             }
-                            {/* <Lottie style={{
-                            // height:55,
-                            // width:55
-                        }} source={require('../../lottie/download.json')} autoPlay loop /> */}
 
-                            {/* <Text style={{
-                            color:Colors.lighter,
-                            fontSize:16,
-                            display:"none",
-                            fontWeight:"500"
-                        }}>Dowload</Text> */}
 
 
                         </Pressable>
@@ -606,6 +565,14 @@ export default function VoiceGen({ navigation }) {
             } catch (err) {
                 // To handle permission related exception
                 console.warn(err);
+                Alert.alert(
+                    'Storage Permission error',
+                    err,
+                    [
+                        { text: 'Cancel', style: 'cancel' },
+                        { text: 'OK' },
+                    ]
+                )
             }
         }
     };
@@ -624,17 +591,10 @@ export default function VoiceGen({ navigation }) {
         // Get config and fs from RNFetchBlob
         // config: To pass the downloading related options
         // fs: Directory path where we want our image to download
-        // let  fileName = 'image_'+ Math.floor(date.getTime() + date.getSeconds() / 2) + ".jpg"
-        // let  fileName = `generatedVoice_${requestOptions.voice}`+ Math.floor(date.getTime() + date.getSeconds() / 2) + ext
-        let fileName = `generatedVoice_${requestOptions.voice}_${generatedVoice.id}` + ext
-        // let PictureDir = fs.dirs.PictureDir;
+        let fileName = `GenBotVoice_${requestOptions.voice}_${generatedVoice.id}` + Math.floor(date.getTime() + date.getSeconds() / 2) + ext
 
         const { config, fs } = RNFetchBlob;
-        // console.log('fs.dirs')
-        console.log('fileName', fileName)
-        // const destPath = RNFetchBlob.fs.dirs.DownloadDir + '/ChatGPT App/' + fileName;
-        const destPath = fs.dirs.DownloadDir + `/ChatGPT App/Audio/${requestOptions.voice}/` + fileName;
-        // console.log('fs.dirs.PictureDir', fs.dirs.DCIMDir , "\n", destPath)
+        const destPath = fs.dirs.DownloadDir + `/GenBot/Audio/${requestOptions.voice}/` + fileName;
 
         let options = {
             fileCache: true,
@@ -652,10 +612,16 @@ export default function VoiceGen({ navigation }) {
                 // Showing alert after successful downloading
                 console.log('res -> ', JSON.stringify(res));
                 setIsDownloading(false)
-                // alert('Image Downloaded Successfully.');
             })
             .catch(error => {
-                console.log('error fetch', error)
+                Alert.alert(
+                    'Fetching Sound Data error',
+                    error,
+                    [
+                        { text: 'Cancel', style: 'cancel' },
+                        { text: 'OK' },
+                    ]
+                )
                 setIsDownloading(false)
             });
     };
@@ -680,7 +646,6 @@ export default function VoiceGen({ navigation }) {
             placement: "bottom",
             duration: 2000,
             offset: 30,
-            // "zoom-in | slide-in",
             animationType: "slide-in",
         });
 
@@ -690,12 +655,19 @@ export default function VoiceGen({ navigation }) {
             try {
                 checkPermission(audioLink)
 
-                // "normal | success | warning | danger | custom",
-                toast.update(id, "Successfully downloaded \n To : ChatGPT App", {
+                toast.update(id, "Successfully downloaded \n To : GenBot", {
                     type: "success",
                 });
             } catch (error) {
-                console.log('download error', error)
+                // console.log('download error', error)
+                Alert.alert(
+                    'Download error',
+                    error,
+                    [
+                        { text: 'Cancel', style: 'cancel' },
+                        { text: 'OK' },
+                    ]
+                )
                 toast.update(id, "Error while downloading", {
                     type: "danger",
                 });
@@ -733,9 +705,6 @@ export default function VoiceGen({ navigation }) {
                 let initOptions = result[0]
 
 
-                // let initOptions = data[0]
-                // setGender(title);
-
                 setLanguages(getUniques(result.map(el => el.language)))
                 setLanguage(initOptions.language)
 
@@ -750,7 +719,14 @@ export default function VoiceGen({ navigation }) {
 
             })
             .catch(error => {
-                console.log('error', error)
+                Alert.alert(
+                    'Error',
+                    error,
+                    [
+                        { text: 'Cancel', style: 'cancel' },
+                        { text: 'OK' },
+                    ]
+                )
             })
             .finally(() => {
                 setFetchingData(false)
@@ -762,12 +738,12 @@ export default function VoiceGen({ navigation }) {
     const handleGenerating = async () => {
         Keyboard.dismiss()
         setAudioLink('')
-
+        console.log('handling')
         var url = `${API_URL}/tts`
         let id
         let audioLink
 
-        // setPrompt('')
+
         setIsLoading(true)
         try {
             audioLink = ""
@@ -787,16 +763,19 @@ export default function VoiceGen({ navigation }) {
             fetch(url, options)
                 .then(response => response.json())
                 .then(result => {
-                    // console.log("result.id", result.id)
                     id = result.id
-                    // var resp = result.data.data
                     setRespond(result)
-                    // fetch(result.)
                 })
-                .catch(error => console.log('error', error))
+                .catch(error =>
+                    Alert.alert(
+                        'Error',
+                        error,
+                        [
+                            { text: 'Cancel', style: 'cancel' },
+                            { text: 'OK' },
+                        ]
+                    ))
                 .finally(res => {
-                    // console.log("respond", respond)
-                    console.log("id", id)
                     setGeneratedVoice({
                         id: "",
                         voice: "",
@@ -806,18 +785,9 @@ export default function VoiceGen({ navigation }) {
                         size: "",
                         duration: ""
                     })
-                    // console.log("respond.href", respond.href)
 
                     if (id) {
                         var link = `${API_URL}/tts/${id}?format=event-stream`
-                        // var link = `${API_URL}/tts/${id}`
-                        // var link = `${API_URL}/tts/oUPptpJB0mwBfpbARf`
-                        // var link = respond.href
-                        // var soundLink = `https://peregrine-results.s3.amazonaws.com/pigeon/${id}_0.${requestOptions.output_format.toLowerCase()}`
-
-                        // setAudioLink(soundLink)
-                        // setVisible(true)
-                        // console.log('soundLink', soundLink)
 
 
                         const fetchRequestOptions = {
@@ -836,8 +806,6 @@ export default function VoiceGen({ navigation }) {
                                 var demo1 = result.split("data: ", undefined)
                                 var demo1 = demo1[demo1.length - 1]
                                 var demo2 = JSON.parse(demo1)
-                                console.log("demo2", demo2)
-                                // console.log("result", result)
 
                                 audioLink = demo2.url
                                 let name = data.filter(el => el.id == requestOptions.voice)[0].name
@@ -847,17 +815,30 @@ export default function VoiceGen({ navigation }) {
                                 audioLink && setVisible(true)
                                 scrollViewRef.current.scrollToEnd({ animated: true })
 
-                                // console.log("audioLink", audioLink)
-                                // console('ded')
                             })
-                            .catch(error => console.log('finally error', error))
+                            .catch(error =>
+                                Alert.alert(
+                                    'Error',
+                                    error,
+                                    [
+                                        { text: 'Cancel', style: 'cancel' },
+                                        { text: 'OK' },
+                                    ]
+                                ))
                             .finally(() => {
                                 setIsLoading(false)
                             })
-                        // setIsLoading(false)
                     }
                     else {
                         console.log('respond error', respond)
+                        Alert.alert(
+                            'Respond error',
+                            respond,
+                            [
+                                { text: 'Cancel', style: 'cancel' },
+                                { text: 'OK' },
+                            ]
+                        )
                         setIsLoading(false)
                     }
                 })
@@ -865,24 +846,20 @@ export default function VoiceGen({ navigation }) {
         }
         catch (error) {
             setIsLoading(false)
-            console.error("error generating", error)
+            console.log('Generating error', error)
+            Alert.alert(
+                'Generating error',
+                error,
+                [
+                    { text: 'Cancel', style: 'cancel' },
+                    { text: 'OK' },
+                ]
+            )
         }
-
-        // setIsLoading(false)
-        // console.log('finished')
-        // setTimeout(() => {
-        // }, 800);
     };
 
 
     const [audioLink, setAudioLink] = useState('')
-
-    const handlePlaySound = () => {
-
-
-    }
-
-
 
 
 
@@ -914,29 +891,12 @@ export default function VoiceGen({ navigation }) {
                                 paddingBottom: 29,
                                 opacity: .8,
                                 borderRadius: 4,
-                                // flexDirection:'row',
-                                // position:"absolute",
                                 justifyContent: "center",
                                 alignItems: "center",
-                                // top:"50%",
-                                // bottom:"50%",
-                                // right:"50%",
-                                // left:"50%",
-                                // bottom:"50%",
                                 zIndex: 5,
-                                // paddingBottom:33,
                                 marginBottom: 5,
                             }}>
 
-                                {/* <Text style={{
-                        color:Colors.lighter,
-                        // zIndex:21,
-                        // fontSize:18,
-                        // marginEnd:5,
-                        // verticalAlign:"bottom",
-                        textAlign:"center",
-                    }}>recording ...</Text> */}
-                                {/* dotAmplitude, dotSpeed, dotY */}
 
                                 <TypingAnimation
                                     dotMargin={9}
@@ -945,12 +905,7 @@ export default function VoiceGen({ navigation }) {
                                 />
                             </View>}
 
-
-                        <View style={{
-                            flexDirection: 'row',
-                            // alignItems:"center",
-                            justifyContent: "space-between"
-                        }}>
+                        <View style={styles.promptContainer}>
 
                             <TextInput
                                 value={prompt}
@@ -959,58 +914,35 @@ export default function VoiceGen({ navigation }) {
                                 numberOfLines={7}
                                 placeholder={isRecording ? "start talking ..." : kb.isVisible ? 'Write a prompt here ...' : 'click here to start a conversation ...'}
                                 placeholderTextColor={styleColors.placeholderTextColor}
-                                style={{
-                                    // backgroundColor:'rgba(100, 100, 100, .041)',
+                                style={[styles.prompt, {
                                     backgroundColor: styleColors.placeholder,
                                     color: styleColors.placeholderText,
-                                    padding: 10,
-                                    flex: 1,
-                                    fontSize: Layout.font.h2,
-                                    justifyContent: "flex-start",
-                                    alignContent: 'flex-start',
-                                    alignItems: 'flex-start',
-                                    textAlignVertical: 'top',
-                                    verticalAlign: "top",
-                                    borderWidth: 1,
                                     borderColor: styleColors.primary,
-                                    borderRadius: 8,
-                                    marginVertical: 5,
-                                    marginBottom: 11,
 
-                                }}
+                                }]}
                             />
+                            <View>
 
-                            <TouchableOpacity style={{
-                                opacity: .5,
-                                paddingHorizontal: 13,
-                                borderRadius: 8,
-                                height: 44,
-                                zIndex: 2,
-                                marginTop: 5,
-                                // display:!kb.isVisible ? "none" : "flex",
-                                // position:"absolute",
-                                // right:8,
-                                // bottom:8,
-                                borderRadius: 44,
-                                paddingVertical: 5,
-                                marginStart: 9,
-                                alignItems: "center",
-                                justifyContent: "center",
-                                backgroundColor: isRecording ? 'rgba(250, 100, 100, .2)' : 'rgba(100, 100, 100, .2)',
-                                flexDirection: 'row',
-                            }}
-                                // disabled={message.length<4}
-                                onPress={handleRecordEvent}
-                            >
 
-                                <Ionicons name="mic" size={17} color={isRecording ? 'red' : styleColors.color} />
-                                {/* <Text style={{fontSize:16, color:"white", marginLeft:9}}>Send</Text> */}
-                            </TouchableOpacity>
+                                <TouchableOpacity style={[styles.recordingButton, {
+                                    backgroundColor: isRecording ? 'rgba(250, 100, 100, .2)' : 'rgba(100, 100, 100, .2)',
+                                }]}
+                                    onPress={handleRecordEvent}
+                                >
+
+                                    <Ionicons name="mic" size={17} color={isRecording ? 'red' : styleColors.color} />
+                                </TouchableOpacity>
+                                {prompt.length > 2
+                                    &&
+                                    <TouchableOpacity style={styles.clearButton}
+                                        onPress={clear}
+                                    >
+
+                                        <Ionicons name="close" size={17} color={styleColors.color} />
+                                    </TouchableOpacity>
+                                }
+                            </View>
                         </View>
-
-
-
-
 
 
                         <View style={{
@@ -1024,7 +956,6 @@ export default function VoiceGen({ navigation }) {
                                 flexDirection: 'row',
                                 alignItems: "center",
                                 justifyContent: "space-between",
-                                // marginBottom:5,
                             }}>
 
 
@@ -1065,12 +996,9 @@ export default function VoiceGen({ navigation }) {
                                     return (
                                         <Picker.Item key={i} label={el.replace(/\b\w/g, letter => letter.toUpperCase())} value={el} style={{
                                             borderRadius: 9,
-                                            // color:mode=="light"? styleColors.color:,
                                             color: mode == "light" ? selected ? "rgb(0, 0, 0)" : "rgb(150, 150, 150)" : selected ? "rgb(255, 255, 255)" : "rgb(100, 100, 100)",
-                                            // marginTop:0,
                                             fontWeight: selected ? "700" : "bold",
                                             backgroundColor: styleColors.placeholder,
-                                            // backgroundColor:selected ? styleColors.backgroundColor : styleColors.placeholder ,
                                         }} />
                                     )
                                 })}
@@ -1120,8 +1048,6 @@ export default function VoiceGen({ navigation }) {
                                     setLoudnesses(getUniques(data.filter(el => el.language == language && el.age == itemValue && el.gender == gender).map(el => el.loudness)))
                                     setLoudness(initOptions.loudness)
 
-                                    // setVoice(newData[0])
-                                    // console.info('names', itemValue, newData.length)
 
 
 
@@ -1132,12 +1058,9 @@ export default function VoiceGen({ navigation }) {
                                     return (
                                         <Picker.Item key={i} label={el.replace(/\b\w/g, letter => letter.toUpperCase())} value={el} style={{
                                             borderRadius: 9,
-                                            // color:mode=="light"? styleColors.color:,
                                             color: mode == "light" ? selected ? "rgb(0, 0, 0)" : "rgb(150, 150, 150)" : selected ? "rgb(255, 255, 255)" : "rgb(100, 100, 100)",
-                                            // marginTop:0,
                                             fontWeight: selected ? "700" : "bold",
                                             backgroundColor: styleColors.placeholder,
-                                            // backgroundColor:selected ? styleColors.backgroundColor : styleColors.placeholder ,
                                         }} />
                                     )
                                 })}
@@ -1177,18 +1100,13 @@ export default function VoiceGen({ navigation }) {
                                 }}>
                                 {voices.map((el, i) => {
                                     var selected = el.id == voice.id
-                                    // console.log('jj', selected, voice, '=', el)
-                                    // var selected = el==voice.toLowerCase()
 
                                     return (
                                         <Picker.Item key={i} label={el.name} value={el.id} style={{
                                             borderRadius: 9,
-                                            // color:mode=="light"? styleColors.color:,
                                             color: mode == "light" ? selected ? "rgb(0, 0, 0)" : "rgb(150, 150, 150)" : selected ? "rgb(255, 255, 255)" : "rgb(100, 100, 100)",
-                                            // marginTop:0,
                                             fontWeight: selected ? "700" : "bold",
                                             backgroundColor: styleColors.placeholder,
-                                            // backgroundColor:selected ? styleColors.backgroundColor : styleColors.placeholder ,
                                         }} />
                                     )
                                 })}
@@ -1242,12 +1160,9 @@ export default function VoiceGen({ navigation }) {
                                     return (
                                         <Picker.Item key={i} label={"." + el} value={el} style={{
                                             borderRadius: 9,
-                                            // color:mode=="light"? styleColors.color:,
                                             color: mode == "light" ? selected ? "rgb(0, 0, 0)" : "rgb(150, 150, 150)" : selected ? "rgb(255, 255, 255)" : "rgb(100, 100, 100)",
-                                            // marginTop:0,
                                             fontWeight: selected ? "700" : "bold",
                                             backgroundColor: styleColors.placeholder,
-                                            // backgroundColor:selected ? styleColors.backgroundColor : styleColors.placeholder ,
                                         }} />
                                     )
                                 })}
@@ -1273,7 +1188,6 @@ export default function VoiceGen({ navigation }) {
                                 backgroundColor: styleColors.backgroundColor,
                                 justifyContent: 'center',
                                 alignSelf: 'center',
-                                // alignItems:'center',
                                 width: Dimensions.get('window').width,
                             }}>
 
@@ -1304,25 +1218,20 @@ export default function VoiceGen({ navigation }) {
                             backgroundColor: styleColors.backgroundColor,
                             justifyContent: 'center',
                             alignSelf: 'center',
-                            // alignItems:'center',
                             width: Dimensions.get('window').width,
                         }}>
 
 
                             <Pressable
-                                // disabled={!audioLink.length>5}
 
                                 android_ripple={{ color: 'rgba(40, 40, 40, .3)' }}
                                 style={{
                                     paddingHorizontal: 9,
-                                    // opacity: audioLink.length>4 ? 1 : .2,
                                     paddingVertical: 14,
                                     alignItems: "center",
                                     flexDirection: 'row',
                                     justifyContent: "center",
-                                    // borderWidth:1,
                                     borderColor: mode == "dark" ? styleColors.color : undefined,
-                                    // backgroundColor:mode == "light" ? styleColors.primary : undefined,
                                     borderRadius: 9,
                                 }}
                                 onPress={() => setVisible(true)}
@@ -1330,13 +1239,10 @@ export default function VoiceGen({ navigation }) {
 
                                 <Ionicons name={"play"} color={Colors.red} size={17} />
                                 <Text style={{
-                                    // color:mode == "light" ?  styleColors.backgroundColor : styleColors.color,
                                     color: Colors.red,
-                                    // color: styleColors.backgroundColor,
                                     fontSize: 16,
                                     zIndex: 55,
                                     marginStart: 7,
-                                    // opacity:audioLink.length>5 ? 1: .4,
                                     fontWeight: "500"
                                 }}>Play Sound</Text>
 
@@ -1357,12 +1263,12 @@ export default function VoiceGen({ navigation }) {
                         marginTop: generatedVoice.id.length > 3 ? 11 : 44,
                         zIndex: 11,
                         justifyContent: 'center',
-                        alignItems:'center',
+                        alignItems: 'center',
                     }}>
 
                         <CustomButton
                             disabled={!prompt.length > 5}
-                            style={{opacity: prompt.length > 4 ? 1 : .2,}}
+                            style={{ opacity: prompt.length > 4 ? 1 : .2, }}
                             onPress={handleGenerating}
                             label={isLoading ? "Generating ..." : generatedVoice.id.length < 3 ? "Generate" : "Generate again!"}
                             isLoading={isLoading}
@@ -1396,15 +1302,52 @@ export default function VoiceGen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+    clearButton: {
+        opacity: .5,
+        borderRadius: Layout.radius.xlarge,
+        height: 44, // fix the height
+        width: 44, // fix the width
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: Layout.margin.medium,
+        marginStart: Layout.margin.medium,
+        backgroundColor: 'rgba(100, 100, 100, .2)',
+    },
+    recordingButton: {
+        opacity: .5,
+        borderRadius: Layout.radius.xlarge,
+        height: 44, // fix the height
+        width: 44, // fix the width
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: Layout.margin.medium,
+        marginStart: Layout.margin.medium,
+    },
+    prompt: {
+        padding: Layout.padding.medium,
+        flex: 1, // fit the available size
+        fontSize: Layout.font.h2,
+        justifyContent: "flex-start",
+        alignContent: 'flex-start',
+        alignItems: 'flex-start',
+        textAlignVertical: 'top',
+        verticalAlign: "top",
+        borderWidth: 1,
+        borderRadius: Layout.radius.small,
+        marginVertical: Layout.margin.medium,
+        marginBottom: Layout.margin.medium
+    },
+    promptContainer: {
+        flexDirection: 'row',
+        justifyContent: "space-between"
+    },
     typingContainer: {
         zIndex: 11,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: "flex-end",
         paddingVertical: 8,
-        // width:'100%',
         height: 'auto',
-        // height:55,
         alignSelf: "center",
         borderRadius: 16,
         paddingHorizontal: 9,
@@ -1414,7 +1357,6 @@ const styles = StyleSheet.create({
     },
     chatContainer: {
         flex: 1,
-        // height:Dimensions.get("window").height*.8,
     },
     titleContainer: {
         width: '100%',
@@ -1423,11 +1365,9 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         marginBottom: 9,
         paddingBottom: 13,
-        // backgroundColor:Colors.primary,
     },
     title: {
         fontSize: 19,
-        // color:"#FFF",
         color: Colors.primary,
         fontWeight: "500",
         marginVertical: 4,
