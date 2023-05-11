@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react';
 // import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
 import storage from './useStorage';
-import { useColorScheme } from 'react-native';
+import { useColorScheme, TextStyle } from 'react-native';
 import Colors from '../constants/theme/Colors'
 
 const AppContext = createContext();
@@ -139,7 +139,9 @@ export const AppContextProvider = (props)=> {
         // loadAsyncData()
 
     },[]);
+    
 
+    const styleColors= Colors[displayMode == "auto" ? deviceMode : displayMode]
 
     const data = {
         setMode,
@@ -151,7 +153,7 @@ export const AppContextProvider = (props)=> {
         setAppDataHandler,
         loadAppDataHandler,
         visibleLogout, setVisibleLogout,
-        styleColors:Colors[displayMode=="auto" ? deviceMode : displayMode]
+        styleColors
     }
     
 

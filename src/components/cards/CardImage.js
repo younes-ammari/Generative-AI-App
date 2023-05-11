@@ -107,16 +107,6 @@ export default function CardImage({
 }
 
 const styles = StyleSheet.create({
-    soonContainer: {
-        position: "absolute",
-        width: "100%",
-        height: "100%",
-        zIndex: 11,
-        alignItems: "center",
-        justifyContent: "center",
-        alignSelf: "center",
-        backgroundColor: 'rgba(20, 20, 20, .6)',
-    },
     imageContainer: {
         alignItems: "center",
         justifyContent: "center",
@@ -131,7 +121,7 @@ const styles = StyleSheet.create({
     },
     subtitle: {
         fontWeight: "300",
-        fontSize: 16,
+        fontSize: Layout.font.h2,
         color: Colors.lighter,
         maxWidth: "95%",
         opacity: .5,
@@ -139,7 +129,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontWeight: "500",
-        fontSize: 18,
+        fontSize: Layout.font.h1,
         letterSpacing: 1,
         color: Colors.lighter
 
@@ -149,7 +139,7 @@ const styles = StyleSheet.create({
         borderRadius: Layout.radius.medium,
         paddingHorizontal: Layout.padding.small,
         width: '100%',
-        marginBottom: Layout.margin.small,
+        marginBottom: Layout.margin.medium-5,
         overflow: 'hidden',
         borderWidth: 1.4,
     },
@@ -157,7 +147,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: "center",
         justifyContent: "space-between",
-        paddingVertical: 11,
-        paddingHorizontal: 12,
+        paddingVertical: Layout.padding.medium,
+        paddingHorizontal: Layout.padding.small,
     }
 })

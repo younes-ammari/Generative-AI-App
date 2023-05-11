@@ -78,18 +78,15 @@ export default function VoiceGen({ navigation }) {
     const speechStartHandler = e => {
         setRecording(true)
 
-        console.log('speechStart successful', e);
     };
     const speechEndHandler = e => {
         setRecording(false);
-        console.log('stop handler', e);
     };
 
     const speechResultsHandler = e => {
         const text = e.value[0];
         setResult(text);
         setPrompt(prompt + " " + text + " ")
-        console.log('result', text)
     };
 
     const startRecording = async () => {
@@ -197,7 +194,6 @@ export default function VoiceGen({ navigation }) {
                     let initOptions = data.filter(el => el.gender == title)[0]
                     setGender(title);
 
-
                     setLanguages(getUniques(data.map(el => el.language)))
                     setLanguage(initOptions.language)
 
@@ -212,6 +208,11 @@ export default function VoiceGen({ navigation }) {
                     setLoudnesses(getUniques(data.filter(el => el.gender == title && el.age == initOptions.age).map(el => el.loudness)))
                     setLoudness(initOptions.loudness)
 
+                    // used to re-render the PlayerComponent sample
+                    setSample(false)
+                    setTimeout(() => {
+                        setSample(true)
+                    }, 16);
                 }}
             >
                 <Fontisto name={iconName} size={17} color={selected ? Colors.lighter : styleColors.color} />
@@ -698,8 +699,6 @@ export default function VoiceGen({ navigation }) {
         fetch(url, requestOptions)
             .then(response => response.json())
             .then(result => {
-
-                console.log("result length", result.length)
                 setData(result)
 
                 let initOptions = result[0]
@@ -744,6 +743,7 @@ export default function VoiceGen({ navigation }) {
         let audioLink
 
 
+        // return
         setIsLoading(true)
         try {
             audioLink = ""
@@ -860,6 +860,7 @@ export default function VoiceGen({ navigation }) {
 
 
     const [audioLink, setAudioLink] = useState('')
+    const [sample, setSample] = useState(true)
 
 
 
@@ -987,9 +988,16 @@ export default function VoiceGen({ navigation }) {
                                     backgroundColor: styleColors.placeholder
                                 }}
                                 dropdownIconColor={styleColors.color}
-                                onValueChange={(itemValue, itemIndex) =>
+                                onValueChange={(itemValue, itemIndex) => {
                                     setLanguage(itemValue.toLowerCase())
-                                }>
+                                    // used to re-render the PlayerComponent sample
+                                    setSample(false)
+                                    setTimeout(() => {
+                                        setSample(true)
+                                    }, 16);
+
+
+                                }}>
                                 {languages.map((el, i) => {
                                     var selected = el == language
 
@@ -1041,7 +1049,11 @@ export default function VoiceGen({ navigation }) {
                                     var initOptions = newData[0]
 
                                     setVoice(initOptions)
-                                    setVoices(newData)
+                                    // used to re-render the PlayerComponent samplesetVoices(newData)
+                                    setSample(false)
+                                    setTimeout(() => {
+                                        setSample(true)
+                                    }, 16);
 
                                     setRequestOptions({ ...requestOptions, voice: initOptions.id })
 
@@ -1096,7 +1108,11 @@ export default function VoiceGen({ navigation }) {
                                 dropdownIconColor={styleColors.color}
                                 onValueChange={(itemValue, itemIndex) => {
                                     setVoice(voices.filter(el => el.id == itemValue)[0])
-                                    setRequestOptions({ ...requestOptions, voice: itemValue })
+                                    // used to re-render the PlayerComponent samplesetRequestOptions({ ...requestOptions, voice: itemValue })
+                                    setSample(false)
+                                    setTimeout(() => {
+                                        setSample(true)
+                                    }, 16);
                                 }}>
                                 {voices.map((el, i) => {
                                     var selected = el.id == voice.id
@@ -1117,6 +1133,24 @@ export default function VoiceGen({ navigation }) {
 
 
                         </View>
+
+                        <Text style={[styles.title, { color: styleColors.color }]}>Sample</Text>
+
+                        {
+                            sample
+                                ?
+                                <PlayerComponent
+                                    url='https://peregrine-samples.s3.amazonaws.com/editor-samples/abram.wav'
+                                    details={{ name: voice.name }}
+                                    style={{
+                                        backgroundColor: null,
+                                        backgroundColor: styleColors.softFill,
+                                        color: mode == 'dark' ? Colors.lighter : 'rgb(91, 91, 91)'
+                                    }}
+                                />
+                                :
+                                <ActivityIndicator size={22} color={styleColors.color} />
+                        }
 
 
 
