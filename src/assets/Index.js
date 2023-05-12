@@ -1,4 +1,10 @@
 const images = {
+    models:{
+
+        gpt3:{uri:"https://hackster.imgix.net/uploads/attachments/1378822/_nfINiSfnAw.blob?auto=compress&w=900&h=675&fit=min&fm=jpg"},
+        gpt3_5:{uri:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1024px-ChatGPT_logo.svg.png"},
+        gpt4:{uri:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1024px-ChatGPT_logo.svg.png"},
+    },
     gpt3_5:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1024px-ChatGPT_logo.svg.png",
     welcomeBackground: require("./images/welcomeBackground.jpg"),
     chatGPT: require('./images/home/chatGPT.png'),

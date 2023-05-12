@@ -251,20 +251,21 @@ export default function Chat({ navigation }) {
 
     const models = [
         {
+            title: "GPT 3",
+            value: "gpt3",
+            image: images.models.gpt3
+        },
+        {
             title: "GPT 3.5",
             value: "gpt3.5",
-            image: images.chatGPT
+            image: images.models.gpt3_5
         },
         {
             title: "GPT 4",
             value: "gpt4",
-            image: images.videoGen
+            image: images.models.gpt4
         },
-        {
-            title: "GPT 4.5",
-            value: "gpt4.5",
-            image: images.contentGen
-        },
+        
     ]
 
 
