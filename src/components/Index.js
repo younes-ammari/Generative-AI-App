@@ -13,6 +13,7 @@ export {default as RecordButton } from './button/RecordButton'
 
 // cards
 export {default as Size } from './cards/Size'
+export {default as Gender } from './cards/Gender'
 export {default as Card } from './cards/Card'
 export {default as CardImage } from './cards/CardImage'
 export {default as CardNew } from './cards/CardNew'

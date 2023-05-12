@@ -6,7 +6,7 @@ export default Colors = {
     bleu : "#0b67f5",
     softBleu : "rgba(86, 185, 238, 0.25)",
     softRed : "rgba(248, 93, 93, 0.18)",
-    lighter:'#FFF',
+    lighter:'#FFFFFF',
     darker:"#212226",
     yellow:"rgba(255, 210, 51, 1)",
     red:'rgba(248, 93, 93, 1))',

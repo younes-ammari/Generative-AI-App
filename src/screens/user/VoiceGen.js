@@ -31,7 +31,7 @@ import AppContext from '../../hooks/useContext'
 import ScreenWrapper from '../ScreenWrapper'
 
 
-import { CustomButton, PlayerComponent } from '../../components/Index';
+import { CustomButton, Gender, PlayerComponent } from '../../components/Index';
 import Layout from '../../constants/theme/Layout';
 
 
@@ -154,7 +154,6 @@ export default function VoiceGen({ navigation }) {
     useEffect(() => {
 
         fetchData()
-        // LoadAudio();
 
 
         Voice.onSpeechStart = speechStartHandler;
@@ -166,69 +165,30 @@ export default function VoiceGen({ navigation }) {
         };
     }, []);
 
-    const GenderComponent = ({
-        title = "1024x1024",
-        end = false,
-        icon
-    }) => {
-        var selected = gender == title
-        var iconName = ['female', 'male'].includes(title) ? title : "male"
+    const handleGenderSelection = (title) => {
+        let initOptions = data.filter(el => el.gender == title)[0]
+        setGender(title);
 
-        return (
-            <Pressable style={{
-                flex: 1,
-                paddingVertical: 11,
-                flexDirection: 'row',
-                justifyContent: "center",
-                alignItems: "center",
-                marginRight: !end ? 7 : 0,
-                borderRadius: 9,
-                backgroundColor: selected ? Colors.primary : null,
-                marginVertical: 4,
-                borderWidth: 1.5,
-                opacity: selected ? 1 : .71,
-                borderColor: 'rgba(100, 100, 100, .5)'
+        setLanguages(getUniques(data.map(el => el.language)))
+        setLanguage(initOptions.language)
 
-            }}
-                onPress={() => {
-                    let initOptions = data.filter(el => el.gender == title)[0]
-                    setGender(title);
+        setAges(getUniques(data.filter(el => el.gender == title).map(el => el.age)))
+        setAge(initOptions.age)
 
-                    setLanguages(getUniques(data.map(el => el.language)))
-                    setLanguage(initOptions.language)
+        setVoices(getUniques(data.filter(el => el.gender == title && el.age == initOptions.age).map(el => { return ({ name: el.name, id: el.id, sample: el.sample }) })))
+        setVoice({ name: initOptions.name, id: initOptions.id, sample: initOptions.sample })
 
-                    setAges(getUniques(data.filter(el => el.gender == title).map(el => el.age)))
-                    setAge(initOptions.age)
+        setRequestOptions({ ...requestOptions, voice: initOptions.id })
 
-                    setVoices(getUniques(data.filter(el => el.gender == title && el.age == initOptions.age).map(el => { return ({ name: el.name, id: el.id }) })))
-                    setVoice({ name: initOptions.name, id: initOptions.id })
+        setLoudnesses(getUniques(data.filter(el => el.gender == title && el.age == initOptions.age).map(el => el.loudness)))
+        setLoudness(initOptions.loudness)
 
-                    setRequestOptions({ ...requestOptions, voice: initOptions.id })
-
-                    setLoudnesses(getUniques(data.filter(el => el.gender == title && el.age == initOptions.age).map(el => el.loudness)))
-                    setLoudness(initOptions.loudness)
-
-                    // used to re-render the PlayerComponent sample
-                    setSample(false)
-                    setTimeout(() => {
-                        setSample(true)
-                    }, 16);
-                }}
-            >
-                <Fontisto name={iconName} size={17} color={selected ? Colors.lighter : styleColors.color} />
-                <Text style={{
-                    fontSize: Layout.font.h2,
-                    fontWeight: "500",
-                    textAlign: "center",
-                    marginStart: 5,
-                    opacity: selected ? 1 : .9,
-                    color: selected ? Colors.lighter : styleColors.color,
-                }}>{title.replace(/\b\w/g, letter => letter.toUpperCase())}</Text>
-
-            </Pressable>
-        )
+        // used to re-render the PlayerComponent sample
+        setSample(false)
+        setTimeout(() => {
+            setSample(true)
+        }, 16);
     }
-
 
 
     if (kb.isVisible) {
@@ -406,7 +366,7 @@ export default function VoiceGen({ navigation }) {
     const [age, setAge] = useState(data[0].age)
 
 
-    const voicesDemo = getUniques(data.filter(el => el.language == language && el.age == age).map(el => { return ({ name: el.name, id: el.id }) }))
+    const voicesDemo = getUniques(data.filter(el => el.language == language && el.age == age).map(el => { return ({ name: el.name, id: el.id, sample: el.sample }) }))
 
 
     const [voices, setVoices] = useState(voicesDemo)
@@ -710,7 +670,7 @@ export default function VoiceGen({ navigation }) {
                 setAges(getUniques(result.filter(el => el.language == language && el.gender == gender).map(el => el.age)))
                 setAge(initOptions.age)
 
-                setVoices(getUniques(result.filter(el => el.language == language && el.age == age && el.gender == gender).map(el => { return ({ name: el.name, id: el.id }) })))
+                setVoices(getUniques(result.filter(el => el.language == language && el.age == age && el.gender == gender).map(el => { return ({ name: el.name, id: el.id, sample: el.sample }) })))
                 setVoice(initOptions)
                 setLoudnesses(getUniques(result.filter(el => el.language == language && el.age == age && el.gender == gender).map(el => el.loudness)))
                 setLoudness(initOptions.loudness)
@@ -847,14 +807,14 @@ export default function VoiceGen({ navigation }) {
         catch (error) {
             setIsLoading(false)
             console.log('Generating error', error)
-            Alert.alert(
-                'Generating error',
-                error,
-                [
-                    { text: 'Cancel', style: 'cancel' },
-                    { text: 'OK' },
-                ]
-            )
+            // Alert.alert(
+            //     'Generating error',
+            //     // error,
+            //     [
+            //         { text: 'Cancel', style: 'cancel' },
+            //         { text: 'OK' },
+            //     ]
+            // )
         }
     };
 
@@ -961,7 +921,14 @@ export default function VoiceGen({ navigation }) {
 
 
 
-                                {genders.map((el, i) => <GenderComponent key={i} title={el} end={i == (genders.length - 1)} />)}
+                                {genders.map((gen, i) =>
+                                    <Gender
+                                        key={i}
+                                        title={gen}
+                                        end={i == (genders.length - 1)}
+                                        selected={gender == gen}
+                                        onPress={() => handleGenderSelection(gen)}
+                                    />)}
                             </View>
 
 
@@ -1043,10 +1010,11 @@ export default function VoiceGen({ navigation }) {
                                     setAge(itemValue)
 
 
-                                    var newData = getUniques(data.filter(el => el.language == language && el.age == itemValue && el.gender == gender).map(el => { return ({ name: el.name, id: el.id }) }))
+                                    var newData = getUniques(data.filter(el => el.language == language && el.age == itemValue && el.gender == gender).map(el => { return ({ name: el.name, id: el.id, sample: el.sample }) }))
 
 
                                     var initOptions = newData[0]
+                                    setVoices(newData)
 
                                     setVoice(initOptions)
                                     // used to re-render the PlayerComponent samplesetVoices(newData)
@@ -1140,10 +1108,10 @@ export default function VoiceGen({ navigation }) {
                             sample
                                 ?
                                 <PlayerComponent
-                                    url='https://peregrine-samples.s3.amazonaws.com/editor-samples/abram.wav'
+                                    url={voice.sample}
                                     details={{ name: voice.name }}
                                     style={{
-                                        backgroundColor: null,
+                                        // backgroundColor: null,
                                         backgroundColor: styleColors.softFill,
                                         color: mode == 'dark' ? Colors.lighter : 'rgb(91, 91, 91)'
                                     }}

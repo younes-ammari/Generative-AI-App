@@ -7,6 +7,7 @@ import Colors from '../../constants/theme/Colors';
 import AppContext from '../../hooks/useContext';
 import formatBytes from '../../functions/formatBytes';
 import { StyleSheet } from 'react-native';
+import Layout from '../../constants/theme/Layout';
 
 
 type Details = {
@@ -166,11 +167,15 @@ export default class PlayerComponent extends React.Component<Props>{
             <View>
                 <View style={[styles.container, this.style && this.style]}>
                     {this.details &&
-                        <Text style={{ color: this.style.color ? this.style.color : Colors.lighter, alignSelf: 'center', fontSize: 15, marginTop: 6 }}>{String(this.details.name)}</Text>
+                        <Text style={[styles.name, {
+                            color: this.style && this.style.color ? this.style.color : Colors.lighter,
+                        }]}>{String(this.details.name)}</Text>
                     }
 
                     <View style={styles.sliderContainer}>
-                        <Text style={{ color: this.style.color ? this.style.color : Colors.lighter, alignSelf: 'center', fontSize: 13 }}>{currentTimeString}</Text>
+                        <Text style={[styles.currentTime, {
+                            color: this.style && this.style.color ? this.style.color : Colors.lighter,
+                        }]}>{currentTimeString}</Text>
                         <Slider
                             onTouchStart={this.onSliderEditStart}
                             onTouchEnd={this.onSliderEditEnd}
@@ -178,46 +183,47 @@ export default class PlayerComponent extends React.Component<Props>{
                             value={this.state.playSeconds}
                             maximumValue={this.state.duration}
                             maximumTrackTintColor='gray'
-                            minimumTrackTintColor={this.style.color ? this.style.color : Colors.lighter}
-                            thumbTintColor={this.style.color ? this.style.color : Colors.lighter}
+                            minimumTrackTintColor={this.style && this.style.color ? this.style.color : Colors.lighter}
+                            thumbTintColor={this.style && this.style.color ? this.style.color : Colors.lighter}
                             style={styles.slider} />
 
-                        <Text style={{ color: this.style.color ? this.style.color : Colors.lighter, alignSelf: 'center', fontSize: 13 }}>{durationString}</Text>
+                        <Text style={[styles.duration, {
+                            color: this.style && this.style.color ? this.style.color : Colors.lighter,
+                        }]}>{durationString}</Text>
 
                     </View>
 
                     <View style={styles.actionsContainer}>
                         <TouchableOpacity disabled={this.state.duration ? false : true} onPress={this.jumpPrev5Seconds} >
-                            <MaterialCommunityIcons name='rewind-5' color={this.style.color ? this.style.color : Colors.lighter} size={25} />
+                            <MaterialCommunityIcons name='rewind-5' color={this.style && this.style.color ? this.style.color : Colors.lighter} size={25} />
                         </TouchableOpacity>
-                        <TouchableOpacity disabled={this.state.duration ? false : true} onPress={this.state.duration && this.state.playState == 'paused' ? this.play : this.pause} style={{
-                            marginHorizontal: 20,
-                            width: 39, alignItems: "center", height: 39, justifyContent: "center"
-                        }}>
+                        <TouchableOpacity disabled={this.state.duration ? false : true} onPress={this.state.duration && this.state.playState == 'paused' ? this.play : this.pause} style={styles.actionButton}>
                             {
                                 this.state.duration
                                     ?
                                     this.state.playState == 'paused' ?
-                                        <MaterialCommunityIcons name='play' color={this.style.color ? this.style.color : Colors.lighter} size={44} />
+                                        <MaterialCommunityIcons name='play' color={this.style && this.style.color ? this.style.color : Colors.lighter} size={44} />
                                         :
-                                        <MaterialCommunityIcons name='pause' color={this.style.color ? this.style.color : Colors.lighter} size={44} />
+                                        <MaterialCommunityIcons name='pause' color={this.style && this.style.color ? this.style.color : Colors.lighter} size={44} />
 
 
 
                                     :
-                                    <ActivityIndicator size={25} color={this.style.color ? this.style.color : Colors.lighter} />
+                                    <ActivityIndicator size={25} color={this.style && this.style.color ? this.style.color : Colors.lighter} />
                             }
                         </TouchableOpacity>
 
                         <TouchableOpacity disabled={this.state.duration ? false : true} onPress={this.jumpNext5Seconds} >
-                            <MaterialCommunityIcons name='fast-forward-5' color={this.style.color ? this.style.color : Colors.lighter} size={25} />
+                            <MaterialCommunityIcons name='fast-forward-5' color={this.style && this.style.color ? this.style.color : Colors.lighter} size={25} />
 
                         </TouchableOpacity>
                     </View>
 
                 </View>
                 {this.details.size &&
-                    <Text style={{ color: styleColors.color, alignSelf: 'center', fontSize: 15, marginTop: 11 }}>
+                    <Text style={[styles.size, {
+                        color: styleColors.color,
+                    }]}>
                         size :{String(formatBytes(this.details.size))}
                     </Text>
                 }
@@ -228,16 +234,41 @@ export default class PlayerComponent extends React.Component<Props>{
 
 
 const styles = StyleSheet.create({
+    currentTime: {
+        alignSelf: 'center',
+        fontSize: Layout.font.h3
+    },
+    name: {
+        alignSelf: 'center',
+        fontSize: Layout.font.h2,
+        marginTop: Layout.margin.small
+    },
+    duration: {
+        alignSelf: 'center',
+        fontSize: Layout.font.h3
+    },
+    actionButton: {
+        alignItems: "center",
+        justifyContent: "center",
+        marginHorizontal: Layout.margin.xlarge,
+        width: 39,
+        height: 39,
+    },
+    size: {
+        alignSelf: 'center',
+        fontSize: Layout.font.h2,
+        marginTop: Layout.margin.medium
+    },
     actionsContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: "center",
-        marginVertical: 10
+        marginVertical: Layout.margin.medium
     },
     sliderContainer: {
-        marginVertical: 15,
-        marginHorizontal: 15,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        marginVertical: Layout.margin.medium,
+        marginHorizontal: Layout.margin.medium,
     },
     slider: {
         flex: 1,
@@ -247,7 +278,7 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         backgroundColor: Colors.primary,
-        borderRadius: 12,
-        padding: 5,
+        borderRadius: Layout.radius.medium,
+        padding: Layout.padding.small,
     },
 })
