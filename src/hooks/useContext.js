@@ -1,5 +1,4 @@
 import React, { createContext, useEffect, useState } from 'react';
-// import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
 import storage from './useStorage';
 import { useColorScheme, TextStyle } from 'react-native';
 import Colors from '../constants/theme/Colors'
@@ -7,10 +6,6 @@ import Colors from '../constants/theme/Colors'
 const AppContext = createContext();
 
 export const AppContextProvider = (props)=> {
-    const API_LINK = 'https://ywam1o.deta.dev/app/v1'
-    // const route = useRoute();
-    // const navigation = useNavigation();
-    // setActiveScreen(route.name);
     
     const deviceMode = useColorScheme()
     
@@ -28,8 +23,7 @@ export const AppContextProvider = (props)=> {
             displayName:'',
         }
     });
-    const [connectionState, setConnectionState] = useState({isConnected:false});
-
+    
     const [demo, setDemo] = useState(1)
 
     const setAppDataHandler=(
@@ -44,9 +38,6 @@ export const AppContextProvider = (props)=> {
         storage.save({
             key: 'appData', // Note: Do not use underscore("_") in key!
             data: past,
-            // data: {data:"demp"},
-            // userData: json.data, // Note: Do not use underscore("_") in key!
-        
             // if expires not specified, the defaultExpires will be applied instead.
             // if set to null, then it will never expire.
             // expires: 1000 * 3600
@@ -92,51 +83,10 @@ export const AppContextProvider = (props)=> {
             key: 'appData'
         });
     }
-    // console.log('context handler')
     
-    // function checkInternetConnection() {
-    //     NetInfo.addEventListener(state =>{
-    //     //   if (state.isConnected==false || state.isInternetReachable==false){
-    //     //     // setModalVisible(true);
-    //         setConnectionState(state); 
-    //         console.log("Connection types", state.type);
-    //         // console.log("(Home) => Your device appears to have no internet connectivity. Please check your connection settings and try again");
-    //     //   }
-    //     //   else{
-    //     //     setConnectionState(state);
-    //     //   }
-    //     })};
-    // console.warn('outside useeffect')  
-    
-    const loadAsyncData=async()=>{
-        storage
-        .load({
-            key: 'appData'
-        })
-        .then(ret => {
-            // found data goes to then()
-            console.log("(UserContext) => appData", ret, ret.mode);
-            ret.mode && setAppDataHandler(ret, ret.mode)
-            
-          })
-          .catch(err => {
-            setAppDataHandler({}, "auto")
-            // setMode("auto")
-            
 
-            switch (err.name) {
-            case 'NotFoundError':
-                // TODO;
-                break;
-            case 'ExpiredError':
-                // TODO
-                break;
-            }
-        });
-    };
 
     useEffect(()=>{  
-        // loadAsyncData()
 
     },[]);
     
