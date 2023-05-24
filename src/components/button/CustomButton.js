@@ -64,6 +64,7 @@ export default function CustomButton({
   } = React.useContext(AppContext)
 
 
+  // Get Device Display Mode
   const deviceMode = useColorScheme()
   const mode = displayMode == "auto" ? deviceMode : displayMode
 
@@ -101,7 +102,7 @@ export default function CustomButton({
           textAlign: 'center',
           fontWeight: '600',
           fontSize: 18,
-          marginStart:isLoading ? 9 : 0,
+          marginStart: isLoading ? 9 : 0,
           color: labelColor ? labelColor : outlined ? mode == "dark" ? Colors.lighter : color ? color : Colors.primary : '#fff',
         }}>
         {label}

@@ -15,6 +15,7 @@ export default function Pay({navigation}) {
 
   
   
+    // Get Device Display Mode
   const deviceMode = useColorScheme()
 
   const {styleColors, displayMode} = useContext(AppContext)

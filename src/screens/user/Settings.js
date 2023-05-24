@@ -19,6 +19,7 @@ export default function Settings({navigation}) {
   } = useContext(AppContext)
 
 
+    // Get Device Display Mode
   const deviceMode = useColorScheme()
     
   // const styleColors = Colors[displayMode=="auto" ? deviceMode : displayMode]

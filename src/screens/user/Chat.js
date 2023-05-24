@@ -48,6 +48,7 @@ export default function Chat({ navigation }) {
 
     const { displayMode, styleColors, appData } = useContext(AppContext)
 
+    // Get Device Display Mode
     const deviceMode = useColorScheme()
 
     const mode = displayMode == "auto" ? deviceMode : displayMode

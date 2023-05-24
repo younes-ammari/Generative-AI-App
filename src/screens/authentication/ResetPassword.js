@@ -29,6 +29,9 @@ export default function ResetPassword ({navigation}){
 
 } = useContext(AppContext)
 
+
+
+    // Get Device Display Mode
 const deviceMode = useColorScheme()
 
 

@@ -31,6 +31,7 @@ export default function ForgotPassword({ navigation }) {
 
   } = useContext(AppContext)
 
+    // Get Device Display Mode
   const deviceMode = useColorScheme()
 
   const [response, setResponse] = useState({

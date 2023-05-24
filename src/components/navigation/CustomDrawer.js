@@ -38,6 +38,7 @@ const CustomDrawer = props => {
   } = useContext(AppContext)
 
 
+    // Get Device Display Mode
   const deviceMode = useColorScheme()
 
 

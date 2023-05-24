@@ -58,6 +58,7 @@ export default function CardNew({
     ...props
 }:Props) {
 
+    // Get Device Display Mode
     const deviceMode = useColorScheme()
 
     const {styleColors, displayMode} = useContext(AppContext)

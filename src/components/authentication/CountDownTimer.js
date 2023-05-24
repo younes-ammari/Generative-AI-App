@@ -50,6 +50,7 @@ export default function CountDownTimer({ secs = 60, setFinished }:Props) {
   const {
     displayMode,
   } = React.useContext(AppContext)
+  // Get Device Display Mode
 
   const deviceMode = useColorScheme()
 

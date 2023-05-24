@@ -16,6 +16,7 @@ export default function Coins({navigation}) {
 
   
   
+    // Get Device Display Mode
   const deviceMode = useColorScheme()
 
   const {styleColors, displayMode, appData} = useContext(AppContext)

@@ -13,6 +13,7 @@ import AppContext from '../../hooks/useContext'
 import { useKeyboard } from '../../hooks/useKeyboard'
 
 import { CustomButton, InputField } from '../../components/Index';
+import Layout from '../../constants/theme/Layout';
 
 export default function Settings({ navigation }) {
 
@@ -27,6 +28,7 @@ export default function Settings({ navigation }) {
   } = useContext(AppContext)
 
 
+    // Get Device Display Mode
   const deviceMode = useColorScheme()
   const mode = displayMode == "auto" ? deviceMode : displayMode
 

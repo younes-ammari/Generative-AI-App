@@ -32,6 +32,7 @@ export default function ResetCode({ navigation }) {
 
   } = useContext(AppContext)
 
+    // Get Device Display Mode
   const deviceMode = useColorScheme()
 
 

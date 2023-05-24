@@ -10,12 +10,8 @@ import { ScrollView } from 'react-native-gesture-handler'
 export default function About({navigation}) {
 
     const {
-        // mode, 
         styleColors,
-        appData,
       } = useContext(AppContext)
-    
-    // const styleColors = Colors[mode=="auto" ? useColorScheme() : mode]
     
     
 

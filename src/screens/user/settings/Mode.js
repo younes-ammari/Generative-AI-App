@@ -11,17 +11,15 @@ import AppContext from '../../../hooks/useContext'
 export default function Mode({navigation}) {
 
     const {
-        displayMode, 
-        setMode,
+        displayMode,
         styleColors,
         appData,
         setAppDataHandler,
       } = useContext(AppContext)
 
 
+    // Get Device Display Mode
     const deviceMode = useColorScheme()
-    
-    // const styleColors = Colors[displayMode=="auto" ? deviceMode : displayMode]
     
     
 

@@ -34,6 +34,7 @@ const DrawerNav = ({ route, navigation }) => {
     appData,
   } = useContext(AppContext)
 
+  // Get Device Display Mode
   const deviceMode = useColorScheme()
   const mode = displayMode == "auto" ? deviceMode : displayMode
 
@@ -181,7 +182,7 @@ export default function AppStack() {
         }),
       }}
     >
-      
+
 
       <Stack.Screen name="DrawerNav" component={DrawerNav} />
       <Stack.Screen name="Pay" component={Pay} />
@@ -192,7 +193,7 @@ export default function AppStack() {
       <Stack.Screen name="Video" component={Video} />
       <Stack.Screen name="Content" component={Content} />
       <Stack.Screen name="Mode" component={Mode} />
-      
+
 
       <Stack.Screen name="NewInfo" component={NewInfo} />
 

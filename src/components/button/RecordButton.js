@@ -26,6 +26,7 @@ export default function RecordButton({ isRecording, onPress }:Props) {
     } = React.useContext(AppContext)
 
 
+    // Get Device Display Mode
     const deviceMode = useColorScheme()
     const mode = displayMode == "auto" ? deviceMode : displayMode
 

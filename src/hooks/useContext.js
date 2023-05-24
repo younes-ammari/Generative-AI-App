@@ -6,12 +6,8 @@ import Colors from '../constants/theme/Colors'
 const AppContext = createContext();
 
 export const AppContextProvider = (props)=> {
-    
+    // Get Device Display Mode    
     const deviceMode = useColorScheme()
-    
-    
-    
-
     
     const [visibleLogout, setVisibleLogout] = React.useState(false)
 

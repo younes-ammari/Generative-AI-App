@@ -49,6 +49,7 @@ export default function Register({ navigation }) {
     appData,
   } = useContext(AppContext)
 
+    // Get Device Display Mode
   const deviceMode = useColorScheme()
 
 

@@ -4,6 +4,8 @@ import AppContext from '../../hooks/useContext'
 import Layout from '../../constants/theme/Layout'
 import images from '../../assets/Index'
 
+
+
 export default function Element({ label, labelColor, image, selected, ...props }) {
 
     const {
@@ -13,6 +15,7 @@ export default function Element({ label, labelColor, image, selected, ...props }
     } = React.useContext(AppContext)
 
 
+    // Get Device Display Mode
     const deviceMode = useColorScheme()
     const mode = displayMode == "auto" ? deviceMode : displayMode
 
