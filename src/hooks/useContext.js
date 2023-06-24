@@ -10,6 +10,7 @@ export const AppContextProvider = (props)=> {
     const deviceMode = useColorScheme()
     
     const [visibleLogout, setVisibleLogout] = React.useState(false)
+    const [storageLoading, setStorageLoading] = React.useState(true)
 
     const [displayMode, setMode] = useState("light");
 
@@ -22,15 +23,15 @@ export const AppContextProvider = (props)=> {
     
     const [demo, setDemo] = useState(1)
 
-    const setAppDataHandler=(
+    const setAppDataHandler=({
         data=appData, 
-        m=displayMode
-    )=>{
+        mode=displayMode
+    })=>{
         let past = data
-        past.mode = m
-        // console.log('m', m)
+        past.mode = mode
+        console.log('past.mode', past.mode)
         setAppData(past)
-        setMode(m)
+        setMode(past.mode)
         storage.save({
             key: 'appData', // Note: Do not use underscore("_") in key!
             data: past,
@@ -43,7 +44,8 @@ export const AppContextProvider = (props)=> {
         
     };
 
-    const loadAppDataHandler=()=>{
+    const loadAppDataHandler=async()=>{
+        setStorageLoading(true)
 
         storage
         .load({
@@ -52,13 +54,15 @@ export const AppContextProvider = (props)=> {
         .then(ret => {
             // found data goes to then()
             console.log("(UserContext) => appData", ret, ret.mode);
-            ret.mode && setAppDataHandler(ret)
-            ret.mode && setMode(ret.mode)
+            setAppData(ret)
+            if (ret.mode) { setMode(ret.mode) }
+            setStorageLoading(false)
             
           })
           .catch(err => {
-            setAppDataHandler({})
+            setAppData({})
             setMode("auto")
+            setStorageLoading(false)
             
 
             switch (err.name) {
@@ -83,6 +87,7 @@ export const AppContextProvider = (props)=> {
 
 
     useEffect(()=>{  
+        // loadAppDataHandler()
 
     },[]);
     
@@ -95,6 +100,8 @@ export const AppContextProvider = (props)=> {
         displayMode, 
         appData,
         demo,
+        setStorageLoading,
+        storageLoading,
         setDemo,
         setAppDataHandler,
         loadAppDataHandler,

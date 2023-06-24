@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "657963629746",
+    "firebase_url": "https://application-3c010.firebaseio.com",
+    "project_id": "application-3c010",
+    "storage_bucket": "application-3c010.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:657963629746:android:dff0ad408832fa6e49ddab",
+        "android_client_info": {
+          "package_name": "com.chatgpt_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "657963629746-c9n83p61uml901udiprqd15sesoc01vs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chatgpt_app",
+            "certificate_hash": "c6b6261d275cfded914f4774fec308b900cee792"
+          }
+        },
+        {
+          "client_id": "657963629746-rnj8nm5e3fjnrb4rq3d0n5a2nq5mr9hb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDThzp9napqdrKkr1PCkZZdIXwwrmR5E3Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "657963629746-rnj8nm5e3fjnrb4rq3d0n5a2nq5mr9hb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

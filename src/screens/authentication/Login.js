@@ -33,6 +33,8 @@ import { AuthContext } from '../../navigation/AuthProvider';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { GoogleSignin } from '@react-native-community/google-signin';
+import Layout from '../../constants/theme/Layout';
+import { useKeyboard } from '../../hooks/useKeyboard';
 
 
 
@@ -53,13 +55,13 @@ export default function Login({ navigation }) {
   } = useContext(AppContext)
 
   const deviceMode = useColorScheme()
+  const kb = useKeyboard()
 
 
   const mode = displayMode == "auto" ? deviceMode : displayMode
 
   const [visibleLogin, setVisibleLogin] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [hasBack, setHasBack] = useState(false)
 
   const [response, setResponse] = useState({
     message: "",
@@ -107,12 +109,9 @@ export default function Login({ navigation }) {
       },
       container: {
         padding: 22,
-        // paddingVertical:18,
         paddingBottom: 0,
         borderRadius: 9,
-        // alignItems: "center",
         justifyContent: "center",
-        // height: Dimensions.get("window").height * .3,
         width: Dimensions.get("window").width * .9,
         alignSelf: "center",
 
@@ -145,7 +144,6 @@ export default function Login({ navigation }) {
                 ?
                 <ActivityIndicator size={33} color={styleColors.color} />
                 :
-                // <View>
 
                 response.error &&
                 <>
@@ -155,7 +153,6 @@ export default function Login({ navigation }) {
                   }
                   <CustomButton noFill labelColor={styleColors.red} style={{ marginBottom: 0, width: "100%", paddingVertical: 11, }} label={"back"} onPress={() => setVisibleLogin(false)} />
                 </>
-              // </View>
             }
           </View>
 
@@ -271,16 +268,6 @@ export default function Login({ navigation }) {
 
     }
 
-
-    // setTimeout(() => {
-    //   setVisibleLogin(false)
-
-
-    //   navigation.navigate("DrawerNav")
-    //   setTimeout(() => {
-    //       navigation.navigate('Home')
-    //     }, 20);
-    // }, 1000);
 
 
 
@@ -406,7 +393,7 @@ export default function Login({ navigation }) {
   return (
     <ScreenWrapper>
       {LoginModal()}
-      <ScrollView 
+      <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingHorizontal: 25, paddingBottom: 15, }}
       >
@@ -543,6 +530,11 @@ export default function Login({ navigation }) {
           </TouchableOpacity>
         </View>
 
+        {kb.isVisible &&
+          <View style={{
+            height: kb.height
+          }} />
+        }
       </ScrollView>
     </ScreenWrapper>
   );

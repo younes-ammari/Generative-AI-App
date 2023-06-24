@@ -117,9 +117,6 @@ const DrawerNav = ({ route, navigation }) => {
         }}
       />
 
-
-
-
       <Drawer.Screen name="Darkmode" component={Mode}
         options={{
           drawerIcon: ({ focused, size, color }) =>

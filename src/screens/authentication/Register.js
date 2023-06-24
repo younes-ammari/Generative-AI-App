@@ -36,6 +36,7 @@ import { CustomButton, InputField } from '../../components/Index';
 import Colors from '../../constants/theme/Colors';
 import ScreenWrapper from '../ScreenWrapper';
 import AppContext from '../../hooks/useContext';
+import { useKeyboard } from '../../hooks/useKeyboard';
 
 
 export default function Register({ navigation }) {
@@ -49,8 +50,10 @@ export default function Register({ navigation }) {
     appData,
   } = useContext(AppContext)
 
-    // Get Device Display Mode
+  // Get Device Display Mode
   const deviceMode = useColorScheme()
+
+  const kb = useKeyboard()
 
 
   const mode = displayMode == "auto" ? deviceMode : displayMode
@@ -516,6 +519,11 @@ export default function Register({ navigation }) {
             <Text style={{ color: Colors.primary, fontWeight: '700' }}> Login</Text>
           </TouchableOpacity>
         </View>
+        {kb.isVisible &&
+          <View style={{
+            height: kb.height
+          }} />
+        }
       </ScrollView>
     </ScreenWrapper>
   );

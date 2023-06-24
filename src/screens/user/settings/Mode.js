@@ -15,6 +15,7 @@ export default function Mode({navigation}) {
         styleColors,
         appData,
         setAppDataHandler,
+        setMode,
       } = useContext(AppContext)
 
 
@@ -29,8 +30,10 @@ export default function Mode({navigation}) {
 
         return(
             <TouchableOpacity onPress={()=>{
-                // setMode(title.toLowerCase())
-                setAppDataHandler(appData, title.toLowerCase())
+                setMode(title.toLowerCase())
+                setAppDataHandler({
+                  data:appData, mode:title.toLowerCase()
+                })
             }} activeOpacity={displayMode==title.toLowerCase() ? 1 :.7} style={[styles.flex, styles.center, styles.sb, {
                 borderBottomWidth:1,
                 borderBottomColor:"rgba(131, 131, 131, .1)",
@@ -65,15 +68,13 @@ export default function Mode({navigation}) {
     <ScreenWrapper fill title="Mode" drawer>
         <View style={styles.conatiner}>
 
-            {/* <Text style={styles.title}>Mode</Text> */}
+            {/* <Text style={styles.title}>{displayMode}</Text> */}
                 <View>
-                    {/* <Element title="Auto"/> */}
                     <Element title="Auto" icon={<MaterialCommunityIcons name='theme-light-dark' color={styleColors.color} size={16} style={styles.icon}/>}/>
                     <Element title="Dark" icon={<Ionicons name='moon' color={styleColors.color} size={16} style={styles.icon}/>}/>
                     <Element title="Light" icon={<Octicons name='sun' color={styleColors.color} size={16} style={styles.icon}/>}/>
                     
                 </View>
-            {/* <Element title='Logout' logout/> */}
         </View>
     </ScreenWrapper>
   )

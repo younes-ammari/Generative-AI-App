@@ -12,6 +12,7 @@ import {
   useDrawerStatus,
 } from '@react-navigation/drawer';
 import CustomButton from '../components/button/CustomButton';
+import Layout from '../constants/theme/Layout';
 
 
 export default function ScreenWrapper({
@@ -216,6 +217,7 @@ const styles = StyleSheet.create({
   container: {
     height: Dimensions.get('window').height * 1,
     width: Dimensions.get('window').width,
+    paddingBottom:Layout.padding.small
 
   },
 

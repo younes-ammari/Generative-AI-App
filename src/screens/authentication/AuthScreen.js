@@ -8,19 +8,14 @@ import AppContext from '../../hooks/useContext'
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 
 
-export default function AuthScreen({navigation}) {
+export default function AuthScreen() {
 
     const [loading, setLoading] = useState(true)
-    const [loadingAsync, setLoadingAsync] = useState(false)
-    const [asyncData, setAsyncData] = useState({})
+    
     
     const {
-        appData,
-        setAppData,
-        displayMode,
+      
         setMode,
-        loadAppDataHandler,
-        setAppDataHandler,
         styleColors,
     } = useContext(AppContext)
 
@@ -33,9 +28,7 @@ export default function AuthScreen({navigation}) {
     
  
     const loadAsyncData=async()=>{
-        setLoading(true)
-        setLoadingAsync(true)
-
+      
         storage
         .load({
             key: 'appData'
@@ -112,20 +105,14 @@ export default function AuthScreen({navigation}) {
 
     useEffect(()=>{
 
-        loadAsyncData()
+        // loadAsyncData()
         
     }, [])
 
 
 
 
-  if (loadingAsync) {
     
-    console.log('loadingAsync')
-    
-    return(
-      <></>
-      )}
   
     
   return (

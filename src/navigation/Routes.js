@@ -9,9 +9,15 @@ import {AuthContext} from './AuthProvider';
 // import AuthStack and AppStack
 import AuthStack from './AuthStack';
 import AppStack from './AppStack';
+import AppContext from '../hooks/useContext';
+import { AuthScreen } from '../screens/Index';
 
 const Routes = () => {
   const {user, setUser} = useContext(AuthContext);
+  const {
+    storageLoading,
+    loadAppDataHandler,
+  } = useContext(AppContext)
   const [initializing, setInitializing] = useState(true);
 
   const onAuthStateChanged = (user) => {
@@ -21,14 +27,17 @@ const Routes = () => {
   };
 
   useEffect(() => {
+    loadAppDataHandler()
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
   }, []);
 
   if (initializing) return null;
 
-  // return user ? <AppStack /> : <AuthStack />
-  return user ? <AppStack /> : <AppStack />
+  if (storageLoading) return <AuthScreen/>
+
+  return user ? <AppStack /> : <AuthStack />
+  // return <AppStack />
 };
 
 export default Routes;
